@@ -1,0 +1,7 @@
+{
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "programming1/lab2/Pokemon.jar"
+    ]
+}
