@@ -1,7 +1,5 @@
 package pokemonsClass;
 
-import java.lang.reflect.Constructor;
-
 import move.DoubleTeam;
 import move.Swagger;
 import ru.ifmo.se.pokemon.Pokemon;

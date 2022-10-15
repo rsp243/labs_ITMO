@@ -20,6 +20,6 @@ public class Swagger extends StatusMove {
 
     @Override
     protected java.lang.String describe() {
-        return "использует способность Swagger";
+        return "использует способность Swagger. Аттака противника увеличена на 2, противник растерян";
     }
 }

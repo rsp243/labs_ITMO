@@ -14,12 +14,12 @@ public class DoubleTeam extends StatusMove {
 
     @Override
     protected void applySelfEffects(Pokemon p) {
-        Effect e = new Effect().turns(-1).stat(Stat.EVASION, 1);
+        Effect e = new Effect().turns(0).stat(Stat.EVASION, 1);
         p.addEffect(e);
     }
 
     @Override
     protected java.lang.String describe() {
-        return "использует способность DoubleTeam";
+        return "использует способность DoubleTeam. Характеристика 'Уклонение' увеличена на 1";
     }
 }
