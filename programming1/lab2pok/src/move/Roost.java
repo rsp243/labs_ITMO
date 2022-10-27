@@ -15,13 +15,13 @@ public class Roost extends StatusMove{
     protected void applySelfEffects(Pokemon p) {
         double maxHP = p.getStat(Stat.HP);
         int halfHP = (int) maxHP / 2;
+        Effect e = new Effect().turns(0);
         if (halfHP + p.getHP() < maxHP) {
-            Effect e = new Effect().turns(-1).stat(Stat.HP, (int) (halfHP + p.getHP()));
-            p.addEffect(e);
+            e.stat(Stat.HP, (int) (halfHP + p.getHP()));
         } else {
-            Effect e = new Effect().turns(-1).stat(Stat.HP, (int) maxHP);
-            p.addEffect(e);
+            e.stat(Stat.HP, (int) maxHP);
         }
+        p.addEffect(e);
     }
 
     @Override

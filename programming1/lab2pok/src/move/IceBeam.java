@@ -2,7 +2,6 @@ package move;
 
 import ru.ifmo.se.pokemon.Effect;
 import ru.ifmo.se.pokemon.Pokemon;
-import ru.ifmo.se.pokemon.Status;
 import ru.ifmo.se.pokemon.StatusMove;
 import ru.ifmo.se.pokemon.Type;
 
@@ -13,8 +12,9 @@ public class IceBeam extends StatusMove {
 
     @Override
     protected void applyOppEffects(Pokemon p) {
-        Effect e = new Effect().turns(0).chance(0.1).condition(Status.FREEZE);
-        p.setCondition(e);
+        if (Math.random() < 0.1) {
+            Effect.freeze(p);
+        }
     }
 
     @Override

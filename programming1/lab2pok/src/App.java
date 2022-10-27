@@ -1,4 +1,6 @@
 import ru.ifmo.se.pokemon.*;
+import battleChecker.newAlly;
+import battleChecker.newFoe;
 import pokemonsClass.Fearow;
 import pokemonsClass.Gloom;
 import pokemonsClass.Oddish;
@@ -16,12 +18,24 @@ public class App {
         Pokemon p2 = new Oddish("Голубика лвл.1", 1);
         Pokemon p4 = new Gloom("Голубика лвл.21", 21);
         Pokemon p5 = new Vileplume("Голубика лвл.41", 41);
-        b.addAlly(p2);
-        b.addAlly(p4);
-        b.addAlly(p5);
-        b.addFoe(p1);
-        b.addFoe(p3);
-        b.addFoe(p6);
-        b.go();
+        
+        new newFoe(b, p2);
+        // new newFoe(b, p4);
+        // new newFoe(b, p5);
+        // new newAlly(b, p1);
+        // new newAlly(b, p3);
+        // new newAlly(b, p6);
+
+        try {
+            b.go();
+        } catch (java.lang.NullPointerException e) {
+            if (!newAlly.getExistance() && !newFoe.getExistance()) {
+                System.out.println("Обе команды испугались и не пришли на бой!");
+            } else if (!newAlly.getExistance() && newFoe.getExistance()) {
+                System.out.println("Первая команда не пришла на бой!");  
+            } else {
+                System.out.println("Вторая команда не пришла на бой!"); 
+            }
+        }
     }
 }

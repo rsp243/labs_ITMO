@@ -11,8 +11,8 @@ public class Xurkitree extends Pokemon {
     public Xurkitree(String string, int i) {
         super(string, i);
 
-        this.setStats(83, 89, 71, 173, 71, 83);
-        this.setType(Type.ELECTRIC);
-        this.setMove(new LowSweep(), new Swift(), new IceBeam(), new DoubleTeam());
+        setStats(83, 89, 71, 173, 71, 83);
+        setType(Type.ELECTRIC);
+        setMove(new LowSweep(), new Swift(), new IceBeam(), new DoubleTeam());
     }
 }

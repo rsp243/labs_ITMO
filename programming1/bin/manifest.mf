@@ -1,0 +1,2 @@
+Class-Path: PokemonsClass move Pokemon.jar
+Main-Class: App
