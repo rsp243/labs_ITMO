@@ -22,10 +22,17 @@ def f(XMLstr, JSONstr):
         else:
             XMLstr = XMLstr[XMLstr.find(">") + 1:]
     return JSONstr 
-        
+
+
+def deletingCommas(JSONstr):
+    return JSONstr.replace("}, }", "} }").replace('", }', '" }').replace("], }", "] }").replace('", ]', '" ]').replace("}, ]", "} ]")
+
 
 file1 = open("XML-file-schedule-Wed.xml")
 XMLstr = file1.read()
-JSONstr = ""
-dkeys = dict()
-print("{" + f(XMLstr, JSONstr) + "}")
+file1.close()
+file2 = open("JSONout.json", "w+")
+result = deletingCommas("{" + f(XMLstr, "") + "}")
+file2.write(result)
+print(result)
+file2.close()
