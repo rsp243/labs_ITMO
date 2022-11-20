@@ -3,14 +3,14 @@ package battleChecker;
 import ru.ifmo.se.pokemon.*;
 
 public class newFoe {
-    protected static boolean flag = false;
+    protected static int i = 0;
 
     public newFoe(Battle b, Pokemon poke) {
         b.addFoe(poke);
-        flag = true;
+        i += 1;
     }
 
-    public static boolean getExistance() {
-        return flag;
+    public static int getAmount() {
+        return i;
     }
 }

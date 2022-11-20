@@ -20,18 +20,20 @@ public class App {
         Pokemon p5 = new Vileplume("Голубика лвл.41", 41);
         
         new newFoe(b, p2);
-        // new newFoe(b, p4);
-        // new newFoe(b, p5);
+        new newFoe(b, p4);
+        new newFoe(b, p5);
         // new newAlly(b, p1);
         // new newAlly(b, p3);
         // new newAlly(b, p6);
 
+        System.out.println("Из 1 команды пришли " + newAlly.getAmount() + " покемона(ов)");
+        System.out.println("Из 2 команды пришли " + newFoe.getAmount() + " покенона(ов)");
         try {
             b.go();
         } catch (java.lang.NullPointerException e) {
-            if (!newAlly.getExistance() && !newFoe.getExistance()) {
+            if (newFoe.getAmount() == 0 && newFoe.getAmount() == 0) {
                 System.out.println("Обе команды испугались и не пришли на бой!");
-            } else if (!newAlly.getExistance() && newFoe.getExistance()) {
+            } else if (newAlly.getAmount() == 0) {
                 System.out.println("Первая команда не пришла на бой!");  
             } else {
                 System.out.println("Вторая команда не пришла на бой!"); 

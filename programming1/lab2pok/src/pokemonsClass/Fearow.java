@@ -1,13 +1,15 @@
 package pokemonsClass;
 
-import move.DrillRun;
-
-public class Fearow extends Spearow {
+public class B {
+    private static B instance;
     
-    public Fearow(String string, int i) {
-        super(string, i);
-        
-        this.setStats(65, 90, 65, 61, 61, 100);
-        this.addMove(new DrillRun());
+    private B() { }
+
+    public static B getInctance() {
+        if (instance == null) {
+            instance = new B();
+        } else {
+            return instance;
+        }
     }
 }

@@ -4,18 +4,19 @@ var1 = 367514
 print("Вариант:", var1 % 5)
 print("Введите строку, разделяя слова пробелами. Выделите по 3 одинаковых буквы в каждом слове, написав их строчными.")
 s = input()
-s = s.split(" ")
-b = set()
-for i in s:
-    for j in re.findall('[А-ЯA-Z]', i):
-        b.add(j)
-    if len(re.findall('[А-Я]', i)) != 3 and len(list(b)) != 3:
-        print("Перезапустите программу и введите корректные данные.")
-        exit(0)
+pattern = "[А-ЯA-Z]"
+h = re.compile(pattern)
+b = set(h.findall(s))
+if len(list(b)) != 3:
+    print("Перезапустите программу и введите корректные данные.")
+    exit(0)
+b = sorted(b)
 bLower = set()
 for i in range(len(list(b))):
     bLower.add(list(b)[i].lower())
-for i in s:
+bLower = sorted(bLower)
+flag = True
+for i in re.compile("\w+").findall(s):
     checker = list()
     length = 0
     for j in range(len(i)):
@@ -26,3 +27,6 @@ for i in s:
             length = 0
     if len(list(set(checker[1:]))) == 1:
         print(i)
+        flag = False
+if flag:
+    print("Не найдено ни одного слова с одинаковым растоянием между выделенными буквами")

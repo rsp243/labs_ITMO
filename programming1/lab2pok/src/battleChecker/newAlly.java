@@ -2,14 +2,14 @@ package battleChecker;
 import ru.ifmo.se.pokemon.*;
 
 public class newAlly {
-    protected static boolean flag = false;
+    private static int i = 0;
 
     public newAlly(Battle b, Pokemon poke) {
         b.addAlly(poke);
-        flag = true;
+        i += 1;
     }
 
-    public static boolean getExistance() {
-        return flag;
+    public static int getAmount() {
+        return i;
     }
 }

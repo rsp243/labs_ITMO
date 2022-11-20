@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CLASSES count="2">
+    <CLASS>
+        <SUBJECT>Informatics</SUBJECT>
+        <KINDOFCLASS>Laboratory</KINDOFCLASS>
+        <TEACHER>Малышева Татьяна Алексеевна</TEACHER>
+        <TYPEOFCLASS>Offline-Online</TYPEOFCLASS>
+        <TIME>
+            <WEEK>
+                <WEEKTYPE>odd</WEEKTYPE>
+                <WEEKNUM>3</WEEKNUM>
+            </WEEK>
+            <DAY>Wednesday</DAY>
+            <STARTTIME>11:40</STARTTIME>
+            <ENDTIME>13:10</ENDTIME>
+        </TIME>
+        <PLACE>
+            <BULDING>Kronverskii pr., 49A b.</BULDING>
+            <CABINET>2306/2 (305)</CABINET>
+        </PLACE>
+    </CLASS>
+    <CLASS>
+        <SUBJECT>Informatics</SUBJECT>
+        <KINDOFCLASS>Laboratory</KINDOFCLASS>
+        <TEACHER>Малышева Татьяна Алексеевна</TEACHER>
+        <TYPEOFCLASS>Offline-Online</TYPEOFCLASS>
+        <TIME>
+            <WEEK>
+                <WEEKTYPE>odd</WEEKTYPE>
+                <WEEKNUM>3</WEEKNUM>
+            </WEEK>
+            <DAY>Wednesday</DAY>
+            <STARTTIME>13:30</STARTTIME>
+            <ENDTIME>15:10</ENDTIME>
+        </TIME>
+        <PLACE>
+            <BULDING>Kronverskii pr., 49A b.</BULDING>
+            <CABINET>2306/2 (305)</CABINET>
+        </PLACE>
+    </CLASS>
+</CLASSES>
