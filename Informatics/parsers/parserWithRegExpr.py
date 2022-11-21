@@ -1,13 +1,22 @@
+import re
+
+def searching_key(XMLstr):
+    pattern_key = "<[A-z]+>"
+    key = re.compile(pattern_key).search(XMLstr).group(0)
+    pattern_closed_key = "<" + "\/" + key[1:]
+    if len(re.compile(pattern_closed_key).findall(XMLstr)) == 0:
+        print("Исходный XML файл не корректен, измените его и перезапустите программу.")
+        exit(0)
+    return key[1:].lstrip()
+
 def recurCreating(XMLstr, JSONstr):
     while XMLstr.find("<") != -1 and XMLstr.find(">") != -1:
         posOpenTrBr = XMLstr.find("<")
         posClosedTrBr = XMLstr.find(">")
         if XMLstr[posOpenTrBr + 1] not in {'/', "?"}:
-            key = XMLstr[posOpenTrBr + 1:posClosedTrBr]
+            key = searching_key(XMLstr)
             if key.find(" ") != -1:
                 key = key[:key.find(" ")]
-            key += ">"
-            print(key)
             posOpenKey = XMLstr.find("<" + key)
             lenOpenKey = len("<" + key)
             posClosedKey = XMLstr.find("</" + key)
@@ -36,7 +45,7 @@ def XMLtoJSON(XMLstr):
 file1 = open("src/XML/XML-file-schedule-Wed.xml")
 XMLstr = file1.read()
 file1.close()
-file2 = open("src/JSON/JSONout.json", "w+")
+file2 = open("src/JSON/JSONout3(regexpr).json", "w+")
 result = deletingCommas(XMLtoJSON(XMLstr))
 file2.write(result)
 print(result)
