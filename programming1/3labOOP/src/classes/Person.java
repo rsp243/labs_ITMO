@@ -73,7 +73,7 @@ public class Person extends Creature implements ContollingClothesAction,
     public String getSecondName() {
         return secondName;
     }
-    public String getArrayOfClothes() {
+    public String getNamedArrayOfClothes() {
         String[] arrayOfNamedClothes = new String[arrayOfClothes.length];
         int position = 0;
         for (Clothes iter : arrayOfClothes) {
@@ -86,10 +86,13 @@ public class Person extends Creature implements ContollingClothesAction,
         }
         return Arrays.toString(arrayOfNamedClothes);
     }
+    public Clothes[] getArrayOfClothes() {
+        return arrayOfClothes;
+    }
     public void setArrayOfClothes(Clothes[] arrayOfClothes) {
         this.arrayOfClothes = arrayOfClothes;
     }
-    public String getArrayOfEmotions() {   
+    public String getNamedArrayOfEmotions() {   
         String[] arrayOfNamedEmotions = new String[arrayOfEmotions.length];
         int position = 0;
         for (EmotionType iter : arrayOfEmotions) {
@@ -101,6 +104,9 @@ public class Person extends Creature implements ContollingClothesAction,
             position += 1;
         }
         return Arrays.toString(arrayOfNamedEmotions);
+    }
+    public EmotionType[] getArrayOfEmotions() {
+        return arrayOfEmotions;
     }
     public void setArrayOfEmotions(EmotionType[] arrayOfEmotions) {
         this.arrayOfEmotions = arrayOfEmotions;
@@ -131,6 +137,14 @@ public class Person extends Creature implements ContollingClothesAction,
     }
     @Override
     public boolean speakTo(Message messageObj, Person targetPerson) {
+        return messageObj.getIsMessageTruly();
+    }
+    @Override
+    public boolean speakTo(Message messageObj, PersonGroup tagetGroup) {
+        return messageObj.getIsMessageTruly();
+    }    
+    @Override
+    public boolean speakTo(Message messageObj) {
         return messageObj.getIsMessageTruly();
     }
     @Override
@@ -197,6 +211,35 @@ public class Person extends Creature implements ContollingClothesAction,
         }
     }
     @Override
+    public Controller addEmotion(PersonGroup personGroup, EmotionType emotion) {
+        int countAddedEmotions = 0;
+        for (Person person : personGroup.getParticipants()) {
+            if (person.addEmotion(emotion) == Controller.SUCCESSFULLY) {
+                countAddedEmotions += 1;
+            }
+        }    
+        if (countAddedEmotions != personGroup.getParticipants().length) {
+            return Controller.FAILED;
+        } else {
+            return Controller.SUCCESSFULLY;
+        }
+    }
+
+    @Override
+    public Controller removeEmotion(PersonGroup personGroup, EmotionType emotion) {
+        int countDeletedEmotions = 0;
+        for (Person person : personGroup.getParticipants()) {
+            if (person.removeEmotion(emotion) == Controller.SUCCESSFULLY) {
+                countDeletedEmotions += 1;
+            }
+        }    
+        if (countDeletedEmotions != personGroup.getParticipants().length) {
+            return Controller.FAILED;
+        } else {
+            return Controller.SUCCESSFULLY;
+        }
+    }
+    @Override
     public Controller putOnClothes(Clothes clothes) {
         int position = 0;
         for (Clothes iter : arrayOfClothes) {
@@ -236,7 +279,4 @@ public class Person extends Creature implements ContollingClothesAction,
     public void getOutTheCar(Person person, Vehicle vehicle) {
         
     }
-
-
-    
 }

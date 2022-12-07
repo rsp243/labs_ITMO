@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 import javax.swing.text.BoxView;
 
 import src.classes.Clothes;
@@ -54,8 +56,35 @@ public class App{
                         if (allKorotGroup.goTo(holdOfShip) != 0.0) {
                                 System.out.println(allKorotGroup.getName() + "х посадили в " + holdOfShip.getName().toLowerCase() + ", где уже были " + unHappyGroup.getCountOfParticipants() + " " + unHappyGroup.getName().toLowerCase() + "(-x)." );
                                 Message messageByeBye = new Message("Пока-пока", MessageType.TRULY);
-                                if (unHappyGroup.speakTo(messageByeBye, null) == true) {
+                                if (unHappyGroup.speakTo(messageByeBye) == true) {
                                         System.out.println("Многие из них (" + unHappyGroup.getName().toLowerCase() + "(-x)) плакали, говоря '" + messageByeBye.getContent() + "' родной земле.");
+                                        Clothes strawHat = new Clothes("Соломенная шляпа", Material.STRAW);
+                                        Clothes woolScarf = new Clothes("Шерстяной шарф", Material.WOOL);
+                                        Clothes boots = new Clothes("Сапоги", Material.LEATHER);
+                                        Clothes shirt = new Clothes("Рубашка", Material.SYNTHETIC);
+                                        Clothes[] golopuzClothes = {strawHat, woolScarf,}; 
+                                        EmotionType[] golopuzEmotionTypes = {EmotionType.MOTIVATED};
+                                        Person golopuz = new Person("Голопузый", "Толстенький", golopuzClothes, golopuzEmotionTypes, Freedom.PRISONED, holdOfShip.getCoordinates() ,5);
+                                        Location emptyBarrel = new Location("Пустая Бочка", holdOfShip.getCoordinates());
+                                        if (nezn.See(unHappyGroup) == unHappyGroup && nezn.addEmotion(EmotionType.SADNESS) == Controller.SUCCESSFULLY && golopuz.goTo(emptyBarrel) != -1  && golopuz.addEmotion(unHappyGroup, EmotionType.CALM) == Controller.SUCCESSFULLY) {
+                                                System.out.println("Увидев " + nezn.See(unHappyGroup).getName().toLowerCase() + "(-x), " + nezn.getName() + " заплакал, а какой-то " +
+                                                golopuz.getSecondName().toLowerCase() + " " + golopuz.getName() + " взобрался на " + emptyBarrel.getName().toLowerCase() + "(-у), которая стояла в " + holdOfShip.getName().toLowerCase() + "(-e), и пытался успокоить " + unHappyGroup.getName() + "(-x).");
+                                        }
+                                        if (Arrays.asList(golopuz.getArrayOfClothes()).contains(shirt) != true && Arrays.asList(golopuz.getArrayOfClothes())
+                                        .contains(boots) != true && Arrays.asList(golopuz.getArrayOfClothes())
+                                        .contains(woolScarf) != false && Arrays.asList(golopuz.getArrayOfClothes())
+                                        .contains(strawHat) != false) {
+                                                System.out.println(golopuz.getName() + " был без рубашки и босиком, но зато в соломенной шляпе и в шерстяном шарфе.");
+                                        }
+                                        Location nextoPosition = new Location("Рядом", new Coordinate(-505, 27));
+                                        if (kozl.addEmotion(EmotionType.OFFENCE) == Controller.SUCCESSFULLY && kozl.goTo(nextoPosition) != 0.0) {
+                                                System.out.println(kozl.getName() + " обиделся и ушел от компании, но был " + nextoPosition.getName().toLowerCase());
+                                        }
+                                        Message bestFrase1 = new Message("Поживем -- увидим", MessageType.TRULY);
+                                        Message bestFrase2 = new Message("Сыты будем -- как-нибудь проживем", MessageType.TRULY);
+                                        if (golopuz.speakTo(bestFrase1, unHappyGroup) == true && golopuz.speakTo(bestFrase2, unHappyGroup) == true) {
+                                                System.out.println(golopuz.getName() + " продолжал речь, вставляя туда две свои самые любимые фразы: '" + bestFrase1.getContent() + "' и '" + bestFrase2.getContent() + "'.");
+                                        }
                                 }
                         }
                 }

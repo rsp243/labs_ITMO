@@ -24,7 +24,10 @@ public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, Speak
 	public String getName() {
         return name;
     }
-    public String getParticipants() {
+    public Person[] getParticipants() {
+        return participants;
+    }
+    public String getNamedParticipants() {
         String[] arrayOfNamedParticipants = new String[participants.length];
         int position = 0;
         for (Person participant : participants) {
@@ -103,6 +106,14 @@ public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, Speak
     }
     @Override
     public boolean speakTo(Message messageObj, Person targetPerson) {
+        return messageObj.getIsMessageTruly();
+    }
+    @Override
+    public boolean speakTo(Message messageObj, PersonGroup tagetGroup) {
+        return messageObj.getIsMessageTruly();
+    }
+    @Override
+    public boolean speakTo(Message messageObj) {
         return messageObj.getIsMessageTruly();
     }
     

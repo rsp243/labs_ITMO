@@ -5,7 +5,10 @@ public enum EmotionType {
     UNHAPPY("Несчастье", true),
     SADNESS("Грусть", true),
     ANGER("Злость", true),
-    TERRIFIED("Страх", true);
+    TERRIFIED("Страх", true),
+    CALM("Спокойствие", true),
+    OFFENCE("Обида", true),
+    MOTIVATED("Мотивация", true);
     private String name;
     private boolean isEmotionTruly;
 

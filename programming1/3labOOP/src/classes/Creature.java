@@ -1,8 +1,9 @@
 package src.classes;
 
 import src.interfaces.MoveAction;
+import src.interfaces.SeeAction;
 
-public abstract class Creature implements MoveAction{
+public abstract class Creature implements MoveAction, SeeAction{
     private String name;
     private Coordinate currentCoordinates;
     private int speed;
@@ -71,6 +72,26 @@ public abstract class Creature implements MoveAction{
     }
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    @Override
+    public Creature See(Creature seeingCreature) {
+        return seeingCreature;
+    }
+
+    @Override
+    public PersonGroup See(PersonGroup seeingGroup) {
+        return seeingGroup;
+    }
+
+    @Override
+    public Location See(Location seeingLocation) {
+        return seeingLocation;
+    }
+
+    @Override
+    public Vehicle See(Vehicle seeingVehicle) {
+        return seeingVehicle;
     }
     
 }
