@@ -4,7 +4,7 @@ public enum MessageType {
     TRULY("Правда"),
     FALSE("Ложь");
 
-    String description;
+    private String description;
 
     MessageType(String description) {
         this.description = description;

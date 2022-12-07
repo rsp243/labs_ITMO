@@ -46,9 +46,9 @@ public class App{
                 if (allKorotGroup.Sleep(locationBridge) == Controller.SUCCESSFULLY
                  && policeBrigade.ControlFreedom(allKorotGroup, Freedom.PRISONED) == Controller.SUCCESSFULLY
                  && policeBobic.goTo(PoganosCity) != 0.0) {
-                        System.out.println("После того, как " + allKorotGroup.getParticipants().toString()
+                        System.out.println("После того, как " + allKorotGroup.getNamedParticipants().toString()
                         .replace("[", "").replace("]", "") + " спали под " + locationBridge.getName()
-                        .toLowerCase() + "ом, их задержал " + policeBrigade.getName().toLowerCase() + " " + allKorotGroup.getName().toLowerCase() + " были посажены " + policeBobic.getName() + " и доставлены в " + PoganosCity.getName() + "." );
+                        .toLowerCase() + "ом, их задержал " + policeBrigade.getName().toLowerCase() + " " + allKorotGroup.getName().toLowerCase() + " были посажены в " + policeBobic.getName() + " и доставлены в " + PoganosCity.getName() + "." );
                         Vehicle Ship = new Vehicle("Корабль", VehicleType.SHIP, 150, allKorot, new Coordinate(-505, 28), 35);
                         Person[] unHappyArray = {};
                         PersonGroup unHappyGroup = new PersonGroup("Несчастные", unHappyArray, 300);
@@ -103,7 +103,7 @@ public class App{
         //             System.out.println("У коротышки '" + name + "' не нашлось такой эмоции. Возможно, вы искали другую.");
         //             System.out.println("У коротышки '" + name + "' не нашлось такой эмоции. Возможно, вы искали другую.");
         //             System.out.println("У коротышки '" + name + "' не может быть так много эмоций, удалите какую-нибудь методом removeEmotion(), и перезапустите команду");
-        //            System.out.println("У коротышки '" + name  + "' добавилась новая эмоция '" + emotion.getName() + "'.");
+        //            System.out.println("У коротышки ' " + name  + "' добавилась новая эмоция '" + emotion.getName() + "'.");
         //              System.out.println("У коротышки '" + person.name + "' не нашлось такой эмоции. Возможно, вы искали другую");
         //              System.out.println("У коротышки '" + person.name  + "' удалилась эта эмоция -> '" + emotion.getName() + "'.");
         //             System.out.println("У коротышки '" + person.name + "' не может быть так много эмоций, удалите какую-нибудь методом removeEmotion(), и перезапустите комманду");

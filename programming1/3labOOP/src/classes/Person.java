@@ -32,44 +32,6 @@ public class Person extends Creature implements ContollingClothesAction,
         this.freedom = freedom;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((secondName == null) ? 0 : secondName.hashCode());
-        result = prime * result + Arrays.hashCode(arrayOfClothes);
-        result = prime * result + Arrays.hashCode(arrayOfEmotions);
-        result = prime * result + ((freedom == null) ? 0 : freedom.hashCode());
-        return result;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Person other = (Person) obj;
-        if (secondName == null) {
-            if (other.secondName != null)
-                return false;
-        } else if (!secondName.equals(other.secondName))
-            return false;
-        if (!Arrays.equals(arrayOfClothes, other.arrayOfClothes))
-            return false;
-        if (!Arrays.equals(arrayOfEmotions, other.arrayOfEmotions))
-            return false;
-        if (freedom != other.freedom)
-            return false;
-        return true;
-    }
-    
-    @Override
-    public String toString() {
-        return "Person [secondName=" + secondName + ", arrayOfClothes=" + Arrays.toString(arrayOfClothes)
-                + ", arrayOfEmotions=" + Arrays.toString(arrayOfEmotions) + ", freedom=" + freedom + "]";
-    }
     public String getSecondName() {
         return secondName;
     }
@@ -278,5 +240,45 @@ public class Person extends Creature implements ContollingClothesAction,
     @Override
     public void getOutTheCar(Person person, Vehicle vehicle) {
         
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((secondName == null) ? 0 : secondName.hashCode());
+        result = prime * result + Arrays.hashCode(arrayOfClothes);
+        result = prime * result + Arrays.hashCode(arrayOfEmotions);
+        result = prime * result + ((freedom == null) ? 0 : freedom.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Person other = (Person) obj;
+        if (secondName == null) {
+            if (other.secondName != null)
+                return false;
+        } else if (!secondName.equals(other.secondName))
+            return false;
+        if (!Arrays.equals(arrayOfClothes, other.arrayOfClothes))
+            return false;
+        if (!Arrays.equals(arrayOfEmotions, other.arrayOfEmotions))
+            return false;
+        if (freedom != other.freedom)
+            return false;
+        return true;
+    }
+    
+    @Override
+    public String toString() {
+        return "Person [secondName=" + secondName + ", arrayOfClothes=" + Arrays.toString(arrayOfClothes)
+                + ", arrayOfEmotions=" + Arrays.toString(arrayOfEmotions) + ", freedom=" + freedom + "]";
     }
 }

@@ -7,6 +7,5 @@ import src.enums.Freedom;
 
 public interface DetainAction {
     public Controller ControlFreedom(Person targetPerson, Freedom freedom);
-    public Controller ControlFreedom(PersonGroup targetGroup, Freedom freedom);
-    
+    public Controller ControlFreedom(PersonGroup targetGroup, Freedom freedom);   
 }
