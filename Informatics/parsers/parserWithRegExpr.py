@@ -1,4 +1,5 @@
 import re
+import time
 
 def searching_key(XMLstr):
     pattern_key = "<[A-z]+>"
@@ -46,7 +47,9 @@ file1 = open("src/XML/XML-file-schedule-Wed.xml")
 XMLstr = file1.read()
 file1.close()
 file2 = open("src/JSON/JSONout3(regexpr).json", "w+")
+start_time = 0
 result = deletingCommas(XMLtoJSON(XMLstr))
+print(f'time: {time.process_time_ns()-start_time} ns')
 file2.write(result)
 print(result)
 file2.close()

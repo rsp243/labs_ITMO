@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,russian]{babel}
+
+
+\begin{document}
+
+\noindent\flushleft\begin{tabular}{|m{0.2\columnwidth}|m{0.3\columnwidth}|m{0.3\columnwidth}|}
+     \hline
+     
+     Монотон-
+     ность & Ограничен-
+     ность & Существование
+     предела\\
+     
+     \hline
+     \[+\]& \[+\]&\[+\]
+     \\
+     \hline
+     \[+\]&\[-\]& \[-\]
+     \\
+     \hline
+     \[-\] 
+     
+     & \[+\] 
+     & \\
+     \hline
+     \[-\] 
+     
+     & \[-\] 
+     
+     & \[-\]
+     
+     \\
+     \hline
+     
+                   \end{tabular}
+                   
+\end{document}

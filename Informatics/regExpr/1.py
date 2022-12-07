@@ -5,7 +5,9 @@ pattern = '(\d)\\1'
 h = re.compile(pattern)
 print(sorted(list(set(h.findall(s)))))
 
-s = "КоРмА КоРкА КоРчмА"
-pattern = "[А-ЯA-Z]"
-h = re.compile(pattern)
-print(list(set(h.findall(s))))
+print("Введите строку, программа найдет в ней номер телефона")
+s = input()
+try:
+    print(re.compile(r'(?:(?:\+|00)(\d){1,3}\((\d){3,3}\)(?: |)(\d){3,3}-(\d){2,2}-(\d){2,2}|(?:\+|00)(\d){1,3}\((\d){4,4}\)(?: |)(\d){3,3}-(\d){2,2}-(\d){1,1}|(?:\+|00)(\d){1,3}\((\d){5,5}\)(?: |)(\d){3,3}-(\d){2,2})').search(s).group(0))
+except:
+    print("Не найдено!")

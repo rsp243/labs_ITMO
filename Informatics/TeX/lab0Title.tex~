@@ -1,0 +1,10 @@
+\documentclass{article}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{geometry}
+\geometry{top=4em,right=3em,left=3em,bottom=4em}
+
+\begin{document}
+  Приветн
+\end{document}

@@ -1,0 +1,33 @@
+\documentclass{article}
+
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{array}
+\usepackage{tabularx}
+
+
+\begin{document}
+\renewcommand\tabularxcolumn[1]{m{#1}}
+\begin{center}
+  \begin{tabularx}{0.7\textwidth} { 
+  | X | X | X | }
+ \hline
+ Монотон-
+ ность & Ограничен-
+ ность & Существование
+ предела\\
+ \hline
+ + &  +  & + \\
+ \hline
+ + & - & - \\
+ \hline
+ 
+ - & + & \\
+ \hline
+ - & - & - \\
+ \hline
+
+\end{tabularx}
+\end{center}                 
+\end{document}

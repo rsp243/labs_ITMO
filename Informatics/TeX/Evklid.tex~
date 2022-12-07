@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{geometry}
+\usepackage{tikz}
+
+\geometry{top=4em,right=3em,left=3em,bottom=4em}
+
+\begin{document}
+\begin{minipage}[t]{0.4\textwidth}
+  \hfil
+  \begin{tikzpicture}[xscale=2.0, yscale=0.8]
+    \draw[dashed,very thick] (0,0) -- (3,0) -- (3,4) -- cycle;
+  \end{tikzpicture}
+\end{minipage}
+\hfil
+\begin{minipage}[t]{0.55\textwidth}
+dsadasd
+\end{minipage}
+\end{document}

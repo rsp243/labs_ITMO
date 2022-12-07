@@ -1,3 +1,5 @@
+import time
+
 def recurCreating(XMLstr, JSONstr):
     while XMLstr.find("<") != -1 and XMLstr.find(">") != -1:
         posOpenTrBr = XMLstr.find("<")
@@ -7,7 +9,6 @@ def recurCreating(XMLstr, JSONstr):
             if key.find(" ") != -1:
                 key = key[:key.find(" ")]
             key += ">"
-            print(key)
             posOpenKey = XMLstr.find("<" + key)
             lenOpenKey = len("<" + key)
             posClosedKey = XMLstr.find("</" + key)
@@ -37,7 +38,9 @@ file1 = open("src/XML/XML-file-schedule-Wed.xml")
 XMLstr = file1.read()
 file1.close()
 file2 = open("src/JSON/JSONout.json", "w+")
+start_time = 0
 result = deletingCommas(XMLtoJSON(XMLstr))
+print(f'time: {time.process_time_ns()-start_time} ns')
 file2.write(result)
 print(result)
 file2.close()
