@@ -1,6 +1,5 @@
+package src;
 import java.util.Arrays;
-
-import javax.swing.text.BoxView;
 
 import src.classes.Clothes;
 import src.classes.Coordinate;

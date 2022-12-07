@@ -40,6 +40,9 @@ public class Vehicle implements MoveAction{
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+    public void setPassengers(Person[] passangers) {
+        this.passengers = passangers;
+    }
     public Coordinate getCurrentCoordinates() {
         return currentCoordinates;
     }

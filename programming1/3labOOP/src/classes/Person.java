@@ -234,12 +234,31 @@ public class Person extends Creature implements ContollingClothesAction,
         }
     }
     @Override
-    public void getInTheCar(Person person, Vehicle vehicle) {
-        
+    public Controller getInTheCar(Person person, Vehicle vehicle) {
+        Person[] passangers = vehicle.getPassengers();
+        int countPassangers = 0;
+        for (Person passanger : passangers) {
+            if (passanger != null) {
+                countPassangers++;
+            }
+        }
+        if (countPassangers < vehicle.getCountOfSeats()) {
+            int position = 0;
+            for (Person passanger : passangers) {
+                if (passanger != null) {
+                    position++;
+                }
+            }
+            passangers[position] = person;
+            vehicle.setPassengers(passangers);
+            return Controller.SUCCESSFULLY;
+        } else {
+            return Controller.FAILED;
+        }
     }
     @Override
-    public void getOutTheCar(Person person, Vehicle vehicle) {
-        
+    public Controller getOutTheCar(Person person, Vehicle vehicle) {
+        return Controller.SUCCESSFULLY;
     }
 
 

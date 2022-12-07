@@ -2,8 +2,9 @@ package src.interfaces;
 
 import src.classes.Person;
 import src.classes.Vehicle;
+import src.enums.Controller;
 
 public interface VehicleAction {
-    public void getInTheCar(Person person, Vehicle vehicle);
-    public void getOutTheCar(Person person, Vehicle vehicle);
+    public Controller getInTheCar(Person person, Vehicle vehicle);
+    public Controller getOutTheCar(Person person, Vehicle vehicle);
 }
