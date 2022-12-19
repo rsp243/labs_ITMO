@@ -22,10 +22,9 @@ public class App{
         var kozl = new Person("Козлик");
         var kluk = new Person("Клюква");
         var chizh = new Person("Чижик");
-        
-        // nezn.Sleep(new Location("Под мостом", new Coordinate(5, 5)));
+
         var me = new Person("");
-        
+
         Message messageToMe = new Message("История о Незнайке", MessageType.TRULY);
         
         System.out.println(messageToMe.getContent() + ", которую рассказал " + poncho.getName() + ", была " + messageToMe.getMessageTypeDescription().toLowerCase() + ".");
