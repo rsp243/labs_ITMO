@@ -2,16 +2,21 @@ package src.classes;
 
 import src.interfaces.MoveAction;
 import src.interfaces.SeeAction;
+import src.enums.Controller;
+import src.enums.SatietyType;
+import src.interfaces.EatAction;
 
-public abstract class Creature implements MoveAction, SeeAction{
+public abstract class Creature implements MoveAction, SeeAction, EatAction{
     private String name;
     private Coordinate currentCoordinates;
     private int speed;
+    private SatietyType satiety;
 
-    public Creature(String name, Coordinate currentCoordinates, int speed) {
+    public Creature(String name, Coordinate currentCoordinates, int speed, SatietyType aSatiety) {
         this.name = name;
         this.currentCoordinates = currentCoordinates;
         this.speed = speed;
+        this.satiety = aSatiety;
     }
 
     @Override
@@ -21,10 +26,51 @@ public abstract class Creature implements MoveAction, SeeAction{
         currentCoordinates = location.getCoordinates();
         return 400 * distance / speed / 1000;
     }
-    @Override
-    public String toString() {
-        return "Creature [name=" + name + ", currentCoordinates=" + currentCoordinates + ", speed=" + speed + "]";
+    public String getName() {
+        return name;
     }
+    public Coordinate getCurrentCoordinates() {
+        return currentCoordinates;
+    }
+    public void setCurrentCoordinates(Coordinate currentCoordinates) {
+        this.currentCoordinates = currentCoordinates;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    public SatietyType getSatiety() {
+        return satiety;
+    }
+
+    @Override
+    public Creature See(Creature seeingCreature) {
+        return seeingCreature;
+    }
+
+    @Override
+    public PersonGroup See(PersonGroup seeingGroup) {
+        return seeingGroup;
+    }
+
+    @Override
+    public Location See(Location seeingLocation) {
+        return seeingLocation;
+    }
+
+    @Override
+    public Vehicle See(Vehicle seeingVehicle) {
+        return seeingVehicle;
+    }
+    
+    @Override
+    public Controller eat(Meal mealObj) {
+
+        return Controller.SUCCESSFULLY;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -57,41 +103,8 @@ public abstract class Creature implements MoveAction, SeeAction{
             return false;
         return true;
     }
-    
-    public String getName() {
-        return name;
-    }
-    public Coordinate getCurrentCoordinates() {
-        return currentCoordinates;
-    }
-    public void setCurrentCoordinates(Coordinate currentCoordinates) {
-        this.currentCoordinates = currentCoordinates;
-    }
-    public int getSpeed() {
-        return speed;
-    }
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
     @Override
-    public Creature See(Creature seeingCreature) {
-        return seeingCreature;
+    public String toString() {
+        return "Creature [name=" + name + ", currentCoordinates=" + currentCoordinates + ", speed=" + speed + "]";
     }
-
-    @Override
-    public PersonGroup See(PersonGroup seeingGroup) {
-        return seeingGroup;
-    }
-
-    @Override
-    public Location See(Location seeingLocation) {
-        return seeingLocation;
-    }
-
-    @Override
-    public Vehicle See(Vehicle seeingVehicle) {
-        return seeingVehicle;
-    }
-    
 }

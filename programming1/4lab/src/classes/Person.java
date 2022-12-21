@@ -17,19 +17,22 @@ public class Person extends Creature implements ContollingClothesAction,
     private Clothes[] arrayOfClothes;
     private EmotionType[] arrayOfEmotions;
     private Freedom freedom;
+    private int money;
+    private Profession profession;
 
     public Person(String name) {
         this(name, "", new Clothes[5],
-        new EmotionType[5], Freedom.FREE, new Coordinate(0, 0), 5);
+        new EmotionType[5], Freedom.FREE, new Coordinate(0, 0, 0), 5, 0, SatietyType.WELL_FED);
     }
     
-    public Person(String name, String secondName, Clothes[] arrayOfClothes, EmotionType[] arrayOfEmotions,
-            Freedom freedom, Coordinate currentCoordinates, int speed) {
-        super(name, currentCoordinates, speed);
-        this.secondName = secondName;
-        this.arrayOfClothes = arrayOfClothes;
-        this.arrayOfEmotions = arrayOfEmotions;
-        this.freedom = freedom;
+    public Person(String aName, String aSecondName, Clothes[] anArrayOfClothes, EmotionType[] anArrayOfEmotions,
+            Freedom aFreedom, Coordinate aCurrentCoordinates, int aSpeed, int aMoney,SatietyType aSatiety) {
+        super(aName, aCurrentCoordinates, aSpeed, aSatiety);
+        this.secondName = aSecondName;
+        this.arrayOfClothes = anArrayOfClothes;
+        this.arrayOfEmotions = anArrayOfEmotions;
+        this.freedom = aFreedom;
+        this.money = aMoney;
     }
 
     public String getSecondName() {
@@ -79,6 +82,13 @@ public class Person extends Creature implements ContollingClothesAction,
     public void setFreedom(Freedom freedom) {
         this.freedom = freedom;
     }
+    public int getMoney() {
+        return money;
+    }
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
 
     @Override
     public Controller ControlFreedom(Person targetPerson, Freedom freedom) {

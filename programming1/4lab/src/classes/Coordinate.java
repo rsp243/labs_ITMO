@@ -3,10 +3,12 @@ package src.classes;
 public class Coordinate {
     private float topPosition;
     private float rightPosition;
+    private float heightPosition;
     
-    public Coordinate(float topPosition1, float rightPosition1) {
-        this.topPosition = topPosition1;
-        this.rightPosition = rightPosition1;
+    public Coordinate(float aTopPosition, float aRightPosition, float aHeightPosition) {
+        this.topPosition = aTopPosition;
+        this.rightPosition = aRightPosition;
+        this.heightPosition = aHeightPosition;
     }
 
     public float getTopPosition() {
@@ -25,6 +27,13 @@ public class Coordinate {
         this.rightPosition = rightPosition;
     }   
 
+    public float getHeightPosition() {
+        return heightPosition;
+    }
+
+    public void setHeightPosition(float heightPosition) {
+        this.heightPosition = heightPosition;
+    }
     
     @Override
     public String toString() {
@@ -55,5 +64,4 @@ public class Coordinate {
             return false;
         return true;
     }
-
 }
