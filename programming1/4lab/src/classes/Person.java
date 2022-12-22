@@ -22,17 +22,18 @@ public class Person extends Creature implements ContollingClothesAction,
 
     public Person(String name) {
         this(name, "", new Clothes[5],
-        new EmotionType[5], Freedom.FREE, new Coordinate(0, 0, 0), 5, 0, SatietyType.WELL_FED);
+        new EmotionType[5], Freedom.FREE, new Coordinate(0, 0, 0), 5, 0, SatietyType.WELL_FED, Profession.UNEMPLOYED);
     }
     
     public Person(String aName, String aSecondName, Clothes[] anArrayOfClothes, EmotionType[] anArrayOfEmotions,
-            Freedom aFreedom, Coordinate aCurrentCoordinates, int aSpeed, int aMoney,SatietyType aSatiety) {
+            Freedom aFreedom, Coordinate aCurrentCoordinates, int aSpeed, int aMoney,SatietyType aSatiety, Profession aProfession) {
         super(aName, aCurrentCoordinates, aSpeed, aSatiety);
         this.secondName = aSecondName;
         this.arrayOfClothes = anArrayOfClothes;
         this.arrayOfEmotions = anArrayOfEmotions;
         this.freedom = aFreedom;
         this.money = aMoney;
+        this.profession = aProfession;
     }
 
     public String getSecondName() {
@@ -88,7 +89,13 @@ public class Person extends Creature implements ContollingClothesAction,
     public void setMoney(int money) {
         this.money = money;
     }
+    public void setProfession(Profession profession) {
+        this.profession = profession;
+    }
 
+    public Profession getProfession() {
+        return profession;
+    }
 
     @Override
     public Controller ControlFreedom(Person targetPerson, Freedom freedom) {
