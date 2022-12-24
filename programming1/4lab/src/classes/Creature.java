@@ -4,9 +4,9 @@ import src.interfaces.MoveAction;
 import src.interfaces.SeeAction;
 import src.enums.Controller;
 import src.enums.SatietyType;
-import src.interfaces.EatAction;
+import src.interfaces.eatAction;
 
-public abstract class Creature implements MoveAction, SeeAction, EatAction{
+public abstract class Creature implements MoveAction, SeeAction, eatAction{
     private String name;
     private Coordinate currentCoordinates;
     private int speed;
@@ -24,7 +24,7 @@ public abstract class Creature implements MoveAction, SeeAction, EatAction{
         return Controller.SUCCESSFULLY;
     }
     @Override
-    public int getTimeGoing(Location location) {
+    public int getTimeGoing(Location location) throws NumberFormatException {
         float distance = (float) (Math.pow(Math.pow(location.getCoordinates().getRightPosition() - currentCoordinates.getRightPosition(), 2)
             + Math.pow(location.getCoordinates().getTopPosition() - currentCoordinates.getTopPosition(), 2)
             + Math.pow(location.getCoordinates().getHeightPosition() - currentCoordinates.getHeightPosition(), 2), 0.5));

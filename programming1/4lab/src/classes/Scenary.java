@@ -102,7 +102,7 @@ public class Scenary implements Performable{
     }
 
     @Override
-    public String execute() {
+    public String execute() throws TroubleWithDoerException {
         String resultSenarySentence = "";
         if (executionOfAction == Controller.FAILED) {
             String doer = (personGroupDoer == null && vehicleDoer == null) ? (personDoer.getName()) :
@@ -113,7 +113,7 @@ public class Scenary implements Performable{
             String actionStr = (subject != null && subject != "") ? action + " объект <" + subject + ">" : action;
             String timeOfDoing = timeDuration != 0 ? "за " + timeDuration + " секунд" : "моментально";
             if ((personDoer != null && personGroupDoer != null && vehicleDoer != null) || (personDoer == null && personGroupDoer == null &&  vehicleDoer == null)) {
-                resultSenarySentence = "Возникла ошибка со сценарием. Ошибка с исполнителем.";
+                throw new TroubleWithDoerException("Возникла ошибка со сценарием. Ошибка с исполнителем.");
             } else {
                 String doer = (personGroupDoer == null && vehicleDoer == null) ? (personDoer.getName()) :
                         ((personGroupDoer == null && personDoer == null) ? (vehicleDoer.getName()) :

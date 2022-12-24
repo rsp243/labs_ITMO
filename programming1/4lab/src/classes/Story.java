@@ -15,7 +15,11 @@ public class Story implements Performable{
     public String execute() {
         String StoryString = "";
         for(int i = 0; i < arrayOfScenarySentences.size(); i++) {
-            StoryString += arrayOfScenarySentences.get(i).execute() + "\n";
+            try {
+                StoryString += arrayOfScenarySentences.get(i).execute() + "\n";
+            } catch (TroubleWithDoerException e) {
+                StoryString = e.getMessage();                
+            }
         }
         return StoryString;
     }
