@@ -105,7 +105,10 @@ public class Scenary implements Performable{
     public String execute() {
         String resultSenarySentence = "";
         if (executionOfAction == Controller.FAILED) {
-            resultSenarySentence = personDoer.getName() + " неудачно выполнил действие " + " '" + action + "'.";
+            String doer = (personGroupDoer == null && vehicleDoer == null) ? (personDoer.getName()) :
+                ((personGroupDoer == null && personDoer == null) ? (vehicleDoer.getName()) :
+                (personGroupDoer.getName()));
+            resultSenarySentence = doer + " неудачно выполнил(-и) действие " + " '" + action + "'.";
         } else {
             String actionStr = (subject != null && subject != "") ? action + " объект <" + subject + ">" : action;
             String timeOfDoing = timeDuration != 0 ? "за " + timeDuration + " секунд" : "моментально";

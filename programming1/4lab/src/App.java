@@ -147,7 +147,6 @@ public class App{
                                 newPonchosProfessionController, null, ponchoSenary9effect, 
                                 0, 0);
         }
-        
         var ponchosStory1 = new PonchosStory1();
         ArrayList<Scenary> arrayOfScenaryPonchoStory = new ArrayList<Scenary>();
         arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary1);
@@ -160,7 +159,6 @@ public class App{
         arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary8);
         arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary9);
         Story storyAboutPoncho = new Story(arrayOfScenaryPonchoStory);
-
 
         class PonchosStory2{
                 Scenary st2Scenary1 = new Scenary(
@@ -205,10 +203,10 @@ public class App{
                                 "Поехать в '" + PoganosCity.getName() + "'", 
                                 policeBobic.goTo(PoganosCity), null, null, 
                                 0, policeBobic.getTimeGoing(PoganosCity)); 
-                Vehicle Ship = new Vehicle("Корабль", VehicleType.SHIP, 150, allKorot, PoganosCity.getCoordinates(), 35);
+                Vehicle ship = new Vehicle("Корабль", VehicleType.SHIP, 150, allKorot, PoganosCity.getCoordinates(), 35);
                 Person[] unHappyArray = {};
                 PersonGroup unHappyGroup = new PersonGroup("Несчастные", unHappyArray, 300);
-                Location holdOfShip = new Location("Трюм корабля", Ship.getCurrentCoordinates());
+                Location holdOfShip = new Location("Трюм корабля", ship.getCurrentCoordinates());
                 Scenary st2Scenary7 = new Scenary(someone, 
                                 "Посадить '" + unHappyGroup.getName() + "(-x)' в ", 
                                 unHappyGroup.goTo(holdOfShip), holdOfShip.getName(), null, 
@@ -262,6 +260,47 @@ public class App{
                                 "Продолжать речь, повторять фразы '" + bestFrase1.getContent() + "'', '" + bestFrase2.getContent() + "'", 
                                 Controller.SUCCESSFULLY, null, null, 
                                 0, 0);
+                Scenary st2Scenary16effect = new Scenary(unHappyGroup,
+                                "Обрести настроение '" + EmotionType.HAPPY.getName() + "'",
+                                unHappyGroup.addEmotion(EmotionType.HAPPY), null,
+                                null, 0, 0);
+                Scenary st2Scenary16 = new Scenary(golopuz, 
+                                "Успокоить '" + unHappyGroup.getName() + "'", 
+                                golopuz.removeEmotion(unHappyGroup, EmotionType.UNHAPPY), null, st2Scenary16effect, 
+                                0, 0);
+                Scenary st2Scenary17 = new Scenary(unHappyGroup, 
+                                "Начать говорить", 
+                                unHappyGroup.speakTo(new Message("Speech", MessageType.TRULY)), null, null, 
+                                0, 10);
+                Scenary st2Scenary18 = new Scenary(kozl, 
+                                "Продолжать хмуриться", 
+                                (Arrays.asList(kozl.getArrayOfEmotions()).contains(EmotionType.OFFENCE) ? Controller.SUCCESSFULLY : Controller.FAILED),
+                                null, null, 
+                                0, 0);
+                Location ocean = new Location("Океан", new Coordinate(-50000, 555555, 0));
+                Scenary st2Scenary19 = new Scenary(ship, 
+                                "Отчалить и плыть в " + ocean.getName().toLowerCase(), 
+                                ship.goTo(ocean), null, null, 
+                                0, ship.getTimeGoing(ocean));
+                Scenary st2Scenary20effect = new Scenary(unHappyGroup, 
+                                "Cпать", 
+                                Controller.FAILED, null, null, 
+                                0, ship.getTimeGoing(ocean));
+                Scenary st2Scenary20 = new Scenary(unHappyGroup, 
+                                "Бояться утонуть на '" + ship.getName() +"(-e)'", 
+                                unHappyGroup.addEmotion(EmotionType.TERRIFIED), null, st2Scenary20effect, 
+                                0, ship.getTimeGoing(ocean));
+                Location calmBay = new Location("Тихая бухта", new Coordinate(-70000, 655555, 0));
+                Scenary st2Scenary21 = new Scenary(ship, 
+                                "Войти в " + calmBay.getName().toLowerCase(),
+                                ship.goTo(calmBay), null, null,
+                                0, ship.getTimeGoing(calmBay));
+                Scenary st2Scenary22 = new Scenary(unHappyGroup, 
+                                "Сойти с '" + ship.getName().toLowerCase() + "(-я)'",
+                                unHappyGroup.getOutTheVehicle(ship), null, null,
+                                0, 60);
+                                
+                
         }
         var ponchosStory2 = new PonchosStory2();
         ArrayList<Scenary> arrayOfScenarySentences2 = new ArrayList<Scenary>();
@@ -280,62 +319,18 @@ public class App{
         arrayOfScenarySentences2.add(ponchosStory2.st2Scenary13);
         arrayOfScenarySentences2.add(ponchosStory2.st2Scenary14);
         arrayOfScenarySentences2.add(ponchosStory2.st2Scenary15);
-
-
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary16);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary17);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary18);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary19);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary20);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary21);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary22);
         Story story2 = new Story(arrayOfScenarySentences2);
-        
 
         // System.out,println(...) Output stories
         System.out.println(story1.execute());
         System.out.println(storyAboutPoncho.execute());
         System.out.println(story2.execute());
-
-        //                                 if (nezn.See(unHappyGroup) == unHappyGroup && nezn.addEmotion(EmotionType.SADNESS) == Controller.SUCCESSFULLY && golopuz.goTo(emptyBarrel) != -1  && golopuz.addEmotion(unHappyGroup, EmotionType.CALM) == Controller.SUCCESSFULLY) {
-        //                                         System.out.println("Увидев " + nezn.See(unHappyGroup).getName().toLowerCase() + "(-x), " + nezn.getName() + " заплакал, а какой-то " +
-        //                                         golopuz.getSecondName().toLowerCase() + " " + golopuz.getName() + " взобрался на " + emptyBarrel.getName().toLowerCase() + "(-у), которая стояла в " + holdOfShip.getName().toLowerCase() + "(-e), и пытался успокоить " + unHappyGroup.getName() + "(-x).");
-        //                                 }
-        //                                 if (Arrays.asList(golopuz.getArrayOfClothes()).contains(shirt) != true && Arrays.asList(golopuz.getArrayOfClothes())
-        //                                 .contains(boots) != true && Arrays.asList(golopuz.getArrayOfClothes())
-        //                                 .contains(woolScarf) != false && Arrays.asList(golopuz.getArrayOfClothes())
-        //                                 .contains(strawHat) != false) {
-        //                                         System.out.println(golopuz.getName() + " был без рубашки и босиком, но зато в соломенной шляпе и в шерстяном шарфе.");
-        //                                 }
-        //                                 Location nextoPosition = new Location("Рядом", new Coordinate(-505, 27));
-        //                                 if (kozl.addEmotion(EmotionType.OFFENCE) == Controller.SUCCESSFULLY && kozl.goTo(nextoPosition) != 0.0) {
-        //                                         System.out.println(kozl.getName() + " обиделся и ушел от компании, но был " + nextoPosition.getName().toLowerCase());
-        //                                 }
-        //                                 Message bestFrase1 = new Message("Поживем -- увидим", MessageType.TRULY);
-        //                                 Message bestFrase2 = new Message("Сыты будем -- как-нибудь проживем", MessageType.TRULY);
-        //                                 if (golopuz.speakTo(bestFrase1, unHappyGroup) == true && golopuz.speakTo(bestFrase2, unHappyGroup) == true) {
-        //                                         System.out.println(golopuz.getName() + " продолжал речь, вставляя туда две свои самые любимые фразы: '" + bestFrase1.getContent() + "' и '" + bestFrase2.getContent() + "'.");
-        //                                 }
-        //                         }
-        //                 }
-        //         }
-        // }
-        
-        // if (nezn.putOnClothes(cap) == Controller.SUCCESSFULLY) {
-        //         System.out.println("Коротышка '" + nezn.getName()  + "' надел '" + cap.getName() + "'.");
-        // } else {
-        //         System.out.println("У коротышки '" + nezn.getName() + "' не может быть так много элементов одежды, удалите какой-нибудь элемент одежды методом removeEmotion().");
-        // }
-
-
-
-        //            System.out.println("Коротышка '" + name  + "' снял этот элемент одежды -> '" + clothes.getName() + "'.");
-        //             System.out.println("У коротышки '" + name + "' не нашлось такого элемента одежды. Возможно, вы искали другой.");
-        //             System.out.println("У коротышки '" + name + "' не нашлось такой эмоции. Возможно, вы искали другую.");
-        //             System.out.println("У коротышки '" + name + "' не нашлось такой эмоции. Возможно, вы искали другую.");
-        //             System.out.println("У коротышки '" + name + "' не может быть так много эмоций, удалите какую-нибудь методом removeEmotion(), и перезапустите команду");
-        //            System.out.println("У коротышки ' " + name  + "' добавилась новая эмоция '" + emotion.getName() + "'.");
-        //              System.out.println("У коротышки '" + person.name + "' не нашлось такой эмоции. Возможно, вы искали другую");
-        //              System.out.println("У коротышки '" + person.name  + "' удалилась эта эмоция -> '" + emotion.getName() + "'.");
-        //             System.out.println("У коротышки '" + person.name + "' не может быть так много эмоций, удалите какую-нибудь методом removeEmotion(), и перезапустите комманду");
-        //             System.out.println("У коротышки '" + person.name  + "' добавилась новая эмоция '" + emotion.getName() + "'.");
-        //              System.out.println(name + " сказал коротышке '" + targetPerson.getName() + "': '" + contentOfMessage + "', - что было абсолютной " + isMessageTruly);
-        //              System.out.println(name + " классно поспал 5 часов " + location.getName().toLowerCase());
-        //              System.out.println(name + " пришёл в " + location.getName().toLowerCase() + " за " +  + " минут");
-        //             System.out.println("Все коротышки из группы " + name + " успешно дошли до " + location.getName().toLowerCase());  
-
         }
 }

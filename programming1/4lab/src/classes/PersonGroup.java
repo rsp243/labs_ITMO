@@ -3,15 +3,17 @@ package src.classes;
 import java.util.Arrays;
 
 import src.enums.Controller;
+import src.enums.EmotionType;
 import src.enums.Freedom;
 import src.interfaces.AbleToSleep;
+import src.interfaces.ControllingEmotionsAction;
 import src.interfaces.DetainAction;
 import src.interfaces.GroupForming;
 import src.interfaces.MoveAction;
 import src.interfaces.SpeakingAction;
 import src.interfaces.VehicleAction;
 
-public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, SpeakingAction, VehicleAction, GroupForming{ 
+public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, SpeakingAction, VehicleAction, GroupForming, ControllingEmotionsAction{ 
     private String name;
     private Person[] participants;
     private int countOfParticipants;
@@ -165,6 +167,45 @@ public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, Speak
         return Controller.SUCCESSFULLY;
     }
 
+    @Override
+    public Controller addEmotion(PersonGroup personGroup, EmotionType emotion) {
+        for (Person pers : personGroup.getParticipants()) {
+            if (pers.addEmotion(emotion) == Controller.FAILED) return Controller.FAILED;
+        }
+        return Controller.SUCCESSFULLY;
+    }
+    @Override
+    public Controller removeEmotion(PersonGroup personGroup, EmotionType emotion) {
+        for (Person pers : personGroup.getParticipants()) {
+            if (pers.removeEmotion(emotion) == Controller.FAILED) return Controller.FAILED;
+        }
+        return Controller.SUCCESSFULLY;
+    }
+    @Override
+    public Controller addEmotion(Person person, EmotionType emotion) {
+        if (person.addEmotion(emotion) == Controller.FAILED) return Controller.FAILED;
+        return Controller.SUCCESSFULLY;
+    }
+    @Override
+    public Controller removeEmotion(Person person, EmotionType emotion) {
+        if (person.removeEmotion(emotion) == Controller.FAILED) return Controller.FAILED;
+        return Controller.SUCCESSFULLY; 
+    }
+    @Override
+    public Controller addEmotion(EmotionType emotion) {
+        for (Person pers : this.getParticipants()) {
+            if (pers.addEmotion(emotion) == Controller.FAILED) return Controller.FAILED;
+        }
+        return Controller.SUCCESSFULLY;    
+    }
+    @Override
+    public Controller removeEmotion(EmotionType emotion) {
+        for (Person pers : this.getParticipants()) {
+            if (pers.removeEmotion(emotion) == Controller.FAILED) return Controller.FAILED;
+        }
+        return Controller.SUCCESSFULLY;    
+    }
+    
 
     @Override
     public int hashCode() {
@@ -200,6 +241,6 @@ public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, Speak
     @Override
     public String toString() {
         return "PersonGroup [name=" + name + ", participants=" + Arrays.toString(participants)
-                + ", countOfParticipants=" + countOfParticipants + "]";
+            + ", countOfParticipants=" + countOfParticipants + "]";
     }
 }
