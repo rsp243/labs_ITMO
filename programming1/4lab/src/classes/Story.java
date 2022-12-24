@@ -23,4 +23,34 @@ public class Story implements Performable{
         }
         return StoryString;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((arrayOfScenarySentences == null) ? 0 : arrayOfScenarySentences.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Story other = (Story) obj;
+        if (arrayOfScenarySentences == null) {
+            if (other.arrayOfScenarySentences != null)
+                return false;
+        } else if (!arrayOfScenarySentences.equals(other.arrayOfScenarySentences))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Story [arrayOfScenarySentences=" + arrayOfScenarySentences + "]";
+    }
 }

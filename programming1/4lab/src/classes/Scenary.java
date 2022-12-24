@@ -11,7 +11,6 @@ public class Scenary implements Performable{
     private String action;
     private Controller executionOfAction;
     private Scenary effectAction;
-    private int timeStart;
     private int timeDuration;
 
     public Scenary(Person aPersonDoer,
@@ -19,7 +18,6 @@ public class Scenary implements Performable{
                     Controller anExecutionOfAction, 
                     String aSubjet, 
                     Scenary anEffectAction, 
-                    int aTimeStart, 
                     int aTimeDuration) {
         this.personGroupDoer = null;
         this.personDoer = aPersonDoer;
@@ -27,7 +25,6 @@ public class Scenary implements Performable{
         this.executionOfAction = anExecutionOfAction;
         this.subject = aSubjet;
         this.effectAction = anEffectAction;
-        this.timeStart = aTimeDuration;
         this.timeDuration = aTimeDuration;
     }
 
@@ -36,7 +33,6 @@ public class Scenary implements Performable{
                     Controller anExecutionOfAction, 
                     String aSubjet, 
                     Scenary anEffectAction, 
-                    int aTimeStart, 
                     int aTimeDuration) {
         this.personGroupDoer = aPersonGroup;
         this.personDoer = null;
@@ -44,7 +40,6 @@ public class Scenary implements Performable{
         this.executionOfAction = anExecutionOfAction;
         this.subject = aSubjet;
         this.effectAction = anEffectAction;
-        this.timeStart = aTimeDuration;
         this.timeDuration = aTimeDuration;
     }
     public Scenary(Vehicle vehicle,
@@ -52,7 +47,6 @@ public class Scenary implements Performable{
                     Controller anExecutionOfAction, 
                     String aSubjet, 
                     Scenary anEffectAction, 
-                    int aTimeStart, 
                     int aTimeDuration) {
         this.personGroupDoer = null;
         this.personDoer = null;
@@ -61,7 +55,6 @@ public class Scenary implements Performable{
         this.executionOfAction = anExecutionOfAction;
         this.subject = aSubjet;
         this.effectAction = anEffectAction;
-        this.timeStart = aTimeDuration;
         this.timeDuration = aTimeDuration;
     }
 
@@ -93,10 +86,6 @@ public class Scenary implements Performable{
         return effectAction;
     }
 
-    public int getTimeStart() {
-        return timeStart;
-    }
-
     public int getTimeDuration() {
         return timeDuration;
     }
@@ -125,6 +114,74 @@ public class Scenary implements Performable{
             }
         }
         return resultSenarySentence;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((personGroupDoer == null) ? 0 : personGroupDoer.hashCode());
+        result = prime * result + ((personDoer == null) ? 0 : personDoer.hashCode());
+        result = prime * result + ((vehicleDoer == null) ? 0 : vehicleDoer.hashCode());
+        result = prime * result + ((subject == null) ? 0 : subject.hashCode());
+        result = prime * result + ((action == null) ? 0 : action.hashCode());
+        result = prime * result + ((executionOfAction == null) ? 0 : executionOfAction.hashCode());
+        result = prime * result + ((effectAction == null) ? 0 : effectAction.hashCode());
+        result = prime * result + timeDuration;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Scenary other = (Scenary) obj;
+        if (personGroupDoer == null) {
+            if (other.personGroupDoer != null)
+                return false;
+        } else if (!personGroupDoer.equals(other.personGroupDoer))
+            return false;
+        if (personDoer == null) {
+            if (other.personDoer != null)
+                return false;
+        } else if (!personDoer.equals(other.personDoer))
+            return false;
+        if (vehicleDoer == null) {
+            if (other.vehicleDoer != null)
+                return false;
+        } else if (!vehicleDoer.equals(other.vehicleDoer))
+            return false;
+        if (subject == null) {
+            if (other.subject != null)
+                return false;
+        } else if (!subject.equals(other.subject))
+            return false;
+        if (action == null) {
+            if (other.action != null)
+                return false;
+        } else if (!action.equals(other.action))
+            return false;
+        if (executionOfAction != other.executionOfAction)
+            return false;
+        if (effectAction == null) {
+            if (other.effectAction != null)
+                return false;
+        } else if (!effectAction.equals(other.effectAction))
+            return false;
+        if (timeDuration != other.timeDuration)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Scenary [personGroupDoer=" + personGroupDoer + ", personDoer=" + personDoer + ", vehicleDoer="
+                + vehicleDoer + ", subject=" + subject + ", action=" + action + ", executionOfAction="
+                + executionOfAction + ", effectAction=" + effectAction + ", timeDuration=" + timeDuration + "]";
     }
 
 }

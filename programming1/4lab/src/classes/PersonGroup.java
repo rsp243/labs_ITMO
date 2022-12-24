@@ -12,8 +12,9 @@ import src.interfaces.GroupForming;
 import src.interfaces.MoveAction;
 import src.interfaces.SpeakingAction;
 import src.interfaces.VehicleAction;
+import src.interfaces.WorkAction;
 
-public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, SpeakingAction, VehicleAction, GroupForming, ControllingEmotionsAction{ 
+public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, SpeakingAction, VehicleAction, GroupForming, ControllingEmotionsAction, WorkAction{ 
     private String name;
     private Person[] participants;
     private int countOfParticipants;
@@ -205,7 +206,22 @@ public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, Speak
         }
         return Controller.SUCCESSFULLY;    
     }
-    
+    @Override
+    public Controller work(int timeOfWorking) {
+        for (Person pers : this.getParticipants()) {
+            pers.work(timeOfWorking);
+        }
+        return Controller.SUCCESSFULLY;    
+    }
+    @Override
+    public int getEarnedMoney(int timeOfWorking) {
+        int sumOfMoney = 0;
+        for (Person pers : this.getParticipants()) {
+            sumOfMoney += pers.getEarnedMoney(timeOfWorking);
+        }
+        return sumOfMoney;    
+    }
+
 
     @Override
     public int hashCode() {
