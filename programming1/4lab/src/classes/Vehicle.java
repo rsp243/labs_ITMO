@@ -49,6 +49,7 @@ public class Vehicle implements MoveAction{
     }
     @Override
     public Controller goTo(Location location) {
+        // 
         return Controller.SUCCESSFULLY;
     }
     @Override

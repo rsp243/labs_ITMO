@@ -89,75 +89,85 @@ public class App{
         // Forming Poncho's Story
         class PonchosStory1{
                 Person[] neznAndPonchoArray = {nezn, poncho};
+                // @GroupNeznAndPoncho
                 PersonGroup neznAndPonchoGroup = new PersonGroup("Незнайка с Пончиком", neznAndPonchoArray, 2);
+                // @Rocket
                 Vehicle rocket = new Vehicle("Ракета", VehicleType.ROCKET, 3, new Person[3], 
                                 new Coordinate(15, 15, 2), 200);        
-                Scenary ponchoSenary1 = new Scenary(neznAndPonchoGroup,
+                // @SocietyOfFreeWheelers
+                PersonGroup societyOfFreeWheelers = new PersonGroup("Общество свободных крутильщиков", new Person[50], 50);
+                // @Moon
+                Location moon = new Location("Луна",
+                                new Coordinate(15, 15, 500000));
+                // @Cave
+                Location cave = new Location("Пещера", 
+                                                new Coordinate(15, 15, 500000));
+                // @UnderMoonSpace                       
+                Location underMoonSpace = new Location("Подлунное пространство",
+                                                moon.getCoordinates());
+                
+                // @getInTheVehicle
+                Scenary ponchoScenary1 = new Scenary(neznAndPonchoGroup,
                                 "Залезть в " + rocket.getName().toLowerCase() + "(-у)",
                                 neznAndPonchoGroup.getInTheVehicle(rocket),
                                 null, null, 300);
-
-                Location moon = new Location("Луна",
-                                new Coordinate(15, 15, 500000));
-                Scenary ponchoSenary2 = new Scenary(neznAndPonchoGroup,
+                // @goTo
+                Scenary ponchoScenary2 = new Scenary(neznAndPonchoGroup,
                                 "Отправиться на " + moon.getName().toLowerCase() + "(-у)", rocket.goTo(moon),
                                 null, null, rocket.getTimeGoing(moon));
-
-                Scenary ponchoSenary3 = new Scenary(neznAndPonchoGroup, 
+                // @goTo
+                Scenary ponchoScenary3 = new Scenary(neznAndPonchoGroup, 
                                 "Путешествовать по " + moon.getName().toLowerCase() + "(-e)",
                                 neznAndPonchoGroup.goTo(moon),
                                 null, null, 300);
-                Location cave = new Location("Пещера", 
-                                new Coordinate(15, 15, 500000));
-                Scenary ponchoSenary4 = new Scenary(neznAndPonchoGroup, 
+
+                Scenary ponchoScenary4 = new Scenary(neznAndPonchoGroup, 
                                 "Попасть в " + cave.getName().toLowerCase() + "(-y)",
                                 neznAndPonchoGroup.goTo(moon),
                                 null, null, 90);
-                Location underMoonSpace = new Location("Подлунное пространство",
-                                new Coordinate(15, 15, 4700000));
-                Scenary ponchoSenary5 = new Scenary(nezn,
+                Scenary ponchoScenary5 = new Scenary(nezn,
                                 "Провалиться в " + underMoonSpace.getName().toLowerCase(),
                                 nezn.goTo(underMoonSpace),
                                 null, null, 0);
-                Scenary ponchoSenary6 = new Scenary(poncho,
+                Scenary ponchoScenary6 = new Scenary(poncho,
                                 "Провалиться в " + underMoonSpace.getName().toLowerCase(),
                                 poncho.goTo(underMoonSpace),
                                 null, null, 0);
                 int timeOfWorking = 600;
-                Scenary ponchoSenary7effect = new Scenary(poncho,
+                Scenary ponchoScenary7effect = new Scenary(poncho,
                                 "Заработать " + poncho.getEarnedMoney(timeOfWorking) + " медных монет", 
                                 poncho.work(timeOfWorking), null, null, 
                                 timeOfWorking);
-                Scenary ponchoSenary7 = new Scenary(poncho,
+                Scenary ponchoScenary7 = new Scenary(poncho,
                                 "Работать по профессии '" + poncho.getProfession().getName() + "'",
                                 poncho.work(timeOfWorking),
-                                null, ponchoSenary7effect, timeOfWorking);
-                Scenary ponchoSenary8 = new Scenary(poncho,
+                                null, ponchoScenary7effect, timeOfWorking);
+                Scenary ponchoScenary8 = new Scenary(poncho,
                                 "Разориться", 
                                 poncho.setMoney(0), null, null, 
                                 0);
+                
                 Controller newPonchosProfessionController = poncho.setProfession(Profession.WORK_AT_WHEEL);
-                PersonGroup societyOfFreeWheelers = new PersonGroup("Общество свободных крутильщиков", new Person[50], 50);
-                Scenary ponchoSenary9effect = new Scenary(poncho,
+                Scenary ponchoScenary9effect = new Scenary(poncho,
                                 "Стать членом '" + societyOfFreeWheelers.getName() + "'", 
                                 poncho.getInTheGroup(societyOfFreeWheelers), null, null, 
                                 0);
-                Scenary ponchoSenary9 = new Scenary(poncho,
+                Scenary ponchoScenary9 = new Scenary(poncho,
                                 "Начать работать по профессии '" + poncho.getProfession().getName() + "'", 
-                                newPonchosProfessionController, null, ponchoSenary9effect, 
+                                newPonchosProfessionController, null, ponchoScenary9effect, 
                                 0);
         }
         var ponchosStory1 = new PonchosStory1();
         ArrayList<Scenary> arrayOfScenaryPonchoStory = new ArrayList<Scenary>();
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary1);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary2);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary3);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary4);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary5);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary6);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary7);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary8);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary9);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary1);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary2);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary3);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary4);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary5);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary6);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary7);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary8);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary9);
         Story storyAboutPoncho = new Story(arrayOfScenaryPonchoStory);
 
         class PonchosStory2{
