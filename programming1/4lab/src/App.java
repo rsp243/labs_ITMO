@@ -17,6 +17,7 @@ import src.enums.EmotionType;
 import src.enums.Freedom;
 import src.enums.Material;
 import src.enums.MessageType;
+import src.enums.Profession;
 import src.enums.VehicleType;
 import src.enums.mealType;
 
@@ -27,43 +28,203 @@ public class App{
         var kozl = new Person("Козлик");        
         var kluk = new Person("Клюква");
         var chizh = new Person("Чижик");
+        var someone = new Person("Кто-то");
+
+        poncho.setProfession(Profession.TRADING_SALT);
+
+        // !Refink field timeStart at Scenary Class!
+        // Add some logic to Story: we need to sum up strings with same actions.
 
         var me = new Person("");
-
-        Scenary senary1 = new Scenary(null,
-                        nezn, "Покушал", 
-                        nezn.eat(new Meal("Тарелка супа", mealType.SOUP)), 
+        Location table = new Location("Стол", new Coordinate(0, 0, 0));
+        Scenary st1Scenary1 = new Scenary(
+                        poncho, "Сесть за " + table.getName().toLowerCase(), 
+                        poncho.goTo(table), 
                         "", 
                         null, 
-                        0, 15);
-
+                        0, 5);
+        Meal mealForPoncho1 = new Meal("Тарелка борща", mealType.BORSCH);
+        Scenary st1Scenary2 = new Scenary(
+                        someone, "Поставить на " + table.getName().toLowerCase(), 
+                        Controller.SUCCESSFULLY, 
+                        mealForPoncho1.getName(), 
+                        null, 
+                        0, 20);
+        Meal mealForPoncho2 = new Meal("Тарелка каши", mealType.PORRIDGE);
+        Scenary st1Scenary3 = new Scenary(
+                        someone, "Поставить на " + table.getName().toLowerCase(), 
+                        Controller.SUCCESSFULLY, 
+                        mealForPoncho2.getName(), 
+                        null, 
+                        0, 20);
+        Scenary st1Scenary4 = new Scenary(
+                        poncho, "Кушать", 
+                        poncho.eat(mealForPoncho1), 
+                        mealForPoncho1.getName(), 
+                        null, 
+                        0, 30);
+        Scenary st1Scenary5 = new Scenary(
+                        poncho, "Кушать", 
+                        poncho.eat(mealForPoncho2), 
+                        mealForPoncho2.getName(), 
+                        null, 
+                        0, 30);
+        Message storyAboutPonchoMsg = new Message("История, которая произошла с ним", MessageType.TRULY);
+        Scenary st1Scenary6 = new Scenary(
+                        poncho, "Начать рассказывать", 
+                        poncho.speakTo(storyAboutPonchoMsg), 
+                        storyAboutPonchoMsg.getContent(), 
+                        null, 
+                        0, 0);
         ArrayList<Scenary> arrayOfScenarySentences1 = new ArrayList<Scenary>();
-        arrayOfScenarySentences1.add(senary1);
+        arrayOfScenarySentences1.add(st1Scenary1);
+        arrayOfScenarySentences1.add(st1Scenary2);
+        arrayOfScenarySentences1.add(st1Scenary3);
+        arrayOfScenarySentences1.add(st1Scenary4);
+        arrayOfScenarySentences1.add(st1Scenary5);
+        arrayOfScenarySentences1.add(st1Scenary6);
         Story story1 = new Story(arrayOfScenarySentences1);
-        System.out.println(story1.execute());
 
-        // Message messageToMe = new Message("История о Незнайке", MessageType.TRULY);
+        // Forming Poncho's Story
+        class PonchosStory1{
+                Person[] neznAndPonchoArray = {nezn, poncho};
+                PersonGroup neznAndPonchoGroup = new PersonGroup("Незнайка с Пончиком", neznAndPonchoArray, 2);
+                Vehicle rocket = new Vehicle("Ракета", VehicleType.ROCKET, 3, new Person[3], 
+                                new Coordinate(15, 15, 2), 200);        
+                Scenary ponchoSenary1 = new Scenary(neznAndPonchoGroup,
+                                "Залезть в " + rocket.getName().toLowerCase() + "(-у)",
+                                neznAndPonchoGroup.getInTheVehicle(rocket),
+                                null, null, 0, 300);
+
+                Location moon = new Location("Луна",
+                                new Coordinate(15, 15, 500000));
+                Scenary ponchoSenary2 = new Scenary(neznAndPonchoGroup,
+                                "Отправиться на " + moon.getName().toLowerCase() + "(-у)", rocket.goTo(moon),
+                                null, null, 0, rocket.getTimeGoing(moon));
+
+                Scenary ponchoSenary3 = new Scenary(neznAndPonchoGroup, 
+                                "Путешествовать по " + moon.getName().toLowerCase() + "(-e)",
+                                neznAndPonchoGroup.goTo(moon),
+                                null, null, 0, 300);
+                Location cave = new Location("Пещера", 
+                                new Coordinate(15, 15, 500000));
+                Scenary ponchoSenary4 = new Scenary(neznAndPonchoGroup, 
+                                "Попасть в " + cave.getName().toLowerCase() + "(-y)",
+                                neznAndPonchoGroup.goTo(moon),
+                                null, null, 0, 90);
+                Location underMoonSpace = new Location("Подлунное пространство",
+                                new Coordinate(15, 15, 4700000));
+                Scenary ponchoSenary5 = new Scenary(nezn,
+                                "Провалиться в " + underMoonSpace.getName().toLowerCase(),
+                                nezn.goTo(underMoonSpace),
+                                null, null, 0, 0);
+                Scenary ponchoSenary6 = new Scenary(poncho,
+                                "Провалиться в " + underMoonSpace.getName().toLowerCase(),
+                                poncho.goTo(underMoonSpace),
+                                null, null, 0, 0);
+                int timeOfWorking = 600;
+                Scenary ponchoSenary7effect = new Scenary(poncho,
+                                "Заработать " + poncho.getEarnedMoney(timeOfWorking) + " медных монет", 
+                                poncho.work(timeOfWorking), null, null, 
+                                0, timeOfWorking);
+                Scenary ponchoSenary7 = new Scenary(poncho,
+                                "Работать по профессии '" + poncho.getProfession().getName() + "'",
+                                poncho.work(timeOfWorking),
+                                null, ponchoSenary7effect, 0, timeOfWorking);
+                Scenary ponchoSenary8 = new Scenary(poncho,
+                                "Разориться", 
+                                poncho.setMoney(0), null, null, 
+                                0, 0);
+                Controller newPonchosProfessionController = poncho.setProfession(Profession.WORK_AT_WEEL);
+                PersonGroup societyOfFreeWheelers = new PersonGroup("Общество свободных крутильщиков", new Person[50], 50);
+                Scenary ponchoSenary9effect = new Scenary(poncho,
+                                "Стать членом '" + societyOfFreeWheelers.getName() + "'", 
+                                poncho.getInTheGroup(societyOfFreeWheelers), null, null, 
+                                0, 0);
+                Scenary ponchoSenary9 = new Scenary(poncho,
+                                "Начать работать по профессии '" + poncho.getProfession().getName() + "'", 
+                                newPonchosProfessionController, null, ponchoSenary9effect, 
+                                0, 0);
+        }
         
-        // System.out.println(messageToMe.getContent() + ", которую рассказал " + poncho.getName() + ", была " + messageToMe.getMessageTypeDescription().toLowerCase() + ".");
-        // if (messageToMe.getMessageType() == MessageType.TRULY) {
-        //         Location stupidIsland = new Location("Дурацкий остров", new Coordinate(100, 100));
-        //         if (nezn.goTo(stupidIsland) != 0.0) {
-        //                 System.out.println(messageToMe.getMessageTypeDescription() + " было то, что " + nezn.getName() + " действительно угодил на " + stupidIsland.getName() + ".");        
-        //         }
-        //         Person[] allKorot = {nezn, poncho, kozl, kluk, chizh};
-        //         PersonGroup allKorotGroup = new PersonGroup("Все", allKorot, 5);
-        //         Location locationBridge = new Location("Мост", new Coordinate(15, 15));
-        //         Person[] police = {};
-        //         PersonGroup policeBrigade = new PersonGroup("Полицейский патруль", police, 10);
-        //         Vehicle policeBobic = new Vehicle("Полицейский фургон", VehicleType.VAN, 15,
-        //                 allKorot, locationBridge.getCoordinates(), 30); 
-        //         Location PoganosCity = new Location("город Лос-Поганос", new Coordinate(-500, 33));
-        //         if (allKorotGroup.Sleep(locationBridge) == Controller.SUCCESSFULLY
-        //          && policeBrigade.ControlFreedom(allKorotGroup, Freedom.PRISONED) == Controller.SUCCESSFULLY
-        //          && policeBobic.goTo(PoganosCity) != 0.0) {
-        //                 System.out.println("После того, как " + allKorotGroup.getNamedParticipants().toString()
-        //                 .replace("[", "").replace("]", "") + " спали под " + locationBridge.getName()
-        //                 .toLowerCase() + "ом, их задержал " + policeBrigade.getName().toLowerCase() + " " + allKorotGroup.getName().toLowerCase() + " были посажены в " + policeBobic.getName() + " и доставлены в " + PoganosCity.getName() + "." );
+        var ponchosStory = new PonchosStory1();
+        ArrayList<Scenary> arrayOfScenaryPonchoStory = new ArrayList<Scenary>();
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary1);
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary2);
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary3);
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary4);
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary5);
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary6);
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary7);
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary8);
+        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary9);
+        Story storyAboutPoncho = new Story(arrayOfScenaryPonchoStory);
+
+
+        Scenary st2Scenary1 = new Scenary(
+                        someone, "Поставить на " + table.getName().toLowerCase(), 
+                        Controller.SUCCESSFULLY, 
+                        mealForPoncho2.getName(), 
+                        null, 
+                        0, 20);
+        Message storyAboutPonchoMsg1 = new Message("История, которая произошла с " + nezn.getName() + "(-ой/ом)", MessageType.TRULY);
+        Scenary st2Scenary2 = new Scenary(
+                        poncho, "Начать рассказывать", 
+                        poncho.speakTo(storyAboutPonchoMsg1), 
+                        storyAboutPonchoMsg1.getContent(), 
+                        null, 
+                        0, 0);
+        Location stupidIsland = new Location("Дурацкий остров", new Coordinate(100, 100, 0));
+        Scenary st2Scenary3 = new Scenary(poncho,
+                        "Попасть на '" + stupidIsland.getName() + "'", 
+                        poncho.goTo(stupidIsland), null, null, 
+                        0, poncho.getTimeGoing(stupidIsland));
+        Person[] allKorot = {nezn, poncho, kozl, kluk, chizh};
+        PersonGroup allKorotGroup = new PersonGroup("Все", allKorot, 5);
+        Location locationBridge = new Location("Мост", new Coordinate(15, 15, 0));
+        Person[] police = {};
+        PersonGroup policeBrigade = new PersonGroup("Полицейский патруль", police, 10);
+        Vehicle policeBobic = new Vehicle("Полицейский фургон", VehicleType.VAN, 15,
+                        new Person[15], locationBridge.getCoordinates(), 10); 
+        Location PoganosCity = new Location("город Лос-Поганос", new Coordinate(-500, 303, 0));
+        Scenary st2Scenary4effect = new Scenary(policeBrigade,
+                        "Задержать '" + allKorotGroup.getName() + "(-х)'", 
+                        policeBrigade.ControlFreedom(allKorotGroup, Freedom.PRISONED), null, null, 
+                        0, 300);        
+        Scenary st2Scenary4 = new Scenary(allKorotGroup, 
+                        "Спать под '" + locationBridge.getName() + "(-ом)'", 
+                        allKorotGroup.Sleep(locationBridge), null, st2Scenary4effect, 
+                        0, 3600);        
+        Scenary st2Scenary5 = new Scenary(policeBrigade, 
+                        "Посадить '" + allKorotGroup.getName() + "(-х)' в", 
+                        allKorotGroup.getInTheVehicle(policeBobic), policeBobic.getName(), null, 
+                        0, 40); 
+        Scenary st2Scenary6 = new Scenary(policeBobic, 
+                        "Поехать в '" + PoganosCity.getName() + "'", 
+                        policeBobic.goTo(PoganosCity), null, null, 
+                        0, policeBobic.getTimeGoing(PoganosCity)); 
+        Vehicle Ship = new Vehicle("Корабль", VehicleType.SHIP, 150, allKorot, PoganosCity.getCoordinates(), 35);
+        Person[] unHappyArray = {};
+        PersonGroup unHappyGroup = new PersonGroup("Несчастные", unHappyArray, 300);
+        Location holdOfShip = new Location("Трюм корабля", Ship.getCurrentCoordinates());
+
+        ArrayList<Scenary> arrayOfScenarySentences2 = new ArrayList<Scenary>();
+        arrayOfScenarySentences2.add(st2Scenary1);
+        arrayOfScenarySentences2.add(st2Scenary2);
+        arrayOfScenarySentences2.add(st2Scenary3);
+        arrayOfScenarySentences2.add(st2Scenary4);
+        arrayOfScenarySentences2.add(st2Scenary5);
+        arrayOfScenarySentences2.add(st2Scenary6);
+
+
+        Story story2 = new Story(arrayOfScenarySentences2);
+        
+
+        // System.out,println(...) Output stories
+        System.out.println(story1.execute());
+        System.out.println(storyAboutPoncho.execute());
+        System.out.println(story2.execute());
+
         //                 Vehicle Ship = new Vehicle("Корабль", VehicleType.SHIP, 150, allKorot, new Coordinate(-505, 28), 35);
         //                 Person[] unHappyArray = {};
         //                 PersonGroup unHappyGroup = new PersonGroup("Несчастные", unHappyArray, 300);

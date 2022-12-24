@@ -5,5 +5,6 @@ public enum VehicleType {
     VAN,
     TRUCK,
     PICKUP,
-    SHIP
+    SHIP,
+    ROCKET
 }

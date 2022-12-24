@@ -15,7 +15,7 @@ public class Story implements Performable{
     public String execute() {
         String StoryString = "";
         for(int i = 0; i < arrayOfScenarySentences.size(); i++) {
-            StoryString += arrayOfScenarySentences.get(i).execute();
+            StoryString += arrayOfScenarySentences.get(i).execute() + "\n";
         }
         return StoryString;
     }

@@ -6,10 +6,12 @@ import src.enums.Controller;
 import src.enums.Freedom;
 import src.interfaces.AbleToSleep;
 import src.interfaces.DetainAction;
+import src.interfaces.GroupForming;
 import src.interfaces.MoveAction;
 import src.interfaces.SpeakingAction;
+import src.interfaces.VehicleAction;
 
-public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, SpeakingAction{ 
+public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, SpeakingAction, VehicleAction, GroupForming{ 
     private String name;
     private Person[] participants;
     private int countOfParticipants;
@@ -46,17 +48,24 @@ public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, Speak
     public Coordinate getCurrentCoordinate() {
         return currentCoordinate;
     }
+    public void setParticipants(Person[] personArray) {
+        participants = personArray;
+    }
 
     @Override
     public Controller Sleep(Location location) {
         return Controller.SUCCESSFULLY;
     }
     @Override
-    public float goTo(Location location) {
+    public Controller goTo(Location location) {
+        return Controller.SUCCESSFULLY;
+    }
+    @Override
+    public int getTimeGoing(Location location) {
         float[] arrayOfTimesOnDistance = new float[countOfParticipants];
         int position = 0;
         for (Person participant : participants) {
-            arrayOfTimesOnDistance[position] = participant.goTo(location); 
+            arrayOfTimesOnDistance[position] = participant.getTimeGoing(location); 
             position++;
         } 
         float maxTime = 0;
@@ -65,9 +74,9 @@ public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, Speak
             maxTime = arrayOfTimesOnDistance[countOfParticipants - 1];
         }
         currentCoordinate = location.getCoordinates();
-        return maxTime;
-  
+        return (int) Math.ceil(maxTime);
     }
+
     @Override
     public Controller ControlFreedom(Person targetPerson, Freedom freedom) {
         if (countOfParticipants > 1) {
@@ -105,18 +114,58 @@ public class PersonGroup implements DetainAction, MoveAction, AbleToSleep, Speak
         }
     }
     @Override
-    public boolean speakTo(Message messageObj, Person targetPerson) {
-        return messageObj.getIsMessageTruly();
+    public Controller speakTo(Message messageObj, Person targetPerson) {
+        return messageObj.getIsMessageTruly() ? Controller.SUCCESSFULLY : Controller.FAILED;
     }
     @Override
-    public boolean speakTo(Message messageObj, PersonGroup tagetGroup) {
-        return messageObj.getIsMessageTruly();
+    public Controller speakTo(Message messageObj, PersonGroup tagetGroup) {
+        return messageObj.getIsMessageTruly() ? Controller.SUCCESSFULLY : Controller.FAILED;
     }
     @Override
-    public boolean speakTo(Message messageObj) {
-        return messageObj.getIsMessageTruly();
+    public Controller speakTo(Message messageObj) {
+        return messageObj.getIsMessageTruly() ? Controller.SUCCESSFULLY : Controller.FAILED;
+    }
+
+    @Override
+    public Controller getInTheVehicle(Vehicle vehicle) {
+        for (Person participant : participants) {
+            if (participant.getInTheVehicle(vehicle) == Controller.FAILED) {
+                return Controller.FAILED;
+            }
+        }
+        return Controller.SUCCESSFULLY;
+    }
+    @Override
+    public Controller getOutTheVehicle(Vehicle vehicle) {
+        for (Person participant : participants) {
+            if (participant.getOutTheVehicle(vehicle) == Controller.FAILED) {
+                return Controller.FAILED;
+            }
+        }
+        return Controller.SUCCESSFULLY;
     }
     
+    @Override
+    public Controller getInTheGroup(PersonGroup personGroupObj) {
+        for (Person participant : participants) {
+            if (participant.getInTheGroup(personGroupObj) == Controller.FAILED) {
+                return Controller.FAILED;
+            }
+        }
+        return Controller.SUCCESSFULLY;
+    }
+
+    @Override
+    public Controller getOutTheGroup(PersonGroup personGroupObj) {
+        for (Person participant : participants) {
+            if (participant.getOutTheGroup(personGroupObj) == Controller.FAILED) {
+                return Controller.FAILED;
+            }
+        }
+        return Controller.SUCCESSFULLY;
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;

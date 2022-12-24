@@ -20,11 +20,16 @@ public abstract class Creature implements MoveAction, SeeAction, EatAction{
     }
 
     @Override
-    public float goTo(Location location) {
+    public Controller goTo(Location location) {
+        return Controller.SUCCESSFULLY;
+    }
+    @Override
+    public int getTimeGoing(Location location) {
         float distance = (float) (Math.pow(Math.pow(location.getCoordinates().getRightPosition() - currentCoordinates.getRightPosition(), 2)
-            + Math.pow(location.getCoordinates().getTopPosition() - currentCoordinates.getTopPosition(), 2), 0.555));
+            + Math.pow(location.getCoordinates().getTopPosition() - currentCoordinates.getTopPosition(), 2)
+            + Math.pow(location.getCoordinates().getHeightPosition() - currentCoordinates.getHeightPosition(), 2), 0.5));
         currentCoordinates = location.getCoordinates();
-        return 400 * distance / speed / 1000;
+        return (int) Math.ceil(400 * distance / speed / 1000);
     }
     public String getName() {
         return name;
@@ -44,7 +49,6 @@ public abstract class Creature implements MoveAction, SeeAction, EatAction{
     public SatietyType getSatiety() {
         return satiety;
     }
-
     @Override
     public Creature See(Creature seeingCreature) {
         return seeingCreature;

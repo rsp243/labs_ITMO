@@ -2,6 +2,7 @@ package src.classes;
 
 import java.util.Arrays;
 
+import src.enums.Controller;
 import src.enums.VehicleType;
 import src.interfaces.MoveAction;
 
@@ -47,15 +48,17 @@ public class Vehicle implements MoveAction{
         return currentCoordinates;
     }
     @Override
-    public float goTo(Location location) {
-        float distance = (float) (Math.pow(Math.pow(location.getCoordinates().getRightPosition() - currentCoordinates.getRightPosition(), 2)
-            + Math.pow(location.getCoordinates().getTopPosition() - currentCoordinates.getTopPosition(), 2), 0.555));
-        for (Person passenger : passengers) {
-            passenger.setCurrentCoordinates(location.getCoordinates());
-        }
-        return 400 * distance / speed / 1000;
+    public Controller goTo(Location location) {
+        return Controller.SUCCESSFULLY;
     }
-
+    @Override
+    public int getTimeGoing(Location location) {
+        float distance = (float) (Math.pow(Math.pow(location.getCoordinates().getRightPosition() - currentCoordinates.getRightPosition(), 2)
+            + Math.pow(location.getCoordinates().getTopPosition() - currentCoordinates.getTopPosition(), 2)
+            + Math.pow(location.getCoordinates().getHeightPosition() - currentCoordinates.getHeightPosition(), 2), 0.5));
+        currentCoordinates = location.getCoordinates();
+        return (int) Math.ceil(400 * distance / speed / 1000);
+    }
     @Override
     public int hashCode() {
         final int prime = 31;

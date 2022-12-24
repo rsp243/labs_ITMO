@@ -12,7 +12,9 @@ public class Person extends Creature implements ContollingClothesAction,
                             SpeakingAction,  
                             AbleToSleep, 
                             DetainAction, 
-                            VehicleAction{
+                            VehicleAction,
+                            WorkAction,
+                            GroupForming{
     private String secondName;
     private Clothes[] arrayOfClothes;
     private EmotionType[] arrayOfEmotions;
@@ -86,11 +88,13 @@ public class Person extends Creature implements ContollingClothesAction,
     public int getMoney() {
         return money;
     }
-    public void setMoney(int money) {
+    public Controller setMoney(int money) {
         this.money = money;
+        return Controller.SUCCESSFULLY;
     }
-    public void setProfession(Profession profession) {
+    public Controller setProfession(Profession profession) {
         this.profession = profession;
+        return Controller.SUCCESSFULLY;
     }
 
     public Profession getProfession() {
@@ -115,16 +119,16 @@ public class Person extends Creature implements ContollingClothesAction,
         return Controller.SUCCESSFULLY;
     }
     @Override
-    public boolean speakTo(Message messageObj, Person targetPerson) {
-        return messageObj.getIsMessageTruly();
+    public Controller speakTo(Message messageObj, Person targetPerson) {
+        return messageObj.getIsMessageTruly() ? Controller.SUCCESSFULLY : Controller.FAILED;
     }
     @Override
-    public boolean speakTo(Message messageObj, PersonGroup tagetGroup) {
-        return messageObj.getIsMessageTruly();
+    public Controller speakTo(Message messageObj, PersonGroup tagetGroup) {
+        return messageObj.getIsMessageTruly() ? Controller.SUCCESSFULLY : Controller.FAILED;
     }    
     @Override
-    public boolean speakTo(Message messageObj) {
-        return messageObj.getIsMessageTruly();
+    public Controller speakTo(Message messageObj) {
+        return messageObj.getIsMessageTruly() ? Controller.SUCCESSFULLY : Controller.FAILED;
     }
     @Override
     public Controller addEmotion(Person person, EmotionType emotion) {
@@ -251,7 +255,7 @@ public class Person extends Creature implements ContollingClothesAction,
         }
     }
     @Override
-    public Controller getInTheCar(Person person, Vehicle vehicle) {
+    public Controller getInTheVehicle(Vehicle vehicle) {
         Person[] passangers = vehicle.getPassengers();
         int countPassangers = 0;
         for (Person passanger : passangers) {
@@ -259,14 +263,14 @@ public class Person extends Creature implements ContollingClothesAction,
                 countPassangers++;
             }
         }
-        if (countPassangers < vehicle.getCountOfSeats()) {
+        if (countPassangers <= vehicle.getCountOfSeats()) {
             int position = 0;
             for (Person passanger : passangers) {
                 if (passanger != null) {
                     position++;
                 }
             }
-            passangers[position] = person;
+            passangers[position] = this;
             vehicle.setPassengers(passangers);
             return Controller.SUCCESSFULLY;
         } else {
@@ -274,10 +278,67 @@ public class Person extends Creature implements ContollingClothesAction,
         }
     }
     @Override
-    public Controller getOutTheCar(Person person, Vehicle vehicle) {
+    public Controller getOutTheVehicle(Vehicle vehicle) {
+        int position = 0;
+        Person[] passangersArray = vehicle.getPassengers();
+        int countOfDeletedPassangers = 0;
+        for (Person iter : passangersArray) {
+            if (iter == this) {
+                passangersArray[position] = null;
+                countOfDeletedPassangers++;
+            }
+            position++;
+        }
+        if (countOfDeletedPassangers == 0) return Controller.FAILED;
         return Controller.SUCCESSFULLY;
     }
-
+    @Override
+    public Controller work(int timeOfWorking) {
+        money = (int) Math.floor(timeOfWorking / 100 * profession.getSalary());
+        return Controller.SUCCESSFULLY;
+    }
+    @Override
+    public int getEarnedMoney(int timeOfWorking) {
+        return (int) Math.floor(timeOfWorking / 100 * profession.getSalary());
+    }
+    @Override
+    public Controller getInTheGroup(PersonGroup personGroupObj) {
+        Person[] participants = personGroupObj.getParticipants();
+        int countPassangers = 0;
+        for (Person passanger : participants) {
+            if (passanger != null) {
+                countPassangers++;
+            }
+        }
+        if (countPassangers <= personGroupObj.getCountOfParticipants()) {
+            int position = 0;
+            for (Person passanger : participants) {
+                if (passanger != null) {
+                    position++;
+                }
+            }
+            participants[position] = this;
+            personGroupObj.setParticipants(participants);
+            return Controller.SUCCESSFULLY;
+        } else {
+            return Controller.FAILED;
+        }
+    }
+    @Override
+    public Controller getOutTheGroup(PersonGroup personGroupObj) {
+        int position = 0;
+        Person[] participants = personGroupObj.getParticipants();
+        int countOfDeletedPassangers = 0;
+        for (Person iter : participants) {
+            if (iter == this) {
+                participants[position] = null;
+                countOfDeletedPassangers++;
+            }
+            position++;
+        }
+        if (countOfDeletedPassangers == 0) return Controller.FAILED;
+        return Controller.SUCCESSFULLY;
+    }
 
     @Override
     public int hashCode() {
