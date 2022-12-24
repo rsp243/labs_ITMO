@@ -18,6 +18,7 @@ import src.enums.Freedom;
 import src.enums.Material;
 import src.enums.MessageType;
 import src.enums.Profession;
+import src.enums.SatietyType;
 import src.enums.VehicleType;
 import src.enums.mealType;
 
@@ -26,6 +27,7 @@ public class App{
         var nezn = new Person("Незнайка");
         var poncho = new Person("Пончик");
         var kozl = new Person("Козлик");        
+        kozl.setCurrentCoordinates(new Coordinate(-500, 303, 0));
         var kluk = new Person("Клюква");
         var chizh = new Person("Чижик");
         var someone = new Person("Кто-то");
@@ -35,7 +37,6 @@ public class App{
         // !Refink field timeStart at Scenary Class!
         // Add some logic to Story: we need to sum up strings with same actions.
 
-        var me = new Person("");
         Location table = new Location("Стол", new Coordinate(0, 0, 0));
         Scenary st1Scenary1 = new Scenary(
                         poncho, "Сесть за " + table.getName().toLowerCase(), 
@@ -147,74 +148,138 @@ public class App{
                                 0, 0);
         }
         
-        var ponchosStory = new PonchosStory1();
+        var ponchosStory1 = new PonchosStory1();
         ArrayList<Scenary> arrayOfScenaryPonchoStory = new ArrayList<Scenary>();
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary1);
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary2);
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary3);
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary4);
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary5);
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary6);
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary7);
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary8);
-        arrayOfScenaryPonchoStory.add(ponchosStory.ponchoSenary9);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary1);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary2);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary3);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary4);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary5);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary6);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary7);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary8);
+        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoSenary9);
         Story storyAboutPoncho = new Story(arrayOfScenaryPonchoStory);
 
 
-        Scenary st2Scenary1 = new Scenary(
-                        someone, "Поставить на " + table.getName().toLowerCase(), 
-                        Controller.SUCCESSFULLY, 
-                        mealForPoncho2.getName(), 
-                        null, 
-                        0, 20);
-        Message storyAboutPonchoMsg1 = new Message("История, которая произошла с " + nezn.getName() + "(-ой/ом)", MessageType.TRULY);
-        Scenary st2Scenary2 = new Scenary(
-                        poncho, "Начать рассказывать", 
-                        poncho.speakTo(storyAboutPonchoMsg1), 
-                        storyAboutPonchoMsg1.getContent(), 
-                        null, 
-                        0, 0);
-        Location stupidIsland = new Location("Дурацкий остров", new Coordinate(100, 100, 0));
-        Scenary st2Scenary3 = new Scenary(poncho,
-                        "Попасть на '" + stupidIsland.getName() + "'", 
-                        poncho.goTo(stupidIsland), null, null, 
-                        0, poncho.getTimeGoing(stupidIsland));
-        Person[] allKorot = {nezn, poncho, kozl, kluk, chizh};
-        PersonGroup allKorotGroup = new PersonGroup("Все", allKorot, 5);
-        Location locationBridge = new Location("Мост", new Coordinate(15, 15, 0));
-        Person[] police = {};
-        PersonGroup policeBrigade = new PersonGroup("Полицейский патруль", police, 10);
-        Vehicle policeBobic = new Vehicle("Полицейский фургон", VehicleType.VAN, 15,
-                        new Person[15], locationBridge.getCoordinates(), 10); 
-        Location PoganosCity = new Location("город Лос-Поганос", new Coordinate(-500, 303, 0));
-        Scenary st2Scenary4effect = new Scenary(policeBrigade,
-                        "Задержать '" + allKorotGroup.getName() + "(-х)'", 
-                        policeBrigade.ControlFreedom(allKorotGroup, Freedom.PRISONED), null, null, 
-                        0, 300);        
-        Scenary st2Scenary4 = new Scenary(allKorotGroup, 
-                        "Спать под '" + locationBridge.getName() + "(-ом)'", 
-                        allKorotGroup.Sleep(locationBridge), null, st2Scenary4effect, 
-                        0, 3600);        
-        Scenary st2Scenary5 = new Scenary(policeBrigade, 
-                        "Посадить '" + allKorotGroup.getName() + "(-х)' в", 
-                        allKorotGroup.getInTheVehicle(policeBobic), policeBobic.getName(), null, 
-                        0, 40); 
-        Scenary st2Scenary6 = new Scenary(policeBobic, 
-                        "Поехать в '" + PoganosCity.getName() + "'", 
-                        policeBobic.goTo(PoganosCity), null, null, 
-                        0, policeBobic.getTimeGoing(PoganosCity)); 
-        Vehicle Ship = new Vehicle("Корабль", VehicleType.SHIP, 150, allKorot, PoganosCity.getCoordinates(), 35);
-        Person[] unHappyArray = {};
-        PersonGroup unHappyGroup = new PersonGroup("Несчастные", unHappyArray, 300);
-        Location holdOfShip = new Location("Трюм корабля", Ship.getCurrentCoordinates());
-
+        class PonchosStory2{
+                Scenary st2Scenary1 = new Scenary(
+                                someone, "Поставить на " + table.getName().toLowerCase(), 
+                                Controller.SUCCESSFULLY, 
+                                mealForPoncho2.getName(), 
+                                null, 
+                                0, 20);
+                Message storyAboutPonchoMsg1 = new Message("История, которая произошла с " + nezn.getName() + "(-ой/ом)", MessageType.TRULY);
+                Scenary st2Scenary2 = new Scenary(
+                                poncho, "Начать рассказывать", 
+                                poncho.speakTo(storyAboutPonchoMsg1), 
+                                storyAboutPonchoMsg1.getContent(), 
+                                null, 
+                                0, 0);
+                Location stupidIsland = new Location("Дурацкий остров", new Coordinate(100, 100, 0));
+                Scenary st2Scenary3 = new Scenary(poncho,
+                                "Попасть на '" + stupidIsland.getName() + "'", 
+                                poncho.goTo(stupidIsland), null, null, 
+                                0, poncho.getTimeGoing(stupidIsland));
+                Person[] allKorot = {nezn, poncho, kozl, kluk, chizh};
+                PersonGroup allKorotGroup = new PersonGroup("Все", allKorot, 5);
+                Location locationBridge = new Location("Мост", new Coordinate(15, 15, 0));
+                Person[] police = {};
+                PersonGroup policeBrigade = new PersonGroup("Полицейский патруль", police, 10);
+                Vehicle policeBobic = new Vehicle("Полицейский фургон", VehicleType.VAN, 15,
+                                new Person[15], locationBridge.getCoordinates(), 10); 
+                Location PoganosCity = new Location("город Лос-Поганос", new Coordinate(-500, 303, 0));
+                Scenary st2Scenary4effect = new Scenary(policeBrigade,
+                                "Задержать '" + allKorotGroup.getName() + "(-х)'", 
+                                policeBrigade.ControlFreedom(allKorotGroup, Freedom.PRISONED), null, null, 
+                                0, 300);        
+                Scenary st2Scenary4 = new Scenary(allKorotGroup, 
+                                "Спать под '" + locationBridge.getName() + "(-ом)'", 
+                                allKorotGroup.Sleep(locationBridge), null, st2Scenary4effect, 
+                                0, 3600);        
+                Scenary st2Scenary5 = new Scenary(policeBrigade, 
+                                "Посадить '" + allKorotGroup.getName() + "(-х)' в", 
+                                allKorotGroup.getInTheVehicle(policeBobic), policeBobic.getName(), null, 
+                                0, 40); 
+                Scenary st2Scenary6 = new Scenary(policeBobic, 
+                                "Поехать в '" + PoganosCity.getName() + "'", 
+                                policeBobic.goTo(PoganosCity), null, null, 
+                                0, policeBobic.getTimeGoing(PoganosCity)); 
+                Vehicle Ship = new Vehicle("Корабль", VehicleType.SHIP, 150, allKorot, PoganosCity.getCoordinates(), 35);
+                Person[] unHappyArray = {};
+                PersonGroup unHappyGroup = new PersonGroup("Несчастные", unHappyArray, 300);
+                Location holdOfShip = new Location("Трюм корабля", Ship.getCurrentCoordinates());
+                Scenary st2Scenary7 = new Scenary(someone, 
+                                "Посадить '" + unHappyGroup.getName() + "(-x)' в ", 
+                                unHappyGroup.goTo(holdOfShip), holdOfShip.getName(), null, 
+                                0, unHappyGroup.getTimeGoing(holdOfShip)); 
+                Scenary st2Scenary8 = new Scenary(someone, 
+                                "Посадить '" + allKorotGroup.getName() + "(-x)' в ", 
+                                allKorotGroup.goTo(holdOfShip), holdOfShip.getName(), null, 
+                                0, allKorotGroup.getTimeGoing(holdOfShip)); 
+                Message bye_byeMsg = new Message("Пока-пока", MessageType.TRULY);
+                Scenary st2Scenary9 = new Scenary(unHappyGroup, 
+                                "Прощаться c Родной Землей", 
+                                unHappyGroup.speakTo(bye_byeMsg), null, null, 
+                                0, 0); 
+                Clothes strawHat = new Clothes("Соломенная шляпа", Material.STRAW);
+                Clothes woolScarf = new Clothes("Шерстяной шарф", Material.WOOL);
+                Clothes[] golopuzClothes = {strawHat, woolScarf,}; 
+                EmotionType[] golopuzEmotionTypes = {EmotionType.MOTIVATED};
+                Person golopuz = new Person("Голопузый", "Толстенький",
+                                golopuzClothes, golopuzEmotionTypes, Freedom.PRISONED, 
+                                holdOfShip.getCoordinates(), 5, 0, 
+                                SatietyType.WELL_FED, Profession.UNEMPLOYED);
+                Location emptyBarrel = new Location("Пустая Бочка", holdOfShip.getCoordinates());
+                Scenary st2Scenary10effect = new Scenary(nezn, 
+                                "Плакать", 
+                                nezn.addEmotion(EmotionType.SADNESS), null, null, 
+                                0, 0); 
+                Scenary st2Scenary10 = new Scenary(nezn, 
+                                "Смотреть на '" + unHappyGroup.getName() + "(-x)'", 
+                                nezn.see(unHappyGroup), null, st2Scenary10effect, 
+                                0, 0); 
+                Scenary st2Scenary11 = new Scenary(golopuz, 
+                                "Встать на", 
+                                golopuz.goTo(emptyBarrel), emptyBarrel.getName(), null, 
+                                0, golopuz.getTimeGoing(emptyBarrel)); 
+                Scenary st2Scenary12 = new Scenary(golopuz, 
+                                "Начать вносить в группу '" + unHappyGroup.getName() + "' " + EmotionType.CALM.getName(), 
+                                golopuz.addEmotion(unHappyGroup, EmotionType.CALM), null, null, 
+                                0, 300); 
+                Scenary st2Scenary13 = new Scenary(kozl, 
+                                "Обидеться", 
+                                kozl.addEmotion(EmotionType.OFFENCE), null, null, 
+                                0, 0); 
+                Location nextoPosition = new Location("Рядом", new Coordinate(-500, 305, 0));
+                Scenary st2Scenary14 = new Scenary(kozl, 
+                                "Отойти, но быть " + nextoPosition.getName(), 
+                                kozl.goTo(nextoPosition), null, null, 
+                                0, kozl.getTimeGoing(nextoPosition));
+                Message bestFrase1 = new Message("Поживем -- увидим", MessageType.TRULY);
+                Message bestFrase2 = new Message("Сыты будем -- как-нибудь проживем", MessageType.TRULY);
+                Scenary st2Scenary15 = new Scenary(golopuz, 
+                                "Продолжать речь, повторять фразы '" + bestFrase1.getContent() + "'', '" + bestFrase2.getContent() + "'", 
+                                Controller.SUCCESSFULLY, null, null, 
+                                0, 0);
+        }
+        var ponchosStory2 = new PonchosStory2();
         ArrayList<Scenary> arrayOfScenarySentences2 = new ArrayList<Scenary>();
-        arrayOfScenarySentences2.add(st2Scenary1);
-        arrayOfScenarySentences2.add(st2Scenary2);
-        arrayOfScenarySentences2.add(st2Scenary3);
-        arrayOfScenarySentences2.add(st2Scenary4);
-        arrayOfScenarySentences2.add(st2Scenary5);
-        arrayOfScenarySentences2.add(st2Scenary6);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary1);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary2);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary3);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary4);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary5);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary6);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary7);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary8);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary9);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary10);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary11);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary12);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary13);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary14);
+        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary15);
 
 
         Story story2 = new Story(arrayOfScenarySentences2);
@@ -225,23 +290,6 @@ public class App{
         System.out.println(storyAboutPoncho.execute());
         System.out.println(story2.execute());
 
-        //                 Vehicle Ship = new Vehicle("Корабль", VehicleType.SHIP, 150, allKorot, new Coordinate(-505, 28), 35);
-        //                 Person[] unHappyArray = {};
-        //                 PersonGroup unHappyGroup = new PersonGroup("Несчастные", unHappyArray, 300);
-        //                 Location holdOfShip = new Location("Трюм корабля", Ship.getCurrentCoordinates());
-        //                 if (allKorotGroup.goTo(holdOfShip) != 0.0) {
-        //                         System.out.println(allKorotGroup.getName() + "х посадили в " + holdOfShip.getName().toLowerCase() + ", где уже были " + unHappyGroup.getCountOfParticipants() + " " + unHappyGroup.getName().toLowerCase() + "(-x)." );
-        //                         Message messageByeBye = new Message("Пока-пока", MessageType.TRULY);
-        //                         if (unHappyGroup.speakTo(messageByeBye) == true) {
-        //                                 System.out.println("Многие из них (" + unHappyGroup.getName().toLowerCase() + "(-x)) плакали, говоря '" + messageByeBye.getContent() + "' родной земле.");
-        //                                 Clothes strawHat = new Clothes("Соломенная шляпа", Material.STRAW);
-        //                                 Clothes woolScarf = new Clothes("Шерстяной шарф", Material.WOOL);
-        //                                 Clothes boots = new Clothes("Сапоги", Material.LEATHER);
-        //                                 Clothes shirt = new Clothes("Рубашка", Material.SYNTHETIC);
-        //                                 Clothes[] golopuzClothes = {strawHat, woolScarf,}; 
-        //                                 EmotionType[] golopuzEmotionTypes = {EmotionType.MOTIVATED};
-        //                                 Person golopuz = new Person("Голопузый", "Толстенький", golopuzClothes, golopuzEmotionTypes, Freedom.PRISONED, holdOfShip.getCoordinates() ,5);
-        //                                 Location emptyBarrel = new Location("Пустая Бочка", holdOfShip.getCoordinates());
         //                                 if (nezn.See(unHappyGroup) == unHappyGroup && nezn.addEmotion(EmotionType.SADNESS) == Controller.SUCCESSFULLY && golopuz.goTo(emptyBarrel) != -1  && golopuz.addEmotion(unHappyGroup, EmotionType.CALM) == Controller.SUCCESSFULLY) {
         //                                         System.out.println("Увидев " + nezn.See(unHappyGroup).getName().toLowerCase() + "(-x), " + nezn.getName() + " заплакал, а какой-то " +
         //                                         golopuz.getSecondName().toLowerCase() + " " + golopuz.getName() + " взобрался на " + emptyBarrel.getName().toLowerCase() + "(-у), которая стояла в " + holdOfShip.getName().toLowerCase() + "(-e), и пытался успокоить " + unHappyGroup.getName() + "(-x).");

@@ -50,23 +50,23 @@ public abstract class Creature implements MoveAction, SeeAction, EatAction{
         return satiety;
     }
     @Override
-    public Creature See(Creature seeingCreature) {
-        return seeingCreature;
+    public Controller see(Creature seeingCreature) {
+        return Controller.SUCCESSFULLY;
     }
 
     @Override
-    public PersonGroup See(PersonGroup seeingGroup) {
-        return seeingGroup;
+    public Controller see(PersonGroup seeingGroup) {
+        return Controller.SUCCESSFULLY;
     }
 
     @Override
-    public Location See(Location seeingLocation) {
-        return seeingLocation;
+    public Controller see(Location seeingLocation) {
+        return Controller.SUCCESSFULLY;
     }
 
     @Override
-    public Vehicle See(Vehicle seeingVehicle) {
-        return seeingVehicle;
+    public Controller see(Vehicle seeingVehicle) {
+        return Controller.SUCCESSFULLY;
     }
     
     @Override
