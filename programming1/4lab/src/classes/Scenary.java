@@ -101,7 +101,8 @@ public class Scenary implements Performable{
         } else {
             String actionStr = (subject != null && subject != "") ? action + " объект <" + subject + ">" : action;
             String timeOfDoing = timeDuration != 0 ? "за " + timeDuration + " секунд" : "моментально";
-            if ((personDoer != null && personGroupDoer != null && vehicleDoer != null) || (personDoer == null && personGroupDoer == null &&  vehicleDoer == null)) {
+            if ((personDoer != null && personGroupDoer != null && vehicleDoer != null) 
+            || (personDoer == null && personGroupDoer == null &&  vehicleDoer == null)) {
                 throw new TroubleWithDoerException("Возникла ошибка со сценарием. Ошибка с исполнителем.");
             } else {
                 String doer = (personGroupDoer == null && vehicleDoer == null) ? (personDoer.getName()) :

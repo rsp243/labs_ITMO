@@ -29,7 +29,7 @@ elif result == '100':
     for i in range(len(b)):
         if i == 0:
             correct += str(not b[i])
-        correct += str(b[i])
+        else: correct += str(b[i])
     correct = correct.replace("True", "1").replace("False", "0")
     print("Ошибка в 6ите 1. Верное сообщение:", correct)
 elif result == '010':
@@ -37,7 +37,7 @@ elif result == '010':
     for i in range(len(b)):
         if i == 1:
             correct += str(not b[i])
-        correct += str(b[i])
+        else: correct += str(b[i])
     correct = correct.replace("True", "1").replace("False", "0")
     print("Ошибка в 6ите 2. Верное сообщение:", correct)
 elif result == '110':    
@@ -45,7 +45,7 @@ elif result == '110':
     for i in range(len(b)):
         if i == 2:
             correct += str(not b[i])
-        correct += str(b[i])
+        else: correct += str(b[i])
     correct = correct.replace("True", "1").replace("False", "0")
     print("Ошибка в 6ите 3. Верное сообщение:", correct)
 elif result == '001':
@@ -53,7 +53,7 @@ elif result == '001':
     for i in range(len(b)):
         if i == 3:
             correct += str(not b[i])
-        correct += str(b[i])
+        else: correct += str(b[i])
     correct = correct.replace("True", "1").replace("False", "0")
     print("Ошибка в 6ите 4. Верное сообщение:", correct)
 elif result == '101':
@@ -61,7 +61,7 @@ elif result == '101':
     for i in range(len(b)):
         if i == 4:
             correct += str(not b[i])
-        correct += str(b[i])
+        else: correct += str(b[i])
     correct = correct.replace("True", "1").replace("False", "0")
     print("Ошибка в 6ите 5. Верное сообщение:", correct)
 elif result == '011':
@@ -69,7 +69,7 @@ elif result == '011':
     for i in range(len(b)):
         if i == 5:
             correct += str(not b[i])
-        correct += str(b[i])
+        else: correct += str(b[i])
     correct = correct.replace("True", "1").replace("False", "0")
     print("Ошибка в 6ите 6. Верное сообщение:", correct)
 elif result == '111':
@@ -77,6 +77,6 @@ elif result == '111':
     for i in range(len(b)):
         if i == 6:
             correct += str(not b[i])
-        correct += str(b[i])
+        else:correct += str(b[i])
     correct = correct.replace("True", "1").replace("False", "0")
     print("Ошибка в 6ите 7. Верное сообщение:", correct)

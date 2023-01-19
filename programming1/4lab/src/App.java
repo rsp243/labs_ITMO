@@ -34,7 +34,9 @@ public class App{
 
         poncho.setProfession(Profession.TRADING_SALT);
 
-        // !Refink field timeStart at Scenary Class!
+        // Do movement Controller to make dynamic methods realization
+        
+
         // Add some logic to Story: we need to sum up strings with same actions.
 
         Location table = new Location("Стол", new Coordinate(0, 0, 0));
@@ -77,50 +79,34 @@ public class App{
                         storyAboutPonchoMsg.getContent(), 
                         null, 
                         0);
-        ArrayList<Scenary> arrayOfScenarySentences1 = new ArrayList<Scenary>();
-        arrayOfScenarySentences1.add(st1Scenary1);
-        arrayOfScenarySentences1.add(st1Scenary2);
-        arrayOfScenarySentences1.add(st1Scenary3);
-        arrayOfScenarySentences1.add(st1Scenary4);
-        arrayOfScenarySentences1.add(st1Scenary5);
-        arrayOfScenarySentences1.add(st1Scenary6);
+        Scenary[] scArr = {st1Scenary1, st1Scenary2, st1Scenary3, st1Scenary4, st1Scenary5, st1Scenary6};
+        ArrayList<Scenary> arrayOfScenarySentences1 = new ArrayList<Scenary>(Arrays.asList(scArr));
         Story story1 = new Story(arrayOfScenarySentences1);
 
         // Forming Poncho's Story
         class PonchosStory1{
                 Person[] neznAndPonchoArray = {nezn, poncho};
-                // @GroupNeznAndPoncho
                 PersonGroup neznAndPonchoGroup = new PersonGroup("Незнайка с Пончиком", neznAndPonchoArray, 2);
-                // @Rocket
                 Vehicle rocket = new Vehicle("Ракета", VehicleType.ROCKET, 3, new Person[3], 
                                 new Coordinate(15, 15, 2), 200);        
-                // @SocietyOfFreeWheelers
                 PersonGroup societyOfFreeWheelers = new PersonGroup("Общество свободных крутильщиков", new Person[50], 50);
-                // @Moon
                 Location moon = new Location("Луна",
                                 new Coordinate(15, 15, 500000));
-                // @Cave
                 Location cave = new Location("Пещера", 
-                                                new Coordinate(15, 15, 500000));
-                // @UnderMoonSpace                       
+                                                new Coordinate(15, 15, 500000));                     
                 Location underMoonSpace = new Location("Подлунное пространство",
                                                 moon.getCoordinates());
-                
-                // @getInTheVehicle
                 Scenary ponchoScenary1 = new Scenary(neznAndPonchoGroup,
                                 "Залезть в " + rocket.getName().toLowerCase() + "(-у)",
                                 neznAndPonchoGroup.getInTheVehicle(rocket),
                                 null, null, 300);
-                // @goTo
                 Scenary ponchoScenary2 = new Scenary(neznAndPonchoGroup,
                                 "Отправиться на " + moon.getName().toLowerCase() + "(-у)", rocket.goTo(moon),
                                 null, null, rocket.getTimeGoing(moon));
-                // @goTo
                 Scenary ponchoScenary3 = new Scenary(neznAndPonchoGroup, 
                                 "Путешествовать по " + moon.getName().toLowerCase() + "(-e)",
                                 neznAndPonchoGroup.goTo(moon),
                                 null, null, 300);
-
                 Scenary ponchoScenary4 = new Scenary(neznAndPonchoGroup, 
                                 "Попасть в " + cave.getName().toLowerCase() + "(-y)",
                                 neznAndPonchoGroup.goTo(moon),
@@ -146,7 +132,6 @@ public class App{
                                 "Разориться", 
                                 poncho.setMoney(0), null, null, 
                                 0);
-                
                 Controller newPonchosProfessionController = poncho.setProfession(Profession.WORK_AT_WHEEL);
                 Scenary ponchoScenary9effect = new Scenary(poncho,
                                 "Стать членом '" + societyOfFreeWheelers.getName() + "'", 
@@ -158,16 +143,20 @@ public class App{
                                 0);
         }
         var ponchosStory1 = new PonchosStory1();
-        ArrayList<Scenary> arrayOfScenaryPonchoStory = new ArrayList<Scenary>();
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary1);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary2);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary3);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary4);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary5);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary6);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary7);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary8);
-        arrayOfScenaryPonchoStory.add(ponchosStory1.ponchoScenary9);
+        Scenary[] scArrPonchoStory = {
+                ponchosStory1.ponchoScenary1, 
+                ponchosStory1.ponchoScenary2, 
+                ponchosStory1.ponchoScenary3, 
+                ponchosStory1.ponchoScenary4, 
+                ponchosStory1.ponchoScenary5, 
+                ponchosStory1.ponchoScenary6, 
+                ponchosStory1.ponchoScenary7, 
+                ponchosStory1.ponchoScenary8,
+                ponchosStory1.ponchoScenary9,
+        };
+        ArrayList<Scenary> arrayOfScenaryPonchoStory = new ArrayList<Scenary>(Arrays.asList(scArrPonchoStory));
+
+        //Creating Poncho's Story
         Story storyAboutPoncho = new Story(arrayOfScenaryPonchoStory);
 
         class PonchosStory2{
@@ -309,33 +298,33 @@ public class App{
                                 "Сойти с '" + ship.getName().toLowerCase() + "(-я)'",
                                 unHappyGroup.getOutTheVehicle(ship), null, null,
                                 60);
-                                
-                
         }
         var ponchosStory2 = new PonchosStory2();
-        ArrayList<Scenary> arrayOfScenarySentences2 = new ArrayList<Scenary>();
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary1);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary2);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary3);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary4);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary5);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary6);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary7);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary8);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary9);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary10);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary11);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary12);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary13);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary14);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary15);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary16);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary17);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary18);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary19);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary20);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary21);
-        arrayOfScenarySentences2.add(ponchosStory2.st2Scenary22);
+        Scenary[] srArr2 = {
+                ponchosStory2.st2Scenary1,
+                ponchosStory2.st2Scenary2,
+                ponchosStory2.st2Scenary3,
+                ponchosStory2.st2Scenary4,
+                ponchosStory2.st2Scenary5,
+                ponchosStory2.st2Scenary6,
+                ponchosStory2.st2Scenary7,
+                ponchosStory2.st2Scenary8,
+                ponchosStory2.st2Scenary9,
+                ponchosStory2.st2Scenary10,
+                ponchosStory2.st2Scenary11,
+                ponchosStory2.st2Scenary12,
+                ponchosStory2.st2Scenary13,
+                ponchosStory2.st2Scenary14,
+                ponchosStory2.st2Scenary15,
+                ponchosStory2.st2Scenary16,
+                ponchosStory2.st2Scenary17,
+                ponchosStory2.st2Scenary18,
+                ponchosStory2.st2Scenary19,
+                ponchosStory2.st2Scenary20,
+                ponchosStory2.st2Scenary21,
+                ponchosStory2.st2Scenary22,
+        };
+        ArrayList<Scenary> arrayOfScenarySentences2 = new ArrayList<Scenary>(Arrays.asList(srArr2));
         Story story2 = new Story(arrayOfScenarySentences2);
 
         // System.out,println(...) Output stories

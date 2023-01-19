@@ -32,7 +32,7 @@ public abstract class Creature implements MoveAction, SeeAction, eatAction{
         return (int) Math.ceil(400 * distance / speed / 1000);
     }
     public String getName() {
-        return name;
+        return name;   
     }
     public Coordinate getCurrentCoordinates() {
         return currentCoordinates;
