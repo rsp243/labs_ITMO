@@ -47,33 +47,33 @@ Text of the task:
 
 Описание хранимых в коллекции классов:
 
-public class Organization {
-    private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Double annualTurnover; //Поле может быть null, Значение поля должно быть больше 0
-    private String fullName; //Поле может быть null
-    private OrganizationType type; //Поле может быть null
-    private Address postalAddress; //Поле не может быть null
-}
-public class Coordinates {
-    private Integer x; //Поле не может быть null
-    private int y; //Значение поля должно быть больше -598
-}
-public class Address {
-    private String street; //Длина строки не должна быть больше 157, Поле не может быть null
-    private Location town; //Поле может быть null
-}
-public class Location {
-    private Double x; //Поле не может быть null
-    private Float y; //Поле не может быть null
-    private String name; //Длина строки не должна быть больше 815, Поле может быть null
-}
-public enum OrganizationType {
-    GOVERNMENT,
-    TRUST,
-    PRIVATE_LIMITED_COMPANY,
-    OPEN_JOINT_STOCK_COMPANY;
-}
+    public class Organization {
+        private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+        private String name; //Поле не может быть null, Строка не может быть пустой
+        private Coordinates coordinates; //Поле не может быть null
+        private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+        private Double annualTurnover; //Поле может быть null, Значение поля должно быть больше 0
+        private String fullName; //Поле может быть null
+        private OrganizationType type; //Поле может быть null
+        private Address postalAddress; //Поле не может быть null
+    }
+    public class Coordinates {
+        private Integer x; //Поле не может быть null
+        private int y; //Значение поля должно быть больше -598
+    }
+    public class Address {
+        private String street; //Длина строки не должна быть больше 157, Поле не может быть null
+        private Location town; //Поле может быть null
+    }
+    public class Location {
+        private Double x; //Поле не может быть null
+        private Float y; //Поле не может быть null
+        private String name; //Длина строки не должна быть больше 815, Поле может быть null
+    }
+    public enum OrganizationType {
+        GOVERNMENT,
+        TRUST,
+        PRIVATE_LIMITED_COMPANY,
+        OPEN_JOINT_STOCK_COMPANY;
+    }
 
