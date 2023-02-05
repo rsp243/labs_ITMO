@@ -24,5 +24,10 @@ public class Address {
     public void setTown(Location town) {
         this.town = town;
     }
+
+    @Override
+    public String toString() {
+        return "Address [street=" + street + ", town=" + town + "]";
+    }
     
 }
