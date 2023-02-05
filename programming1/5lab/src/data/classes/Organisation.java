@@ -1,6 +1,7 @@
 package src.data.classes;
 
 import src.data.enums.OrganisationType;
+import src.fillers.Increment;
 
 public class Organisation {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -12,7 +13,8 @@ public class Organisation {
     private OrganisationType type; //Поле может быть null
     private Address postalAddress; //Поле не может быть null
 
-    public Organisation(String aName, Coordinates aCoordinates, Double anAnnualTurnover, String aFullName, OrganisationType aType, Address aPostalAddress) {
+    public Organisation(Increment inc, String aName, Coordinates aCoordinates, Double anAnnualTurnover, String aFullName, OrganisationType aType, Address aPostalAddress) {
+        id = inc.getIterId();
         name = aName;
         coordinates = aCoordinates;
         annualTurnover = anAnnualTurnover;
