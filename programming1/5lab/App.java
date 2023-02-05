@@ -17,12 +17,14 @@ import src.data.classes.Location;
 import src.data.classes.MainCollection;
 import src.data.classes.Organisation;
 import src.data.enums.OrganisationType;
+import src.fillers.Increment;
 
 class App {
     public static void main(String[] args) throws IOException {
         //Testing unique ID technolody 
-        Organisation org1 = new Organisation("ЛДПР", new Coordinates(1, 1), 2.8, "LDPR", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
-        Organisation org2 = new Organisation("ЛДПР", new Coordinates(1, 1), 2.8, "LDPR", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
+        Increment autoUniqueID = new Increment(1);
+        Organisation org1 = new Organisation(autoUniqueID, "ЛДПР", new Coordinates(1, 1), 2.8, "LDPR", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
+        Organisation org2 = new Organisation(autoUniqueID, "ЛДПР", new Coordinates(1, 1), 2.8, "LDPR", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
         System.out.println(org1.getId());
         System.out.println(org2.getId());
         
