@@ -1,4 +1,4 @@
-package src.enums;
+package src.data.enums;
 
 public enum OrganisationType {
     GOVERNMENT,
