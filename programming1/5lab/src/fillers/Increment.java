@@ -12,4 +12,8 @@ public class Increment {
         iterId += 1;
         return iterId;
     }
+
+    public int getCurrentID() {
+        return iterId;
+    }
 }

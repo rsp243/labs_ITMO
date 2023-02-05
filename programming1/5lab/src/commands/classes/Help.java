@@ -1,10 +1,8 @@
-package src.commands;
+package src.commands.classes;
 
 import java.util.ArrayList;
 
-public class Help extends Command{
-    private String name;
-    private String description;
+public class Help extends Command {
     private ArrayList<Command> listOfCommands;
 
     public Help(String aName, String aDescription, ArrayList<Command> aListOfCommands) {
@@ -14,18 +12,10 @@ public class Help extends Command{
 
     @Override
     public String execute() {
-        String strListOfCommands = this.toString() + "\n";
+        String strListOfCommands = this.toString();
         for (Command command : listOfCommands ) {
-            strListOfCommands += command.toString() + "\n";
+            strListOfCommands += "\n" + command.toString();
         }
         return strListOfCommands;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
     }
 }

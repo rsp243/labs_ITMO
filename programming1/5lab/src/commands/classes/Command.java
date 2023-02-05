@@ -1,4 +1,6 @@
-package src.commands;
+package src.commands.classes;
+
+import src.commands.interfaces.Executable;
 
 public abstract class Command implements Executable {
     private String name;
@@ -9,6 +11,14 @@ public abstract class Command implements Executable {
         description = aDescription;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    
     @Override
     public String toString() {
         return name + " - " + description;
