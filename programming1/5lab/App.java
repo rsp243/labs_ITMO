@@ -12,6 +12,7 @@ import src.commands.classes.Help;
 import src.commands.classes.Info;
 import src.commands.classes.Insert;
 import src.commands.classes.Show;
+import src.commands.classes.Update;
 import src.data.classes.Address;
 import src.data.classes.Coordinates;
 import src.data.classes.Location;
@@ -37,10 +38,17 @@ class App {
         
         ArrayList<Command> listOfCommands = new ArrayList<Command>();
 
+        //Creating and execution of "update" command 
+        Organisation org3 = new Organisation(autoUniqueID, "Компьютер", new Coordinates(1, 1), 2.8, "", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
+        Integer key1 = 1; 
+        Update updateCommand = new Update("update", "Update an element with typed key in the main collection ", mainCollection, org3, key1);
+        listOfCommands.add(updateCommand);
+        System.out.println(updateCommand.execute());
+
         //Creating and execution of "insert" command 
-        Organisation org3 = new Organisation(autoUniqueID, "Земля", new Coordinates(1, 1), 2.8, "Earth", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
-        Integer key = 5; 
-        Insert insertCommand = new Insert("insert", "Add into main collection an element with typed key", mainCollection, org3, key);
+        Organisation org4 = new Organisation(autoUniqueID, "Земля", new Coordinates(1, 1), 2.8, "Earth", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
+        Integer key2 = 5; 
+        Insert insertCommand = new Insert("insert", "Add an element with typed key into the main collection", mainCollection, org4, key2);
         listOfCommands.add(insertCommand);
         System.out.println(insertCommand.execute());
 

@@ -59,6 +59,16 @@ public class MainCollection {
         mainCollection.put(key, org);
         return strSuccess;
     }
+    
+    public String updateOrg(Integer key, Organisation org) {
+        String strSuccess = "Successufully";
+        if (mainCollection.containsKey(key)) {
+            mainCollection.replace(key, org);
+        } else {
+            strSuccess = "Failed";
+        }
+        return strSuccess;
+    }
 
     @Override
     public String toString() {
