@@ -37,13 +37,13 @@ class App {
         ArrayList<Command> listOfCommands = new ArrayList<Command>();
 
         //Creating and execution of "show" command 
-        Show showCommand = new Show("show", "Output all elements from collection", mainCollection.getMainCollection());
+        Show showCommand = new Show("show", "Output all elements from collection", mainCollection);
         listOfCommands.add(showCommand);
         System.out.println(showCommand.execute());
 
 
         //Creating and execution of "info" command 
-        Info infoCommand = new Info("info", "Output info about main collection", mainCollection.getMainCollection(), mainCollection.getDateOfInitialization());
+        Info infoCommand = new Info("info", "Output info about main collection", mainCollection);
         listOfCommands.add(infoCommand);
         System.out.println(infoCommand.execute());
 

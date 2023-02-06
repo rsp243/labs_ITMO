@@ -1,41 +1,26 @@
 package src.commands.classes;
 
-import java.util.Date;
-import java.util.HashMap;
-
-import src.data.classes.Organisation;
+import src.data.classes.MainCollection;
 
 public class Info extends Command {
-    private HashMap<Integer, Organisation> mainCollection;
-    private Date dateOfInitialization;
+    private MainCollection mainCollection;
 
-    public Info(String aName, String aDescription, HashMap<Integer, Organisation> aMainCollection, Date aDateOfInitialization) {
+    public Info(String aName, String aDescription, MainCollection aMainCollection) {
         super(aName, aDescription);
         mainCollection = aMainCollection;
-        dateOfInitialization = aDateOfInitialization;
     }
 
     @Override
     public String execute() {
         String strInfo = "";
         //Type / Class of main collection
-        strInfo += "Type = " + mainCollection.getClass() + "\n";
-        //Date of Initialisation of main collection
-        strInfo += "Date of initialisation = " + dateOfInitialization + "\n";
+        strInfo += "Type = " + mainCollection.getMainCollection().getClass() + "\n";
         //Size of main collection
-        strInfo += "Size = " + mainCollection.size();
+        strInfo += "Size = " + mainCollection.getMainCollection().size() + "\n";
+        //Date of Initialisation of main collection
+        strInfo += "Date of initialisation = " + mainCollection.getDateOfInitialization() + "\n";
+        //Date of last change of main collection
+        strInfo += "Date of last change = " + mainCollection.getDateOfLastChange();
         return strInfo;
-    }
-
-    public HashMap<Integer, Organisation> getMainCollection() {
-        return mainCollection;
-    }
-
-    public void setMainCollection(HashMap<Integer, Organisation> mainCollection) {
-        this.mainCollection = mainCollection;
-    }
-
-    public Date getDateOfInitialization() {
-        return dateOfInitialization;
     }
 }

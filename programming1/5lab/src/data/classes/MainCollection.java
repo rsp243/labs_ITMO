@@ -8,8 +8,10 @@ import src.fillers.Increment;
 
 public class MainCollection {
     private HashMap<Integer, Organisation> mainCollection;
-    private Date dateOfInitialization;
     private Increment autoIncrementedKey = new Increment(1);
+    private Date dateOfInitialization;
+    private Date dateOfLastChange;
+
 
     public MainCollection(ArrayList<Organisation> arrayOfOrganisations) {
         mainCollection = new HashMap<>();
@@ -17,6 +19,7 @@ public class MainCollection {
             mainCollection.put(autoIncrementedKey.getNewId() ,org);
         }
         dateOfInitialization = new Date();
+        dateOfLastChange = new Date();
     }
 
     public HashMap<Integer, Organisation> getMainCollection() {
@@ -39,9 +42,26 @@ public class MainCollection {
         return autoIncrementedKey.getCurrentID();
     }
 
+    public String getAllTextOrgs() {
+        String strShowOrganisations = "";
+        if (mainCollection.size() != 0) {
+            strShowOrganisations += mainCollection.get(1).toString();
+            for (int iter = 2; iter <= mainCollection.size(); iter++) {
+                strShowOrganisations += "\n" + mainCollection.get(iter).toString();
+            }
+        } else {
+            strShowOrganisations = "No elements in main collection";
+        }
+        return strShowOrganisations;
+    }
+
     @Override
     public String toString() {
         return "MainCollection [mainCollection=" + mainCollection + ", dateOfInitialization=" + dateOfInitialization
                 + ", autoIncrementedKey=" + autoIncrementedKey + "]";
+    }
+
+    public Date getDateOfLastChange() {
+        return dateOfLastChange;
     }
 }
