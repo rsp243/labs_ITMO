@@ -3,20 +3,18 @@ package src.commands.classes;
 import src.data.classes.MainCollection;
 import src.data.classes.Organisation;
 
-public class Insert extends Command {
+public class Remove_key extends Command {
     private MainCollection mainCollection;
-    private Organisation newOrganisation;
     private Integer keyOfOrg;
 
-    public Insert(String aName, String aDescription, MainCollection aMainCollection, Organisation aNewOrganisation, Integer aKeyOfOrg) {
+    public Remove_key(String aName, String aDescription, MainCollection aMainCollection, Integer aKeyOfOrg) {
         super(aName, aDescription);
         mainCollection = aMainCollection;
-        newOrganisation = aNewOrganisation;
         keyOfOrg = aKeyOfOrg;
     }
 
     @Override
     public String execute() {
-        return mainCollection.addNewOrg(keyOfOrg, newOrganisation);
+        return mainCollection.removeOrg(keyOfOrg);
     }
 }

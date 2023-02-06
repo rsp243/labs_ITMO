@@ -54,7 +54,7 @@ public class MainCollection {
         return strShowOrganisations;
     }
 
-    public String addNewOrgIntoCollection(Integer key, Organisation org) {
+    public String addNewOrg(Integer key, Organisation org) {
         String strSuccess = "Successufully";
         mainCollection.put(key, org);
         return strSuccess;
@@ -64,6 +64,16 @@ public class MainCollection {
         String strSuccess = "Successufully";
         if (mainCollection.containsKey(key)) {
             mainCollection.replace(key, org);
+        } else {
+            strSuccess = "Failed";
+        }
+        return strSuccess;
+    }
+
+    public String removeOrg(Integer key) {
+        String strSuccess = "Successufully";
+        if (mainCollection.containsKey(key)) {
+            mainCollection.remove(key);
         } else {
             strSuccess = "Failed";
         }
