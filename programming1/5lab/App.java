@@ -10,6 +10,7 @@ import java.util.List;
 import src.commands.classes.Command;
 import src.commands.classes.Help;
 import src.commands.classes.Info;
+import src.commands.classes.Insert;
 import src.commands.classes.Show;
 import src.data.classes.Address;
 import src.data.classes.Coordinates;
@@ -23,8 +24,8 @@ class App {
     public static void main(String[] args) throws IOException {
         //Testing unique ID technolody 
         Increment autoUniqueID = new Increment(1);
-        Organisation org1 = new Organisation(autoUniqueID, "ЛДПР", new Coordinates(1, 1), 2.8, "LDPR", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
-        Organisation org2 = new Organisation(autoUniqueID, "ЛДПР", new Coordinates(1, 1), 2.8, "LDPR", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
+        Organisation org1 = new Organisation(autoUniqueID, "Группа людeй1", new Coordinates(1, 1), 2.8, "Group1", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
+        Organisation org2 = new Organisation(autoUniqueID, "Группа людeй2", new Coordinates(1, 1), 2.8, "Group2", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
         System.out.println(org1.getId());
         System.out.println(org2.getId());
         
@@ -35,6 +36,13 @@ class App {
         MainCollection mainCollection = new MainCollection(arrayOfOrganisations);
         
         ArrayList<Command> listOfCommands = new ArrayList<Command>();
+
+        //Creating and execution of "insert" command 
+        Organisation org3 = new Organisation(autoUniqueID, "Земля", new Coordinates(1, 1), 2.8, "Earth", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
+        Integer key = 5; 
+        Insert insertCommand = new Insert("insert", "Add into main collection an element with typed key", mainCollection, org3, key);
+        listOfCommands.add(insertCommand);
+        System.out.println(insertCommand.execute());
 
         //Creating and execution of "show" command 
         Show showCommand = new Show("show", "Output all elements from collection", mainCollection);

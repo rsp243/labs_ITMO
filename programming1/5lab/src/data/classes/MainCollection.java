@@ -16,7 +16,7 @@ public class MainCollection {
     public MainCollection(ArrayList<Organisation> arrayOfOrganisations) {
         mainCollection = new HashMap<>();
         for (Organisation org : arrayOfOrganisations) {
-            mainCollection.put(autoIncrementedKey.getNewId() ,org);
+            mainCollection.put(autoIncrementedKey.getNewId(), org);
         }
         dateOfInitialization = new Date();
         dateOfLastChange = new Date();
@@ -45,14 +45,19 @@ public class MainCollection {
     public String getAllTextOrgs() {
         String strShowOrganisations = "";
         if (mainCollection.size() != 0) {
-            strShowOrganisations += mainCollection.get(1).toString();
-            for (int iter = 2; iter <= mainCollection.size(); iter++) {
-                strShowOrganisations += "\n" + mainCollection.get(iter).toString();
+            for (Integer iter: mainCollection.keySet()) {
+                strShowOrganisations += "Key = " + iter + ", " + mainCollection.get(iter).toString() + "\n";
             }
         } else {
             strShowOrganisations = "No elements in main collection";
         }
         return strShowOrganisations;
+    }
+
+    public String addNewOrgIntoCollection(Integer key, Organisation org) {
+        String strSuccess = "Successufully";
+        mainCollection.put(key, org);
+        return strSuccess;
     }
 
     @Override
