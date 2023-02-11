@@ -1,7 +1,6 @@
 package src.commands.classes;
 
 import src.data.classes.MainCollection;
-import src.data.classes.Organisation;
 
 public class Remove_key extends Command {
     private MainCollection mainCollection;

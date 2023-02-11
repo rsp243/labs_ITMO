@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import src.commands.classes.Command;
 import src.commands.classes.Help;
