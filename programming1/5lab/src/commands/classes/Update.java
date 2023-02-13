@@ -1,22 +1,22 @@
 package src.commands.classes;
 
+import src.data.classes.City;
 import src.data.classes.MainCollection;
-import src.data.classes.Organisation;
 
 public class Update extends Command {
     private MainCollection mainCollection;
-    private Organisation updatedOrganisation;
-    private Integer keyOfOrg;
+    private City updatedCity;
+    private Integer keyOfCity;
 
-    public Update(String aName, String aDescription, MainCollection aMainCollection, Organisation aUpdatedOrganisation, Integer aKeyOfOrg) {
+    public Update(String aName, String aDescription, MainCollection aMainCollection, City anUpdatedCity, Integer aKeyOfCity) {
         super(aName, aDescription);
         mainCollection = aMainCollection;
-        updatedOrganisation = aUpdatedOrganisation;
-        keyOfOrg = aKeyOfOrg;
+        updatedCity = anUpdatedCity;
+        keyOfCity = aKeyOfCity;
     }
     
     @Override
     public String execute() {
-        return mainCollection.updateOrg(keyOfOrg, updatedOrganisation);
+        return mainCollection.updateOrg(keyOfCity, updatedCity);
     }
 }

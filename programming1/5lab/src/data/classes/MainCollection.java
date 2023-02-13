@@ -2,31 +2,31 @@ package src.data.classes;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import src.fillers.Increment;
 
 public class MainCollection {
-    private HashMap<Integer, Organisation> mainCollection;
+    private LinkedHashMap<Integer, City> mainCollection;
     private Increment autoIncrementedKey = new Increment(1);
     private Date dateOfInitialization;
     private Date dateOfLastChange;
 
 
-    public MainCollection(ArrayList<Organisation> arrayOfOrganisations) {
-        mainCollection = new HashMap<>();
-        for (Organisation org : arrayOfOrganisations) {
-            mainCollection.put(autoIncrementedKey.getNewId(), org);
+    public MainCollection(ArrayList<City> arrayOfCities) {
+        mainCollection = new LinkedHashMap<>();
+        for (City  city : arrayOfCities) {
+            mainCollection.put(autoIncrementedKey.getNewId(), city);
         }
         dateOfInitialization = new Date();
         dateOfLastChange = new Date();
     }
 
-    public HashMap<Integer, Organisation> getMainCollection() {
+    public LinkedHashMap<Integer, City> getMainCollection() {
         return mainCollection;
     }
 
-    public void setMainCollection(HashMap<Integer, Organisation> mainCollection) {
+    public void setMainCollection(LinkedHashMap<Integer, City> mainCollection) {
         this.mainCollection = mainCollection;
     }
 
@@ -54,16 +54,16 @@ public class MainCollection {
         return strShowOrganisations;
     }
 
-    public String addNewOrg(Integer key, Organisation org) {
+    public String addNewOrg(Integer key, City city) {
         String strSuccess = "Successufully";
-        mainCollection.put(key, org);
+        mainCollection.put(key, city);
         return strSuccess;
     }
     
-    public String updateOrg(Integer key, Organisation org) {
+    public String updateOrg(Integer key, City city) {
         String strSuccess = "Successufully";
         if (mainCollection.containsKey(key)) {
-            mainCollection.replace(key, org);
+            mainCollection.replace(key, city);
         } else {
             strSuccess = "Failed";
         }

@@ -17,17 +17,15 @@ import src.commands.classes.Insert;
 import src.commands.classes.Remove_key;
 import src.commands.classes.Show;
 import src.commands.classes.Update;
-import src.data.classes.Address;
 import src.data.classes.Coordinates;
-import src.data.classes.Location;
 import src.data.classes.MainCollection;
-import src.data.classes.Organisation;
 import src.data.enums.OrganisationType;
 import src.fillers.Increment;
 
 class App {
     public static void main(String[] args) throws IOException {
-        //Testing unique ID technolody 
+        
+        /*//Testing unique ID technolody 
         Increment autoUniqueID = new Increment(1);
         Organisation org1 = new Organisation(autoUniqueID, "Группа людeй1", new Coordinates(1, 1), 2.8, "Group1", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
         Organisation org2 = new Organisation(autoUniqueID, "Группа людeй2", new Coordinates(1, 1), 2.8, "Group2", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));
@@ -92,6 +90,6 @@ class App {
         }
 
         // Closing Streams & Readers
-        out.close();
+        out.close();*/
     }
 }

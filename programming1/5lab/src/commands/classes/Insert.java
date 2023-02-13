@@ -1,22 +1,22 @@
 package src.commands.classes;
 
+import src.data.classes.City;
 import src.data.classes.MainCollection;
-import src.data.classes.Organisation;
 
 public class Insert extends Command {
     private MainCollection mainCollection;
-    private Organisation newOrganisation;
+    private City newCity;
     private Integer keyOfOrg;
 
-    public Insert(String aName, String aDescription, MainCollection aMainCollection, Organisation aNewOrganisation, Integer aKeyOfOrg) {
+    public Insert(String aName, String aDescription, MainCollection aMainCollection, City aNewCity, Integer aKeyOfCity) {
         super(aName, aDescription);
         mainCollection = aMainCollection;
-        newOrganisation = aNewOrganisation;
-        keyOfOrg = aKeyOfOrg;
+        newCity = aNewCity;
+        keyOfOrg = aKeyOfCity;
     }
 
     @Override
     public String execute() {
-        return mainCollection.addNewOrg(keyOfOrg, newOrganisation);
+        return mainCollection.addNewOrg(keyOfOrg, newCity);
     }
 }
