@@ -4,15 +4,8 @@ import src.data.classes.City;
 import src.data.classes.MainCollection;
 
 public class Insert extends Command {
-    private MainCollection mainCollection;
-    private City newCity;
-    private Integer keyOfOrg;
-
-    public Insert(String aName, String aDescription, MainCollection aMainCollection, City aNewCity, Integer aKeyOfCity) {
-        super(aName, aDescription);
-        mainCollection = aMainCollection;
-        newCity = aNewCity;
-        keyOfOrg = aKeyOfCity;
+    public Insert() {
+        super("insert", "Add an element with typed key into the main collection");
     }
 
     @Override

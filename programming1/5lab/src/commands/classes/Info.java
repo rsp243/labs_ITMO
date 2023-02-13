@@ -1,26 +1,23 @@
 package src.commands.classes;
 
-import src.data.classes.MainCollection;
+import java.util.ArrayList;
 
 public class Info extends Command {
-    private MainCollection mainCollection;
-
-    public Info(String aName, String aDescription, MainCollection aMainCollection) {
-        super(aName, aDescription);
-        mainCollection = aMainCollection;
+    public Info() {
+        super("info", "Output info about main collection");
     }
 
     @Override
-    public String execute() {
-        String strInfo = "";
+    public String execute(CollectionWorker worker, ArrayList<String> arguments) {
+        StringBuilder execution = new StringBuilder();
         //Type / Class of main collection
-        strInfo += "Type = " + mainCollection.getMainCollection().getClass() + "\n";
+        execution.append("Type = " + worker.getDataBase().getMainCollection().getClass() + "\n");
         //Size of main collection
-        strInfo += "Size = " + mainCollection.getMainCollection().size() + "\n";
+        execution.append("Size = " + worker.getDataBase().getMainCollection().size() + "\n");
         //Date of Initialisation of main collection
-        strInfo += "Date of initialisation = " + mainCollection.getDateOfInitialization() + "\n";
+        execution.append("Date of initialisation = " + worker.getDataBase().getDateOfInitialization() + "\n");
         //Date of last change of main collection
-        strInfo += "Date of last change = " + mainCollection.getDateOfLastChange();
-        return strInfo;
+        execution.append("Date of last change = " + worker.getDataBase().getDateOfLastChange());
+        return execution.toString();
     }
 }

@@ -2,7 +2,7 @@ package src.data.classes;
 
 import java.time.LocalDate;
 
-import src.data.enums.OrganisationType;
+import src.data.enums.Climate;
 import src.fillers.Increment;
 
 public class City {

@@ -1,30 +1,21 @@
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
-import src.commands.classes.Command;
-import src.commands.classes.Help;
-import src.commands.classes.Info;
-import src.commands.classes.Insert;
-import src.commands.classes.Remove_key;
-import src.commands.classes.Show;
-import src.commands.classes.Update;
-import src.data.classes.Coordinates;
-import src.data.classes.MainCollection;
-import src.data.enums.OrganisationType;
-import src.fillers.Increment;
+import src.commands.classes.CollectionWorker;
+import src.commands.classes.CommandController;
+import src.data.classes.LocalDatabase;
 
 class App {
     public static void main(String[] args) throws IOException {
-        
+        LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
+        CollectionWorker dataWorker = new CollectionWorker(localDatabase); //Вероятнее всего, жестчайщая жесть. Так нельзя писать.
+        CommandController commandController = new CommandController();
+        ArrayList<String> commandsExecArray = new ArrayList<>();
+        commandsExecArray.add("help");
+        commandsExecArray.add("info");
+        System.out.print(commandController.execute(dataWorker, commandsExecArray));
+
+
         /*//Testing unique ID technolody 
         Increment autoUniqueID = new Increment(1);
         Organisation org1 = new Organisation(autoUniqueID, "Группа людeй1", new Coordinates(1, 1), 2.8, "Group1", OrganisationType.GOVERNMENT, new Address("ул. Ленина", new Location(1.0, 1F, "Санкт-Петербург")));

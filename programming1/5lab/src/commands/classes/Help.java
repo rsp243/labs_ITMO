@@ -1,21 +1,18 @@
 package src.commands.classes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Help extends Command {
-    private ArrayList<Command> listOfCommands;
-
-    public Help(String aName, String aDescription, ArrayList<Command> aListOfCommands) {
-        super(aName, aDescription);
-        listOfCommands = aListOfCommands;
+    Collection<Command> collectionOfCommands;
+    
+    public Help(Collection<Command> aCollectionOfCommands) {
+        super("help", "Output info about all commands");
+        collectionOfCommands = aCollectionOfCommands;
     }
 
     @Override
-    public String execute() {
-        String strListOfCommands = this.toString();
-        for (Command command : listOfCommands ) {
-            strListOfCommands += "\n" + command.toString();
-        }
-        return strListOfCommands;
+    public String execute(CollectionWorker worker, ArrayList<String> arguments) {
+        return collectionOfCommands.toString();
     }
 }

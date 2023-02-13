@@ -6,14 +6,13 @@ import java.util.LinkedHashMap;
 
 import src.fillers.Increment;
 
-public class MainCollection {
+public class LocalDatabase {
     private LinkedHashMap<Integer, City> mainCollection;
     private Increment autoIncrementedKey = new Increment(1);
-    private Date dateOfInitialization;
+    private final Date dateOfInitialization;
     private Date dateOfLastChange;
 
-
-    public MainCollection(ArrayList<City> arrayOfCities) {
+    public LocalDatabase(ArrayList<City> arrayOfCities) {
         mainCollection = new LinkedHashMap<>();
         for (City  city : arrayOfCities) {
             mainCollection.put(autoIncrementedKey.getNewId(), city);
@@ -32,10 +31,6 @@ public class MainCollection {
 
     public Date getDateOfInitialization() {
         return dateOfInitialization;
-    }
-
-    public void setDateOfInitialization(Date dateOfInitialization) {
-        this.dateOfInitialization = dateOfInitialization;
     }
 
     public Integer getAutoIncrementedKey() {

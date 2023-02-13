@@ -1,4 +1,4 @@
-package src.data.classes;
+package src.data.enums;
 
 public enum Climate {
     RAIN_FOREST,
