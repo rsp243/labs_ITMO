@@ -10,6 +10,7 @@ class App {
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
         CollectionWorker dataWorker = new CollectionWorker(localDatabase); //Вероятнее всего, жестчайщая жесть. Так нельзя писать.
         CommandController commandController = new CommandController();
+        
         String helpName = "help";
         String infoName = "info";
         ArrayList<String> extraCommandArguments = new ArrayList<>();
