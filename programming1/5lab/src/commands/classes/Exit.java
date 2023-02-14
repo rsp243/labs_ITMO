@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Exit extends Command {
     public Exit() {
-        super("exit", "End the program execution (without saving data into the Storage)");
+        super("exit", "End the program execution (without saving data into the storage)");
     }
 
     @Override
