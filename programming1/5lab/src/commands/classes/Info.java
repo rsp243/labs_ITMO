@@ -8,7 +8,7 @@ public class Info extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> arguments) {
+    public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
         StringBuilder execution = new StringBuilder();
         //Type / Class of main collection
         execution.append("Type = " + worker.getDataBase().getMainCollection().getClass() + "\n");

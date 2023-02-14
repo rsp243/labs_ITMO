@@ -22,14 +22,12 @@ public class CommandController implements Executable {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> arguments) {
+    public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
         StringBuilder execution = new StringBuilder();
-        for (String argument : arguments) {
-            if (mapOfCommands.containsKey(argument)) {
-                execution.append(mapOfCommands.get(argument).execute(worker, new ArrayList<String>()) + "\n");// Adding into String Builder argument.execute()
-            } else {
-                execution.append("There is no comand with that name. Try again.\n"); // return "There is no comand with that name. Try again."
-            }
+        if (mapOfCommands.containsKey(nameOfCommand)) {
+            execution.append(mapOfCommands.get(nameOfCommand).execute(worker, nameOfCommand, extraArguments) + "\n");// Adding into String Builder argument.execute()
+        } else {
+            execution.append("There is no comand with that name. Try again.\n"); // return "There is no comand with that name. Try again."
         }
         return execution.toString();
     }

@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import src.commands.classes.CollectionWorker;
 
 public interface Executable {
-    public String execute(CollectionWorker worker, ArrayList<String> arguments);
+    public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments);
 }

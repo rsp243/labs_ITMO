@@ -12,7 +12,7 @@ public class Help extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> arguments) {
+    public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
         return collectionOfCommands.toString();
     }
 }

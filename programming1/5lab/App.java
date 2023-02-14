@@ -10,10 +10,12 @@ class App {
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
         CollectionWorker dataWorker = new CollectionWorker(localDatabase); //Вероятнее всего, жестчайщая жесть. Так нельзя писать.
         CommandController commandController = new CommandController();
-        ArrayList<String> commandsExecArray = new ArrayList<>();
-        commandsExecArray.add("help");
-        commandsExecArray.add("info");
-        System.out.print(commandController.execute(dataWorker, commandsExecArray));
+        String helpName = "help";
+        String infoName = "info";
+        ArrayList<String> extraCommandArguments = new ArrayList<>();
+        System.out.println(commandController.execute(dataWorker, helpName, extraCommandArguments));
+        System.out.println(commandController.execute(dataWorker, infoName, extraCommandArguments));
+
 
 
         /*//Testing unique ID technolody 
