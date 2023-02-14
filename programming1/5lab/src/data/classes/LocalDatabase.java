@@ -25,10 +25,6 @@ public class LocalDatabase {
         return mainCollection;
     }
 
-    public void setMainCollection(LinkedHashMap<Integer, City> mainCollection) {
-        this.mainCollection = mainCollection;
-    }
-
     public Date getDateOfInitialization() {
         return dateOfInitialization;
     }
