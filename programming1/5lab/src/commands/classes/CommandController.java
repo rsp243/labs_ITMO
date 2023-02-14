@@ -13,6 +13,8 @@ public class CommandController implements Executable {
         mapOfCommands = new HashMap<>();
         Info infoCommand = new Info();
         mapOfCommands.put("info", infoCommand);
+        Exit exitCommand = new Exit();
+        mapOfCommands.put("exit", exitCommand);
         Help helpCommand = new Help(mapOfCommands.values());
         mapOfCommands.put("help", helpCommand);
     }
@@ -27,7 +29,7 @@ public class CommandController implements Executable {
         if (mapOfCommands.containsKey(nameOfCommand)) {
             execution.append(mapOfCommands.get(nameOfCommand).execute(worker, nameOfCommand, extraArguments) + "\n");// Adding into String Builder argument.execute()
         } else {
-            execution.append("There is no comand with that name. Try again.\n"); // return "There is no comand with that name. Try again."
+            execution.append("There is no command with that name. Try again.\n"); // return "There is no comand with that name. Try again."
         }
         return execution.toString();
     }
