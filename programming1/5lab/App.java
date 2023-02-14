@@ -12,8 +12,8 @@ class App {
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
         CollectionWorker dataWorker = new CollectionWorker(localDatabase); //Вероятнее всего, жестчайщая жесть. Так нельзя писать.
         CommandController commandController = new CommandController();
-        StreamController cliController = new StreamController(StreamType.INPUT_CLI);
-        cliController.openStream(commandController, dataWorker);
+        StreamController cliController = new StreamController(StreamType.INPUT_CLI, StreamType.OUTPUT_CLI);
+        cliController.openStream(commandController, dataWorker, "");
         String helpName = "help";
         String infoName = "info";
         ArrayList<String> extraCommandArguments = new ArrayList<>();
