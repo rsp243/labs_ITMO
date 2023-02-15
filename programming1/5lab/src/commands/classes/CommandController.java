@@ -11,12 +11,12 @@ public class CommandController implements Executable {
 
     public CommandController() {
         mapOfCommands = new HashMap<>();
+        Help helpCommand = new Help(mapOfCommands.values());
+        mapOfCommands.put("help", helpCommand);
         Info infoCommand = new Info();
         mapOfCommands.put("info", infoCommand);
         Exit exitCommand = new Exit();
         mapOfCommands.put("exit", exitCommand);
-        Help helpCommand = new Help(mapOfCommands.values());
-        mapOfCommands.put("help", helpCommand);
     }
 
     public Map<String, Command> getMapOfCommands() {

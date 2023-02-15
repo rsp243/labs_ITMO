@@ -1,12 +1,9 @@
 package src.streams;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-
 import src.commands.classes.CollectionWorker;
 import src.commands.classes.CommandController;
+import src.streams.in.InCLIstream;
+import src.streams.out.OutCLIstream;
 
 public class StreamController implements StreamOpenerInterface{
     private StreamType inputStreamType;
@@ -27,37 +24,20 @@ public class StreamController implements StreamOpenerInterface{
 
     // Do split to input streams and output streams to current dirrectories
     @Override
-    public void openStream(CommandController commandController, CollectionWorker dataWorker, String outputData) {
-        switch (inputStreamType) {
-            case INPUT_CLI: {
-                BufferedReader inpReader = new BufferedReader(new InputStreamReader(System.in));
-                StreamController outputDataStreamController = this;
-                try {
-                    while (true) {
-                        String inputData = inpReader.readLine();
-                        if (inputData != null) {
-                            inputData = inputData.trim();
-                            String commandName = inputData.split(" ")[0];
-                            ArrayList<String> extraArguments = new ArrayList<String>();
-                            for (String extraData : inputData.substring(commandName.length()).split(" ")) {
-                                extraArguments.add(extraData);
-                            };
-                            outputDataStreamController.openStream(commandController, dataWorker, commandController.execute(dataWorker, commandName, extraArguments));
-                        } else {
-                            inpReader.close();
-                            break;
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    public void openStream(CommandController commandController, CollectionWorker dataWorker) {
+        OutCLIstream outputCLIStream = null;
+        switch (outputStreamType) {
+            case OUTPUT_CLI: {
+                outputCLIStream = new OutCLIstream();
                 break;
             }
             default: System.out.print("Invalid Input Stream Type");
         }
-        switch (outputStreamType) {
-            case OUTPUT_CLI: {
-                System.out.print(outputData);
+        switch (inputStreamType) {
+            case INPUT_CLI: {
+                // Creating object of CLIstream and taking data from it
+                InCLIstream inputCLIStream = new InCLIstream();
+                inputCLIStream.openInputStream(outputCLIStream, commandController, dataWorker);
                 break;
             }
             default: System.out.print("Invalid Input Stream Type");
