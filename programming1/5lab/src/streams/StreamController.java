@@ -25,7 +25,7 @@ public class StreamController implements StreamOpenerInterface{
     // Do split to input streams and output streams to current dirrectories
     @Override
     public void openStream(CommandController commandController, CollectionWorker dataWorker) {
-        OutCLIstream outputCLIStream = null;
+        OutCLIstream outputCLIStream = new OutCLIstream();
         switch (outputStreamType) {
             case OUTPUT_CLI: {
                 outputCLIStream = new OutCLIstream();

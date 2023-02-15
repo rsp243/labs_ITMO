@@ -7,5 +7,5 @@ import src.commands.classes.CommandController;
 import src.streams.DataInOutStatus;
 
 public interface OutputStreamsOpening {
-    public DataInOutStatus openOutputStream(CommandController commandController, CollectionWorker dataWorker, String commandName, ArrayList<String> outputData);
+    public DataInOutStatus openOutputStream(CommandController commandController, CollectionWorker dataWorker, String commandName, ArrayList<String> extraArguments);
 }
