@@ -2,14 +2,14 @@ package src.streams;
 
 import src.commands.classes.CollectionWorker;
 import src.commands.classes.CommandController;
-import src.streams.in.InCLIstream;
+import src.streams.in.CLIstream;
 import src.streams.out.OutCLIstream;
 
-public class StreamController implements StreamOpenerInterface{
+public class StreamOpener implements StreamOpenerInterface{
     private StreamType inputStreamType;
     private StreamType outputStreamType;
     
-    public StreamController(StreamType anInputStreamType, StreamType anOutputStreamType) {
+    public StreamOpener(StreamType anInputStreamType, StreamType anOutputStreamType) {
         inputStreamType = anInputStreamType;
         outputStreamType = anOutputStreamType;
     }
@@ -36,8 +36,8 @@ public class StreamController implements StreamOpenerInterface{
         switch (inputStreamType) {
             case INPUT_CLI: {
                 // Creating object of CLIstream and taking data from it
-                InCLIstream inputCLIStream = new InCLIstream();
-                inputCLIStream.openInputStream(outputCLIStream, commandController, dataWorker);
+                CLIstream inputCLIStream = new CLIstream();
+                inputCLIStream.openCLIStream(outputCLIStream, commandController, dataWorker);
                 break;
             }
             default: System.out.print("Invalid Input Stream Type");

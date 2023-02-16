@@ -10,11 +10,11 @@ import src.commands.classes.CommandController;
 import src.streams.DataInOutStatus;
 import src.streams.out.OutCLIstream;
 
-public class InCLIstream implements InputStreamsOpening {
-    public InCLIstream () {}
+public class CLIstream implements InputStreamsOpening {
+    public CLIstream () {}
 
     @Override
-    public DataInOutStatus openInputStream(OutCLIstream outputStream, CommandController commandController, CollectionWorker dataWorker) {
+    public DataInOutStatus openCLIStream(OutCLIstream outputStream, CommandController commandController, CollectionWorker dataWorker) {
         BufferedReader inpReader = new BufferedReader(new InputStreamReader(System.in));
         try {
             while (true) {

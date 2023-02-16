@@ -6,5 +6,5 @@ import src.streams.DataInOutStatus;
 import src.streams.out.OutCLIstream;
 
 public interface InputStreamsOpening {
-    public DataInOutStatus openInputStream(OutCLIstream outputStream, CommandController commandController, CollectionWorker dataWorker);
+    public DataInOutStatus openCLIStream(OutCLIstream outputStream, CommandController commandController, CollectionWorker dataWorker);
 }
