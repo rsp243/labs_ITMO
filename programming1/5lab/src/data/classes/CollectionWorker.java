@@ -2,8 +2,16 @@ package src.data.classes;
 
 import java.util.LinkedHashMap;
 
+import src.fillers.Increment;
+
 public class CollectionWorker {
     private final LocalDatabase database;
+    private Increment autoIncrementedKey = new Increment(1);
+
+
+    public Increment getAutoIncrementedKey() {
+        return autoIncrementedKey;
+    }
 
     public CollectionWorker(LocalDatabase aLocalDatabase) {
         database = aLocalDatabase;    

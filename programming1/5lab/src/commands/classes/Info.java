@@ -6,7 +6,7 @@ import src.data.classes.CollectionWorker;
 
 public class Info extends Command {
     public Info() {
-        super("info", "Output info about main collection");
+        super("info", "Output info about main collection", 0);
     }
 
     @Override

@@ -6,7 +6,7 @@ import src.data.classes.CollectionWorker;
 
 public class Exit extends Command {
     public Exit() {
-        super("exit", "End the program execution (without saving data into the storage)");
+        super("exit", "End the program execution (without saving data into the storage)", 0);
     }
 
     @Override
