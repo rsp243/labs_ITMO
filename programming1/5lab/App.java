@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import src.commands.classes.CollectionWorker;
 import src.commands.classes.CommandController;
 import src.data.classes.LocalDatabase;
-import src.streams.StreamController;
+import src.streams.StreamOpener;
 import src.streams.StreamType;
 
 class App {
@@ -12,7 +12,7 @@ class App {
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
         CollectionWorker dataWorker = new CollectionWorker(localDatabase); //Вероятнее всего, жестчайщая жесть. Так нельзя писать.
         CommandController commandController = new CommandController();
-        StreamController cliController = new StreamController(StreamType.INPUT_CLI, StreamType.OUTPUT_CLI);
+        StreamOpener cliController = new StreamOpener(StreamType.INPUT_CLI, StreamType.OUTPUT_CLI);
         cliController.openStream(commandController, dataWorker);
 
 

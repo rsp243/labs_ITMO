@@ -13,6 +13,11 @@ public class Help extends Command {
 
     @Override
     public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
-        return collectionOfCommands.toString();
+        StringBuilder helpExcStr = new StringBuilder();
+        for (Command command : collectionOfCommands) {
+            helpExcStr.append(command.toString() + "\n");
+        }
+        helpExcStr.delete(helpExcStr.toString().length() - 2, helpExcStr.toString().length());
+        return helpExcStr.toString();
     }
 }
