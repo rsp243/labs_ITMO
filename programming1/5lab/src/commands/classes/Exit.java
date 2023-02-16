@@ -2,6 +2,8 @@ package src.commands.classes;
 
 import java.util.ArrayList;
 
+import src.data.classes.CollectionWorker;
+
 public class Exit extends Command {
     public Exit() {
         super("exit", "End the program execution (without saving data into the storage)");

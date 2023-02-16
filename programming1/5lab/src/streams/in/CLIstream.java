@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import src.commands.classes.CollectionWorker;
 import src.commands.classes.CommandController;
+import src.data.classes.CollectionWorker;
 import src.streams.DataInOutStatus;
 import src.streams.out.OutCLIstream;
 

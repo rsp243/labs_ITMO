@@ -3,6 +3,8 @@ package src.commands.classes;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import src.data.classes.CollectionWorker;
+
 public class Help extends Command {
     Collection<Command> collectionOfCommands;
     

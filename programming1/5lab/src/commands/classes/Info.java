@@ -2,6 +2,8 @@ package src.commands.classes;
 
 import java.util.ArrayList;
 
+import src.data.classes.CollectionWorker;
+
 public class Info extends Command {
     public Info() {
         super("info", "Output info about main collection");

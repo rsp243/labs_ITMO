@@ -1,7 +1,7 @@
 package src.streams;
 
-import src.commands.classes.CollectionWorker;
 import src.commands.classes.CommandController;
+import src.data.classes.CollectionWorker;
 import src.streams.in.CLIstream;
 import src.streams.out.OutCLIstream;
 

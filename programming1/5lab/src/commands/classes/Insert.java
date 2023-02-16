@@ -1,7 +1,8 @@
 package src.commands.classes;
 
-import src.data.classes.City;
-import src.data.classes.MainCollection;
+import java.util.ArrayList;
+
+import src.data.classes.CollectionWorker;
 
 public class Insert extends Command {
     public Insert() {
@@ -9,7 +10,8 @@ public class Insert extends Command {
     }
 
     @Override
-    public String execute() {
-        return mainCollection.addNewOrg(keyOfOrg, newCity);
+    public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
+        
+        return "Successfully";
     }
 }

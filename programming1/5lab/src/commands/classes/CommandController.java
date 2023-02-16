@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import src.commands.interfaces.Executable;
+import src.data.classes.CollectionWorker;
 
 public class CommandController implements Executable {
     private HashMap<String, Command> mapOfCommands;
@@ -12,11 +13,13 @@ public class CommandController implements Executable {
     public CommandController() {
         mapOfCommands = new HashMap<>();
         Help helpCommand = new Help(mapOfCommands.values());
-        mapOfCommands.put("help", helpCommand);
+        mapOfCommands.put(helpCommand.getName(), helpCommand);
         Info infoCommand = new Info();
-        mapOfCommands.put("info", infoCommand);
+        mapOfCommands.put(infoCommand.getName(), infoCommand);
+        Insert insertCommand = new Insert();
+        mapOfCommands.put(insertCommand.getName(), insertCommand);
         Exit exitCommand = new Exit();
-        mapOfCommands.put("exit", exitCommand);
+        mapOfCommands.put(exitCommand.getName(), exitCommand);
     }
 
     public Map<String, Command> getMapOfCommands() {

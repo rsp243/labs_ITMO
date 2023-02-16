@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import src.fillers.Increment;
 
 public class LocalDatabase {
-    private LinkedHashMap<Integer, City> mainCollection;
+    private LinkedHashMap<String, City> mainCollection;
     private Increment autoIncrementedKey = new Increment(1);
     private final Date dateOfInitialization;
     private Date dateOfLastChange;
@@ -15,13 +15,13 @@ public class LocalDatabase {
     public LocalDatabase(ArrayList<City> arrayOfCities) {
         mainCollection = new LinkedHashMap<>();
         for (City  city : arrayOfCities) {
-            mainCollection.put(autoIncrementedKey.getNewId(), city);
+            mainCollection.put(Integer.toString(autoIncrementedKey.getNewId()), city);
         }
         dateOfInitialization = new Date();
         dateOfLastChange = new Date();
     }
 
-    public LinkedHashMap<Integer, City> getMainCollection() {
+    public LinkedHashMap<String, City> getMainCollection() {
         return mainCollection;
     }
 
@@ -36,7 +36,7 @@ public class LocalDatabase {
     public String getAllTextOrgs() {
         String strShowOrganisations = "";
         if (mainCollection.size() != 0) {
-            for (Integer iter: mainCollection.keySet()) {
+            for (String iter: mainCollection.keySet()) {
                 strShowOrganisations += "Key = " + iter + ", " + mainCollection.get(iter).toString() + "\n";
             }
         } else {
@@ -45,13 +45,13 @@ public class LocalDatabase {
         return strShowOrganisations;
     }
 
-    public String addNewOrg(Integer key, City city) {
+    public String addNew(String key, City city) {
         String strSuccess = "Successufully";
         mainCollection.put(key, city);
         return strSuccess;
     }
     
-    public String updateOrg(Integer key, City city) {
+    public String updateOrg(String key, City city) {
         String strSuccess = "Successufully";
         if (mainCollection.containsKey(key)) {
             mainCollection.replace(key, city);
@@ -61,7 +61,7 @@ public class LocalDatabase {
         return strSuccess;
     }
 
-    public String removeOrg(Integer key) {
+    public String removeOrg(String key) {
         String strSuccess = "Successufully";
         if (mainCollection.containsKey(key)) {
             mainCollection.remove(key);
