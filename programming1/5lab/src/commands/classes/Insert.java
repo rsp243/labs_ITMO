@@ -9,7 +9,7 @@ import src.fillers.Increment;
 
 public class Insert extends Command {
     public Insert() {
-        super("insert", "Add an element with typed key into the main collection", 10);
+        super("insert", "Add an element with typed key into the main collection", 9);
     }
 
     @Override
