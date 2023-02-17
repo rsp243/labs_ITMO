@@ -9,7 +9,7 @@ public class Help extends Command {
     Collection<Command> collectionOfCommands;
     
     public Help(Collection<Command> aCollectionOfCommands) {
-        super("help", "Output info about all commands", 0);
+        super("help", "Output info about all commands", 0, CommandType.INFO_WORKER);
         collectionOfCommands = aCollectionOfCommands;
     }
 
