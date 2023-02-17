@@ -1,6 +1,5 @@
 package src.streams.out;
 
-import java.io.BufferedReader;
 import java.util.ArrayList;
 
 import src.commands.classes.CommandController;

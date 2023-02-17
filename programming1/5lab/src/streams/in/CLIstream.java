@@ -31,13 +31,15 @@ public class CLIstream implements InputStreamsOpening {
                         Command commandObj = commandController.getMapOfCommands().get(commandName);
                         if (commandObj.getCountOfExtraArgs() >= 1) {
                             String key = inputData.split(" ")[1];
-                            extraArguments.add(key);
+                            extraArguments = new ObjReading().objRead(commandController, commandName, inpReader, dataFetchController, inputData);
+                            extraArguments.add(0, key);
                         }
                     }
                     if (dataFetchController == DataInOutStatus.FAILED) {
                         System.out.println("You have typed wrong arguments to last command. Try adain.");
                     } else {
-                        outputStream.openOutputStream(commandController, dataWorker, commandName, extraArguments);
+                        outputStream.openOutputStream(commandController, dataWorker, commandName, 
+                        extraArguments);
                     }
                 } else {
                     inpReader.close();
