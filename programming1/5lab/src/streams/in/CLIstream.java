@@ -27,11 +27,12 @@ public class CLIstream implements InputStreamsOpening {
                     DataInOutStatus dataFetchController = DataInOutStatus.SUCCESFULLY;
                     String commandName = inputData.split(" ")[0];
                     ArrayList<String> extraArguments = new ArrayList<String>();
-                    if (inputData.split(" ").length < 2) {
-                        dataFetchController = DataInOutStatus.FAILED;
-                    } else {
-                        String key = inputData.split(" ")[1];
-                        extraArguments.add(key);    
+                    if (commandController.getMapOfCommands().containsKey(commandName)) {
+                        Command commandObj = commandController.getMapOfCommands().get(commandName);
+                        if (commandObj.getCountOfExtraArgs() >= 1) {
+                            String key = inputData.split(" ")[1];
+                            extraArguments.add(key);
+                        }
                     }
                     if (dataFetchController == DataInOutStatus.FAILED) {
                         System.out.println("You have typed wrong arguments to last command. Try adain.");

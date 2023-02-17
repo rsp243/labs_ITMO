@@ -6,32 +6,42 @@ import java.util.ArrayList;
 
 import src.commands.classes.Command;
 import src.commands.classes.CommandController;
+import src.commands.classes.CommandType;
 import src.streams.DataInOutStatus;
 
 public class ObjReading {
-    public ObjReading() {}
+    public ObjReading() {
+    }
 
-    public ArrayList<String> objRead(CommandController commandController, String commandName, BufferedReader inpReader, DataInOutStatus dataFetchController, String inputData) throws IOException {
+    public ArrayList<String> objRead(CommandController commandController, String commandName, BufferedReader inpReader,
+            DataInOutStatus dataFetchController, String inputData) throws IOException {
         ArrayList<String> extraArguments = new ArrayList<String>();
         if (commandController.getMapOfCommands().containsKey(commandName)) {
             Command commandObj = commandController.getMapOfCommands().get(commandName);
             if (commandObj.getCountOfExtraArgs() >= 1) {
-                if (inputData.split(" ").length < 2) {
-                    dataFetchController = DataInOutStatus.FAILED;
-                } else {
-                    String key = inputData.split(" ")[1];
-                    extraArguments.add(key);
-                    if (commandObj.getCountOfExtraArgs() > 1) {
-                        System.out.println("Type extra data of object.");
-                        for (Integer iter = 0; iter < commandObj.getCountOfExtraArgs() - 1; iter++) {
-                            String extraInputData = inpReader.readLine();
-                            if (extraInputData != null) {
-                                extraArguments.add(extraInputData.trim());
-                            }
-                        }
-                    }
-                    if (extraArguments.size() != commandObj.getCountOfExtraArgs()) {
-                        dataFetchController = DataInOutStatus.FAILED;
+                String key = inputData.split(" ")[1];
+                extraArguments.add(key);
+                if (commandObj.getCountOfExtraArgs() > 1) {
+                    System.out.println("Type extra data of object.");
+                    if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
+                        System.out.println("Type City's name.");
+                        extraArguments.add(inpReader.readLine().trim());
+                        System.out.println("Type City's coordinates in format 'x y'. Both coordinates x and y are doubles.");
+                        extraArguments.add(inpReader.readLine().trim());
+                        System.out.println("Type City's area.");
+                        extraArguments.add(inpReader.readLine().trim());
+                        System.out.println("Type City's population.");
+                        extraArguments.add(inpReader.readLine().trim());
+                        System.out.println("Type City's metersAboveSeaLevel.");
+                        extraArguments.add(inpReader.readLine().trim());
+                        System.out.println("Type City's telephoneCode.");
+                        extraArguments.add(inpReader.readLine().trim());
+                        System.out.println("Type City's carCode.");
+                        extraArguments.add(inpReader.readLine().trim());
+                        System.out.println("Type City's climate (enum). \n Values: RAIN_FOREST,\n HUMIDSUBTROPICAL,\n HUMIDCONTINENTAL,\n SUBARCTIC, \n TUNDRA");
+                        extraArguments.add(inpReader.readLine().trim());
+                        System.out.println("Type City's governor in format: 'age height bithday'. Age and height are Integers, bithday is a Date.");
+                        extraArguments.add(inpReader.readLine().trim());
                     }
                 }
             }

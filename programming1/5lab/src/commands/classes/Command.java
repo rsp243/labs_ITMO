@@ -8,10 +8,6 @@ public abstract class Command implements Executable {
     private Integer countOfExtraArgs;
     private CommandType commandType;
 
-    public CommandType getCommandType() {
-        return commandType;
-    }
-
     public Command(String aName, String aDescription, Integer aCountOfExtraArgs, CommandType aCommandType) {
         name = aName;
         description = aDescription;
@@ -29,6 +25,10 @@ public abstract class Command implements Executable {
 
     public Integer getCountOfExtraArgs() {
         return countOfExtraArgs;
+    }
+
+    public CommandType getCommandType() {
+        return commandType;
     }
     
     @Override
