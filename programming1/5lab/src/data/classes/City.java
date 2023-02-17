@@ -107,5 +107,13 @@ public class City {
 
     public void setGovernor(Human governor) {
         this.governor = governor;
+    }
+
+    @Override
+    public String toString() {
+        return "City [id=" + id + ", name=" + name + ", coordinates=" + coordinates + ", creationDate=" + creationDate
+                + ", area=" + area + ", population=" + population + ", metersAboveSeaLevel=" + metersAboveSeaLevel
+                + ", telephoneCode=" + telephoneCode + ", carCode=" + carCode + ", climate=" + climate + ", governor="
+                + governor + "]";
     }    
 }

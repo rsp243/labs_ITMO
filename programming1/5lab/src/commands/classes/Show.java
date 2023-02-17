@@ -1,18 +1,20 @@
 package src.commands.classes;
 
-import src.data.classes.MainCollection;
+import java.util.ArrayList;
+
+import src.data.classes.CollectionWorker;
 
 public class Show extends Command {
-    private MainCollection mainCollection;
-
-    public Show(String aName, String aDescription, MainCollection aMainCollection) {
-        super(aName, aDescription);
-        mainCollection = aMainCollection;
+    public Show() {
+        super("show", "Output all elements from collection", 0, CommandType.INFO_WORKER);
     }
-    
+
     @Override
-    public String execute() {
-        return mainCollection.getAllTextOrgs();
-    }   
+    public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
+        if (worker.getMainCollection().size() == 0) {
+            return "There is no cities in main collection.";
+        }
+        return worker.getMainCollection().toString();
+    }
+
 }
-`

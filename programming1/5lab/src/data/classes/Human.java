@@ -28,6 +28,11 @@ public class Human {
     public java.util.Date getBirthday() {
         return birthday;
     }
+    
+    @Override
+    public String toString() {
+        return "Human [age=" + age + ", height=" + height + ", birthday=" + birthday + "]";
+    }
 
     @Override
     public int hashCode() {
