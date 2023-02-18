@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import src.data.classes.City;
 import src.data.classes.CollectionWorker;
 import src.data.classes.Factories.CityFactory;
-import src.streams.DataInOutStatus;
 
 public class Insert extends Command {
     public Insert() {
@@ -15,18 +14,13 @@ public class Insert extends Command {
 
     @Override
     public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
-        // extraArguments should be ArrayList<String> = [keyOfCity, nameOfCity,
-        // strCoordinatesData, ...
-        // ... srtArea, strPopulation, strMetersAboveSeaLevel, strTelephoneCode,
-        // strCarCode, strClimate, strGovernor]
-        
-        System.out.println(extraArguments);
+        String resultStr = "Successfully";
         String key = extraArguments.remove(0);
+        if (worker.getMainCollection().keySet().contains(key)) {
+            resultStr = "You typed wrong key of object. There is the same in main collection. Failed.";
+        }
         City newCity = new CityFactory().createCity(extraArguments);
-
-        // City newCity = new City(worker.getAutoIncrementedKey(), , null, null, null,
-        // 0, 0, 0, null, null)
         worker.addNew(key, newCity);
-        return "Successfully";
+        return resultStr;
     }
 }

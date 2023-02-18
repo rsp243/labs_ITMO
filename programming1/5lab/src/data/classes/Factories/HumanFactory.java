@@ -10,7 +10,7 @@ public class HumanFactory {
     public Human createHumanObj(String[] args) {
         Integer age = Integer.parseInt(args[0]);
         Integer height = Integer.parseInt(args[1]);
-        Date birthday = new Date();
+        Date birthday = new Date(); // Needed to be edited
         return new Human(age, height, birthday);
     }
 }

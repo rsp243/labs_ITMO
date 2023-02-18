@@ -19,7 +19,7 @@ public class Help extends Command {
         for (Command command : collectionOfCommands) {
             helpExcStr.append(command.toString() + "\n");
         }
-        helpExcStr.delete(helpExcStr.toString().length() - 2, helpExcStr.toString().length());
+        helpExcStr.delete(helpExcStr.toString().length() - 1, helpExcStr.toString().length());
         return helpExcStr.toString();
     }
 }
