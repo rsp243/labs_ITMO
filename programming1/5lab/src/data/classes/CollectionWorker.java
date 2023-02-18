@@ -1,5 +1,6 @@
 package src.data.classes;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 import src.fillers.Increment;
@@ -28,6 +29,10 @@ public class CollectionWorker {
         }
         this.getMainCollection().put(key, city);
         return strStatus;
+    }
+
+    public void setDateOfLastChange() {
+        database.setDateOfLastChange(new Date());
     }
 
     public LocalDatabase getDataBase() {

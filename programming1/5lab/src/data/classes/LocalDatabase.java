@@ -29,6 +29,10 @@ public class LocalDatabase {
         return dateOfInitialization;
     }
 
+    public void setDateOfLastChange(Date dateOfLastChange) {
+        this.dateOfLastChange = dateOfLastChange;
+    }
+
     public Integer getAutoIncrementedKey() {
         return autoIncrementedKey.getCurrentID();
     }

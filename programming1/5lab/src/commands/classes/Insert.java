@@ -20,6 +20,7 @@ public class Insert extends Command {
         }
         City newCity = new CityFactory().createCity(extraArguments);
         worker.addNew(key, newCity);
+        worker.setDateOfLastChange();
         return resultStr;
     }
 }
