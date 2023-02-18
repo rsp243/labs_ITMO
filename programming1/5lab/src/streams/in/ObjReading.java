@@ -41,10 +41,14 @@ public class ObjReading {
                             "Type City's climate (enum). \n Values: RAIN_FOREST,\n HUMIDSUBTROPICAL,\n HUMIDCONTINENTAL,\n SUBARCTIC, \n TUNDRA");
                     extraArguments.add(inpReader.readLine().trim());
                     System.out.println(
-                            "Type City's governor in format: 'age height'. Age is Integer, height is Float and birthday is LocalDate. Type birthday in format: 'day.month.year'.");
+                            "Type City's governor in format: 'age height birthday'. Age is Integer, height is Float and birthday is LocalDate. Type birthday in format: 'day.month.year'.");
                     extraArguments.add(inpReader.readLine().trim());
-                    if (!new CityValidator().validate(extraArguments)) {
-                        System.out.println("You typed incorrect arguments. Try again.");
+                    try {
+                        if (!new CityValidator().validate(extraArguments)) {
+                            extraArguments = new ArrayList<>();
+                        }
+                    } catch (NumberFormatException | IndexOutOfBoundsException m) {
+                        extraArguments = new ArrayList<>();
                     }
                 }
             }

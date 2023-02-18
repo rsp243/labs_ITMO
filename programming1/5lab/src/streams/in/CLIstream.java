@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.print.attribute.Size2DSyntax;
+
 import src.commands.classes.Command;
 import src.commands.classes.CommandController;
 import src.data.classes.CollectionWorker;
@@ -25,21 +27,27 @@ public class CLIstream implements InputStreamsOpening {
                 if (inputData != null) {
                     inputData = inputData.trim();
                     DataInOutStatus dataFetchController = DataInOutStatus.SUCCESFULLY;
-                    String commandName = inputData.split(" ")[0];
+                    String[] splittedInputData = inputData.split(" ");
+                    String commandName = splittedInputData[0];
                     ArrayList<String> extraArguments = new ArrayList<String>();
                     if (commandController.getMapOfCommands().containsKey(commandName)) {
                         Command commandObj = commandController.getMapOfCommands().get(commandName);
                         if (commandObj.getCountOfExtraArgs() >= 1) {
-                            String key = inputData.split(" ")[1];
-                            extraArguments = new ObjReading().objRead(commandController, commandName, inpReader, dataFetchController, inputData);
-                            extraArguments.add(0, key);
+                            if (splittedInputData.length == 2) {
+                                String key = inputData.split(" ")[1];
+                                extraArguments = new ObjReading().objRead(commandController, commandName, inpReader,
+                                        dataFetchController, inputData);
+                                extraArguments.add(0, key);
+                            } else {
+                                dataFetchController = DataInOutStatus.FAILED;
+                            }
                         }
                     }
-                    if (dataFetchController == DataInOutStatus.FAILED) {
+                    if (dataFetchController == DataInOutStatus.FAILED || extraArguments.size() == 1) {
                         System.out.println("You have typed wrong arguments to last command. Try adain.");
                     } else {
-                        outputStream.openOutputStream(commandController, dataWorker, commandName, 
-                        extraArguments);
+                        outputStream.openOutputStream(commandController, dataWorker, commandName,
+                                extraArguments);
                     }
                 } else {
                     inpReader.close();
