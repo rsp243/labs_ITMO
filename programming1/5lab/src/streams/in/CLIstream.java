@@ -37,13 +37,16 @@ public class CLIstream implements InputStreamsOpening {
                                 String key = inputData.split(" ")[1];
                                 extraArguments = new ObjReading().objRead(commandController, commandName, inpReader,
                                         dataFetchController, inputData);
+                                if (extraArguments.size() == 0 && commandObj.getCountOfExtraArgs() > 1) {
+                                    dataFetchController = DataInOutStatus.FAILED;
+                                }
                                 extraArguments.add(0, key);
                             } else {
                                 dataFetchController = DataInOutStatus.FAILED;
                             }
                         }
                     }
-                    if (dataFetchController == DataInOutStatus.FAILED || extraArguments.size() == 1) {
+                    if (dataFetchController == DataInOutStatus.FAILED) {
                         System.out.println("You have typed wrong arguments to last command. Try adain.");
                     } else {
                         outputStream.openOutputStream(commandController, dataWorker, commandName,

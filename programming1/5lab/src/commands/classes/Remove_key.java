@@ -1,19 +1,23 @@
 package src.commands.classes;
 
-import src.data.classes.MainCollection;
+import java.util.ArrayList;
+
+import src.data.classes.CollectionWorker;
 
 public class Remove_key extends Command {
-    private MainCollection mainCollection;
-    private Integer keyOfOrg;
-
-    public Remove_key(String aName, String aDescription, MainCollection aMainCollection, Integer aKeyOfOrg) {
-        super(aName, aDescription);
-        mainCollection = aMainCollection;
-        keyOfOrg = aKeyOfOrg;
+    public Remove_key() {
+        super("remove_key", "Remove an element with typed key from the main collection", 1, CommandType.COLLECTION_WORKER);
     }
 
     @Override
-    public String execute() {
-        return mainCollection.removeOrg(keyOfOrg);
+    public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
+        String resultStr;
+        String key = extraArguments.remove(0);
+        if (worker.getMainCollection().keySet().contains(key)) {
+            resultStr = worker.removeKey(key);
+        } else {
+            resultStr = "You typed wrong key of object. There is no objects in main collection with that key. Failed.";    
+        }
+        return resultStr;
     }
 }

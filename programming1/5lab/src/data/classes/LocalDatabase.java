@@ -48,27 +48,11 @@ public class LocalDatabase {
         }
         return strShowOrganisations;
     }
-
-    public String addNew(String key, City city) {
-        String strSuccess = "Successufully";
-        mainCollection.put(key, city);
-        return strSuccess;
-    }
     
     public String updateOrg(String key, City city) {
         String strSuccess = "Successufully";
         if (mainCollection.containsKey(key)) {
             mainCollection.replace(key, city);
-        } else {
-            strSuccess = "Failed";
-        }
-        return strSuccess;
-    }
-
-    public String removeOrg(String key) {
-        String strSuccess = "Successufully";
-        if (mainCollection.containsKey(key)) {
-            mainCollection.remove(key);
         } else {
             strSuccess = "Failed";
         }

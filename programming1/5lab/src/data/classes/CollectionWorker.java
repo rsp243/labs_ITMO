@@ -9,13 +9,12 @@ public class CollectionWorker {
     private final LocalDatabase database;
     private Increment autoIncrementedKey = new Increment(1);
 
-
     public Increment getAutoIncrementedKey() {
         return autoIncrementedKey;
     }
 
     public CollectionWorker(LocalDatabase aLocalDatabase) {
-        database = aLocalDatabase;    
+        database = aLocalDatabase;
     }
 
     public LinkedHashMap<String, City> getMainCollection() {
@@ -24,11 +23,14 @@ public class CollectionWorker {
 
     public String addNew(String key, City city) {
         String strStatus = "Successufully";
-        if (this.getMainCollection().keySet().contains(key)) {
-            strStatus = "There is an object in main collection with that name. Try again with different keyName.";
-        }
         this.getMainCollection().put(key, city);
         return strStatus;
+    }
+
+    public String removeKey(String key) {
+        String strSuccess = "Successufully";
+        this.getMainCollection().remove(key);
+        return strSuccess;
     }
 
     public void setDateOfLastChange() {
