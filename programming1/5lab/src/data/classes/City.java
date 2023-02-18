@@ -1,6 +1,6 @@
 package src.data.classes;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import src.data.enums.Climate;
 import src.fillers.Increment;
@@ -9,17 +9,18 @@ public class City {
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Long area; //Значение поля должно быть больше 0, Поле не может быть null
-    private Integer population; //Значение поля должно быть больше 0, Поле не может быть null
-    private int metersAboveSeaLevel;
-    private int telephoneCode; //Значение поля должно быть больше 0, Максимальное значение поля: 100000
-    private int carCode; //Значение поля должно быть больше 0, Максимальное значение поля: 1000
+    private Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private int area; //Значение поля должно быть больше 0, Поле не может быть null
+    private int population; //Значение поля должно быть больше 0, Поле не может быть null
+    private Integer metersAboveSeaLevel;
+    private long telephoneCode; //Значение поля должно быть больше 0, Максимальное значение поля: 100000
+    private long carCode; //Значение поля должно быть больше 0, Максимальное значение поля: 1000
     private Climate climate; //Поле не может быть null
     private Human governor; //Поле может быть null
 
-    public City(Increment uniqueID, String aName, Coordinates aCoordinates, Long anArea, Integer aPopulation, int aMetersAboveSeaLevel,
-            int aTelephoneCode, int aCarCode, Climate aClimate, Human aGovernor) {
+
+    public City(Increment uniqueID, String aName, Coordinates aCoordinates, int anArea, int aPopulation, Integer aMetersAboveSeaLevel,
+            long aTelephoneCode, long aCarCode, Climate aClimate, Human aGovernor) {
         id = uniqueID.getNewId();
         name = aName;
         coordinates = aCoordinates;
@@ -30,7 +31,7 @@ public class City {
         carCode = aCarCode;
         climate = aClimate;
         governor = aGovernor;
-        creationDate = LocalDate.now();
+        creationDate = new Date();
     }
 
     public long getId() {
@@ -49,15 +50,15 @@ public class City {
         return coordinates;
     }
 
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public Long getArea() {
+    public int getArea() {
         return area;
     }
 
-    public void setArea(Long area) {
+    public void setArea(int area) {
         this.area = area;
     }
 
@@ -77,7 +78,7 @@ public class City {
         this.metersAboveSeaLevel = metersAboveSeaLevel;
     }
 
-    public int getTelephoneCode() {
+    public long getTelephoneCode() {
         return telephoneCode;
     }
 
@@ -85,7 +86,7 @@ public class City {
         this.telephoneCode = telephoneCode;
     }
 
-    public int getCarCode() {
+    public long getCarCode() {
         return carCode;
     }
 

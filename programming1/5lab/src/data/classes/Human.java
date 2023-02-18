@@ -1,13 +1,13 @@
 package src.data.classes;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Human {
     private Integer age; //Значение поля должно быть больше 0
-    private Integer height; //Значение поля должно быть больше 0
-    private java.util.Date birthday;
+    private Float height; //Значение поля должно быть больше 0
+    private LocalDate birthday;
     
-    public Human(Integer age, Integer height, Date birthday) {
+    public Human(Integer age, Float height, LocalDate birthday) {
         this.age = age;
         this.height = height;
         this.birthday = birthday;
@@ -19,16 +19,16 @@ public class Human {
     public void setAge(Integer age) {
         this.age = age;
     }
-    public Integer getHeight() {
+    public Float getHeight() {
         return height;
     }
-    public void setHeight(Integer height) {
+    public void setHeight(Float height) {
         this.height = height;
     }
-    public java.util.Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
-    
+
     @Override
     public String toString() {
         return "Human [age=" + age + ", height=" + height + ", birthday=" + birthday + "]";

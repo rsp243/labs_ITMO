@@ -8,7 +8,7 @@ import src.streams.StreamOpener;
 import src.streams.StreamType;
 
 class App {
-    public static void main(String[] args) throws IOException {       
+    public static void main(String[] args) throws IOException {    
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
         CollectionWorker dataWorker = new CollectionWorker(localDatabase); //Вероятнее всего, жестчайщая жесть. Так нельзя писать.
         CommandController commandController = new CommandController();

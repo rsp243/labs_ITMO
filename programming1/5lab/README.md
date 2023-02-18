@@ -49,26 +49,26 @@
 
 ```java
 public class City {
-    private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Long area; //Значение поля должно быть больше 0, Поле не может быть null
-    private Integer population; //Значение поля должно быть больше 0, Поле не может быть null
-    private int metersAboveSeaLevel;
-    private int telephoneCode; //Значение поля должно быть больше 0, Максимальное значение поля: 100000
-    private int carCode; //Значение поля должно быть больше 0, Максимальное значение поля: 1000
+    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private int area; //Значение поля должно быть больше 0
+    private int population; //Значение поля должно быть больше 0
+    private Integer metersAboveSeaLevel;
+    private long telephoneCode; //Значение поля должно быть больше 0, Максимальное значение поля: 100000
+    private long carCode; //Значение поля должно быть больше 0, Максимальное значение поля: 1000
     private Climate climate; //Поле не может быть null
     private Human governor; //Поле может быть null
 }
 public class Coordinates {
-    private Double x; //Значение поля должно быть больше -212, Поле не может быть null
-    private Double y; //Значение поля должно быть больше -442, Поле не может быть null
+    private long x; //Значение поля должно быть больше -212
+    private long y; //Значение поля должно быть больше -442
 }
 public class Human {
-    private Integer age; //Значение поля должно быть больше 0
-    private Integer height; //Значение поля должно быть больше 0
-    private java.util.Date birthday;
+    private int age; //Значение поля должно быть больше 0
+    private Float height; //Значение поля должно быть больше 0
+    private java.time.LocalDate birthday;
 }
 public enum Climate {
     RAIN_FOREST,

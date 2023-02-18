@@ -1,6 +1,5 @@
 package src.commands.classes;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import src.data.classes.City;
@@ -17,7 +16,7 @@ public class Insert extends Command {
         String resultStr = "Successfully";
         String key = extraArguments.remove(0);
         if (worker.getMainCollection().keySet().contains(key)) {
-            resultStr = "You typed wrong key of object. There is the same in main collection. Failed.";
+            resultStr = "You typed wrong key of object. There is the same in main collection. Failed.";    
         }
         City newCity = new CityFactory().createCity(extraArguments);
         worker.addNew(key, newCity);
