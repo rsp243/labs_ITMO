@@ -48,16 +48,6 @@ public class LocalDatabase {
         }
         return strShowOrganisations;
     }
-    
-    public String updateOrg(String key, City city) {
-        String strSuccess = "Successufully";
-        if (mainCollection.containsKey(key)) {
-            mainCollection.replace(key, city);
-        } else {
-            strSuccess = "Failed";
-        }
-        return strSuccess;
-    }
 
     @Override
     public String toString() {

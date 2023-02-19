@@ -11,10 +11,14 @@ public class Show extends Command {
 
     @Override
     public String execute(CollectionWorker worker, String nameOfCommand, ArrayList<String> extraArguments) {
+        StringBuilder strShow = new StringBuilder();
         if (worker.getMainCollection().size() == 0) {
-            return "There is no cities in main collection.";
+            return "There is no elements in main collection.";
         }
-        return worker.getMainCollection().toString();
+        for (String iter : worker.getMainCollection().keySet()) {
+            strShow.append("key = " + iter + ": " + worker.getMainCollection().get(iter).toString() + "\n");
+        }
+        return strShow.delete(strShow.toString().length() - 1, strShow.toString().length()).toString();
     }
 
 }

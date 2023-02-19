@@ -24,6 +24,8 @@ public class CommandController implements Executable {
         mapOfCommands.put(showCommand.getName(), showCommand);
         Remove_key removeCommand = new Remove_key();
         mapOfCommands.put(removeCommand.getName(), removeCommand);
+        Update updateCommand = new Update();
+        mapOfCommands.put(updateCommand.getName(), updateCommand);
     }
 
     public Map<String, Command> getMapOfCommands() {
