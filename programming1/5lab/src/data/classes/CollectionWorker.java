@@ -39,6 +39,14 @@ public class CollectionWorker {
         this.getMainCollection().clear();
         return strSuccess;
     }
+    
+    public Long sum_of_car_code() {
+        Long sumCarCode = (long) 0;
+        for (City iter : this.getMainCollection().values()) {
+            sumCarCode += iter.getCarCode();
+        }
+        return sumCarCode;
+    }
 
     public void setDateOfLastChange() {
         database.setDateOfLastChange(new Date());

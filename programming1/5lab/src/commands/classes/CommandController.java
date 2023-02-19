@@ -26,6 +26,8 @@ public class CommandController implements Executable {
         mapOfCommands.put(removeCommand.getName(), removeCommand);
         Update updateCommand = new Update();
         mapOfCommands.put(updateCommand.getName(), updateCommand);
+        Sum_of_car_code sumOfCarCodeCommand = new Sum_of_car_code();
+        mapOfCommands.put(sumOfCarCodeCommand.getName(), sumOfCarCodeCommand);
     }
 
     public Map<String, Command> getMapOfCommands() {
