@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import src.data.classes.CollectionWorker;
 
-public class Sum_of_car_code extends Command {
-    public Sum_of_car_code() {
+public class SumOfCarCodeCommand extends Command {
+    public SumOfCarCodeCommand() {
         super("sum_of_car_code", "Output sum of values of field 'car code' of all elements from the main collection.", 0, CommandType.COLLECTION_WORKER);
     }
 

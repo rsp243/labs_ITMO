@@ -22,11 +22,11 @@ public class CommandController implements Executable {
         mapOfCommands.put(exitCommand.getName(), exitCommand);
         Show showCommand = new Show();
         mapOfCommands.put(showCommand.getName(), showCommand);
-        Remove_key removeCommand = new Remove_key();
+        RemoveKey removeCommand = new RemoveKey();
         mapOfCommands.put(removeCommand.getName(), removeCommand);
         Update updateCommand = new Update();
         mapOfCommands.put(updateCommand.getName(), updateCommand);
-        Sum_of_car_code sumOfCarCodeCommand = new Sum_of_car_code();
+        SumOfCarCodeCommand sumOfCarCodeCommand = new SumOfCarCodeCommand();
         mapOfCommands.put(sumOfCarCodeCommand.getName(), sumOfCarCodeCommand);
     }
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import src.data.classes.CollectionWorker;
 
-public class Remove_key extends Command {
-    public Remove_key() {
+public class RemoveKey extends Command {
+    public RemoveKey() {
         super("remove_key", "Remove an element with typed key from the main collection", 1, CommandType.COLLECTION_WORKER);
     }
 
