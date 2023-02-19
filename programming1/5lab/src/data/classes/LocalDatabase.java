@@ -37,25 +37,13 @@ public class LocalDatabase {
         return autoIncrementedKey.getCurrentID();
     }
 
-    public String getAllTextOrgs() {
-        String strShowOrganisations = "";
-        if (mainCollection.size() != 0) {
-            for (String iter: mainCollection.keySet()) {
-                strShowOrganisations += "Key = " + iter + ", " + mainCollection.get(iter).toString() + "\n";
-            }
-        } else {
-            strShowOrganisations = "No elements in main collection";
-        }
-        return strShowOrganisations;
+    public Date getDateOfLastChange() {
+        return dateOfLastChange;
     }
 
     @Override
     public String toString() {
         return "MainCollection [mainCollection=" + mainCollection + ", dateOfInitialization=" + dateOfInitialization
                 + ", autoIncrementedKey=" + autoIncrementedKey + "]";
-    }
-
-    public Date getDateOfLastChange() {
-        return dateOfLastChange;
     }
 }

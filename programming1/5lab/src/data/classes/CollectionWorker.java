@@ -34,6 +34,12 @@ public class CollectionWorker {
         return strSuccess;
     }
 
+    public String clear() {
+        String strSuccess = "Successufully";
+        this.getMainCollection().clear();
+        return strSuccess;
+    }
+
     public void setDateOfLastChange() {
         database.setDateOfLastChange(new Date());
     }
