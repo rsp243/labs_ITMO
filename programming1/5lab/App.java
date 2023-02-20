@@ -6,14 +6,17 @@ import src.data.classes.CollectionWorker;
 import src.data.classes.LocalDatabase;
 import src.streams.StreamOpener;
 import src.streams.StreamType;
+import src.streams.out.OutFileStream;
 
 class App {
     public static void main(String[] args) throws IOException {    
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
         CollectionWorker dataWorker = new CollectionWorker(localDatabase); //Вероятнее всего, жестчайщая жесть. Так нельзя писать.
-        CommandController commandController = new CommandController();
-        StreamOpener cliController = new StreamOpener(StreamType.INPUT_CLI, StreamType.OUTPUT_CLI);
-        cliController.openStream(commandController, dataWorker);
+        // CommandController commandController = new CommandController();
+        // StreamOpener cliController = new StreamOpener(StreamType.INPUT_CLI, StreamType.OUTPUT_CLI);
+        // cliController.openStream(commandController, dataWorker);
+        OutFileStream out = new OutFileStream();
+        out.openOutputStream(null, dataWorker, null, null);
 
 
         /*//Testing unique ID technolody 
