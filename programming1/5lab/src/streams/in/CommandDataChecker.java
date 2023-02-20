@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import src.commands.classes.Command;
 import src.commands.classes.CommandController;
 import src.streams.DataInOutStatus;
+import src.streams.out.OutCLIstream;
 
 public class CommandDataChecker {
     private ArrayList<String> extraArguments;
 
-    public DataInOutStatus checkInputedCommand(CommandController commandController, String inputData,
-            BufferedReader inpReader) throws IOException {
+    public DataInOutStatus checkInputedCommand(CommandController commandController, BufferedReader inpReader,
+            OutCLIstream outputCLI, String inputData) throws IOException {
         DataInOutStatus dataFetchController = DataInOutStatus.SUCCESFULLY;
         String[] splittedInputData = inputData.split(" ");
         String commandName = splittedInputData[0];
@@ -24,7 +25,7 @@ public class CommandDataChecker {
                 }
             }
             if (commandObj.getCountOfExtraArgs() > 1) {
-                extraArguments = new ObjReading().objRead(commandController, commandName, inpReader,
+                extraArguments = new ObjReading().objRead(commandController, inpReader, outputCLI, commandName,
                         inputData);
                 if (extraArguments.size() == 0) {
                     return DataInOutStatus.FAILED;

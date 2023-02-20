@@ -6,6 +6,7 @@ import java.util.Map;
 
 import src.commands.interfaces.Executable;
 import src.data.classes.CollectionWorker;
+import src.streams.out.OutCLIstream;
 
 public class CommandController implements Executable {
     private HashMap<String, Command> mapOfCommands;

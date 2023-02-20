@@ -2,56 +2,58 @@ package src.streams.in;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 
 import src.commands.classes.Command;
 import src.commands.classes.CommandController;
 import src.commands.classes.CommandType;
 import src.data.classes.Validators.classes.CityValidator.CityValidator;
+import src.streams.out.OutCLIstream;
 
 public class ObjReading {
-    public ArrayList<String> objRead(CommandController commandController, String commandName, BufferedReader inpReader,
+    public ArrayList<String> objRead(CommandController commandController, BufferedReader inpReader, OutCLIstream outputCLI, String commandName, 
             String inputData) throws IOException {
         ArrayList<String> extraArguments = new ArrayList<String>();
         if (commandController.getMapOfCommands().containsKey(commandName)) {
             Command commandObj = commandController.getMapOfCommands().get(commandName);
             try {
                 if (commandObj.getCountOfExtraArgs() > 1) {
-                    System.out.println("Type extra data of object.");
+                    outputCLI.outputIntoCLI("Type extra data of object. \n");
                     if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
-                        System.out.println("Type City's name.");
+                        outputCLI.outputIntoCLI("Type City's name. > ");
                         extraArguments.add(inpReader.readLine().trim());
-                        System.out.println(
-                                        "Type City's coordinates in format 'x y'. Both coordinates x and y are long.");
+                        outputCLI.outputIntoCLI(
+                                        "Type City's coordinates in format 'x y'. Both coordinates x and y are long. > ");
                         extraArguments.add(inpReader.readLine().trim());
-                        System.out.println("Type City's area.");
+                        outputCLI.outputIntoCLI("Type City's area. > ");
                         extraArguments.add(inpReader.readLine().trim());
-                        System.out.println("Type City's population.");
+                        outputCLI.outputIntoCLI("Type City's population. > ");
                         extraArguments.add(inpReader.readLine().trim());
-                        System.out.println("Type City's metersAboveSeaLevel.");
+                        outputCLI.outputIntoCLI("Type City's metersAboveSeaLevel. > ");
                         extraArguments.add(inpReader.readLine().trim());
-                        System.out.println("Type City's telephoneCode.");
+                        outputCLI.outputIntoCLI("Type City's telephoneCode. > ");
                         extraArguments.add(inpReader.readLine().trim());
-                        System.out.println("Type City's carCode.");
+                        outputCLI.outputIntoCLI("Type City's carCode. > ");
                         extraArguments.add(inpReader.readLine().trim());
-                        System.out.println(
-                                "Type City's climate (enum). \n Values: RAIN_FOREST,\n HUMIDSUBTROPICAL,\n HUMIDCONTINENTAL,\n SUBARCTIC, \n TUNDRA");
+                        outputCLI.outputIntoCLI(
+                                "Type City's climate (enum). \n Values: RAIN_FOREST,\n HUMIDSUBTROPICAL,\n HUMIDCONTINENTAL,\n SUBARCTIC, \n TUNDRA > ");
                         extraArguments.add(inpReader.readLine().trim());
-                        System.out.println(
-                                "Type City's governor in format: 'age height birthday'. Age is Integer, height is Float and birthday is LocalDate. Type birthday in format: 'day.month.year'.");
+                        outputCLI.outputIntoCLI(
+                                "Type City's governor in format: 'age height birthday'. \n Age is Integer, height is Float and birthday is LocalDate. Type birthday in format: 'day.month.year'. > ");
                         extraArguments.add(inpReader.readLine().trim());
                         try {
                             if (!new CityValidator().validate(extraArguments)) {
                                 extraArguments = new ArrayList<String>();
                             }
-                        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException m) {
+                        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException | DateTimeException m) {
                             extraArguments = new ArrayList<String>();
                         }
                     }
                 }
 
             } catch (NullPointerException e) {
-                System.out.println("Interrupting Input Stream.");
+                outputCLI.outputIntoCLI("\nInterrupting input stream.\n");
                 extraArguments = new ArrayList<String>();
             }
         }

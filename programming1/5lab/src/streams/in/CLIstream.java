@@ -27,9 +27,9 @@ public class CLIstream implements InputStreamsOpening {
                     String[] splittedInputData = inputData.split(" ");
                     String commandName = splittedInputData[0];
                     CommandDataChecker commandChecker = new CommandDataChecker();
-                    if (commandChecker.checkInputedCommand(commandController, inputData,
-                            inpReader) == DataInOutStatus.FAILED) {
-                        System.out.println("You have typed wrong arguments to last command. Try adain.");
+                    if (commandChecker.checkInputedCommand(commandController, inpReader, outputStream,
+                            inputData) == DataInOutStatus.FAILED) {
+                        outputStream.outputIntoCLI("You have typed wrong arguments to last command. Try again. \n");
                     } else {
                         ArrayList<String> extraArguments = commandChecker.getExtraArguments();
                         if (commandController.getMapOfCommands().containsKey(commandName)) {
