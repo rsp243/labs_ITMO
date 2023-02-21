@@ -1,6 +1,7 @@
 package src.streams.out;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import src.commands.classes.CommandController;
 import src.data.classes.CollectionWorker;
@@ -10,7 +11,7 @@ public class OutCLIstream implements OutputStreamsOpening {
     public OutCLIstream () {}
 
     @Override
-    public DataInOutStatus openOutputStream(CommandController commandController, CollectionWorker dataWorker, String commandName, ArrayList<String> extraArguments) {
+    public DataInOutStatus openOutputStream(CommandController commandController, CollectionWorker dataWorker, LinkedHashMap<String, String> fields, String commandName, ArrayList<String> extraArguments) {
         this.outputIntoCLI(commandController.execute(dataWorker, commandName, extraArguments));
         return DataInOutStatus.SUCCESFULLY;
     }

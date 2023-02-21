@@ -1,6 +1,7 @@
 package src.streams;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import src.commands.classes.CommandController;
 import src.data.classes.CollectionWorker;
@@ -26,7 +27,7 @@ public class StreamOpener implements StreamOpenerInterface{
 
     // Do split to input streams and output streams to current dirrectories
     @Override
-    public void openStream(CommandController commandController, CollectionWorker dataWorker, HashMap<String, String> fields) {
+    public void openStream(CommandController commandController, CollectionWorker dataWorker, LinkedHashMap<String, String> fields) {
         OutCLIstream outputCLIStream = new OutCLIstream();
         switch (outputStreamType) {
             case OUTPUT_CLI: {

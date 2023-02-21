@@ -4,6 +4,7 @@ import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import src.commands.classes.CommandController;
 import src.data.classes.CollectionWorker;
@@ -11,16 +12,17 @@ import src.streams.DataInOutStatus;
 
 public class OutFileStream implements OutputStreamsOpening {
     @Override
-    public DataInOutStatus openOutputStream(CommandController commandController, CollectionWorker dataWorker,
+    public DataInOutStatus openOutputStream(CommandController commandController, CollectionWorker dataWorker, LinkedHashMap<String, String> fields,
             String commandName, ArrayList<String> extraArguments) {
         String fileName = System.getenv().get("FILE_NAME");
         try {
             FileOutputStream outputFileStream = new FileOutputStream(fileName);
             DataOutputStream outputDataStream = new DataOutputStream(outputFileStream);
-            for (String objkey : dataWorker.getMainCollection().keySet()) {
+            outputDataStream.writeChars("key;");
+            for (String objkey : fields.keySet()) {
                 outputDataStream.writeChars(objkey + ";");
             }
-            outputDataStream.writeChars("Hello!;"); // Testing correct filepath format and writing there a word :-)
+            outputDataStream.writeChars("\n");
             outputDataStream.close();
             outputFileStream.close();
         } catch (IOException | NullPointerException e) {

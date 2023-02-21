@@ -14,17 +14,17 @@ class App {
     public static void main(String[] args) throws IOException {
 
         LinkedHashMap<String, String> fields = new FieldFetcher().fetchFields();
-        System.out.println(fields);
+        
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
-        CollectionWorker dataWorker = new CollectionWorker(localDatabase); // Вероятнее всего, жестчайщая жесть. Так
-                                                                           // нельзя писать.
+        CollectionWorker dataWorker = new CollectionWorker(localDatabase); 
         CommandController commandController = new CommandController();
+        OutFileStream outToFile = new OutFileStream();
+        outToFile.openOutputStream(commandController, dataWorker, new LinkedHashMap<String, String>(), "", new ArrayList<>());
+        
         StreamOpener cliController = new StreamOpener(StreamType.INPUT_CLI,
                 StreamType.OUTPUT_CLI);
         cliController.openStream(commandController, dataWorker, fields);
-        OutFileStream outToFile = new OutFileStream();
-        outToFile.openOutputStream(null, dataWorker, null, null);
-
+        
         /*
          * //Testing unique ID technolody
          * Increment autoUniqueID = new Increment(1);
