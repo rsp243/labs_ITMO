@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import src.commands.classes.Command;
 import src.commands.classes.CommandController;
@@ -17,7 +18,7 @@ public class CLIstream implements InputStreamsOpening {
 
     @Override
     public DataInOutStatus openCLIStream(OutCLIstream outputStream, CommandController commandController,
-            CollectionWorker dataWorker) {
+            CollectionWorker dataWorker, HashMap<String, String> fields) {
         BufferedReader inpReader = new BufferedReader(new InputStreamReader(System.in));
         try {
             while (true) {
@@ -28,7 +29,7 @@ public class CLIstream implements InputStreamsOpening {
                     String commandName = splittedInputData[0];
                     CommandDataChecker commandChecker = new CommandDataChecker();
                     if (commandChecker.checkInputedCommand(commandController, inpReader, outputStream,
-                            inputData) == DataInOutStatus.FAILED) {
+                            inputData, fields) == DataInOutStatus.FAILED) {
                         outputStream.outputIntoCLI("You have typed wrong arguments to last command. Try again. \n");
                     } else {
                         ArrayList<String> extraArguments = commandChecker.getExtraArguments();

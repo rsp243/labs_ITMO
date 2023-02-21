@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import src.commands.classes.CommandController;
 import src.data.classes.CollectionWorker;
@@ -12,16 +12,16 @@ import src.streams.out.OutFileStream;
 
 class App {
     public static void main(String[] args) throws IOException {
-        
-        HashMap<String, String> fields = new FieldFetcher().fetchFields();
+
+        LinkedHashMap<String, String> fields = new FieldFetcher().fetchFields();
         System.out.println(fields);
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<>());
         CollectionWorker dataWorker = new CollectionWorker(localDatabase); // Вероятнее всего, жестчайщая жесть. Так
                                                                            // нельзя писать.
         CommandController commandController = new CommandController();
         StreamOpener cliController = new StreamOpener(StreamType.INPUT_CLI,
-        StreamType.OUTPUT_CLI);
-        cliController.openStream(commandController, dataWorker);
+                StreamType.OUTPUT_CLI);
+        cliController.openStream(commandController, dataWorker, fields);
         OutFileStream outToFile = new OutFileStream();
         outToFile.openOutputStream(null, dataWorker, null, null);
 

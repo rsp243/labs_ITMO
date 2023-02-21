@@ -1,5 +1,7 @@
 package src.streams;
 
+import java.util.HashMap;
+
 import src.commands.classes.CommandController;
 import src.data.classes.CollectionWorker;
 import src.streams.in.CLIstream;
@@ -24,7 +26,7 @@ public class StreamOpener implements StreamOpenerInterface{
 
     // Do split to input streams and output streams to current dirrectories
     @Override
-    public void openStream(CommandController commandController, CollectionWorker dataWorker) {
+    public void openStream(CommandController commandController, CollectionWorker dataWorker, HashMap<String, String> fields) {
         OutCLIstream outputCLIStream = new OutCLIstream();
         switch (outputStreamType) {
             case OUTPUT_CLI: {
@@ -37,7 +39,7 @@ public class StreamOpener implements StreamOpenerInterface{
             case INPUT_CLI: {
                 // Creating object of CLIstream and taking data from it
                 CLIstream inputCLIStream = new CLIstream();
-                inputCLIStream.openCLIStream(outputCLIStream, commandController, dataWorker);
+                inputCLIStream.openCLIStream(outputCLIStream, commandController, dataWorker, fields);
                 break;
             }
             default: System.out.print("Invalid Input Stream Type");

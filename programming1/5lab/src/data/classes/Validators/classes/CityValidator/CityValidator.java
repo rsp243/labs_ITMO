@@ -10,15 +10,17 @@ import src.data.enums.Climate;
 public class CityValidator implements ValidatorInterface<ArrayList<String>>{
     @Override
     public boolean validate(ArrayList<String> args) {
-        // Needed to be added Coordinates, Climate, Human Validators
+        String[] coordinatesToValidate = {args.get(1), args.get(2)}; 
+        String[] humanToValidate = {args.get(9), args.get(10), args.get(11)};
+
         if (new NameCityValidator().validate(args.get(0)) &&
-        new CoordinatesValidator().validate(args.get(1).split(" ")) && 
-        new AreaCityValidator().validate(Integer.parseInt(args.get(2))) && 
-        new PopulationCityValidator().validate(Integer.parseInt(args.get(3))) && 
+        new CoordinatesValidator().validate(coordinatesToValidate) && 
+        new AreaCityValidator().validate(Integer.parseInt(args.get(3))) && 
+        new PopulationCityValidator().validate(Integer.parseInt(args.get(4))) && 
         new TelephoneCodeCityValidator().validate(Long.parseLong(args.get(5))) &&
-        new CarCodeCityValidator().validate(Long.parseLong(args.get(6))) && 
-        Climate.valueOf(args.get(7)) != null && 
-        new HumanValidator().validate(args.get(8).split(" "))) {
+        new CarCodeCityValidator().validate(Long.parseLong(args.get(7))) && 
+        Climate.valueOf(args.get(8)) != null && 
+        new HumanValidator().validate(humanToValidate)) {
             return true;
         }
         return false;

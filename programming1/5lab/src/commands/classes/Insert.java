@@ -8,7 +8,7 @@ import src.data.classes.Factories.CityFactory;
 
 public class Insert extends Command {
     public Insert() {
-        super("insert", "Add an element with typed key into the main collection", 10, CommandType.CITY_WORKER);
+        super("insert", "Add an element with typed key into the main collection", 12, CommandType.CITY_WORKER);
     }
 
     @Override
