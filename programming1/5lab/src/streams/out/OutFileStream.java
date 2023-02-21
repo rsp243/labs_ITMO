@@ -23,7 +23,7 @@ public class OutFileStream implements OutputStreamsOpening {
             outputDataStream.writeChars("Hello!;"); // Testing correct filepath format and writing there a word :-)
             outputDataStream.close();
             outputFileStream.close();
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             return DataInOutStatus.FAILED;
         }
         return DataInOutStatus.SUCCESFULLY;

@@ -2,12 +2,14 @@ package src.data.classes;
 
 import java.util.Date;
 
+import src.data.classes.Annotations.Complex;
 import src.data.enums.Climate;
 import src.fillers.Increment;
 
 public class City {
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
+    @Complex
     private Coordinates coordinates; //Поле не может быть null
     private Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private int area; //Значение поля должно быть больше 0, Поле не может быть null
@@ -15,7 +17,9 @@ public class City {
     private Integer metersAboveSeaLevel;
     private long telephoneCode; //Значение поля должно быть больше 0, Максимальное значение поля: 100000
     private long carCode; //Значение поля должно быть больше 0, Максимальное значение поля: 1000
+    @Complex
     private Climate climate; //Поле не может быть null
+    @Complex
     private Human governor; //Поле может быть null
 
 
