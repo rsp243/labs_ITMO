@@ -30,7 +30,8 @@ dependencies {
 }
 */
 plugins {
-    id 'application'
+    id 'java'
+    id 'application' 
 }
 
 repositories {
@@ -38,13 +39,8 @@ repositories {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/com.opencsv/opencsv
-    implementation 'com.opencsv:opencsv:3.7'
+    implementation group: 'com.opencsv', name: 'opencsv', version: '5.7.0'
 }
-
-
-apply plugin: 'java'
-apply plugin: 'application'
 
 sourceSets.main.java.srcDirs = ['src']
 

@@ -16,7 +16,6 @@ public class CommandDataChecker {
     public DataInOutStatus checkInputedCommand(Command commandObj, ArrayList<String> arguments,
             LinkedHashMap<String, String> fields) {
         extraArguments = new ObjReading().objRead(commandObj, fields);
-        System.out.println(extraArguments.toString());
         if (extraArguments.size() == 0) {
             return DataInOutStatus.FAILED;
         }

@@ -79,7 +79,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\5labNew.jar;%APP_HOME%\lib\opencsv-5.7.1.jar;%APP_HOME%\lib\commons-text-1.10.0.jar;%APP_HOME%\lib\commons-lang3-3.12.0.jar;%APP_HOME%\lib\commons-beanutils-1.9.4.jar;%APP_HOME%\lib\commons-collections4-4.4.jar;%APP_HOME%\lib\commons-logging-1.2.jar;%APP_HOME%\lib\commons-collections-3.2.2.jar
+set CLASSPATH=%APP_HOME%\lib\5labNew.jar;%APP_HOME%\lib\opencsv-5.7.0.jar;%APP_HOME%\lib\commons-text-1.9.jar;%APP_HOME%\lib\commons-lang3-3.12.0.jar;%APP_HOME%\lib\commons-beanutils-1.9.4.jar;%APP_HOME%\lib\commons-collections4-4.4.jar;%APP_HOME%\lib\commons-logging-1.2.jar;%APP_HOME%\lib\commons-collections-3.2.2.jar
 
 @rem Execute 5labNew
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %5LAB_NEW_OPTS%  -classpath "%CLASSPATH%" main.Main %CMD_LINE_ARGS%

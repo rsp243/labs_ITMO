@@ -3,14 +3,14 @@ package server.data.classes;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-import client.streams.in.CSVReader;
+import client.streams.in.ReaderCSV;
 
 public class CollectionWorker {
     private final LocalDatabase database;
 
     public CollectionWorker(LocalDatabase aLocalDatabase) {
         database = aLocalDatabase;
-        database.setMainCollection(new CSVReader().getSavedCollection());
+        database.setMainCollection(new ReaderCSV().getSavedCollection());
     }
 
     public LinkedHashMap<String, City> getMainCollection() {

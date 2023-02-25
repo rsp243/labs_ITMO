@@ -6,7 +6,7 @@ import java.util.Map;
 
 import server.data.classes.CollectionWorker;
 
-public class CommandController  {
+public class CommandController {
     private static HashMap<String, Command> mapOfCommands;
     private static CollectionWorker worker;
 
@@ -27,6 +27,8 @@ public class CommandController  {
         mapOfCommands.put(removeCommand.getName(), removeCommand);
         Update updateCommand = new Update();
         mapOfCommands.put(updateCommand.getName(), updateCommand);
+        Save saveCommand = new Save();
+        mapOfCommands.put(saveCommand.getName(), saveCommand);
         SumOfCarCodeCommand sumOfCarCodeCommand = new SumOfCarCodeCommand();
         mapOfCommands.put(sumOfCarCodeCommand.getName(), sumOfCarCodeCommand);
     }
@@ -41,7 +43,7 @@ public class CommandController  {
 
     public static String execute(Command commandObj, ArrayList<String> extraArguments) {
         StringBuilder execution = new StringBuilder();
-            execution.append(commandObj.execute(worker, extraArguments) + "\n"); // Adding into String Builder argument.execute()
+        execution.append(commandObj.execute(worker, extraArguments)); // Adding into String Builder argument.execute()
         return execution.toString();
     }
 }

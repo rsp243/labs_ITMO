@@ -1,5 +1,6 @@
 package server.data.classes;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import server.data.classes.Annotations.Complex;
@@ -112,6 +113,25 @@ public class City {
 
     public void setGovernor(Human governor) {
         this.governor = governor;
+    }
+
+    public ArrayList<String> getAllFieldsValues() {
+        ArrayList<String> resultArrayList = new ArrayList<>();
+        resultArrayList.add(Long.toString(id));
+        resultArrayList.add(name);
+        resultArrayList.add(Long.toString(coordinates.getX()));
+        resultArrayList.add(Long.toString(coordinates.getY()));
+        resultArrayList.add(creationDate.toString());
+        resultArrayList.add(Long.toString(area));
+        resultArrayList.add(Long.toString(population));
+        resultArrayList.add(Long.toString(metersAboveSeaLevel));
+        resultArrayList.add(Long.toString(telephoneCode));
+        resultArrayList.add(Long.toString(carCode));
+        resultArrayList.add(climate.toString());
+        resultArrayList.add(governor.getAge().toString());
+        resultArrayList.add(governor.getHeight().toString());
+        resultArrayList.add(governor.getBirthday().toString());
+        return resultArrayList;
     }
 
     @Override
