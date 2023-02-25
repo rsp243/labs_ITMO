@@ -1,5 +1,0 @@
-org 0x5B7
-
-START: 
-word 0xAF77
-word 0xEAF6

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.11.30)  5 DEC 2022 13:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.9)  22 FEB 2023 15:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -728,26 +728,26 @@ File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
  (/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
-LaTeX Info: Redefining \th on input line 16.
+LaTeX Info: Redefining \th on input line 17.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -809,187 +809,127 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-(./lab6Title.tex (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-4.def
+./main.tex:19: Missing $ inserted.
+<inserted text> 
+                $
+l.19 X = {x_
+            i|i\in}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 19.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+./main.tex:19: Extra }, or forgotten $.
+l.19 X = {x_i|i\in}
+                   
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+(./lab6Title.tex
+./lab6Title.tex:12: Missing $ inserted.
+<inserted text> 
+                $
+l.12 \begin{center}
+                   
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./lab6Title.tex:12: Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.12 \begin{center}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./lab6Title.tex:12: Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.12 \begin{center}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-4.def
 File: uni-4.def 2013/05/13 UCS: Unicode data U+0400..U+04FF
 )
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-0.def
 File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 )
-
-LaTeX Font Warning: Font shape `T2A/cmr/m/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 17.
-
-
-LaTeX Font Warning: Font shape `T2A/cmr/b/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 21.
-
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-33.def
 File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
 )
-LaTeX Font Info:    Calculating math sizes for size <18> on input line 40.
 
+./lab6Title.tex:29: LaTeX Error: \begin{document} ended by \end{center}.
 
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 40.
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.29 \end{center}
+                 
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
+./lab6Title.tex:29: Missing } inserted.
+<inserted text> 
+                }
+l.29 \end{center}
+                 
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <12.59995> not available
-(Font)              size <12> substituted on input line 40.
-
-
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <18> not available
-(Font)              size <17.28> substituted on input line 40.
-
-
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <12.59995> not available
-(Font)              size <12> substituted on input line 40.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 40.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <12.59995> not available
-(Font)              size <12> substituted on input line 40.
-
-LaTeX Font Info:    Trying to load font information for U+msa on input line 40.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 40.
-
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)) (./content.tex
-Underfull \hbox (badness 10000) in paragraph at lines 26--27
-
- []
-
-<src/painting1.png, id=4, 594.22pt x 263.98625pt>
-File: src/painting1.png Graphic file (type png)
-<use src/painting1.png>
-Package pdftex.def Info: src/painting1.png  used on input line 31.
-(pdftex.def)             Requested size: 234.47198pt x 104.16667pt.
-
-LaTeX Warning: Command \CYRS invalid in math mode on input line 51.
-
-Missing character: There is no Ñ in font cmr10!
-
-LaTeX Warning: Command \cyri invalid in math mode on input line 52.
-
-Missing character: There is no è in font cmr10!
-
-Overfull \hbox (24.0pt too wide) in paragraph at lines 22--106
-[][]
- []
+./lab6Title.tex:29: Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.29 \end{center}
+                 
+Things are pretty mixed up, but I think the worst is over.
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2 <./src/painting1.png>]
-<src/2-picture.png, id=28, 230.8625pt x 177.66376pt>
-File: src/2-picture.png Graphic file (type png)
-<use src/2-picture.png>
-Package pdftex.def Info: src/2-picture.png  used on input line 117.
-(pdftex.def)             Requested size: 105.51167pt x 81.19768pt.
-<src/3-picture.png, id=29, 206.7725pt x 178.6675pt>
-File: src/3-picture.png Graphic file (type png)
-<use src/3-picture.png>
-Package pdftex.def Info: src/3-picture.png  used on input line 124.
-(pdftex.def)             Requested size: 105.51167pt x 91.171pt.
-
-
-LaTeX Warning: Command \CYRN invalid in math mode on input line 129.
-
-Missing character: There is no Í in font cmr10!
-<src/4-picture.png, id=30, 348.30125pt x 204.765pt>
-File: src/4-picture.png Graphic file (type png)
-<use src/4-picture.png>
-Package pdftex.def Info: src/4-picture.png  used on input line 152.
-(pdftex.def)             Requested size: 152.43599pt x 89.61569pt.
-
-LaTeX Warning: Command \CYRV invalid in math mode on input line 157.
-
-Missing character: There is no Â in font cmr10!
-
-LaTeX Warning: Command \cyrr invalid in math mode on input line 157.
-
-Missing character: There is no ð in font cmr10!
-
-LaTeX Warning: Command \cyrk invalid in math mode on input line 157.
-
-
-LaTeX Warning: Command \cyrg invalid in math mode on input line 157.
-
-
-LaTeX Warning: Command \cyrm invalid in math mode on input line 157.
-
-Missing character: There is no ê in font cmr10!
-Missing character: There is no ã in font cmr10!
-Missing character: There is no ì in font cmr10!
-<src/5-picture.png, id=31, 336.25626pt x 166.6225pt>
-File: src/5-picture.png Graphic file (type png)
-<use src/5-picture.png>
-Package pdftex.def Info: src/5-picture.png  used on input line 161.
-(pdftex.def)             Requested size: 112.24615pt x 55.6212pt.
-<src/6-picture.png, id=32, 263.98625pt x 160.6pt>
-File: src/6-picture.png Graphic file (type png)
-<use src/6-picture.png>
-Package pdftex.def Info: src/6-picture.png  used on input line 168.
-(pdftex.def)             Requested size: 112.24615pt x 68.28471pt.
-)
-Overfull \hbox (24.0pt too wide) in paragraph at lines 109--20
-[][]
- []
-
-[3
-
- <./src/2-picture.png> <./src/3-picture.png> <./src/4-picture.png> <./src/5-pic
-ture.png> <./src/6-picture.png>] (./Evklid.tex
-Underfull \hbox (badness 10000) in paragraph at lines 17--18
-
- []
-
-<src/E.jpg, id=36, 172.51549pt x 177.95515pt>
-File: src/E.jpg Graphic file (type jpg)
-<use src/E.jpg>
-Package pdftex.def Info: src/E.jpg  used on input line 52.
-(pdftex.def)             Requested size: 54.87573pt x 56.60466pt.
-) [4 <./src/E.jpg>] (./main.aux)
-
-LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 0.72pt have occurred.
-
- ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.aux) ) ) 
 Here is how much of TeX's memory you used:
- 18641 strings out of 479721
- 349546 string characters out of 5887696
- 640625 words of memory out of 5000000
- 36274 multiletter control sequences out of 15000+600000
- 482921 words of font info for 63 fonts, out of 8000000 for 9000
+ 18380 strings out of 479721
+ 344309 string characters out of 5887697
+ 604625 words of memory out of 5000000
+ 36041 multiletter control sequences out of 15000+600000
+ 474137 words of font info for 40 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 84i,9n,89p,856b,729s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/semjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm0500.600p
-k> </home/semjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/lasl1000.600p
-k> </home/semjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1000.600p
-k> </home/semjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1200.600p
-k> </home/semjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larb1728.600p
-k> </home/semjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1000.600p
-k></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/s
-ymbols/msam10.pfb>
-Output written on main.pdf (4 pages, 332789 bytes).
+ 84i,5n,89p,405b,632s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/se
+mjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1200.600pk> </home/se
+mjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1000.600pk> </home/se
+mjon/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1000.600pk></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on main.pdf (1 page, 56700 bytes).
 PDF statistics:
- 303 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
+ 144 PDF objects out of 1000 (max. 8388607)
+ 28 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 48 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
