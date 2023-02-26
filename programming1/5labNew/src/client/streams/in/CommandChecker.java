@@ -50,7 +50,6 @@ public class CommandChecker {
                 correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields);
                 if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
                     argumentsToCommand.addAll(commandChecker.getExtraArguments());
-                    OutCLIstream.outputIntoCLI(CommandController.execute(commandObj, argumentsToCommand));
                 }
             } else {
                 correctnessStatus = DataInOutStatus.WRONGARGS;

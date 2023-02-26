@@ -55,7 +55,8 @@ run {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'main.Main'
+            'Main-Class': 'main.Main',
+            
         )
     }
 }

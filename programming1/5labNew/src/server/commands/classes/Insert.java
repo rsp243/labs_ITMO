@@ -16,7 +16,7 @@ public class Insert extends Command {
         String resultStr = "Successfully";
         String key = extraArguments.remove(0);
         if (worker.getMainCollection().keySet().contains(key)) {
-            resultStr = "You typed wrong key of object. There is the same key in main collection. Failed.";    
+            return resultStr = "You typed wrong key of object. There is the same key in main collection. Failed.";    
         }
         City newCity = new CityFactory().createCity(extraArguments);
         worker.addNew(key, newCity);

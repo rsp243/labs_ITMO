@@ -3,7 +3,12 @@ package client.streams.out;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
+
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
 
 import client.streams.DataInOutStatus;
 import server.data.classes.City;
@@ -14,24 +19,24 @@ public class OutFileStream {
         String fileName = System.getenv().get("FILE_NAME");
         try {
             FileOutputStream outputFileStream = new FileOutputStream(fileName);
-            DataOutputStream outputDataStream = new DataOutputStream(outputFileStream);
-            DataOutputStream.nullOutputStream();
-            outputDataStream.writeChars("key,");
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputFileStream, StandardCharsets.UTF_8);           
+            outputStreamWriter.write("key");
             for (String objkey : fields.keySet()) {
-                outputDataStream.writeChars(objkey + ",");
+                outputStreamWriter.write("," + objkey);
             }
-            outputDataStream.writeChars("\n");
+            outputStreamWriter.write("\n");
             LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
             System.out.println(mainCollection.toString());
             for (String key : mainCollection.keySet()) {
                 City cityObj = mainCollection.get(key);
-                outputDataStream.writeChars(key + ",");
+                outputStreamWriter.write(key);
                 for (String cityFieldValue : cityObj.getAllFieldsValues()) {
-                    outputDataStream.writeChars(cityFieldValue + ",");
+                    outputStreamWriter.write("," + cityFieldValue);
                 }
-                outputDataStream.writeChars("\n");
+
+                outputStreamWriter.write("\n");
             }
-            outputDataStream.close();
+            outputStreamWriter.close();
             outputFileStream.close();
         } catch (IOException | NullPointerException e) {
             return DataInOutStatus.FAILED;

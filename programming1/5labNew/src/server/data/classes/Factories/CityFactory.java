@@ -9,6 +9,7 @@ import server.data.enums.Climate;
 import server.fillers.Increment;
 
 public class CityFactory {
+    // It's nessesary to edit this class, because if we create a lot of objects City, their id-s would be the same = 1
     private Increment uniqueID = new Increment(1);
 
     public City createCity(ArrayList<String> args) {
