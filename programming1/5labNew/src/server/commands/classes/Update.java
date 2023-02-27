@@ -18,9 +18,9 @@ public class Update extends Command {
         if (!worker.getMainCollection().keySet().contains(key)) {
             resultStr = "You typed wrong key of object. There is no objects in main collection with that key. Failed.";       
         }
-        // City newCity = new CityFactory().createCity(extraArguments);
-        // worker.addNew(key, newCity);
-        // worker.setDateOfLastChange();
+        City newCity = new CityFactory().createCity(worker.getMainCollection().get(key).getId(), extraArguments);
+        worker.addNew(key, newCity);
+        worker.setDateOfLastChange();
         return resultStr;
     }
 }

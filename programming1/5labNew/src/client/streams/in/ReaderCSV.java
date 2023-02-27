@@ -2,16 +2,13 @@ package client.streams.in;
 
 import server.data.classes.City;
 import server.data.classes.Factories.CityFactory;
-import server.data.classes.Validators.classes.CityValidator.CityValidator;
 import server.fillers.Increment;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -67,8 +64,8 @@ public class ReaderCSV {
             uniqueID = new Increment(Collections.max(idArray));
             uniqueID.getNewId();
             sc.close();
-        } catch (IOException e) {
-            OutCLIstream.outputIntoCLI("Error with file");
+        } catch (IOException | NullPointerException e) {
+            OutCLIstream.outputIntoCLI("Error with file, check path of the file.");
         }
         return savedCollection;
     }

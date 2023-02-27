@@ -1,9 +1,6 @@
 package server.commands.classes;
 
-import java.util.ArrayList;
-
 import server.commands.interfaces.Executable;
-import server.data.classes.CollectionWorker;
 
 public abstract class Command implements Executable{
     private String name;
