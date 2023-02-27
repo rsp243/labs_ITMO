@@ -1,6 +1,0 @@
-key,City.id,City.name,City.Coordinates.x,City.Coordinates.y,City.creationDate,City.area,City.population,City.metersAboveSeaLevel,City.telephoneCode,City.carCode,City.Climate,City.Human.age,City.Human.height,City.Human.birthday
-1,1,SAint-Peterburg,10,22,Sun Feb 26 21:18:52 MSK 2023,111,333,15,60,777,RAIN_FOREST,18,180.0,2004-06-26
-HomeTown,2,Samara,1220,33,Mon Feb 27 21:03:59 MSK 2023,5000,7000,15,812,163,RAIN_FOREST,18,1.0,2004-07-28
-erev,3,Erevan,111,222,Mon Feb 27 23:10:36 MSK 2023,333,444,11,222,222,RAIN_FOREST,18,222.0,2004-06-26
-111,4,spsps,111,222,Mon Feb 27 23:46:34 MSK 2023,333,112,22,33,444,RAIN_FOREST,11,222.0,2004-06-26
-444,5,Sumbrerro,11,22,Tue Feb 28 00:12:34 MSK 2023,333,222,33,22,33,RAIN_FOREST,11,222.0,2004-06-26

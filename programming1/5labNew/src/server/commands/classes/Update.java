@@ -16,7 +16,7 @@ public class Update extends Command {
         String resultStr = "Successfully";
         String key = extraArguments.remove(0);
         if (!worker.getMainCollection().keySet().contains(key)) {
-            resultStr = "You typed wrong key of object. There is no objects in main collection with that key. Failed.";       
+            return resultStr = "You typed wrong key of object. There is no objects in main collection with that key. Failed.";       
         }
         City newCity = new CityFactory().createCity(worker.getMainCollection().get(key).getId(), extraArguments);
         worker.addNew(key, newCity);
