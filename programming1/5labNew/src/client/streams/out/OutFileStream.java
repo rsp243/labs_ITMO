@@ -22,7 +22,6 @@ public class OutFileStream {
             }
             outputStreamWriter.write("\n");
             LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
-            System.out.println(mainCollection.toString());
             for (String key : mainCollection.keySet()) {
                 City cityObj = mainCollection.get(key);
                 outputStreamWriter.write(key);

@@ -1,7 +1,6 @@
 package server.commands.classes;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
