@@ -2,18 +2,22 @@ package server.fillers;
 
 
 public class Increment {
-    private int iterId;
+    private Long iterId;
     
-    public Increment(int startInt) {
-        iterId = (startInt != 0) ? Math.abs(startInt) - 1 : 0;
+    public Increment(Long startVal) {
+        iterId = ((startVal != 0) ? Math.abs(startVal) - 1 : 0);
     }
 
-    public int getNewId() {
+    public long getNewId() {
         iterId += 1;
         return iterId;
     }
 
-    public int getCurrentID() {
+    public long getCurrentID() {
         return iterId;
+    }
+
+    public void setIterId(Long iterId) {
+        this.iterId = iterId;
     }
 }

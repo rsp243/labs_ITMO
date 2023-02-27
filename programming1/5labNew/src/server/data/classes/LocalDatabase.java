@@ -4,20 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-import server.fillers.Increment;
-
 public class LocalDatabase {
     private LinkedHashMap<String, City> mainCollection;
-    private Increment autoIncrementedKey = new Increment(1);
     private final Date dateOfInitialization;
     private Date dateOfLastChange;
 
     public LocalDatabase(ArrayList<City> arrayOfCities) {
-        
         mainCollection = new LinkedHashMap<>();
-        for (City  city : arrayOfCities) {
-            mainCollection.put(Integer.toString(autoIncrementedKey.getNewId()), city);
-        }
         dateOfInitialization = new Date();
         dateOfLastChange = new Date();
     }
@@ -38,17 +31,14 @@ public class LocalDatabase {
         this.dateOfLastChange = dateOfLastChange;
     }
 
-    public Integer getAutoIncrementedKey() {
-        return autoIncrementedKey.getCurrentID();
-    }
-
     public Date getDateOfLastChange() {
         return dateOfLastChange;
     }
 
     @Override
     public String toString() {
-        return "MainCollection [mainCollection=" + mainCollection + ", dateOfInitialization=" + dateOfInitialization
-                + ", autoIncrementedKey=" + autoIncrementedKey + "]";
+        return "LocalDatabase [mainCollection=" + mainCollection + ", dateOfInitialization=" + dateOfInitialization
+                + ", dateOfLastChange=" + dateOfLastChange + "]";
     }
+
 }

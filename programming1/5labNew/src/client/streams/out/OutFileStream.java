@@ -1,14 +1,10 @@
 package client.streams.out;
 
-import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
-
-import com.opencsv.CSVParser;
-import com.opencsv.CSVParserBuilder;
 
 import client.streams.DataInOutStatus;
 import server.data.classes.City;

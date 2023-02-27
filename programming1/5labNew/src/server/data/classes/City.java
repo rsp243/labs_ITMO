@@ -5,7 +5,6 @@ import java.util.Date;
 
 import server.data.classes.Annotations.Complex;
 import server.data.enums.Climate;
-import server.fillers.Increment;
 
 public class City {
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -24,9 +23,9 @@ public class City {
     private Human governor; //Поле может быть null
 
 
-    public City(Increment uniqueID, String aName, Coordinates aCoordinates, int anArea, int aPopulation, Integer aMetersAboveSeaLevel,
+    public City(Long uniqueID, String aName, Coordinates aCoordinates, int anArea, int aPopulation, Integer aMetersAboveSeaLevel,
             long aTelephoneCode, long aCarCode, Climate aClimate, Human aGovernor) {
-        id = uniqueID.getNewId();
+        id = uniqueID;
         name = aName;
         coordinates = aCoordinates;
         area = anArea;

@@ -4,13 +4,17 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 import client.streams.in.ReaderCSV;
+import server.fillers.Increment;
 
 public class CollectionWorker {
     private final LocalDatabase database;
-
+    private Increment uniqueID;
+    
     public CollectionWorker(LocalDatabase aLocalDatabase) {
         database = aLocalDatabase;
-        database.setMainCollection(new ReaderCSV().getSavedCollection());
+        var CSVReader = new ReaderCSV();
+        database.setMainCollection(CSVReader.getSavedCollection());
+        uniqueID = CSVReader.getUniqueID();
     }
 
     public LinkedHashMap<String, City> getMainCollection() {
@@ -57,5 +61,13 @@ public class CollectionWorker {
 
     public LocalDatabase getDataBase() {
         return database;
+    }
+
+    public LocalDatabase getDatabase() {
+        return database;
+    }
+
+    public Increment getUniqueID() {
+        return uniqueID;
     }
 }

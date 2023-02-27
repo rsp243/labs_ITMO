@@ -19,6 +19,7 @@ public class CommandController {
         mapOfCommands.put(infoCommand.getName(), infoCommand);
         Insert insertCommand = new Insert();
         mapOfCommands.put(insertCommand.getName(), insertCommand);
+        insertCommand.setUniqueID(worker.getUniqueID());
         Exit exitCommand = new Exit();
         mapOfCommands.put(exitCommand.getName(), exitCommand);
         Show showCommand = new Show();
