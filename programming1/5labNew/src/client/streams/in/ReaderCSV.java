@@ -29,6 +29,7 @@ public class ReaderCSV {
             Scanner sc = new Scanner(new File(fileName));
             Integer iterator = 0;
             ArrayList<Long> idArray = new ArrayList<>();  
+            idArray.add((long) 1);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();            
                 CSVParser csvParser = new CSVParser();

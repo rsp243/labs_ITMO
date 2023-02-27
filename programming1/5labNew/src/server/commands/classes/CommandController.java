@@ -32,6 +32,8 @@ public class CommandController {
         mapOfCommands.put(saveCommand.getName(), saveCommand);
         SumOfCarCodeCommand sumOfCarCodeCommand = new SumOfCarCodeCommand();
         mapOfCommands.put(sumOfCarCodeCommand.getName(), sumOfCarCodeCommand);
+        CountByClimate countByClimate = new CountByClimate();
+        mapOfCommands.put(countByClimate.getName(), countByClimate);
     }
 
     public static Map<String, Command> getMapOfCommands() {

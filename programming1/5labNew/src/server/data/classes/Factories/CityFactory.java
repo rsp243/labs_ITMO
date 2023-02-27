@@ -8,7 +8,6 @@ import server.data.classes.Human;
 import server.data.enums.Climate;
 
 public class CityFactory {
-    // It's nessesary to edit this class, because if we create a lot of objects City, their id-s would be the same = 1
     public City createCity(Long uniqueID, ArrayList<String> args) {
         String[] coordinatesValues = {args.get(1), args.get(2)}; 
         String[] humanValues = {args.get(9), args.get(10), args.get(11)};
