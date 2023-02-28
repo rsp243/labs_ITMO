@@ -1,10 +1,7 @@
 package server.commands.classes;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
-
-import org.apache.commons.collections4.comparators.ComparatorChain;
 
 import client.MetaInfoCommand;
 import client.streams.in.ObjReading;
@@ -20,8 +17,6 @@ public class ReplaceIfGreater extends Command {
 
     @Override
     public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
-
-        // Nessesaty to add checking if new object is greater, than current2
         StringBuilder execution = new StringBuilder();
         LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
         String key = extraArguments.get(0);
@@ -35,19 +30,13 @@ public class ReplaceIfGreater extends Command {
             if (extraArguments.size() != 0) {
                 Long id = mainCollection.get(key).getId();
                 City newCityObj = new CityFactory().createCity(id, extraArguments);
-                Comparator<City> comparator = new Comparator<City>() {
-                    @Override
-                    public int compare(City arg0, City arg1) {
-                        
-                        
-                        return ;
-                    }
-                };
-                if () {}
+                if (mainCollection.get(key).compareTo(newCityObj) < 0) {
                     mainCollection.remove(key);
+                    mainCollection.put(key, newCityObj);
+                } else return execution.append("Field's values of typed object less than current. Not replaced.").toString();
                 return execution.append("Successfully").toString();
             } else {
-                return execution.append("You've typed wrong agruments to the object's fields.").toString();
+                return execution.append("You've typed wrong agruments to the object's fields. Failed.").toString();
             }
         } else {
             execution.append(
