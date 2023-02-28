@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import client.MetaInfoCommand;
-import client.streams.in.ObjReading;
+import client.streams.in.CLI.ObjReading;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 import server.data.classes.Factories.CityFactory;

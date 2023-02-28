@@ -15,11 +15,11 @@ public class Help extends Command {
 
     @Override
     public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
-        StringBuilder helpExcStr = new StringBuilder();
+        StringBuilder execution = new StringBuilder();
         for (Command command : collectionOfCommands) {
-            helpExcStr.append(command.toString() + "\n");
+            execution.append(command.toString() + "\n");
         }
-        helpExcStr.delete(helpExcStr.toString().length() - 1, helpExcStr.toString().length());
-        return helpExcStr.toString();
+        execution.delete(execution.toString().length() - 1, execution.toString().length());
+        return execution.toString();
     }
 }

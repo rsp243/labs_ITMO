@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-import client.streams.in.InputCLIstream;
+import client.streams.in.CLI.InputCLIstream;
 import server.commands.classes.CommandController;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;

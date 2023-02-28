@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import client.streams.DataInOutStatus;
+import client.streams.in.CLI.ObjReading;
 import server.commands.classes.Command;
 
 public class CommandDataChecker {

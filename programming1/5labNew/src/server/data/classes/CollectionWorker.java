@@ -3,7 +3,7 @@ package server.data.classes;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-import client.streams.in.ReaderCSV;
+import client.streams.in.File.ReaderCSV;
 import server.fillers.Increment;
 
 public class CollectionWorker {

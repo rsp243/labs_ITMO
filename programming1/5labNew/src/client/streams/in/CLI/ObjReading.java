@@ -1,4 +1,4 @@
-package client.streams.in;
+package client.streams.in.CLI;
 
 import java.io.IOException;
 import java.time.DateTimeException;

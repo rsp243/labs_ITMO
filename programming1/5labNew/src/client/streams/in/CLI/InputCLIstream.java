@@ -1,10 +1,11 @@
-package client.streams.in;
+package client.streams.in.CLI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import client.streams.DataInOutStatus;
+import client.streams.in.CommandParser;
 import client.streams.out.OutCLIstream;
 
 public class InputCLIstream {
@@ -17,8 +18,8 @@ public class InputCLIstream {
     public static DataInOutStatus openCLIStream() {
         try {
             OutCLIstream.outputIntoCLI("Type commands below.");
-            while (true) {
-                String inputData = inpReader.readLine();
+            String inputData = inpReader.readLine();
+            while (inputData != null) {
                 if (inputData != null) {
                     if (!inputData.equals("exit")) {
                         inputData = inputData.trim();
@@ -30,7 +31,9 @@ public class InputCLIstream {
                         inpReader.close();
                     }
                 }
+                inputData = inpReader.readLine();
             }
+            return DataInOutStatus.SUCCESFULLY;
         } catch (IOException e) {
             return DataInOutStatus.FAILED;
         }

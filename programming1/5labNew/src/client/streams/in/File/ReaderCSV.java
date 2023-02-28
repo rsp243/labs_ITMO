@@ -1,4 +1,4 @@
-package client.streams.in;
+package client.streams.in.File;
 
 import server.data.classes.City;
 import server.data.classes.Factories.CityFactory;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.Scanner;
 
 import com.opencsv.CSVParser;
 
@@ -25,14 +24,15 @@ public class ReaderCSV {
     public LinkedHashMap<String, City> getSavedCollection() {
         LinkedHashMap<String, City> savedCollection = new LinkedHashMap<>();
         String fileName = System.getenv().get("FILE_NAME");
+        ArrayList<String> linesArrayList = new FileReader().readFile(fileName);
+        CSVParser csvParser = new CSVParser();
+        Integer iterator = 0;
+
+        ArrayList<Long> idArray = new ArrayList<>();
+        idArray.add((long) 1);
         try {
-            Scanner sc = new Scanner(new File(fileName));
-            Integer iterator = 0;
-            ArrayList<Long> idArray = new ArrayList<>();  
-            idArray.add((long) 1);
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();            
-                CSVParser csvParser = new CSVParser();
+
+            for (String line : linesArrayList) {
                 ArrayList<String> arrayListArgs = new ArrayList<String>();
                 String[] parsedLine = csvParser.parseLine(line);
                 for (String str : parsedLine) {
@@ -55,7 +55,7 @@ public class ReaderCSV {
                         Date date = parser.parse(creationDate);
                         new Date();
                         cityObj.setCreationDate(date);
-                        savedCollection.put(key, cityObj);               
+                        savedCollection.put(key, cityObj);
                     } catch (ParseException | DateTimeException e) {
                         OutCLIstream.outputIntoCLI("Error with parsing data! Check correctness of your data.");
                     }
@@ -64,9 +64,8 @@ public class ReaderCSV {
             }
             uniqueID = new Increment(Collections.max(idArray));
             uniqueID.getNewId();
-            sc.close();
-        } catch (IOException | NullPointerException e) {
-            OutCLIstream.outputIntoCLI("Error with file, check path of the file.");
+        } catch (IOException e) {
+            OutCLIstream.outputIntoCLI("Error with CSV file.");
         }
         return savedCollection;
     }
