@@ -6,7 +6,7 @@ import java.util.Date;
 import server.data.classes.Annotations.Complex;
 import server.data.enums.Climate;
 
-public class City {
+public class City implements Comparable<City> {
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     @Complex
@@ -55,6 +55,33 @@ public class City {
         resultArrayList.add(governor.getHeight().toString());
         resultArrayList.add(governor.getBirthday().toString());
         return resultArrayList;
+    }
+
+    // Comparable
+
+    @Override
+    public int compareTo(City o) {
+        int result = 0;
+        result = Long.compare(id, o.getId());
+        if (result != 0) return result;
+        result = name.compareTo(o.getName());
+        if (result != 0) return result;
+        result = coordinates.compareTo(o.getCoordinates());
+        if (result != 0) return result;
+        result = Integer.compare(area, o.getArea());
+        if (result != 0) return result;
+        result = Integer.compare(population, o.getPopulation());
+        if (result != 0) return result;
+        result = Integer.compare(metersAboveSeaLevel, o.getMetersAboveSeaLevel());
+        if (result != 0) return result;
+        result = Long.compare(telephoneCode, o.getTelephoneCode());
+        if (result != 0) return result;
+        result = Long.compare(carCode, o.getCarCode());
+        if (result != 0) return result;
+        result = climate.compareTo(o.getClimate());
+        if (result != 0) return result;
+        result = governor.compareTo(o.getGovernor());
+        return 0;
     }
 
     public long getId() {

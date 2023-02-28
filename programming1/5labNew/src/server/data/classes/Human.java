@@ -2,7 +2,7 @@ package server.data.classes;
 
 import java.time.LocalDate;
 
-public class Human {
+public class Human implements Comparable<Human> {
     private Integer age; //Значение поля должно быть больше 0
     private Float height; //Значение поля должно быть больше 0
     private LocalDate birthday;
@@ -11,6 +11,19 @@ public class Human {
         this.age = age;
         this.height = height;
         this.birthday = birthday;
+    }
+
+    // Comparable
+
+    @Override
+    public int compareTo(Human o) {
+        int result = 0;
+        result = Integer.compare(age, o.getAge());
+        if (result != 0) return result;
+        result = Float.compare(height, o.getHeight());
+        if (result != 0) return result;
+        result = birthday.compareTo(o.getBirthday());
+        return result;
     }
     
     public Integer getAge() {

@@ -40,6 +40,8 @@ public class CommandController {
         mapOfCommands.put(clear.getName(), clear); 
         RemoveGreater removeGreater = new RemoveGreater();
         mapOfCommands.put(removeGreater.getName(), removeGreater);
+        ReplaceIfGreater replaceIfGreater = new ReplaceIfGreater();
+        mapOfCommands.put(replaceIfGreater.getName(), replaceIfGreater);
     }
 
     public static Map<String, Command> getMapOfCommands() {
