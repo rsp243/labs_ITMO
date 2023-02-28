@@ -1,7 +1,11 @@
 package server.commands.classes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 
+import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 
 public class Show extends Command {
@@ -11,14 +15,28 @@ public class Show extends Command {
 
     @Override
     public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
-        StringBuilder strShow = new StringBuilder();
+        StringBuilder execution = new StringBuilder();
         if (worker.getMainCollection().size() == 0) {
             return "There is no elements in main collection.";
         }
-        for (String iter : worker.getMainCollection().keySet()) {
-            strShow.append("key = " + iter + ": " + worker.getMainCollection().get(iter).toString() + "\n");
+        Comparator<City> cityComparator = Comparator.comparingLong(City::getId);
+        LinkedHashMap<String, City> mainCollection = worker.getMainCollection(); 
+        City[] arrayCities = new City[mainCollection.size()];
+        int iter = 0;
+        for (String key : mainCollection.keySet()) {
+            arrayCities[iter] = mainCollection.get(key);
+            iter++;
         }
-        return strShow.delete(strShow.toString().length() - 1, strShow.toString().length()).toString();
+        Arrays.sort(arrayCities, cityComparator);
+        
+        for (City city : arrayCities) {
+            for (String key : mainCollection.keySet()) {
+                if (mainCollection.get(key).equals(city)) {
+                    execution.append("key = " + key + " : " + city.toString() + "\n");
+                }                
+            }
+        }
+        return execution.delete(execution.toString().length() - 1, execution.toString().length()).toString();
     }
 
 }
