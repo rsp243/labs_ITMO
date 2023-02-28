@@ -16,11 +16,11 @@ public class CountByClimate extends Command {
     public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
         StringBuilder execution = new StringBuilder();
         int count = 0;
-        LinkedHashMap<String, server.data.classes.City> maintCollection = worker.getMainCollection();
+        LinkedHashMap<String, server.data.classes.City> mainCollection = worker.getMainCollection();
         try {
             Climate valueOfClimate = Climate.valueOf(extraArguments.get(0));
-            for (String key : maintCollection.keySet()) {
-                if (maintCollection.get(key).getClimate() == valueOfClimate) {
+            for (String key : mainCollection.keySet()) {
+                if (mainCollection.get(key).getClimate() == valueOfClimate) {
                     count++;
                 }
             }
