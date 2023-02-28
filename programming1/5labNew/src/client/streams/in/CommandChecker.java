@@ -25,6 +25,8 @@ public class CommandChecker {
             }
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
                 OutCLIstream.outputIntoCLI(CommandController.execute(commandObj, argumentsToCommand));
+            } else {
+                return correctnessStatus;
             }
         } else {
             return DataInOutStatus.NOCOMMAND;
@@ -35,12 +37,12 @@ public class CommandChecker {
     public DataInOutStatus checkComplicatedCommand(String commandName, ArrayList<String> argumentsToCommand,
             Command commandObj) {
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
-        if (commandObj.getCountOfExtraArgs() >= 1) {
-            if (commandObj.getCountOfExtraArgs() == 1 && argumentsToCommand.size() == 1) {
-                correctnessStatus = DataInOutStatus.SUCCESFULLY;
-                return correctnessStatus;
-            }
-            if (commandObj.getCountOfExtraArgs() > 1 && argumentsToCommand.size() == 1) {
+        if (commandObj.getCountOfExtraArgs() == 1 && argumentsToCommand.size() == 1) {
+            correctnessStatus = DataInOutStatus.SUCCESFULLY;
+            return correctnessStatus;
+        }
+        if (commandObj.getCountOfExtraArgs() > 1) {
+            if (argumentsToCommand.size() == 1) {
                 LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
                 if (fields == null) {
                     MetaInfoCommand.setFields();
@@ -52,8 +54,12 @@ public class CommandChecker {
                     argumentsToCommand.addAll(commandChecker.getExtraArguments());
                 }
             } else {
-                correctnessStatus = DataInOutStatus.WRONGARGS;
+                if (argumentsToCommand.size() != commandObj.getCountOfExtraArgs()) {
+                    return DataInOutStatus.WRONGARGS;
+                }
             }
+        } else {
+            correctnessStatus = DataInOutStatus.WRONGARGS;
         }
         return correctnessStatus;
     }

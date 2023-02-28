@@ -36,6 +36,10 @@ public class CommandController {
         mapOfCommands.put(countByClimate.getName(), countByClimate);
         RemoveGreaterKey removeGreaterKey = new RemoveGreaterKey();
         mapOfCommands.put(removeGreaterKey.getName(), removeGreaterKey); 
+        Clear clear = new Clear();
+        mapOfCommands.put(clear.getName(), clear); 
+        RemoveGreater removeGreater = new RemoveGreater();
+        mapOfCommands.put(removeGreater.getName(), removeGreater);
     }
 
     public static Map<String, Command> getMapOfCommands() {
