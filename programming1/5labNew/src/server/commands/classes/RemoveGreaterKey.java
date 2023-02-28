@@ -1,7 +1,6 @@
 package server.commands.classes;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 import server.data.classes.City;
@@ -16,13 +15,17 @@ public class RemoveGreaterKey extends Command {
     @Override
     public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
         StringBuilder execution = new StringBuilder();
-        LinkedHashMap<String, server.data.classes.City> mainCollection = worker.getMainCollection();
+        LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
         int count = 0;
+        ArrayList<String> removeKeyArray = new ArrayList<>(); 
         for (String key : mainCollection.keySet()) {
             if (key.compareTo(extraArguments.get(0)) < 0) {
-                mainCollection.remove(key);
+                removeKeyArray.add(key);
                 count++;
             }    
+        }
+        for (String key : removeKeyArray) {
+            worker.removeKey(key);
         }
         execution.append("Count of removed objects from collection: " + count + ".");
         return execution.toString();

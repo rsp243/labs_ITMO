@@ -34,6 +34,8 @@ public class CommandController {
         mapOfCommands.put(sumOfCarCodeCommand.getName(), sumOfCarCodeCommand);
         CountByClimate countByClimate = new CountByClimate();
         mapOfCommands.put(countByClimate.getName(), countByClimate);
+        RemoveGreaterKey removeGreaterKey = new RemoveGreaterKey();
+        mapOfCommands.put(removeGreaterKey.getName(), removeGreaterKey); 
     }
 
     public static Map<String, Command> getMapOfCommands() {
