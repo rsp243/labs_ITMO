@@ -4,9 +4,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+/**
+ * LocalDatabase class.
+ * Storage of main collections
+ */
+
 public class LocalDatabase {
+    /**
+     * MainCollection storage
+     */
     private LinkedHashMap<String, City> mainCollection;
+    /**
+     * Date of initialisation of main collection
+     */    
     private final Date dateOfInitialization;
+    /**
+     * Date of last change of main collection 
+     */
     private Date dateOfLastChange;
 
     public LocalDatabase(ArrayList<City> arrayOfCities) {
