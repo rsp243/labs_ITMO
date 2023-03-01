@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 
 import client.MetaInfoCommand;
 import client.streams.DataInOutStatus;
+import client.streams.in.ExecutionMode;
 import client.streams.out.OutFileStream;
 import server.data.classes.CollectionWorker;
 
@@ -14,7 +15,7 @@ public class Save extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         String resultStr = "Successfully";
         OutFileStream outToFile = new OutFileStream();
         LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();

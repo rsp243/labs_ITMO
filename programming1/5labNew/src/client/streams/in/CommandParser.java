@@ -6,7 +6,7 @@ import client.streams.DataInOutStatus;
 
 public class CommandParser {
 
-    public DataInOutStatus parse(String inputData) {
+    public DataInOutStatus parse(String inputData, ExecutionMode execMode) {
         String[] splittedInputData = inputData.split(" ");
         String commandName = splittedInputData[0];
         ArrayList<String> commandArguments = new ArrayList<>();
@@ -14,7 +14,7 @@ public class CommandParser {
             commandArguments.add(splittedInputData[i]);
         }
         if (commandName != null) {
-            return new CommandChecker().checkCorrectnessOfCommand(commandName, commandArguments);
+            return new CommandChecker().checkCorrectnessOfCommand(commandName, commandArguments, execMode);
         } else {
             return DataInOutStatus.FAILED;
         }

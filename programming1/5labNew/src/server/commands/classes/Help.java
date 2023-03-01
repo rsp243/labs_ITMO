@@ -3,6 +3,7 @@ package server.commands.classes;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 
 public class Help extends Command {
@@ -14,7 +15,7 @@ public class Help extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         for (Command command : collectionOfCommands) {
             execution.append(command.toString() + "\n");

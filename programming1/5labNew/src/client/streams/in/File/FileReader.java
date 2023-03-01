@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import client.streams.in.ExecutionMode;
 import client.streams.out.OutCLIstream;
 
 public class FileReader {
@@ -19,7 +20,7 @@ public class FileReader {
             sc.close();
             return linesArrayList;
         } catch (IOException | NullPointerException e) {
-            OutCLIstream.outputIntoCLI("Error with file, check path of the file.");
+            OutCLIstream.outputIntoCLI("Error with file, check path of the file. Type it in this format: 'src/server/data/file/<filename>.txt'", ExecutionMode.CLI);
             return new ArrayList<>();
         }
     }

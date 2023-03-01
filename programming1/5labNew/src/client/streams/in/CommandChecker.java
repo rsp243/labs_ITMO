@@ -11,7 +11,8 @@ import server.commands.classes.Command;
 import server.commands.classes.CommandController;
 
 public class CommandChecker {
-    public DataInOutStatus checkCorrectnessOfCommand(String commandName, ArrayList<String> argumentsToCommand) {
+    public DataInOutStatus checkCorrectnessOfCommand(String commandName, ArrayList<String> argumentsToCommand,
+            ExecutionMode execMode) {
         MetaInfoCommand metaInfoObj = new MetaInfoCommand();
         Map<String, Command> mapOfCommands = metaInfoObj.getMapOfCommands();
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
@@ -21,10 +22,10 @@ public class CommandChecker {
                 return DataInOutStatus.WRONGARGS;
             }
             if (commandObj.getCountOfExtraArgs() >= 1) {
-                correctnessStatus = checkComplicatedCommand(commandName, argumentsToCommand, commandObj);
+                correctnessStatus = checkComplicatedCommand(commandName, argumentsToCommand, commandObj, execMode);
             }
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
-                OutCLIstream.outputIntoCLI(CommandController.execute(commandObj, argumentsToCommand));
+                OutCLIstream.outputIntoCLI(CommandController.execute(commandObj, argumentsToCommand, execMode), execMode);
             } else {
                 return correctnessStatus;
             }
@@ -35,7 +36,7 @@ public class CommandChecker {
     }
 
     public DataInOutStatus checkComplicatedCommand(String commandName, ArrayList<String> argumentsToCommand,
-            Command commandObj) {
+            Command commandObj, ExecutionMode execMode) {
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
         if (commandObj.getCountOfExtraArgs() == 1 && argumentsToCommand.size() == 1) {
             correctnessStatus = DataInOutStatus.SUCCESFULLY;
@@ -49,7 +50,8 @@ public class CommandChecker {
                     fields = MetaInfoCommand.getFields();
                 }
                 CommandDataChecker commandChecker = new CommandDataChecker();
-                correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields);
+                correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields,
+                        execMode);
                 if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
                     argumentsToCommand.addAll(commandChecker.getExtraArguments());
                 }

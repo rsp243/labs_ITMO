@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import client.MetaInfoCommand;
+import client.streams.in.ExecutionMode;
 import client.streams.in.CLI.ObjReading;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 import server.data.classes.Factories.CityFactory;
 
 public class ReplaceIfGreater extends Command {
+    
     public ReplaceIfGreater() {
         super("remove_if_greater", "Replace key of object in main collection if typed key more than current.", 1,
                 CommandType.CITY_WORKER);
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
         String key = extraArguments.get(0);
@@ -26,7 +28,7 @@ public class ReplaceIfGreater extends Command {
                 MetaInfoCommand.setFields();
                 fields = MetaInfoCommand.getFields();
             }
-            extraArguments = new ObjReading().objRead(this, fields);
+            extraArguments = new ObjReading().objRead(this, fields, execMode);
             if (extraArguments.size() != 0) {
                 Long id = mainCollection.get(key).getId();
                 City newCityObj = new CityFactory().createCity(id, extraArguments);

@@ -2,6 +2,7 @@ package server.commands.classes;
 
 import java.util.ArrayList;
 
+import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 
 public class SumOfCarCodeCommand extends Command {
@@ -10,7 +11,7 @@ public class SumOfCarCodeCommand extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         return "Sum of car codes of all elements from the main collection: " + worker.sum_of_car_code().toString();
     }
 }

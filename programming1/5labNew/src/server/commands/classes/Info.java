@@ -2,6 +2,7 @@ package server.commands.classes;
 
 import java.util.ArrayList;
 
+import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 
 public class Info extends Command {
@@ -10,7 +11,7 @@ public class Info extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         //Type / Class of main collection
         execution.append("Type = " + worker.getDataBase().getMainCollection().getClass() + "\n");

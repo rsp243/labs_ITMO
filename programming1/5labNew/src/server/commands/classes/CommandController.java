@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 
 public class CommandController {
@@ -30,8 +31,8 @@ public class CommandController {
         mapOfCommands.put(clear.getName(), clear); 
         Save saveCommand = new Save();
         mapOfCommands.put(saveCommand.getName(), saveCommand);
-        
-
+        ExecuteScript executeScriptCommand = new ExecuteScript(this);
+        mapOfCommands.put(executeScriptCommand.getName(), executeScriptCommand);
         Exit exitCommand = new Exit();
         mapOfCommands.put(exitCommand.getName(), exitCommand);
         RemoveGreater removeGreater = new RemoveGreater();
@@ -56,9 +57,9 @@ public class CommandController {
         return worker;
     }
 
-    public static String execute(Command commandObj, ArrayList<String> extraArguments) {
+    public static String execute(Command commandObj, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
-        execution.append(commandObj.execute(worker, extraArguments)); // Adding into String Builder argument.execute()
+        execution.append(commandObj.execute(worker, extraArguments, execMode)); // Adding into String Builder argument.execute()
         return execution.toString();
     }
 }

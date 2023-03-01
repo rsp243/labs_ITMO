@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 
+import client.streams.in.ExecutionMode;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 
@@ -14,7 +15,7 @@ public class Show extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         if (worker.getMainCollection().size() == 0) {
             return "There is no elements in main collection.";

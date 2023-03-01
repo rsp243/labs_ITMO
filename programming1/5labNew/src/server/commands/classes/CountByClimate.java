@@ -3,6 +3,7 @@ package server.commands.classes;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 import server.data.enums.Climate;
 
@@ -13,7 +14,7 @@ public class CountByClimate extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         int count = 0;
         LinkedHashMap<String, server.data.classes.City> mainCollection = worker.getMainCollection();

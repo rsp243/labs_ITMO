@@ -4,7 +4,6 @@ import server.data.classes.City;
 import server.data.classes.Factories.CityFactory;
 import server.fillers.Increment;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,6 +15,7 @@ import java.util.LinkedHashMap;
 
 import com.opencsv.CSVParser;
 
+import client.streams.in.ExecutionMode;
 import client.streams.out.OutCLIstream;
 
 public class ReaderCSV {
@@ -57,7 +57,7 @@ public class ReaderCSV {
                         cityObj.setCreationDate(date);
                         savedCollection.put(key, cityObj);
                     } catch (ParseException | DateTimeException e) {
-                        OutCLIstream.outputIntoCLI("Error with parsing data! Check correctness of your data.");
+                        OutCLIstream.outputIntoCLI("Error with parsing data! Check correctness of your data.", ExecutionMode.CLI);
                     }
                 }
                 iterator++;
@@ -65,7 +65,7 @@ public class ReaderCSV {
             uniqueID = new Increment(Collections.max(idArray));
             uniqueID.getNewId();
         } catch (IOException e) {
-            OutCLIstream.outputIntoCLI("Error with CSV file.");
+            OutCLIstream.outputIntoCLI("Error with CSV file.", ExecutionMode.CLI);
         }
         return savedCollection;
     }

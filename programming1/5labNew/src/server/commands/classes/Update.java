@@ -2,6 +2,7 @@ package server.commands.classes;
 
 import java.util.ArrayList;
 
+import client.streams.in.ExecutionMode;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 import server.data.classes.Factories.CityFactory;
@@ -12,7 +13,7 @@ public class Update extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         String resultStr = "Successfully";
         String key = extraArguments.remove(0);
         if (!worker.getMainCollection().keySet().contains(key)) {

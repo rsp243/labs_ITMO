@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import client.MetaInfoCommand;
+import client.streams.in.ExecutionMode;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 
@@ -13,7 +14,7 @@ public class RemoveGreater extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments) {
+    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
         String field = extraArguments.get(0);

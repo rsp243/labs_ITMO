@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import client.streams.in.ExecutionMode;
 import client.streams.in.CLI.InputCLIstream;
 import server.commands.classes.CommandController;
 import server.data.classes.City;
@@ -14,6 +15,6 @@ class Main {
         CollectionWorker collectionWorker = new CollectionWorker(localDatabase);
         new InputCLIstream();
         new CommandController(collectionWorker);
-        InputCLIstream.openCLIStream();
+        InputCLIstream.openCLIStream(ExecutionMode.CLI);
     }
 }
