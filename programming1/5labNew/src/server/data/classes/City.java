@@ -195,4 +195,71 @@ public class City implements Comparable<City> {
                 + ", telephoneCode=" + telephoneCode + ", carCode=" + carCode + ", climate=" + climate + ", governor="
                 + governor + "]";
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((coordinates == null) ? 0 : coordinates.hashCode());
+        result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+        result = prime * result + area;
+        result = prime * result + population;
+        result = prime * result + ((metersAboveSeaLevel == null) ? 0 : metersAboveSeaLevel.hashCode());
+        result = prime * result + (int) (telephoneCode ^ (telephoneCode >>> 32));
+        result = prime * result + (int) (carCode ^ (carCode >>> 32));
+        result = prime * result + ((climate == null) ? 0 : climate.hashCode());
+        result = prime * result + ((governor == null) ? 0 : governor.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        City other = (City) obj;
+        if (id != other.id)
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (coordinates == null) {
+            if (other.coordinates != null)
+                return false;
+        } else if (!coordinates.equals(other.coordinates))
+            return false;
+        if (creationDate == null) {
+            if (other.creationDate != null)
+                return false;
+        } else if (!creationDate.equals(other.creationDate))
+            return false;
+        if (area != other.area)
+            return false;
+        if (population != other.population)
+            return false;
+        if (metersAboveSeaLevel == null) {
+            if (other.metersAboveSeaLevel != null)
+                return false;
+        } else if (!metersAboveSeaLevel.equals(other.metersAboveSeaLevel))
+            return false;
+        if (telephoneCode != other.telephoneCode)
+            return false;
+        if (carCode != other.carCode)
+            return false;
+        if (climate != other.climate)
+            return false;
+        if (governor == null) {
+            if (other.governor != null)
+                return false;
+        } else if (!governor.equals(other.governor))
+            return false;
+        return true;
+    }
 }
