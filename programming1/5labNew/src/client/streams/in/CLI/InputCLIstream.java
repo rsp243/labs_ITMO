@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import client.streams.DataInOutStatus;
 import client.streams.in.CommandParser;
 import client.streams.in.ExecutionMode;
-import client.streams.out.OutCLIstream;
+import client.streams.out.OutStream;
+
+
 
 public class InputCLIstream {
     private static BufferedReader inpReader = new BufferedReader(new InputStreamReader(System.in));
@@ -18,7 +20,7 @@ public class InputCLIstream {
 
     public static DataInOutStatus openCLIStream(ExecutionMode execMode) {
         try {
-            OutCLIstream.outputIntoCLI("Type commands below.", ExecutionMode.CLI);
+            OutStream.outputIntoCLI("Type commands below.", ExecutionMode.CLI);
             String inputData = inpReader.readLine();
             while (inputData != null) {
                 if (inputData != null) {
@@ -26,7 +28,7 @@ public class InputCLIstream {
                         inputData = inputData.trim();
                         DataInOutStatus checkedCommand = new CommandParser().parse(inputData, execMode);
                         if (checkedCommand != DataInOutStatus.SUCCESFULLY) {
-                            OutCLIstream.outputIntoCLI(checkedCommand.getMessage(), ExecutionMode.CLI);
+                            OutStream.outputIntoCLI(checkedCommand.getMessage(), ExecutionMode.CLI);
                         }
                     } else {
                         inpReader.close();

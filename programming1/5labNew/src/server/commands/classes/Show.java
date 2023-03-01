@@ -9,6 +9,11 @@ import client.streams.in.ExecutionMode;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 
+/**
+ * Show command
+ * Output all elements from collection
+ */ 
+
 public class Show extends Command {
     public Show() {
         super("show", "Output all elements from collection", 0, CommandType.INFO_WORKER);

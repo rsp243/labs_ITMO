@@ -8,8 +8,16 @@ import server.data.classes.CollectionWorker;
 import server.data.classes.Factories.CityFactory;
 import server.fillers.Increment;
 
+/**
+ * Insert Commmand
+ * Add an element with typed key into the main collection
+ */
+
 public class Insert extends Command {
-    Increment uniqueID;
+    /**
+     * uniqueID used to create IDs of objects
+     */
+    private Increment uniqueID;
 
     public void setUniqueID(Increment uniqueID) {
         this.uniqueID = uniqueID;

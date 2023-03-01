@@ -6,7 +6,15 @@ import java.util.Collection;
 import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 
+/**
+ * Help command
+ * Output info about all commands
+ */
+
 public class Help extends Command {
+    /**
+     * Collection of commands
+     */
     Collection<Command> collectionOfCommands;
     
     public Help(Collection<Command> aCollectionOfCommands) {

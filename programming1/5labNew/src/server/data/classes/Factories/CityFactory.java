@@ -7,7 +7,18 @@ import server.data.classes.Coordinates;
 import server.data.classes.Human;
 import server.data.enums.Climate;
 
+/**
+ * CityFactory Class
+ * create City object
+ */
+
 public class CityFactory {
+    /**
+     * Create City object
+     * @param uniqueID
+     * @param args arguments to City's fields
+     * @return new City object from arguments
+     */
     public City createCity(Long uniqueID, ArrayList<String> args) {
         String[] coordinatesValues = {args.get(1), args.get(2)}; 
         String[] humanValues = {args.get(9), args.get(10), args.get(11)};

@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 
+/**
+ * Clear command
+ * Clear the main collection
+ */
 public class Clear extends Command {
     public Clear() {
         super("clear", "Clear the main collection", 0, CommandType.COLLECTION_WORKER);

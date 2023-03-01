@@ -8,6 +8,11 @@ import client.streams.in.ExecutionMode;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 
+/**
+ * RemoveGreater Command
+ * Remove an object from collection if typed value of some field less than object's value of that field.
+ */
+
 public class RemoveGreater extends Command {
     public RemoveGreater() {
         super("remove_greater", "Remove an object from collection if typed value of some field less than object's value of that field.", 2, CommandType.COLLECTION_WORKER);

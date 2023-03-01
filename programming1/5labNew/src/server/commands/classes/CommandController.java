@@ -31,7 +31,7 @@ public class CommandController {
         mapOfCommands.put(clear.getName(), clear); 
         Save saveCommand = new Save();
         mapOfCommands.put(saveCommand.getName(), saveCommand);
-        ExecuteScript executeScriptCommand = new ExecuteScript(this);
+        ExecuteScript executeScriptCommand = new ExecuteScript();
         mapOfCommands.put(executeScriptCommand.getName(), executeScriptCommand);
         Exit exitCommand = new Exit();
         mapOfCommands.put(exitCommand.getName(), exitCommand);

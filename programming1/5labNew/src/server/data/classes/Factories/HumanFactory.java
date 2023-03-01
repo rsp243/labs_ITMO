@@ -4,7 +4,17 @@ import java.time.LocalDate;
 
 import server.data.classes.Human;
 
+/**
+ * HumanFactory Class
+ * create Human object
+ */
+
 public class HumanFactory {
+    /**
+     * Create Coordinates object
+     * @param args String[] [x, y]
+     * @return new Coordinates object from arguments
+     */
     public Human createHumanObj(String[] args) {
         Integer age = Integer.parseInt(args[0]);
         Float height = Float.parseFloat(args[1]);

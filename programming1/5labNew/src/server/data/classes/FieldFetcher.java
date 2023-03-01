@@ -5,7 +5,16 @@ import java.util.LinkedHashMap;
 
 import server.data.classes.Annotations.Complex;
 
+/**
+ * FieldFetcher Class
+ * return LinkedHashMap of declared Fields of main Class 
+ */
+
 public class FieldFetcher {
+    /**
+     * fetchFields method
+     * @return LinkedHashMap of declared Fields of main Class 
+     */
     public LinkedHashMap<String, String> fetchFields() {
         var resultHashMap = new LinkedHashMap<String, String>();
         Field[] cityClass = City.class.getDeclaredFields();

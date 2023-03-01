@@ -9,6 +9,11 @@ import client.streams.in.ExecutionMode;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 
+/**
+ * PrintFieldDescendingMetersAboveSeaLevel command
+ * Output all values of objects's metersAboveSeaLevel in descending order.
+ */
+
 public class PrintFieldDescendingMetersAboveSeaLevel extends Command {
     public PrintFieldDescendingMetersAboveSeaLevel() {
         super("print_field_descending_metetrs_above_sea_level", "Output all values of objects's metersAboveSeaLevel in descending order.", 0,

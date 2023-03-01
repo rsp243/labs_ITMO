@@ -1,5 +1,9 @@
 package server.commands.classes;
 
+/**
+ * Enum Command Type. Support reading process of values. 
+ */
+
 public enum CommandType {
     INFO_WORKER,
     CITY_WORKER,

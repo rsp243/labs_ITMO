@@ -6,11 +6,23 @@ import java.util.Map;
 
 import client.MetaInfoCommand;
 import client.streams.DataInOutStatus;
-import client.streams.out.OutCLIstream;
+import client.streams.out.OutStream;
 import server.commands.classes.Command;
 import server.commands.classes.CommandController;
 
+/**
+ * CommandChecker Class
+ * Check correcntess arguments of command 
+ */
+
 public class CommandChecker {
+    /**
+     * Check correctness arguments of simple command with <= 1 extra arguments 
+     * @param commandName Name of command
+     * @param argumentsToCommand ArrayList of arguments typed in the same line as command
+     * @param execMode ExecutionMode Enum value
+     * @return
+     */
     public DataInOutStatus checkCorrectnessOfCommand(String commandName, ArrayList<String> argumentsToCommand,
             ExecutionMode execMode) {
         MetaInfoCommand metaInfoObj = new MetaInfoCommand();
@@ -22,10 +34,10 @@ public class CommandChecker {
                 return DataInOutStatus.WRONGARGS;
             }
             if (commandObj.getCountOfExtraArgs() >= 1) {
-                correctnessStatus = checkComplicatedCommand(commandName, argumentsToCommand, commandObj, execMode);
+                correctnessStatus = checkCorrectnessOfComplicatedCommand(commandName, argumentsToCommand, commandObj, execMode);
             }
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
-                OutCLIstream.outputIntoCLI(CommandController.execute(commandObj, argumentsToCommand, execMode), execMode);
+                OutStream.outputIntoCLI(CommandController.execute(commandObj, argumentsToCommand, execMode), execMode);
             } else {
                 return correctnessStatus;
             }
@@ -35,7 +47,14 @@ public class CommandChecker {
         return DataInOutStatus.SUCCESFULLY;
     }
 
-    public DataInOutStatus checkComplicatedCommand(String commandName, ArrayList<String> argumentsToCommand,
+    /**
+     * Check correctness arguments of complicated command with > 1 extra arguments 
+     * @param commandName Name of command
+     * @param argumentsToCommand ArrayList of arguments typed in the same line as command
+     * @param execMode ExecutionMode Enum value
+     * @return
+     */
+    public DataInOutStatus checkCorrectnessOfComplicatedCommand(String commandName, ArrayList<String> argumentsToCommand,
             Command commandObj, ExecutionMode execMode) {
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
         if (commandObj.getCountOfExtraArgs() == 1 && argumentsToCommand.size() == 1) {

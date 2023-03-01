@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 
+/**
+ * RemoveKey command
+ * Remove an element with typed key from the main collection
+ */
+
 public class RemoveKey extends Command {
     public RemoveKey() {
         super("remove_key", "Remove an element with typed key from the main collection", 1, CommandType.COLLECTION_WORKER);

@@ -16,11 +16,20 @@ import java.util.LinkedHashMap;
 import com.opencsv.CSVParser;
 
 import client.streams.in.ExecutionMode;
-import client.streams.out.OutCLIstream;
+import client.streams.out.OutStream;
+
+/**
+ * ReaderCSV Class
+ * Read file in CSV format
+ */
 
 public class ReaderCSV {
     private Increment uniqueID;
 
+    /**
+     * Read file in CSV format with Scanner and CSVParser from lib opencsv
+     * @return Saved Main collection
+     */
     public LinkedHashMap<String, City> getSavedCollection() {
         LinkedHashMap<String, City> savedCollection = new LinkedHashMap<>();
         String fileName = System.getenv().get("FILE_NAME");
@@ -57,7 +66,7 @@ public class ReaderCSV {
                         cityObj.setCreationDate(date);
                         savedCollection.put(key, cityObj);
                     } catch (ParseException | DateTimeException e) {
-                        OutCLIstream.outputIntoCLI("Error with parsing data! Check correctness of your data.", ExecutionMode.CLI);
+                        OutStream.outputIntoCLI("Error with parsing data! Check correctness of your data.", ExecutionMode.CLI);
                     }
                 }
                 iterator++;
@@ -65,7 +74,7 @@ public class ReaderCSV {
             uniqueID = new Increment(Collections.max(idArray));
             uniqueID.getNewId();
         } catch (IOException e) {
-            OutCLIstream.outputIntoCLI("Error with CSV file.", ExecutionMode.CLI);
+            OutStream.outputIntoCLI("Error with CSV file.", ExecutionMode.CLI);
         }
         return savedCollection;
     }

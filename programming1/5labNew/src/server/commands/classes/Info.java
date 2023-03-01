@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 
+
+/**
+ * Info command
+ * Output info about main collection
+ */
+
 public class Info extends Command {
     public Info() {
         super("info", "Output info about main collection", 0, CommandType.INFO_WORKER);

@@ -2,10 +2,26 @@ package server.commands.classes;
 
 import server.commands.interfaces.Executable;
 
+/**
+ * Abstract class Command
+ */
+
 public abstract class Command implements Executable{
+    /**
+     * Name of command
+     */
     private String name;
+    /**
+     * Descriprion of command
+     */
     private String description;
+    /**
+     * Count of extra necessary fields to fill
+     */
     private Integer countOfExtraArgs;
+    /**
+     * CommandType. Enum CommandType
+     */
     private CommandType commandType;
 
     public Command(String aName, String aDescription, Integer aCountOfExtraArgs, CommandType aCommandType) {

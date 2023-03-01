@@ -7,6 +7,11 @@ import client.streams.in.ExecutionMode;
 import server.data.classes.CollectionWorker;
 import server.data.enums.Climate;
 
+/**
+ * CountByClimate command.
+ * Output count of objects, which climate equals typed argument.
+ */
+
 public class CountByClimate extends Command {
     public CountByClimate() {
         super("count_by_climate", "Output count of objects, which climate equals typed argument.", 1,

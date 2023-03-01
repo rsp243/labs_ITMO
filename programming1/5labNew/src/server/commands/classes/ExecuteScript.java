@@ -8,36 +8,47 @@ import client.streams.in.ExecutionMode;
 import client.streams.in.File.FileReader;
 import server.data.classes.CollectionWorker;
 
+/**
+ * ExecuteScript command
+ * Read script from typed file and execute it.
+ */
+
 public class ExecuteScript extends Command {
     private ArrayList<String> historyOfFiles;
-    private CommandController controller;
     private static ArrayList<String> readedCommands;
     private static Integer currentCommand;
 
+    /**
+     * Get number of current command parsing 
+     * @retur nnumber of current command parsing 
+     */
     public static Integer getCurrentCommand() {
         return currentCommand;
     }
 
+    /**
+     * Set number of current command parsing 
+     * @param currentCommand
+     */
     public static void setCurrentCommand(Integer currentCommand) {
         ExecuteScript.currentCommand = currentCommand;
     }
 
+    /**
+     * 
+     * @return
+     */
     public static ArrayList<String> getReadedCommands() {
         return readedCommands;
     }
 
-    public ExecuteScript(CommandController aController) {
+    public ExecuteScript() {
         super("execute_script", "Read script from typed file and execute it.", 1, CommandType.FILE_WORKER);
-        controller = aController;
         historyOfFiles = new ArrayList<>();
     }
 
     public ArrayList<String> getHistoryOfFiles() {
         return historyOfFiles;
-    }
-
-    public CommandController getController() {
-        return controller;
     }
 
     @Override

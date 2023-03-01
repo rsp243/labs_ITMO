@@ -6,29 +6,36 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import client.streams.in.ExecutionMode;
-import client.streams.out.OutCLIstream;
+import client.streams.out.OutStream;
 import server.commands.classes.Command;
 import server.commands.classes.CommandType;
 import server.commands.classes.ExecuteScript;
 import server.data.classes.Validators.classes.CityValidator.CityValidator;
 
+/**
+ * ObjReading class
+ * Creating if current command need some mre arguments to execute it.
+ * if inputed values are wrong, return emty ArrayList, else return ArrayList with String values
+ * Use FieldFetcher to getch fields of main Class 
+ */
+
 public class ObjReading {
     public ArrayList<String> objRead(Command commandObj, LinkedHashMap<String, String> fields, ExecutionMode execMode) {
         ArrayList<String> extraArguments = new ArrayList<String>();
         try {
-            OutCLIstream.outputIntoCLI("Type extra data of object.", execMode);
+            OutStream.outputIntoCLI("Type extra data of object.", execMode);
             if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
                 if (execMode == ExecutionMode.CLI) {
                     for (String field : fields.keySet()) {
                         if (!field.equals("City.id") && !field.equals("City.creationDate")
                                 && !field.equals("City.Human.birthday")) {
-                            OutCLIstream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
+                            OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
                                     + fields.get(field) + ". > ", execMode);
                             extraArguments.add(InputCLIstream.getInpReader().readLine().trim());
 
                         }
                         if (field.equals("City.Human.birthday")) {
-                            OutCLIstream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
+                            OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
                                     + fields.get(field) + ". Type it in format 'day.month.year' > ", execMode);
                             extraArguments.add(InputCLIstream.getInpReader().readLine().trim());
                         }
@@ -54,7 +61,7 @@ public class ObjReading {
                 }
             }
         } catch (IOException | NullPointerException e) {
-            OutCLIstream.outputIntoCLI("\nInterrupting input stream.\n", execMode);
+            OutStream.outputIntoCLI("\nInterrupting input stream.\n", execMode);
             extraArguments = new ArrayList<String>();
         }
         return extraArguments;

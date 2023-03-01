@@ -7,6 +7,11 @@ import client.streams.in.ExecutionMode;
 import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 
+/**
+ * RemoveGreaterKey command
+ * Remove an object from collection if typed key less than object's key.
+ */
+
 public class RemoveGreaterKey extends Command {
     public RemoveGreaterKey() {
         super("remove_greater_key", "Remove an object from collection if typed key less than object's key.", 1,

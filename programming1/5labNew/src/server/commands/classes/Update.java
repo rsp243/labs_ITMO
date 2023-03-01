@@ -7,6 +7,11 @@ import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 import server.data.classes.Factories.CityFactory;
 
+/**
+ * Update command
+ * Update an element with typed key in the main collection
+ */
+
 public class Update extends Command {
     public Update() {
         super("update", "Update an element with typed key in the main collection", 10, CommandType.CITY_WORKER);

@@ -9,6 +9,11 @@ import client.streams.in.ExecutionMode;
 import client.streams.out.OutFileStream;
 import server.data.classes.CollectionWorker;
 
+/**
+ * Save command
+ * Saving main collection into file.
+ */
+
 public class Save extends Command {    
     public Save() {
         super("save", "Saving main collection into file.", 0, CommandType.COLLECTION_WORKER);

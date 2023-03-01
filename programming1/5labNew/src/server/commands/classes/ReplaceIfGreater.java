@@ -10,6 +10,10 @@ import server.data.classes.City;
 import server.data.classes.CollectionWorker;
 import server.data.classes.Factories.CityFactory;
 
+/**
+ * ReplaceIfGreater command
+ */
+
 public class ReplaceIfGreater extends Command {
     
     public ReplaceIfGreater() {

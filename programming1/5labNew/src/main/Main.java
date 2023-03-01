@@ -17,7 +17,7 @@ class Main {
     public static void main(String[] args) {
         /**
          * Initialasing LocalDatabase, CollectionWorker, Opening InputCLIStream, generating CommandController.
-         * @see LocalDatabase, InputCLIStream, CommandController
+         * LocalDatabase, InputCLIStream, CommandController
          * */
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<City>());
         CollectionWorker collectionWorker = new CollectionWorker(localDatabase);
