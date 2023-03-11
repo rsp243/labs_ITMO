@@ -11,14 +11,14 @@ import server.fillers.Increment;
  * When created, new objects of @see City classes have added into the main collection
  */
 
-public class CollectionWorker {
+public class Receiver {
     private final LocalDatabase database;
     /*
      * Declaring @see Increment to have access to the unique ID number
      */
     private Increment uniqueID;
     
-    public CollectionWorker(LocalDatabase aLocalDatabase) {
+    public Receiver(LocalDatabase aLocalDatabase) {
         database = aLocalDatabase;
         var CSVReader = new ReaderCSV();
         database.setMainCollection(CSVReader.getSavedCollection());

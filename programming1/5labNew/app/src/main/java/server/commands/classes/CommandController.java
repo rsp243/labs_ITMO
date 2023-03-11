@@ -5,13 +5,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import client.streams.in.ExecutionMode;
-import server.data.classes.CollectionWorker;
+import server.data.classes.Receiver;
 
 public class CommandController {
     private static LinkedHashMap<String, Command> mapOfCommands;
-    private static CollectionWorker worker;
+    private static Receiver worker;
 
-    public CommandController(CollectionWorker aWorker) {
+    public CommandController(Receiver aWorker) {
         worker = aWorker;
         mapOfCommands = new LinkedHashMap<>();
         Help helpCommand = new Help(mapOfCommands.values());
@@ -53,7 +53,7 @@ public class CommandController {
         return mapOfCommands;
     }
 
-    public CollectionWorker getWorker() {
+    public Receiver getWorker() {
         return worker;
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import client.streams.in.ExecutionMode;
-import server.data.classes.CollectionWorker;
+import server.data.classes.Receiver;
 
 /**
  * Help command
@@ -23,7 +23,7 @@ public class Help extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
+    public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         for (Command command : collectionOfCommands) {
             execution.append(command.toString() + "\n");

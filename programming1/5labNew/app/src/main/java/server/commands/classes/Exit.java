@@ -3,7 +3,7 @@ package server.commands.classes;
 import java.util.ArrayList;
 
 import client.streams.in.ExecutionMode;
-import server.data.classes.CollectionWorker;
+import server.data.classes.Receiver;
 
 /**
  * Exit command
@@ -16,7 +16,7 @@ public class Exit extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
+    public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         return "";
     }
 }

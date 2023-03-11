@@ -6,7 +6,7 @@ import client.streams.DataInOutStatus;
 import client.streams.in.CommandParser;
 import client.streams.in.ExecutionMode;
 import client.streams.in.File.FileReader;
-import server.data.classes.CollectionWorker;
+import server.data.classes.Receiver;
 
 /**
  * ExecuteScript command
@@ -52,7 +52,7 @@ public class ExecuteScript extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
+    public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         // execute_script src/server/data/file/executeFile.txt
         StringBuilder execution = new StringBuilder();
         String fileName = extraArguments.get(0);

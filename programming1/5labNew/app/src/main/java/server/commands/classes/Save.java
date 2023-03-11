@@ -7,7 +7,7 @@ import client.MetaInfoCommand;
 import client.streams.DataInOutStatus;
 import client.streams.in.ExecutionMode;
 import client.streams.out.OutFileStream;
-import server.data.classes.CollectionWorker;
+import server.data.classes.Receiver;
 
 /**
  * Save command
@@ -20,7 +20,7 @@ public class Save extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
+    public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         String resultStr = "Successfully";
         OutFileStream outToFile = new OutFileStream();
         LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();

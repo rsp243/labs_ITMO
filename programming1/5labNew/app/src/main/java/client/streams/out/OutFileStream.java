@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 
 import client.streams.DataInOutStatus;
 import server.data.classes.City;
-import server.data.classes.CollectionWorker;
+import server.data.classes.Receiver;
 
 /**
  * OutFileStream Class
@@ -16,7 +16,7 @@ import server.data.classes.CollectionWorker;
  */
 
 public class OutFileStream {
-    public DataInOutStatus openOutputStream(CollectionWorker worker, LinkedHashMap<String, String> fields) {
+    public DataInOutStatus openOutputStream(Receiver worker, LinkedHashMap<String, String> fields) {
         String fileName = System.getenv().get("FILE_NAME");
         try {
             FileOutputStream outputFileStream = new FileOutputStream(fileName);

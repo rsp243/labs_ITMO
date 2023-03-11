@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 
 import client.streams.in.ExecutionMode;
 import server.data.classes.City;
-import server.data.classes.CollectionWorker;
+import server.data.classes.Receiver;
 
 /**
  * Show command
@@ -20,7 +20,7 @@ public class Show extends Command {
     }
 
     @Override
-    public String execute(CollectionWorker worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
+    public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         if (worker.getMainCollection().size() == 0) {
             return "There is no elements in main collection.";
