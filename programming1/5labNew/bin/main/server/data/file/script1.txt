@@ -1,2 +1,0 @@
-execute_script src/server/data/file/script2.txt
-execute_script src/server/data/file/script2.txt
