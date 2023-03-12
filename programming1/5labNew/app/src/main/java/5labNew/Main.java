@@ -18,9 +18,9 @@ class Main {
          * LocalDatabase, InputCLIStream, CommandController
          * */
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<City>());
-        Receiver collectionWorker = new Receiver(localDatabase);
+        Receiver receiver = new Receiver(localDatabase);
         new InputCLIstream();
-        new CommandController(collectionWorker);
+        new CommandController(receiver);
         InputCLIstream.openCLIStream(ExecutionMode.CLI);
     }
 }

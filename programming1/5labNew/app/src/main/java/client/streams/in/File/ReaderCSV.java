@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-import com.opencsv.CSVParser;   
+import com.opencsv.CSVParser;
 
 import client.streams.in.ExecutionMode;
 import client.streams.out.OutStream;
