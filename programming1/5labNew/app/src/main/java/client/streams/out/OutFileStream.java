@@ -18,8 +18,10 @@ import server.data.classes.Receiver;
 public class OutFileStream {
     public DataInOutStatus openOutputStream(Receiver worker, LinkedHashMap<String, String> fields) {
         String fileName = System.getenv().get("FILE_NAME");
+        System.out.println("Output data into file: " + fileName);
+        String filepath = "app/src/main/java/server/data/file/" + fileName; 
         try {
-            FileOutputStream outputFileStream = new FileOutputStream(fileName);
+            FileOutputStream outputFileStream = new FileOutputStream(filepath);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputFileStream, StandardCharsets.UTF_8);           
             outputStreamWriter.write("key");
             for (String objkey : fields.keySet()) {
@@ -33,7 +35,6 @@ public class OutFileStream {
                 for (String cityFieldValue : cityObj.getAllFieldsValues()) {
                     outputStreamWriter.write("," + cityFieldValue);
                 }
-
                 outputStreamWriter.write("\n");
             }
             outputStreamWriter.close();

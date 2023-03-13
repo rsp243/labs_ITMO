@@ -9,10 +9,10 @@ import client.streams.in.ExecutionMode;
 import client.streams.out.OutStream;
 
 public class FileReader {
-    public ArrayList<String> readFile(String filename) {
+    public ArrayList<String> readFile(String fileName) {
         ArrayList<String> linesArrayList = new ArrayList<>();
-        String filepath = "src/main/java/server/data/file/" + filename; 
-        OutStream.outputIntoCLI("Local storage name: '" + filename + "'.\nFilePath: '" + filepath + "'.", ExecutionMode.CLI);
+        String filepath = "app/src/main/java/server/data/file/" + fileName; 
+        OutStream.outputIntoCLI("Local storage name: '" + fileName + "'.\nFilePath: '" + filepath + "'.", ExecutionMode.CLI);
         try {
             Scanner sc = new Scanner(new File(filepath));
             while (sc.hasNextLine()) {
