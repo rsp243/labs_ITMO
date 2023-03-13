@@ -63,16 +63,20 @@ public class ExecuteScript extends Command {
         currentCommand = 0;
         readedCommands = new FileReader().readFile(fileName);
         int iter = 0;
-        while (iter < readedCommands.size()) {
-            String commandLine = readedCommands.get(iter);
-            if (new CommandParser().parse(commandLine, ExecutionMode.EXECUTESCRIPT) != DataInOutStatus.SUCCESFULLY) {
-                return execution.append("Check correctness of commands in your script '" + fileName
-                        + "'. Failed.\nSome commands can be completed.").toString();
+        if (readedCommands.size() != 0) {
+            while (iter < readedCommands.size()) {
+                String commandLine = readedCommands.get(iter);
+                if (new CommandParser().parse(commandLine, ExecutionMode.EXECUTESCRIPT) != DataInOutStatus.SUCCESFULLY) {
+                    return execution.append("Check correctness of commands in your script '" + fileName
+                            + "'. Failed.\nSome commands can be completed.").toString();
+                }
+                currentCommand++;
+                iter = currentCommand;
             }
-            currentCommand++;
-            iter = currentCommand;
+            execution.append("Commands from file '" + fileName + "' successfully completed.").toString();
+        } else {
+            execution.append("There are some errors with file '" + fileName + "'. Try again.").toString();
         }
-        execution.append("Commands from file '" + fileName + "' successfully completed.").toString();
         return execution.toString();
     }
 }

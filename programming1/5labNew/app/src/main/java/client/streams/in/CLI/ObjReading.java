@@ -56,7 +56,7 @@ public class ObjReading {
                     if (!new CityValidator().validate(extraArguments)) {
                         extraArguments = new ArrayList<String>();
                     }
-                } catch (NumberFormatException | IndexOutOfBoundsException | DateTimeException m) {
+                } catch (IndexOutOfBoundsException | DateTimeException |  IllegalArgumentException m) {
                     extraArguments = new ArrayList<String>();
                 }
             }

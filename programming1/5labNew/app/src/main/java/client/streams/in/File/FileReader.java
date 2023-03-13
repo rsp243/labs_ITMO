@@ -12,7 +12,7 @@ public class FileReader {
     public ArrayList<String> readFile(String fileName) {
         ArrayList<String> linesArrayList = new ArrayList<>();
         String filepath = "app/src/main/java/server/data/file/" + fileName; 
-        OutStream.outputIntoCLI("Local storage name: '" + fileName + "'.\nFilePath: '" + filepath + "'.", ExecutionMode.CLI);
+        OutStream.outputIntoCLI("Name of file: '" + fileName + "'.\nFilePath: '" + filepath + "'.", ExecutionMode.CLI);
         try {
             Scanner sc = new Scanner(new File(filepath));
             while (sc.hasNextLine()) {
@@ -20,10 +20,10 @@ public class FileReader {
                 linesArrayList.add(line);
             }
             sc.close();
-            OutStream.outputIntoCLI("Local storage was readed successfully.", ExecutionMode.CLI);
+            OutStream.outputIntoCLI("File was readed successfully.", ExecutionMode.CLI);
             return linesArrayList;
         } catch (IOException | NullPointerException e) {
-            OutStream.outputIntoCLI("Error with file, check path of the file. Check file's format: '<filename>.<FileFormat>'.\nWe will search this file in directory: 'app/src/main/java/server/data/file/'.", ExecutionMode.CLI);
+            OutStream.outputIntoCLI("Error with file, check path of the file. Check file's format: '<filename>.<FileFormat>'.\nWe have searched this file in directory: 'app/src/main/java/server/data/file/'.", ExecutionMode.CLI);
             return new ArrayList<>();
         }
     }
