@@ -35,7 +35,6 @@ public class ReaderCSV {
         ArrayList<String> linesArrayList = new FileReader().readFile(fileName);
         CSVParser csvParser = new CSVParser();
         Integer iterator = 0;
-
         ArrayList<Long> idArray = new ArrayList<>();
         idArray.add((long) 1);
         try {

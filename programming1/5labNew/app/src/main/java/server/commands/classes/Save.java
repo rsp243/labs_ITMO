@@ -24,9 +24,15 @@ public class Save extends Command {
         String resultStr = "Successfully";
         OutFileStream outToFile = new OutFileStream();
         LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
+        if (fields == null) {
+            MetaInfoCommand.setFields();
+            fields = MetaInfoCommand.getFields();
+        }
+        System.out.println(fields.keySet().toString());
         if (outToFile.openOutputStream(worker, fields) == DataInOutStatus.FAILED) {
-            resultStr = "There is no objects in main collection to save.";
+            resultStr = "Failed. Try again.";
         };
+        
         return resultStr;
     }
 }
