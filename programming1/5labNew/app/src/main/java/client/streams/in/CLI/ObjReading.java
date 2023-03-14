@@ -10,6 +10,8 @@ import client.streams.out.OutStream;
 import server.commands.classes.Command;
 import server.commands.classes.CommandType;
 import server.commands.classes.ExecuteScript;
+import server.data.classes.Validators.classes.AbstractValidator;
+import server.data.classes.Validators.classes.ValidatorManager;
 import server.data.classes.Validators.classes.CityValidator.CityValidator;
 
 /**
@@ -25,6 +27,7 @@ public class ObjReading {
         try {
             OutStream.outputIntoCLI("Type extra data of object.", execMode);
             if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
+                ValidatorManager validatorManager = new ValidatorManager(fields);
                 if (execMode == ExecutionMode.CLI) {
                     for (String field : fields.keySet()) {
                         if (!field.equals("City.id") && !field.equals("City.creationDate")
@@ -32,13 +35,18 @@ public class ObjReading {
                             OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
                                     + fields.get(field) + ". > ", execMode);
                         }
-                        String value = InputCLIstream.getInpReader().readLine().trim();
-                        extraArguments.add(value);
                         if (field.equals("City.Human.birthday")) {
                             OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
                                     + fields.get(field) + ". Type it in format 'day.month.year' > ", execMode);
                         }
                         String valueOfField = InputCLIstream.getInpReader().readLine().trim();
+
+                        // Validation of typed argument with validatorManager.
+                        AbstractValidator<?> validator = validatorManager.getValidator(field);
+                        
+                        if (validator.validate(null)) {
+
+                        }
                         extraArguments.add(valueOfField);
                     }
                 } else {

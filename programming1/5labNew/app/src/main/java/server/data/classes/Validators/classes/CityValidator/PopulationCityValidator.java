@@ -1,9 +1,8 @@
 package server.data.classes.Validators.classes.CityValidator;
 
 import server.data.classes.Validators.classes.AbstractValidator;
-import server.data.classes.Validators.interfaces.ValidatorInterface;
 
-public class PopulationCityValidator extends AbstractValidator implements ValidatorInterface<Integer>{
+public class PopulationCityValidator extends AbstractValidator<Integer> {
     public PopulationCityValidator() {
         super("City.population");
     }

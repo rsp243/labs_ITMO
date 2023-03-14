@@ -1,13 +1,13 @@
 package server.data.classes.Validators.classes;
 
-public abstract class AbstractValidator {
+public abstract class AbstractValidator<E> {
     private String name;
 
     public AbstractValidator(String aName) {
         name = aName;
     }
-
-    public boolean validate() {return true;};
+    
+    public boolean validate(E variable) {return true;};
 
     public String getName() {
         return name;

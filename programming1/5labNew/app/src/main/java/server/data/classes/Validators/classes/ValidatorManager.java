@@ -1,5 +1,6 @@
 package server.data.classes.Validators.classes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -17,7 +18,7 @@ import server.data.classes.Validators.classes.HumanValidator.HeightHumanValidato
 import server.data.classes.Validators.classes.HumanValidator.HumanValidator;
 
 public class ValidatorManager {
-    private HashMap<String, AbstractValidator> validatorHashMap = new HashMap<>();
+    private HashMap<String, AbstractValidator<?>> validatorHashMap = new HashMap<>();
 
     public ValidatorManager(LinkedHashMap<String, String> fields) {
         validatorHashMap = new HashMap<>();
@@ -47,10 +48,11 @@ public class ValidatorManager {
         validatorHashMap.put(heightHumanValidator.getName(), heightHumanValidator);
     }
 
-    public AbstractValidator getValidator(String fieldName, String[] arguments) {
+    public boolean validate(String fieldName, ArrayList<String> arguments) {
         if (validatorHashMap.keySet().contains(fieldName)) {
-            return validatorHashMap.get(fieldName);
+            // Do validation & deparametrization.
+            return validatorHashMap.get(fieldName).validate(fieldName);
         }
-        return null;
+        return true;
     }
 }

@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import server.data.classes.Validators.classes.AbstractValidator;
 import server.data.classes.Validators.classes.CoordinateValidator.CoordinatesValidator;
 import server.data.classes.Validators.classes.HumanValidator.HumanValidator;
-import server.data.classes.Validators.interfaces.ValidatorInterface;
 import server.data.enums.Climate;
 
-public class CityValidator extends AbstractValidator implements ValidatorInterface<ArrayList<String>>{
+public class CityValidator extends AbstractValidator<ArrayList<String>> {
     public CityValidator() {
         super("City");
     }

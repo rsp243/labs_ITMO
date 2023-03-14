@@ -1,9 +1,8 @@
 package server.data.classes.Validators.classes.HumanValidator;
 
 import server.data.classes.Validators.classes.AbstractValidator;
-import server.data.classes.Validators.interfaces.ValidatorInterface;
 
-public class HumanValidator extends AbstractValidator implements ValidatorInterface<String[]>{
+public class HumanValidator extends AbstractValidator<String[]> {
     public HumanValidator() {
         super("City.Human");
     }

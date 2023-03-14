@@ -1,9 +1,8 @@
 package server.data.classes.Validators.classes.CoordinateValidator;
 
 import server.data.classes.Validators.classes.AbstractValidator;
-import server.data.classes.Validators.interfaces.ValidatorInterface;
 
-public class CoordinateXValidator extends AbstractValidator implements ValidatorInterface<Long> {    
+public class CoordinateXValidator extends AbstractValidator<Long> {    
     public CoordinateXValidator() {
         super("City.Coordinates.X");
     }
