@@ -8,7 +8,7 @@ import client.MetaInfoCommand;
 import client.streams.DataInOutStatus;
 import client.streams.out.OutStream;
 import server.commands.classes.Command;
-import server.commands.classes.CommandController;
+import server.commands.classes.Invoker;
 
 /**
  * CommandChecker Class
@@ -37,7 +37,7 @@ public class CommandChecker {
                 correctnessStatus = checkCorrectnessOfComplicatedCommand(commandName, argumentsToCommand, commandObj, execMode);
             }
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
-                OutStream.outputIntoCLI(CommandController.execute(commandObj, argumentsToCommand, execMode), execMode);
+                OutStream.outputIntoCLI(Invoker.invoke(commandObj, argumentsToCommand, execMode), execMode);
             } else {
                 return correctnessStatus;
             }

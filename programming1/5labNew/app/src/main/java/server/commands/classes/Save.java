@@ -28,7 +28,6 @@ public class Save extends Command {
             MetaInfoCommand.setFields();
             fields = MetaInfoCommand.getFields();
         }
-        System.out.println(fields.keySet().toString());
         if (outToFile.openOutputStream(worker, fields) == DataInOutStatus.FAILED) {
             resultStr = "Failed. Try again.";
         };

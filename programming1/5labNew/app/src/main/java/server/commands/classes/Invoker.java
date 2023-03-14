@@ -7,11 +7,11 @@ import java.util.Map;
 import client.streams.in.ExecutionMode;
 import server.data.classes.Receiver;
 
-public class CommandController {
+public class Invoker {
     private static LinkedHashMap<String, Command> mapOfCommands;
     private static Receiver worker;
 
-    public CommandController(Receiver aWorker) {
+    public Invoker(Receiver aWorker) {
         worker = aWorker;
         mapOfCommands = new LinkedHashMap<>();
         Help helpCommand = new Help(mapOfCommands.values());
@@ -57,7 +57,7 @@ public class CommandController {
         return worker;
     }
 
-    public static String execute(Command commandObj, ArrayList<String> extraArguments, ExecutionMode execMode) {
+    public static String invoke(Command commandObj, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         execution.append(commandObj.execute(worker, extraArguments, execMode)); // Adding into String Builder argument.execute()
         return execution.toString();

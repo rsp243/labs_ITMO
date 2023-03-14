@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import server.commands.classes.Command;
-import server.commands.classes.CommandController;
+import server.commands.classes.Invoker;
 import server.data.classes.FieldFetcher;
 
 /**
@@ -16,7 +16,7 @@ public class MetaInfoCommand {
     private static LinkedHashMap<String, String> fields;
 
     public MetaInfoCommand() {
-        mapOfCommands = CommandController.getMapOfCommands();
+        mapOfCommands = Invoker.getMapOfCommands();
     }
     
     /**

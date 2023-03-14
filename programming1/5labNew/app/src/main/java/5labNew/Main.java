@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import client.streams.in.ExecutionMode;
 import client.streams.in.CLI.InputCLIstream;
-import server.commands.classes.CommandController;
+import server.commands.classes.Invoker;
 import server.data.classes.City;
 import server.data.classes.LocalDatabase;
 import server.data.classes.Receiver;
@@ -20,7 +20,7 @@ class Main {
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<City>());
         Receiver receiver = new Receiver(localDatabase);
         new InputCLIstream();
-        new CommandController(receiver);
+        new Invoker(receiver);
         InputCLIstream.openCLIStream(ExecutionMode.CLI);
     }
 }
