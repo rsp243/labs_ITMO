@@ -2,12 +2,17 @@ package server.data.classes.Validators.classes.CityValidator;
 
 import java.util.ArrayList;
 
+import server.data.classes.Validators.classes.AbstractValidator;
 import server.data.classes.Validators.classes.CoordinateValidator.CoordinatesValidator;
 import server.data.classes.Validators.classes.HumanValidator.HumanValidator;
 import server.data.classes.Validators.interfaces.ValidatorInterface;
 import server.data.enums.Climate;
 
-public class CityValidator implements ValidatorInterface<ArrayList<String>>{
+public class CityValidator extends AbstractValidator implements ValidatorInterface<ArrayList<String>>{
+    public CityValidator() {
+        super("City");
+    }
+
     @Override
     public boolean validate(ArrayList<String> args) {
         String[] coordinatesToValidate = {args.get(1), args.get(2)}; 

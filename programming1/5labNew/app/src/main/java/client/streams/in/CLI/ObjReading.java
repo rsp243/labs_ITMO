@@ -31,14 +31,15 @@ public class ObjReading {
                                 && !field.equals("City.Human.birthday")) {
                             OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
                                     + fields.get(field) + ". > ", execMode);
-                            extraArguments.add(InputCLIstream.getInpReader().readLine().trim());
-
                         }
+                        String value = InputCLIstream.getInpReader().readLine().trim();
+                        extraArguments.add(value);
                         if (field.equals("City.Human.birthday")) {
                             OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
                                     + fields.get(field) + ". Type it in format 'day.month.year' > ", execMode);
-                            extraArguments.add(InputCLIstream.getInpReader().readLine().trim());
                         }
+                        String valueOfField = InputCLIstream.getInpReader().readLine().trim();
+                        extraArguments.add(valueOfField);
                     }
                 } else {
                     if (ExecuteScript.getReadedCommands().size() - ExecuteScript
