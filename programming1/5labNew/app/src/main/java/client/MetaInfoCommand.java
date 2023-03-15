@@ -5,7 +5,7 @@ import java.util.Map;
 
 import server.commands.Command;
 import server.commands.Invoker;
-import server.data.classes.FieldFetcher;
+import server.data.FieldFetcher;
 
 /**
  * MetaInfoCommand class contains Map of all commands and fields of the managed class

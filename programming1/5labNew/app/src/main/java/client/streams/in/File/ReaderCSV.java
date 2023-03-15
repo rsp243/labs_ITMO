@@ -13,8 +13,8 @@ import com.opencsv.CSVParser;
 
 import client.streams.in.ExecutionMode;
 import client.streams.out.OutStream;
-import server.data.classes.City;
-import server.data.classes.Factories.CityFactory;
+import server.data.City;
+import server.data.Factories.CityFactory;
 import server.fillers.Increment;
 
 /**
@@ -57,7 +57,7 @@ public class ReaderCSV {
                     City cityObj = new CityFactory().createCity((long) 0, arrayListArgs);
                     cityObj.setId(Long.parseLong(id));
                     idArray.add(Long.parseLong(id));
-                    try {
+                    try {                                               Wed Mar 15 15:27:41 MSK 2023
                         SimpleDateFormat parser = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
                         Date date = parser.parse(creationDate);
                         new Date();

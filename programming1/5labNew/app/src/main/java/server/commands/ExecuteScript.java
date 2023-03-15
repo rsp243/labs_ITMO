@@ -6,7 +6,7 @@ import client.streams.DataInOutStatus;
 import client.streams.in.CommandParser;
 import client.streams.in.ExecutionMode;
 import client.streams.in.File.FileReader;
-import server.data.classes.Receiver;
+import server.data.Receiver;
 
 /**
  * ExecuteScript command

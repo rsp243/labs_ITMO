@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import client.streams.in.ExecutionMode;
-import server.data.classes.Receiver;
+import server.data.Receiver;
 import server.data.enums.Climate;
 
 /**
@@ -22,7 +22,7 @@ public class CountByClimate extends Command {
     public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         int count = 0;
-        LinkedHashMap<String, server.data.classes.City> mainCollection = worker.getMainCollection();
+        LinkedHashMap<String, server.data.City> mainCollection = worker.getMainCollection();
         try {
             Climate valueOfClimate = Climate.valueOf(extraArguments.get(0));
             for (String key : mainCollection.keySet()) {

@@ -5,8 +5,8 @@ import java.util.LinkedHashMap;
 
 import client.MetaInfoCommand;
 import client.streams.in.ExecutionMode;
-import server.data.classes.City;
-import server.data.classes.Receiver;
+import server.data.City;
+import server.data.Receiver;
 
 /**
  * RemoveGreater Command

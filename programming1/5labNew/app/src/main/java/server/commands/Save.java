@@ -7,7 +7,7 @@ import client.MetaInfoCommand;
 import client.streams.DataInOutStatus;
 import client.streams.in.ExecutionMode;
 import client.streams.out.OutFileStream;
-import server.data.classes.Receiver;
+import server.data.Receiver;
 
 /**
  * Save command

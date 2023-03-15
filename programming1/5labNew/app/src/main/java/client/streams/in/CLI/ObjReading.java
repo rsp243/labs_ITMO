@@ -10,9 +10,9 @@ import client.streams.out.OutStream;
 import server.commands.Command;
 import server.commands.CommandType;
 import server.commands.ExecuteScript;
-import server.data.classes.Validators.classes.AbstractValidator;
-import server.data.classes.Validators.classes.ValidatorManager;
-import server.data.classes.Validators.classes.CityValidator.CityValidator;
+import server.data.Validators.AbstractValidator;
+import server.data.Validators.ValidatorManager;
+import server.data.Validators.CityValidator.CityValidator;
 
 /**
  * ObjReading class

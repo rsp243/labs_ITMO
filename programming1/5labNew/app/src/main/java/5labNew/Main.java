@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import client.streams.in.ExecutionMode;
 import client.streams.in.CLI.InputCLIstream;
 import server.commands.Invoker;
-import server.data.classes.City;
-import server.data.classes.LocalDatabase;
-import server.data.classes.Receiver;
+import server.data.City;
+import server.data.LocalDatabase;
+import server.data.Receiver;
 /**
  * Main class
  * @author rsp243 - Reshetov Semjon

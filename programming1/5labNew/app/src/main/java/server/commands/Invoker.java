@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import client.streams.in.ExecutionMode;
-import server.data.classes.Receiver;
+import server.data.Receiver;
 
 public class Invoker {
     private static LinkedHashMap<String, Command> mapOfCommands;

@@ -3,7 +3,7 @@ package server.commands;
 import java.util.ArrayList;
 
 import client.streams.in.ExecutionMode;
-import server.data.classes.Receiver;
+import server.data.Receiver;
 
 /**
  * Exit command

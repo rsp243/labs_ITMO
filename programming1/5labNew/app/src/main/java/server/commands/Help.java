@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import client.streams.in.ExecutionMode;
-import server.data.classes.Receiver;
+import server.data.Receiver;
 
 /**
  * Help command
