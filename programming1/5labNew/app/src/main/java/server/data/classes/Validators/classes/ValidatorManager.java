@@ -62,12 +62,9 @@ public class ValidatorManager {
         //16
         HumanValidator humanValidator = new HumanValidator();
         validatorList.add(humanValidator);
-        System.out.println(validatorList.toString());
     }
 
     public AbstractValidator getValidator(String fieldName) {        
-        // Do validation & deparametrization.
-
         int iter = 0;
         int position = 0;
         for (String field : fields.keySet()) {
@@ -76,19 +73,8 @@ public class ValidatorManager {
             } 
             iter++;
         }
-        if (position <= 13) {
+        if (position <= fields.size() - 1) {
             return validatorList.get(position);
-        }
-        if (fieldName == "City") {
-            return validatorList.get(14);
-        } else {
-            if (fieldName == "Coordinates") {
-                return validatorList.get(15);
-            } else {
-                if (fieldName == "Human") {
-                    return validatorList.get(16);
-                } 
-            }
         }
         return null;
     }
