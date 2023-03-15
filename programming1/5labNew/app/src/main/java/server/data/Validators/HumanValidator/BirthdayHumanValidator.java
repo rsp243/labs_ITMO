@@ -19,6 +19,9 @@ public class BirthdayHumanValidator extends AbstractValidator<String>{
     public boolean validate(String variable) {
         String[] dmy = variable.split("\\.");
         LocalDate birthday = LocalDate.of(Integer.parseInt(dmy[2]), Integer.parseInt(dmy[1]), Integer.parseInt(dmy[0]));
+        if (birthday.isAfter(LocalDate.now())) {
+            return false;
+        }
         return variable.split("\\.").length == 3;
     }
 }
