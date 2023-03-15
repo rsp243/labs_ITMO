@@ -12,7 +12,7 @@ public class FileReader {
     public ArrayList<String> readFile(String fileName) {
         ArrayList<String> linesArrayList = new ArrayList<>();
         String filepath = "./" + fileName; 
-        OutStream.outputIntoCLI("Name of file: '" + fileName + "'.\nFilePath: '" + filepath + "'.", ExecutionMode.CLI);
+        OutStream.outputIntoCLI("Name of file: '" + fileName + "'.\nFilePath: '" + filepath + "'." + "Taken from environment variable: 'FILE_NAME'.", ExecutionMode.CLI);
         try {
             Scanner sc = new Scanner(new File(filepath));
             while (sc.hasNextLine()) {
