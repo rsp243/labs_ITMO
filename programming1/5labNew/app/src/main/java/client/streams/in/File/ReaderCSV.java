@@ -63,8 +63,8 @@ public class ReaderCSV {
                         new Date();
                         cityObj.setCreationDate(date);
                         savedCollection.put(key, cityObj);
-                    } catch (ParseException | DateTimeException e) {
-                        OutStream.outputIntoCLI("Error with parsing data! Check correctness of your data.", ExecutionMode.CLI);
+                    } catch (ParseException e) {
+                        OutStream.outputIntoCLI("Error with parsing DATA! Check correctness of your data. Check line:" + iterator, ExecutionMode.CLI);
                     }
                 }
                 iterator++;

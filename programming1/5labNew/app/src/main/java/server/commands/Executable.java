@@ -1,4 +1,4 @@
-package server.commands.interfaces;
+package server.commands;
 
 import java.util.ArrayList;
 

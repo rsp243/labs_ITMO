@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 
 import client.streams.DataInOutStatus;
 import client.streams.in.CLI.ObjReading;
-import server.commands.classes.Command;
+import server.commands.Command;
 
 public class CommandDataChecker {
     private ArrayList<String> extraArguments;

@@ -1,6 +1,4 @@
-package server.commands.classes;
-
-import server.commands.interfaces.Executable;
+package server.commands;
 
 /**
  * Abstract class Command

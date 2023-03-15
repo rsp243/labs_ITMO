@@ -1,4 +1,4 @@
-package server.commands.classes;
+package server.commands;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
 
 import client.streams.in.ExecutionMode;
 import client.streams.out.OutStream;
-import server.commands.classes.Command;
-import server.commands.classes.CommandType;
-import server.commands.classes.ExecuteScript;
+import server.commands.Command;
+import server.commands.CommandType;
+import server.commands.ExecuteScript;
 import server.data.classes.Validators.classes.AbstractValidator;
 import server.data.classes.Validators.classes.ValidatorManager;
 import server.data.classes.Validators.classes.CityValidator.CityValidator;

@@ -1,4 +1,4 @@
-package server.commands.classes;
+package server.commands;
 
 /**
  * Enum Command Type. Support reading process of values. 

@@ -7,8 +7,8 @@ import java.util.Map;
 import client.MetaInfoCommand;
 import client.streams.DataInOutStatus;
 import client.streams.out.OutStream;
-import server.commands.classes.Command;
-import server.commands.classes.Invoker;
+import server.commands.Command;
+import server.commands.Invoker;
 
 /**
  * CommandChecker Class

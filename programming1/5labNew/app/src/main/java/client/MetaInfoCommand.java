@@ -3,8 +3,8 @@ package client;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import server.commands.classes.Command;
-import server.commands.classes.Invoker;
+import server.commands.Command;
+import server.commands.Invoker;
 import server.data.classes.FieldFetcher;
 
 /**
