@@ -17,8 +17,9 @@ import server.data.classes.Validators.classes.CityValidator.CityValidator;
 /**
  * ObjReading class
  * Creating if current command need some mre arguments to execute it.
- * if inputed values are wrong, return emty ArrayList, else return ArrayList with String values
- * Use FieldFetcher to getch fields of main Class 
+ * if inputed values are wrong, return emty ArrayList, else return ArrayList
+ * with String values
+ * Use FieldFetcher to getch fields of main Class
  */
 
 public class ObjReading {
@@ -29,7 +30,9 @@ public class ObjReading {
             if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
                 ValidatorManager validatorManager = new ValidatorManager(fields);
                 if (execMode == ExecutionMode.CLI) {
-                    for (String field : fields.keySet()) {
+                    int iter = 1;
+                    while (iter < fields.keySet().size()) {
+                        String field = fields.keySet().toArray()[iter].toString();
                         if (!field.equals("City.id") && !field.equals("City.creationDate")
                                 && !field.equals("City.Human.birthday")) {
                             OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
@@ -42,12 +45,19 @@ public class ObjReading {
                         String valueOfField = InputCLIstream.getInpReader().readLine().trim();
 
                         // Validation of typed argument with validatorManager.
-                        AbstractValidator<?> validator = validatorManager.getValidator(field);
-                        
-                        if (validator.validate(null)) {
-
+                        AbstractValidator validator = validatorManager.getValidator(field);
+                        System.out.println(validator);
+                        if (validator != null) {
+                            System.out.println(validator.getName());
+                            if (validator.validate(valueOfField)) {
+                                extraArguments.add(valueOfField);
+                                iter++;
+                            } else {
+                                OutStream.outputIntoCLI("You've typed wrong value of field", execMode);
+                            }
+                        } else {
+                            iter++;
                         }
-                        extraArguments.add(valueOfField);
                     }
                 } else {
                     if (ExecuteScript.getReadedCommands().size() - ExecuteScript
@@ -65,7 +75,7 @@ public class ObjReading {
                     if (!new CityValidator().validate(extraArguments)) {
                         extraArguments = new ArrayList<String>();
                     }
-                } catch (IndexOutOfBoundsException | DateTimeException |  IllegalArgumentException m) {
+                } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
                     extraArguments = new ArrayList<String>();
                 }
             }

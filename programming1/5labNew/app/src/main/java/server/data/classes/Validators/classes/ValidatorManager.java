@@ -18,41 +18,81 @@ import server.data.classes.Validators.classes.HumanValidator.HeightHumanValidato
 import server.data.classes.Validators.classes.HumanValidator.HumanValidator;
 
 public class ValidatorManager {
-    private HashMap<String, AbstractValidator<?>> validatorHashMap = new HashMap<>();
+    // Holy shit
+    private ArrayList<AbstractValidator> validatorList;
+    private LinkedHashMap<String, String> fields;
 
-    public ValidatorManager(LinkedHashMap<String, String> fields) {
-        validatorHashMap = new HashMap<>();
-        CityValidator cityValidator = new CityValidator();
-        validatorHashMap.put(cityValidator.getName(), cityValidator);
-        AreaCityValidator areaCityValidator = new AreaCityValidator();
-        validatorHashMap.put(areaCityValidator.getName(), areaCityValidator);
-        CarCodeCityValidator carCodeCityValidator = new CarCodeCityValidator();
-        validatorHashMap.put(carCodeCityValidator.getName(), carCodeCityValidator);
+    public ValidatorManager(LinkedHashMap<String, String> afields) {
+        validatorList = new ArrayList<AbstractValidator>();
+        fields = afields;
+        validatorList.add(null);
         NameCityValidator nameCityValidator = new NameCityValidator();
-        validatorHashMap.put(nameCityValidator.getName(), nameCityValidator);
-        PopulationCityValidator populationCityValidator = new PopulationCityValidator();
-        validatorHashMap.put(populationCityValidator.getName(), populationCityValidator);
-        TelephoneCodeCityValidator telephoneCodeCityValidator = new TelephoneCodeCityValidator();
-        validatorHashMap.put(telephoneCodeCityValidator.getName(), telephoneCodeCityValidator);
-        CoordinatesValidator coordinatesValidator = new CoordinatesValidator();
-        validatorHashMap.put(coordinatesValidator.getName(), coordinatesValidator);
+        validatorList.add(nameCityValidator);
         CoordinateXValidator coordinateXValidator = new CoordinateXValidator();
-        validatorHashMap.put(coordinateXValidator.getName(), coordinateXValidator);
+        validatorList.add(coordinateXValidator);
         CoordinateYValidator coordinateYValidator = new CoordinateYValidator();
-        validatorHashMap.put(coordinateYValidator.getName(), coordinateYValidator);
-        HumanValidator humanValidator = new HumanValidator();
-        validatorHashMap.put(humanValidator.getName(), humanValidator);
+        validatorList.add(coordinateYValidator);
+        validatorList.add(null);
+        AreaCityValidator areaCityValidator = new AreaCityValidator();
+        validatorList.add(areaCityValidator);
+        PopulationCityValidator populationCityValidator = new PopulationCityValidator();
+        validatorList.add(populationCityValidator);
+        validatorList.add(null);
+        TelephoneCodeCityValidator telephoneCodeCityValidator = new TelephoneCodeCityValidator();
+        validatorList.add(telephoneCodeCityValidator);
+        CarCodeCityValidator carCodeCityValidator = new CarCodeCityValidator();
+        validatorList.add(carCodeCityValidator);
+        validatorList.add(null);
         AgeHumanValidator ageHumanValidator = new AgeHumanValidator();
-        validatorHashMap.put(ageHumanValidator.getName(), ageHumanValidator);
+        validatorList.add(ageHumanValidator);
         HeightHumanValidator heightHumanValidator = new HeightHumanValidator();
-        validatorHashMap.put(heightHumanValidator.getName(), heightHumanValidator);
+        validatorList.add(heightHumanValidator);
+        validatorList.add(null);
+        //14
+        CityValidator cityValidator = new CityValidator();
+        validatorList.add(cityValidator);
+        //15
+        CoordinatesValidator coordinatesValidator = new CoordinatesValidator();
+        validatorList.add(coordinatesValidator);
+        //16
+        HumanValidator humanValidator = new HumanValidator();
+        validatorList.add(humanValidator);
+        System.out.println(validatorList.toString());
     }
 
-    public boolean validate(String fieldName, ArrayList<String> arguments) {
-        if (validatorHashMap.keySet().contains(fieldName)) {
-            // Do validation & deparametrization.
-            return validatorHashMap.get(fieldName).validate(fieldName);
+    public AbstractValidator getValidator(String fieldName) {        
+        // Do validation & deparametrization.
+
+        int iter = 0;
+        int position = 0;
+        for (String field : fields.keySet()) {
+            if (fieldName == field) {
+                position = iter;
+            } 
+            iter++;
         }
-        return true;
+        if (position <= 12) {
+            return validatorList.get(position);
+        }
+        if (fieldName == "City") {
+            return validatorList.get(14);
+        } else {
+            if (fieldName == "Coordinates") {
+                return validatorList.get(15);
+            } else {
+                if (fieldName == "Human") {
+                    return validatorList.get(16);
+                } 
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<AbstractValidator> getValidatorList() {
+        return validatorList;
+    }
+
+    public LinkedHashMap<String, String> getFields() {
+        return fields;
     }
 }
