@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 import com.opencsv.CSVParser;
 
@@ -57,8 +58,8 @@ public class ReaderCSV {
                     City cityObj = new CityFactory().createCity((long) 0, arrayListArgs);
                     cityObj.setId(Long.parseLong(id));
                     idArray.add(Long.parseLong(id));
-                    try {                                               Wed Mar 15 15:27:41 MSK 2023
-                        SimpleDateFormat parser = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+                    try {
+                        SimpleDateFormat parser = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
                         Date date = parser.parse(creationDate);
                         new Date();
                         cityObj.setCreationDate(date);
