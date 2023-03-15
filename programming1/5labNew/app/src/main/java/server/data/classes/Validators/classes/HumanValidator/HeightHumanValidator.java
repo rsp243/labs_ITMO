@@ -11,4 +11,9 @@ public class HeightHumanValidator extends AbstractValidator<Float> {
     public boolean validate(Float height) {
         return height > 0;
     }
+
+    @Override
+    public Float caster(String str) {
+        return Float.parseFloat(str);
+    }
 }

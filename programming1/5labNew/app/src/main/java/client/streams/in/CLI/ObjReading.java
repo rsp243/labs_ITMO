@@ -33,6 +33,11 @@ public class ObjReading {
                     int iter = 1;
                     while (iter < fields.keySet().size()) {
                         String field = fields.keySet().toArray()[iter].toString();
+                        AbstractValidator validator = validatorManager.getValidator(field);
+                        if (validator == null) {
+                            iter++;
+                            continue;
+                        }
                         if (!field.equals("City.id") && !field.equals("City.creationDate")
                                 && !field.equals("City.Human.birthday")) {
                             OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
@@ -45,18 +50,16 @@ public class ObjReading {
                         String valueOfField = InputCLIstream.getInpReader().readLine().trim();
 
                         // Validation of typed argument with validatorManager.
-                        AbstractValidator validator = validatorManager.getValidator(field);
-                        System.out.println(validator);
-                        if (validator != null) {
-                            System.out.println(validator.getName());
-                            if (validator.validate(valueOfField)) {
+                        try {
+                            if (validator.validate(validator.caster(valueOfField))) {
                                 extraArguments.add(valueOfField);
                                 iter++;
                             } else {
                                 OutStream.outputIntoCLI("You've typed wrong value of field", execMode);
                             }
-                        } else {
-                            iter++;
+                        } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
+                            OutStream.outputIntoCLI("You've typed wrong value of field. Check correctness of it.",
+                                    execMode);
                         }
                     }
                 } else {
@@ -70,13 +73,6 @@ public class ObjReading {
                         extraArguments.add(ExecuteScript.getReadedCommands().get(iter).trim());
                         ExecuteScript.setCurrentCommand(ExecuteScript.getCurrentCommand() + 1);
                     }
-                }
-                try {
-                    if (!new CityValidator().validate(extraArguments)) {
-                        extraArguments = new ArrayList<String>();
-                    }
-                } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
-                    extraArguments = new ArrayList<String>();
                 }
             }
         } catch (IOException | NullPointerException e) {

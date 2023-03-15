@@ -11,4 +11,9 @@ public class AgeHumanValidator extends AbstractValidator<Integer> {
     public boolean validate(Integer age) {
         return age > 0;
     }
+
+    @Override
+    public Integer caster(String str) {
+        return Integer.parseInt(str);
+    }
 }

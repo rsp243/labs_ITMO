@@ -1,12 +1,13 @@
 package server.data.classes.Validators.classes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import server.data.classes.Validators.classes.CityValidator.AreaCityValidator;
 import server.data.classes.Validators.classes.CityValidator.CarCodeCityValidator;
 import server.data.classes.Validators.classes.CityValidator.CityValidator;
+import server.data.classes.Validators.classes.CityValidator.ClimateCityValidator;
+import server.data.classes.Validators.classes.CityValidator.MetersAboveSeaValidator;
 import server.data.classes.Validators.classes.CityValidator.NameCityValidator;
 import server.data.classes.Validators.classes.CityValidator.PopulationCityValidator;
 import server.data.classes.Validators.classes.CityValidator.TelephoneCodeCityValidator;
@@ -14,6 +15,7 @@ import server.data.classes.Validators.classes.CoordinateValidator.CoordinateXVal
 import server.data.classes.Validators.classes.CoordinateValidator.CoordinateYValidator;
 import server.data.classes.Validators.classes.CoordinateValidator.CoordinatesValidator;
 import server.data.classes.Validators.classes.HumanValidator.AgeHumanValidator;
+import server.data.classes.Validators.classes.HumanValidator.BirthdayHumanValidator;
 import server.data.classes.Validators.classes.HumanValidator.HeightHumanValidator;
 import server.data.classes.Validators.classes.HumanValidator.HumanValidator;
 
@@ -37,17 +39,20 @@ public class ValidatorManager {
         validatorList.add(areaCityValidator);
         PopulationCityValidator populationCityValidator = new PopulationCityValidator();
         validatorList.add(populationCityValidator);
-        validatorList.add(null);
+        MetersAboveSeaValidator metersAboveSeaLevel = new MetersAboveSeaValidator();
+        validatorList.add(metersAboveSeaLevel);
         TelephoneCodeCityValidator telephoneCodeCityValidator = new TelephoneCodeCityValidator();
         validatorList.add(telephoneCodeCityValidator);
         CarCodeCityValidator carCodeCityValidator = new CarCodeCityValidator();
         validatorList.add(carCodeCityValidator);
-        validatorList.add(null);
+        ClimateCityValidator climateCityValidator = new ClimateCityValidator();
+        validatorList.add(climateCityValidator);
         AgeHumanValidator ageHumanValidator = new AgeHumanValidator();
         validatorList.add(ageHumanValidator);
         HeightHumanValidator heightHumanValidator = new HeightHumanValidator();
         validatorList.add(heightHumanValidator);
-        validatorList.add(null);
+        BirthdayHumanValidator birthdayHumanValidator = new BirthdayHumanValidator();
+        validatorList.add(birthdayHumanValidator);
         //14
         CityValidator cityValidator = new CityValidator();
         validatorList.add(cityValidator);
@@ -71,7 +76,7 @@ public class ValidatorManager {
             } 
             iter++;
         }
-        if (position <= 12) {
+        if (position <= 13) {
             return validatorList.get(position);
         }
         if (fieldName == "City") {

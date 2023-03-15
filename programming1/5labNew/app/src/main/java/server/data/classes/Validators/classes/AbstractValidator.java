@@ -9,6 +9,10 @@ public abstract class AbstractValidator<E> {
     
     public boolean validate(E variable) {return true;};
 
+    public E caster(String str) {
+        return (E) str;
+    };
+
     public String getName() {
         return name;
     }

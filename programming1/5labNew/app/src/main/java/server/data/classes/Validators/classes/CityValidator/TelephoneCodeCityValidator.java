@@ -11,4 +11,9 @@ public class TelephoneCodeCityValidator extends AbstractValidator<Long> {
     public boolean validate(Long variable) {
         return (variable > 0 && variable < 100000);
     }
+
+    @Override
+    public Long caster(String str) {
+        return Long.parseLong(str);
+    }
 }

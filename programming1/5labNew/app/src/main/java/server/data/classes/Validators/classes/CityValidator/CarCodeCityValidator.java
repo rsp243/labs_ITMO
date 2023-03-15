@@ -11,4 +11,10 @@ public class CarCodeCityValidator extends AbstractValidator<Long> {
     public boolean validate(Long variable) {
         return (variable != null && variable > 0 && variable < 1000);
     }
+    
+    
+    @Override
+    public Long caster(String str) {
+        return Long.parseLong(str);
+    }
 }
