@@ -15,5 +15,5 @@ public abstract class AbstractValidator<E> {
 
     public String getName() {
         return name;
-    }
+    }    
 }

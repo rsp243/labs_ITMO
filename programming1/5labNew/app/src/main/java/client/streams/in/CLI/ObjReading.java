@@ -55,7 +55,7 @@ public class ObjReading {
                                 extraArguments.add(valueOfField);
                                 iter++;
                             } else {
-                                OutStream.outputIntoCLI("You've typed wrong value of field", execMode);
+                                OutStream.outputIntoCLI("You've typed wrong value of field.", execMode);
                             }
                         } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
                             OutStream.outputIntoCLI("You've typed wrong value of field. Check correctness of it.",

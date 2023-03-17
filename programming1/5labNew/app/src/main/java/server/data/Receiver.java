@@ -20,9 +20,9 @@ public class Receiver {
     
     public Receiver(LocalDatabase aLocalDatabase) {
         database = aLocalDatabase;
-        var CSVReader = new ReaderCSV();
-        database.setMainCollection(CSVReader.getSavedCollection());
-        uniqueID = CSVReader.getUniqueID();
+        var readerCSV = new ReaderCSV();
+        database.setMainCollection(readerCSV.getSavedCollection());
+        uniqueID = readerCSV.getUniqueID();
     }
 
     /**
@@ -100,10 +100,6 @@ public class Receiver {
     }
 
     public LocalDatabase getDataBase() {
-        return database;
-    }
-
-    public LocalDatabase getDatabase() {
         return database;
     }
 

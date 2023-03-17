@@ -17,6 +17,8 @@ public class MetaInfoCommand {
 
     public MetaInfoCommand() {
         mapOfCommands = Invoker.getMapOfCommands();
+        fields = new FieldFetcher().fetchFields();
+
     }
     
     /**
@@ -25,13 +27,6 @@ public class MetaInfoCommand {
      */
     public static LinkedHashMap<String, String> getFields() {
         return fields;
-    }
-
-    /**
-     * Set fields with class FieldFetcher
-     */
-    public static void setFields() {
-        fields = new FieldFetcher().fetchFields();
     }
 
     /**

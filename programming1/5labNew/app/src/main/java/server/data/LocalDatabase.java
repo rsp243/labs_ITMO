@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
  * Storage of main collections
  */
 
-public class LocalDatabase {
+public class  LocalDatabase {
     /**
      * MainCollection storage
      */

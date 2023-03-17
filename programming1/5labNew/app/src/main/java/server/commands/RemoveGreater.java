@@ -25,10 +25,6 @@ public class RemoveGreater extends Command {
         String field = extraArguments.get(0);
         String value = extraArguments.get(1);
         LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
-        if (fields == null) {
-            MetaInfoCommand.setFields();
-            fields = MetaInfoCommand.getFields();
-        }
         int count = 0;
         int iter = 0;
         int valueNumber = -1;

@@ -12,15 +12,17 @@ import server.commands.Invoker;
 
 /**
  * CommandChecker Class
- * Check correcntess arguments of command 
+ * Check correcntess arguments of command
  */
 
 public class CommandChecker {
     /**
-     * Check correctness arguments of simple command with <= 1 extra arguments 
-     * @param commandName Name of command
-     * @param argumentsToCommand ArrayList of arguments typed in the same line as command
-     * @param execMode ExecutionMode Enum value
+     * Check correctness arguments of simple command with <= 1 extra arguments
+     * 
+     * @param commandName        Name of command
+     * @param argumentsToCommand ArrayList of arguments typed in the same line as
+     *                           command
+     * @param execMode           ExecutionMode Enum value
      * @return
      */
     public DataInOutStatus checkCorrectnessOfCommand(String commandName, ArrayList<String> argumentsToCommand,
@@ -34,12 +36,10 @@ public class CommandChecker {
                 return DataInOutStatus.WRONGARGS;
             }
             if (commandObj.getCountOfExtraArgs() >= 1) {
-                correctnessStatus = checkCorrectnessOfComplicatedCommand(commandName, argumentsToCommand, commandObj, execMode);
+                correctnessStatus = checkCorrectnessOfComplicatedCommand(commandObj, argumentsToCommand, execMode);
             }
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
                 OutStream.outputIntoCLI(Invoker.invoke(commandObj, argumentsToCommand, execMode), execMode);
-            } else {
-                return correctnessStatus;
             }
         } else {
             return DataInOutStatus.NOCOMMAND;
@@ -48,14 +48,17 @@ public class CommandChecker {
     }
 
     /**
-     * Check correctness arguments of complicated command with > 1 extra arguments 
-     * @param commandName Name of command
-     * @param argumentsToCommand ArrayList of arguments typed in the same line as command
-     * @param execMode ExecutionMode Enum value
+     * Check correctness arguments of complicated command with > 1 extra arguments
+     * 
+     * @param commandName        Name of command
+     * @param argumentsToCommand ArrayList of arguments typed in the same line as
+     *                           command
+     * @param execMode           ExecutionMode Enum value
      * @return
      */
-    public DataInOutStatus checkCorrectnessOfComplicatedCommand(String commandName, ArrayList<String> argumentsToCommand,
-            Command commandObj, ExecutionMode execMode) {
+    public DataInOutStatus checkCorrectnessOfComplicatedCommand(Command commandObj,
+            ArrayList<String> argumentsToCommand,
+            ExecutionMode execMode) {
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
         if (commandObj.getCountOfExtraArgs() == 1 && argumentsToCommand.size() == 1) {
             correctnessStatus = DataInOutStatus.SUCCESFULLY;
@@ -64,10 +67,6 @@ public class CommandChecker {
         if (commandObj.getCountOfExtraArgs() > 1) {
             if (argumentsToCommand.size() == 1) {
                 LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
-                if (fields == null) {
-                    MetaInfoCommand.setFields();
-                    fields = MetaInfoCommand.getFields();
-                }
                 CommandDataChecker commandChecker = new CommandDataChecker();
                 correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields,
                         execMode);

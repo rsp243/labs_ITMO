@@ -3,7 +3,7 @@ package server.commands;
 import java.util.ArrayList;
 
 import client.streams.DataInOutStatus;
-import client.streams.in.CommandParser;
+import client.streams.in.CommandValidator;
 import client.streams.in.ExecutionMode;
 import client.streams.in.File.FileReader;
 import server.data.Receiver;
@@ -66,7 +66,7 @@ public class ExecuteScript extends Command {
         if (readedCommands.size() != 0) {
             while (iter < readedCommands.size()) {
                 String commandLine = readedCommands.get(iter);
-                if (new CommandParser().parse(commandLine, ExecutionMode.EXECUTESCRIPT) != DataInOutStatus.SUCCESFULLY) {
+                if (new CommandValidator().validate(commandLine, ExecutionMode.EXECUTESCRIPT) != DataInOutStatus.SUCCESFULLY) {
                     return execution.append("Check correctness of commands in your script '" + fileName
                             + "'. Failed.\nSome commands can be completed.").toString();
                 }

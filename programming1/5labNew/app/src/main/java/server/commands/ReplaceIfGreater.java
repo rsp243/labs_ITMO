@@ -28,10 +28,7 @@ public class ReplaceIfGreater extends Command {
         String key = extraArguments.get(0);
         if (mainCollection.containsKey(key)) {
             LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
-            if (fields == null) {
-                MetaInfoCommand.setFields();
-                fields = MetaInfoCommand.getFields();
-            }
+            fields = MetaInfoCommand.getFields();
             extraArguments = new ObjReading().objRead(this, fields, execMode);
             if (extraArguments.size() != 0) {
                 Long id = mainCollection.get(key).getId();
