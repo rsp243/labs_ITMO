@@ -4,7 +4,7 @@ import server.data.Validators.AbstractValidator;
 
 public class HumanValidator extends AbstractValidator<String[]> {
     public HumanValidator() {
-        super("City.Human");
+        super("City.Human", "");
     }
 
     @Override

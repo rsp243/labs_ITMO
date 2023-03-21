@@ -4,7 +4,7 @@ import server.data.Validators.AbstractValidator;
 
 public class PopulationCityValidator extends AbstractValidator<Integer> {
     public PopulationCityValidator() {
-        super("City.population");
+        super("City.population", "not null, more than 0" );
     }
 
     @Override

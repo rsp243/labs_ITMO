@@ -5,7 +5,7 @@ import server.data.Validators.AbstractValidator;
 public class MetersAboveSeaValidator extends AbstractValidator<Integer> {
 
     public MetersAboveSeaValidator() {
-        super("City.metersAboveSeaLevel");
+        super("City.metersAboveSeaLevel", "none");
     }
 
     @Override

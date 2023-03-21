@@ -4,7 +4,7 @@ import server.data.Validators.AbstractValidator;
 
 public class TelephoneCodeCityValidator extends AbstractValidator<Long> {
     public TelephoneCodeCityValidator() {
-        super("City.telephoneCode");
+        super("City.telephoneCode", "more than 0, less than 100000");
     }
 
     @Override

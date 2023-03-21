@@ -9,7 +9,7 @@ import server.data.enums.Climate;
 
 public class CityValidator extends AbstractValidator<ArrayList<String>> {
     public CityValidator() {
-        super("City");
+        super("City", "");
     }
 
     @Override

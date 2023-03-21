@@ -4,7 +4,7 @@ import server.data.Validators.AbstractValidator;
 
 public class CoordinatesValidator extends AbstractValidator<String[]> {
     public CoordinatesValidator() {
-        super("City.Coordinates");
+        super("City.Coordinates", "");
     }
 
     @Override

@@ -6,7 +6,7 @@ import server.data.enums.Climate;
 public class ClimateCityValidator extends AbstractValidator<Enum> {
 
     public ClimateCityValidator() {
-        super("City.Climate");
+        super("City.Climate", "not null");
     }
 
     @Override

@@ -7,7 +7,7 @@ import server.data.Validators.AbstractValidator;
 public class BirthdayHumanValidator extends AbstractValidator<String>{
 
     public BirthdayHumanValidator() {
-        super("City.Human.birthday");
+        super("City.Human.birthday", "Inputed format: DD.MM.YYYY, birthday can not be later today");
     }
 
     @Override

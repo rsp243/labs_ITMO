@@ -4,7 +4,7 @@ import server.data.Validators.AbstractValidator;
 
 public class CarCodeCityValidator extends AbstractValidator<Long> {
     public CarCodeCityValidator() {
-        super("City.carCode");
+        super("City.carCode", "not null, more than 0, less than 1000");
     }
 
     @Override

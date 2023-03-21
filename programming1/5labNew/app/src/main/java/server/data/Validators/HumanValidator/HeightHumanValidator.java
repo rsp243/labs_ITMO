@@ -4,7 +4,7 @@ import server.data.Validators.AbstractValidator;
 
 public class HeightHumanValidator extends AbstractValidator<Float> {
     public HeightHumanValidator() {
-        super("City.Human.height");
+        super("City.Human.height", "more than 0");
     }
     
     @Override

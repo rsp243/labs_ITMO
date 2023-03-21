@@ -12,7 +12,6 @@ import server.commands.CommandType;
 import server.commands.ExecuteScript;
 import server.data.Validators.AbstractValidator;
 import server.data.Validators.ValidatorManager;
-import server.data.Validators.CityValidator.CityValidator;
 
 /**
  * ObjReading class
@@ -50,16 +49,14 @@ public class ObjReading {
                         String valueOfField = InputCLIstream.getInpReader().readLine().trim();
 
                         // Validation of typed argument with validatorManager.
-                        try {
-                            if (validator.validate(validator.caster(valueOfField))) {
-                                extraArguments.add(valueOfField);
-                                iter++;
-                            } else {
-                                OutStream.outputIntoCLI("You've typed wrong value of field.", execMode);
-                            }
+                        if (validator.validate(validator.caster(valueOfField))) {
+                            extraArguments.add(valueOfField);
+                            iter++;
+                        } else {
+                            OutStream.outputIntoCLI("You've typed wrong value of field. Check correctness of it. " + validator.getRestrictions(), execMode);
+                        }
                         } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
-                            OutStream.outputIntoCLI("You've typed wrong value of field. Check correctness of it.",
-                                    execMode);
+                            
                         }
                     }
                 } else {

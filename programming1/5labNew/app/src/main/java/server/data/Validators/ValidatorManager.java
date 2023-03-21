@@ -53,15 +53,6 @@ public class ValidatorManager {
         validatorList.add(heightHumanValidator);
         BirthdayHumanValidator birthdayHumanValidator = new BirthdayHumanValidator();
         validatorList.add(birthdayHumanValidator);
-        //14
-        CityValidator cityValidator = new CityValidator();
-        validatorList.add(cityValidator);
-        //15
-        CoordinatesValidator coordinatesValidator = new CoordinatesValidator();
-        validatorList.add(coordinatesValidator);
-        //16
-        HumanValidator humanValidator = new HumanValidator();
-        validatorList.add(humanValidator);
     }
 
     public AbstractValidator getValidator(String fieldName) {        

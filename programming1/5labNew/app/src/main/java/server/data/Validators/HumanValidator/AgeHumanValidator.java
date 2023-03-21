@@ -4,7 +4,7 @@ import server.data.Validators.AbstractValidator;
 
 public class AgeHumanValidator extends AbstractValidator<Integer> {
     public AgeHumanValidator() {
-        super("City.Human.age");
+        super("City.Human.age", "more than 0");
     }
     
     @Override
