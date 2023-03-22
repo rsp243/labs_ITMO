@@ -26,7 +26,7 @@ public class ObjReading {
     public ArrayList<String> objRead(Command commandObj, LinkedHashMap<String, String> fields, ExecutionMode execMode) {
         ArrayList<String> extraArguments = new ArrayList<String>();
         try {
-            OutStream.outputIntoCLI("Type extra data of object.", execMode);
+            OutStream.outputIntoCLI("Type extra data for object.", execMode);
             if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
                 ValidatorManager validatorManager = new ValidatorManager(fields);
                 if (execMode == ExecutionMode.CLI) {
