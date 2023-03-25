@@ -84,7 +84,7 @@ public class Receiver {
      * sum_of_car_codes method - count the carCode values of objects from  main collection.
      * @return strStatus = Successfully
      */
-    public Long sum_of_car_code() {
+    public Long getSumOfCarCode() {
         Long sumCarCode = (long) 0;
         for (City iter : this.getMainCollection().values()) {
             sumCarCode += iter.getCarCode();

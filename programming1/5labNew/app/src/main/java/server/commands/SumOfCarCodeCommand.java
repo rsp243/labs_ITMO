@@ -17,6 +17,6 @@ public class SumOfCarCodeCommand extends Command {
 
     @Override
     public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
-        return "Sum of car codes of all elements from the main collection: " + worker.sum_of_car_code().toString();
+        return "Sum of car codes of all elements from the main collection: " + worker.getSumOfCarCode().toString();
     }
 }
