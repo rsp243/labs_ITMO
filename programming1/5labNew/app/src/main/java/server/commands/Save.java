@@ -24,7 +24,6 @@ public class Save extends Command {
         String resultStr = "Successfully";
         OutFileStream outToFile = new OutFileStream();
         LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
-        fields = MetaInfoCommand.getFields();
         if (outToFile.openOutputStream(worker, fields) == DataInOutStatus.FAILED) {
             resultStr = "Failed. Try again.";
         };
