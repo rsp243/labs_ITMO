@@ -16,7 +16,7 @@ import server.data.Receiver;
 
 public class PrintFieldDescendingMetersAboveSeaLevel extends Command {
     public PrintFieldDescendingMetersAboveSeaLevel() {
-        super("print_field_descending_metetrs_above_sea_level", "Output all values of objects's metersAboveSeaLevel in descending order.", 0,
+        super("print_field_descending_meters_above_sea_level", "Output all values of objects's metersAboveSeaLevel in descending order.", 0,
                 CommandType.INFO_WORKER);
     }
 
@@ -30,6 +30,9 @@ public class PrintFieldDescendingMetersAboveSeaLevel extends Command {
         for (String key : mainCollection.keySet()) {
             arrayCities[iter] = mainCollection.get(key);
             iter++;
+        }
+        if (iter == 0) {
+            return "There are no elements in main collection";
         }
         Arrays.sort(arrayCities, metersAboveSeaLevel);
         for (City city : arrayCities) {

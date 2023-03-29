@@ -32,7 +32,11 @@ public class CountByClimate extends Command {
             }
             execution.append("Count of objects with enumValue " + valueOfClimate + ": " + count);
         } catch (IllegalArgumentException e) {
-            return execution.append("There is no Enum Value with typed argument. Try again.").toString();
+            StringBuilder climateValues = new StringBuilder(); 
+            for (Climate climateValue : Climate.values()) {
+                climateValues.append(climateValue.name() + ", ");
+            }
+            return execution.append("There is no Enum Value with typed argument. Try again. Possible values: " + climateValues.toString() + ".").toString();
         }
         return execution.toString();
     }

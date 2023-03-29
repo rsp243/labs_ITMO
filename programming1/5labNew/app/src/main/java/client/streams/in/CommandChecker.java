@@ -40,6 +40,8 @@ public class CommandChecker {
             }
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
                 OutStream.outputIntoCLI(Invoker.invoke(commandObj, argumentsToCommand, execMode), execMode);
+            } else {
+                OutStream.outputIntoCLI(correctnessStatus.getMessage(), execMode);
             }
         } else {
             return DataInOutStatus.NOCOMMAND;
@@ -60,9 +62,13 @@ public class CommandChecker {
             ArrayList<String> argumentsToCommand,
             ExecutionMode execMode) {
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
-        if (commandObj.getCountOfExtraArgs() == 1 && argumentsToCommand.size() == 1) {
-            correctnessStatus = DataInOutStatus.SUCCESFULLY;
-            return correctnessStatus;
+        if (commandObj.getCountOfExtraArgs() == 1) {
+            if (argumentsToCommand.size() == 1) {
+                correctnessStatus = DataInOutStatus.SUCCESFULLY;
+                return correctnessStatus;
+            } else {
+                return DataInOutStatus.WRONGARGS;
+            }
         }
         if (commandObj.getCountOfExtraArgs() > 1) {
             if (argumentsToCommand.size() == 1) {
