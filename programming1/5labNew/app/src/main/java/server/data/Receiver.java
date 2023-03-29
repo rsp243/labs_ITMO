@@ -74,16 +74,18 @@ public class Receiver {
 
     public String removeGreater(ArrayList<String> extraArguments) {
         LinkedHashMap<String, City> mainCollection = getMainCollection();
-        Long id = Long.parseLong(extraArguments.remove(0));
+        Long id = Long.parseLong("1");
         City newCity = new CityFactory().createCity(id, extraArguments);
-        int deletedCount = 0; 
+        ArrayList<String> deletedKeys = new ArrayList<>();
         for (String key : mainCollection.keySet()) {
             if (mainCollection.get(key).compareTo(newCity) > 0) {
-                this.removeKey(key);
-                deletedCount++;
+                deletedKeys.add(key);
             }
         }
-        return "Count of removed elements: " + deletedCount + ".";
+        for (String key : deletedKeys) {
+            this.removeKey(key);
+        }
+        return "Count of removed elements: " + deletedKeys.size() + ".";
     }
 
     /**
