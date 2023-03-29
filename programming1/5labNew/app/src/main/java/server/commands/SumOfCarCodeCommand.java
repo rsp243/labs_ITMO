@@ -7,12 +7,15 @@ import server.data.Receiver;
 
 /**
  * SumOfCarCodeCommand command
- * Output sum of values of field 'car code' of all elements from the main collection.
+ * Output sum of values of field 'car code' of all elements from the main
+ * collection.
  */
 
 public class SumOfCarCodeCommand extends Command {
     public SumOfCarCodeCommand() {
-        super("sum_of_car_code", "Output sum of values of field 'car code' of all elements from the main collection.", 0, CommandType.COLLECTION_WORKER);
+        super("sum_of_car_code", "sum_of_car_code",
+                "Output sum of values of field 'car code' of all elements from the main collection.", 0,
+                CommandType.COLLECTION_WORKER);
     }
 
     @Override

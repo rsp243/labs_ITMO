@@ -76,7 +76,7 @@ public class ObjReading {
                 }
             }
         } catch (IOException | NullPointerException e) {
-            OutStream.outputIntoCLI("\nInterrupting input stream.\n", execMode);
+            OutStream.outputIntoCLI("\nInterrupting input stream.", execMode);
             extraArguments = new ArrayList<String>();
         }
         return extraArguments;

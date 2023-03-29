@@ -9,6 +9,9 @@ public abstract class Command implements Executable{
      * Name of command
      */
     private String name;
+
+    private String fullName;    
+
     /**
      * Descriprion of command
      */
@@ -16,16 +19,17 @@ public abstract class Command implements Executable{
     /**
      * Count of extra necessary fields to fill
      */
-    private Integer countOfExtraArgs;
+    private Integer countOfExtraInlineArgs;
     /**
      * CommandType. Enum CommandType
      */
     private CommandType commandType;
 
-    public Command(String aName, String aDescription, Integer aCountOfExtraArgs, CommandType aCommandType) {
+    public Command(String aName, String aFullName, String aDescription, Integer aCountOfExtraInlineArgs, CommandType aCommandType) {
         name = aName;
+        fullName = aFullName;
         description = aDescription;
-        countOfExtraArgs = aCountOfExtraArgs;
+        countOfExtraInlineArgs = aCountOfExtraInlineArgs;
         commandType = aCommandType;
     }
 
@@ -33,12 +37,16 @@ public abstract class Command implements Executable{
         return name;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public Integer getCountOfExtraArgs() {
-        return countOfExtraArgs;
+    public Integer getCountOfExtraInlineArgs() {
+        return countOfExtraInlineArgs;
     }
 
     public CommandType getCommandType() {
@@ -47,6 +55,6 @@ public abstract class Command implements Executable{
     
     @Override
     public String toString() {
-        return name + " - " + description;
+        return fullName + " - " + description;
     }
 }

@@ -16,7 +16,7 @@ import server.data.Receiver;
 
 public class Save extends Command {    
     public Save() {
-        super("save", "Saving main collection into file.", 0, CommandType.COLLECTION_WORKER);
+        super("save", "save", "Saving main collection into file.", 0, CommandType.COLLECTION_WORKER);
     }
 
     @Override

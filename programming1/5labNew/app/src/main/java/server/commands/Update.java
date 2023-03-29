@@ -14,19 +14,20 @@ import server.data.Factories.CityFactory;
 
 public class Update extends Command {
     public Update() {
-        super("update", "Update an element with typed key in the main collection", 10, CommandType.CITY_WORKER);
+        super("update", "update id {element}", "Update an element with typed id in the main collection", 1,
+                CommandType.CITY_WORKER);
     }
 
     @Override
     public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         String resultStr = "Successfully";
-        String key = extraArguments.remove(0);
-        if (!worker.getMainCollection().keySet().contains(key)) {
-            return resultStr = "You typed wrong key of object. There is no objects in main collection with that key. Failed.";       
+        Long id = Long.parseLong(extraArguments.remove(0));
+        if (!worker.getIds().contains(id)) {
+            return resultStr = "You typed wrong key of object. There is no objects in main collection with that id. Failed.";
+        } else {
+            City newCity = new CityFactory().createCity(id, extraArguments);
+            worker.update(id, newCity);
         }
-        City newCity = new CityFactory().createCity(worker.getMainCollection().get(key).getId(), extraArguments);
-        worker.addNew(key, newCity);
-        worker.setDateOfLastChange();
         return resultStr;
     }
 }

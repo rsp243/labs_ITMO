@@ -14,7 +14,8 @@ import server.data.enums.Climate;
 
 public class CountByClimate extends Command {
     public CountByClimate() {
-        super("count_by_climate", "Output count of objects, which climate equals typed argument.", 1,
+        super("count_by_climate", "count_by_climate climate",
+                "Output count of objects, which climate equals typed argument.", 1,
                 CommandType.INFO_WORKER);
     }
 
@@ -32,11 +33,12 @@ public class CountByClimate extends Command {
             }
             execution.append("Count of objects with enumValue " + valueOfClimate + ": " + count);
         } catch (IllegalArgumentException e) {
-            StringBuilder climateValues = new StringBuilder(); 
+            StringBuilder climateValues = new StringBuilder();
             for (Climate climateValue : Climate.values()) {
                 climateValues.append(climateValue.name() + ", ");
             }
-            return execution.append("There is no Enum Value with typed argument. Try again. Possible values: " + climateValues.toString() + ".").toString();
+            return execution.append("There is no Enum Value with typed argument. Try again. Possible values: "
+                    + climateValues.toString() + ".").toString();
         }
         return execution.toString();
     }

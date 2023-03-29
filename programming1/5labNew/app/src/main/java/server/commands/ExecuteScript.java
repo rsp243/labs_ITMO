@@ -19,15 +19,17 @@ public class ExecuteScript extends Command {
     private static Integer currentCommand;
 
     /**
-     * Get number of current command parsing 
-     * @retur nnumber of current command parsing 
+     * Get number of current command parsing
+     * 
+     * @retur nnumber of current command parsing
      */
     public static Integer getCurrentCommand() {
         return currentCommand;
     }
 
     /**
-     * Set number of current command parsing 
+     * Set number of current command parsing
+     * 
      * @param currentCommand
      */
     public static void setCurrentCommand(Integer currentCommand) {
@@ -43,7 +45,8 @@ public class ExecuteScript extends Command {
     }
 
     public ExecuteScript() {
-        super("execute_script", "Read script from typed file and execute it.", 1, CommandType.FILE_WORKER);
+        super("execute_script", "execute_script file_name", "Read script from typed file and execute it.", 1,
+                CommandType.FILE_WORKER);
         historyOfFiles = new ArrayList<>();
     }
 
@@ -66,7 +69,8 @@ public class ExecuteScript extends Command {
         if (readedCommands.size() != 0) {
             while (iter < readedCommands.size()) {
                 String commandLine = readedCommands.get(iter);
-                if (new CommandValidator().validate(commandLine, ExecutionMode.EXECUTESCRIPT) != DataInOutStatus.SUCCESFULLY) {
+                if (new CommandValidator().validate(commandLine,
+                        ExecutionMode.EXECUTESCRIPT) != DataInOutStatus.SUCCESFULLY) {
                     return execution.append("Check correctness of commands in your script '" + fileName
                             + "'. Failed.\nSome commands can be completed.").toString();
                 }

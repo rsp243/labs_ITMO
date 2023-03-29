@@ -12,7 +12,8 @@ import server.data.Receiver;
 
 public class RemoveKey extends Command {
     public RemoveKey() {
-        super("remove_key", "Remove an element with typed key from the main collection", 1, CommandType.COLLECTION_WORKER);
+        super("remove_key", "remove_key key", "Remove an element with typed key from the main collection", 1,
+                CommandType.COLLECTION_WORKER);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class RemoveKey extends Command {
         if (worker.getMainCollection().keySet().contains(key)) {
             resultStr = worker.removeKey(key);
         } else {
-            resultStr = "You typed wrong key of object. There is no objects in main collection with that key. Failed.";    
+            resultStr = "You typed wrong key of object. There is no objects in main collection with that key. Failed.";
         }
         return resultStr;
     }

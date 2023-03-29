@@ -12,7 +12,8 @@ import server.data.Receiver;
 
 public class Exit extends Command {
     public Exit() {
-        super("exit", "End the program execution (without saving data into the storage)", 0, CommandType.STATE_WORKER);
+        super("exit", "exit", "End the program execution (without saving data into the storage)", 0,
+                CommandType.STATE_WORKER);
     }
 
     @Override

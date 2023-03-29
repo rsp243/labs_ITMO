@@ -16,7 +16,8 @@ import server.data.Receiver;
 
 public class PrintFieldDescendingMetersAboveSeaLevel extends Command {
     public PrintFieldDescendingMetersAboveSeaLevel() {
-        super("print_field_descending_meters_above_sea_level", "Output all values of objects's metersAboveSeaLevel in descending order.", 0,
+        super("print_field_descending_meters_above_sea_level", "print_field_descending_meters_above_sea_level",
+                "Output all values of objects's metersAboveSeaLevel in descending order.", 0,
                 CommandType.INFO_WORKER);
     }
 
@@ -24,7 +25,7 @@ public class PrintFieldDescendingMetersAboveSeaLevel extends Command {
     public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
         Comparator<City> metersAboveSeaLevel = Comparator.comparingInt(City::getMetersAboveSeaLevel).reversed();
-        LinkedHashMap<String, City> mainCollection = worker.getMainCollection(); 
+        LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
         City[] arrayCities = new City[mainCollection.size()];
         int iter = 0;
         for (String key : mainCollection.keySet()) {

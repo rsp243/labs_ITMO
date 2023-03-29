@@ -11,7 +11,7 @@ import server.data.Receiver;
  */
 public class Clear extends Command {
     public Clear() {
-        super("clear", "Clear the main collection", 0, CommandType.COLLECTION_WORKER);
+        super("clear", "clear", "Clear the main collection", 0, CommandType.COLLECTION_WORKER);
     }
 
     @Override

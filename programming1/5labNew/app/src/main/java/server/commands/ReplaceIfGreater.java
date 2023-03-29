@@ -15,9 +15,10 @@ import server.data.Factories.CityFactory;
  */
 
 public class ReplaceIfGreater extends Command {
-    
+
     public ReplaceIfGreater() {
-        super("remove_if_greater", "Replace key of object in main collection if typed key more than current.", 1,
+        super("replace_if_greater", "replace_if_greater key {element}",
+                "Replace object in main collection with typed key if typed element more than current.", 1,
                 CommandType.CITY_WORKER);
     }
 
@@ -36,7 +37,9 @@ public class ReplaceIfGreater extends Command {
                 if (mainCollection.get(key).compareTo(newCityObj) < 0) {
                     mainCollection.remove(key);
                     mainCollection.put(key, newCityObj);
-                } else return execution.append("Field's values of typed object less than current. Not replaced.").toString();
+                } else
+                    return execution.append("Field's values of typed object less than current. Not replaced.")
+                            .toString();
                 return execution.append("Successfully").toString();
             } else {
                 return execution.append("You've typed wrong agruments to the object's fields. Failed.").toString();

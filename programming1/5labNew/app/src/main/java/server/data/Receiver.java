@@ -1,7 +1,12 @@
 package server.data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import client.streams.in.File.ReaderCSV;
 import server.fillers.Increment;
@@ -33,6 +38,14 @@ public class Receiver {
         return database.getMainCollection();
     }
 
+    public Set<Long> getIds() {
+        Set<Long> resultMap = new HashSet<>(); 
+        for (City element : getMainCollection().values()) {
+            resultMap.add(element.getId());
+        }
+        return resultMap;
+    }
+
     /**
      * addNew method - add a new city into the main collection with key.
      * @param key key in main collection to the value - @see City
@@ -62,11 +75,15 @@ public class Receiver {
      * @param city value - object of @see City
      * @return strStatus = Successfully
      */
-    public String update(String key, City city) {
+    public String update(Long id, City city) {
         String strSuccess = "Successufully";
-        if (this.getMainCollection().containsKey(key)) {
-            this.getMainCollection().replace(key, city);
+        LinkedHashMap<String, City> mainCollection = getMainCollection();
+        for (String key : mainCollection.keySet()) {
+            if (mainCollection.get(key).getId() == id) {
+                getMainCollection().put(key, city);
+            }
         }
+        this.setDateOfLastChange();
         return strSuccess;
     }
 

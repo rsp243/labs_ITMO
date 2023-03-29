@@ -16,9 +16,9 @@ public class Help extends Command {
      * Collection of commands
      */
     Collection<Command> collectionOfCommands;
-    
+
     public Help(Collection<Command> aCollectionOfCommands) {
-        super("help", "Output info about all commands", 0, CommandType.INFO_WORKER);
+        super("help", "help", "Output info about all commands", 0, CommandType.INFO_WORKER);
         collectionOfCommands = aCollectionOfCommands;
     }
 

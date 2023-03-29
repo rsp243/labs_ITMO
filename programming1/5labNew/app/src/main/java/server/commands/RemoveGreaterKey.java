@@ -14,7 +14,8 @@ import server.data.Receiver;
 
 public class RemoveGreaterKey extends Command {
     public RemoveGreaterKey() {
-        super("remove_greater_key", "Remove an object from collection if typed key less than object's key.", 1,
+        super("remove_greater_key", "remove_greater_key key",
+                "Remove objects from collection if typed key less than object's key.", 1,
                 CommandType.COLLECTION_WORKER);
     }
 
@@ -23,12 +24,12 @@ public class RemoveGreaterKey extends Command {
         StringBuilder execution = new StringBuilder();
         LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
         int count = 0;
-        ArrayList<String> removeKeyArray = new ArrayList<>(); 
+        ArrayList<String> removeKeyArray = new ArrayList<>();
         for (String key : mainCollection.keySet()) {
             if (key.compareTo(extraArguments.get(0)) < 0) {
                 removeKeyArray.add(key);
                 count++;
-            }    
+            }
         }
         for (String key : removeKeyArray) {
             worker.removeKey(key);

@@ -8,6 +8,7 @@ import client.MetaInfoCommand;
 import client.streams.DataInOutStatus;
 import client.streams.out.OutStream;
 import server.commands.Command;
+import server.commands.CommandType;
 import server.commands.Invoker;
 
 /**
@@ -32,10 +33,10 @@ public class CommandChecker {
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
         if (mapOfCommands.containsKey(commandName)) {
             Command commandObj = mapOfCommands.get(commandName);
-            if (commandObj.getCountOfExtraArgs() == 0 && argumentsToCommand.size() != 0) {
+            if (commandObj.getCountOfExtraInlineArgs() == 0 && argumentsToCommand.size() != 0) {
                 return DataInOutStatus.WRONGARGS;
             }
-            if (commandObj.getCountOfExtraArgs() >= 1) {
+            if (commandObj.getCountOfExtraInlineArgs() == 1 || commandObj.getCommandType() == CommandType.CITY_WORKER) {
                 correctnessStatus = checkCorrectnessOfComplicatedCommand(commandObj, argumentsToCommand, execMode);
             }
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
@@ -62,30 +63,27 @@ public class CommandChecker {
             ArrayList<String> argumentsToCommand,
             ExecutionMode execMode) {
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
-        if (commandObj.getCountOfExtraArgs() == 1) {
-            if (argumentsToCommand.size() == 1) {
-                correctnessStatus = DataInOutStatus.SUCCESFULLY;
-                return correctnessStatus;
-            } else {
-                return DataInOutStatus.WRONGARGS;
-            }
-        }
-        if (commandObj.getCountOfExtraArgs() > 1) {
-            if (argumentsToCommand.size() == 1) {
-                LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
-                CommandDataChecker commandChecker = new CommandDataChecker();
-                correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields,
-                        execMode);
-                if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
-                    argumentsToCommand.addAll(commandChecker.getExtraArguments());
-                }
-            } else {
-                if (argumentsToCommand.size() != commandObj.getCountOfExtraArgs()) {
+        if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
+            if (commandObj.getCountOfExtraInlineArgs() == 1) {
+                if (argumentsToCommand.size() != 1) {
                     return DataInOutStatus.WRONGARGS;
                 }
             }
-        } else {
-            correctnessStatus = DataInOutStatus.WRONGARGS;
+            LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
+            CommandDataChecker commandChecker = new CommandDataChecker();
+            correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields,
+                    execMode);
+            if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
+                argumentsToCommand.addAll(commandChecker.getExtraArguments());
+                return correctnessStatus;
+            }
+        }
+        if (commandObj.getCountOfExtraInlineArgs() == 1) {
+            if (argumentsToCommand.size() == 1) {
+                return DataInOutStatus.SUCCESFULLY;
+            } else {
+                return DataInOutStatus.WRONGARGS;
+            }
         }
         return correctnessStatus;
     }

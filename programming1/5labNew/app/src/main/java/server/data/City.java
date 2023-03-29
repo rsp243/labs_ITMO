@@ -62,8 +62,6 @@ public class City implements Comparable<City> {
     @Override
     public int compareTo(City o) {
         int result = 0;
-        result = Long.compare(id, o.getId());
-        if (result != 0) return result;
         result = name.compareTo(o.getName());
         if (result != 0) return result;
         result = coordinates.compareTo(o.getCoordinates());

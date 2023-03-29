@@ -16,7 +16,7 @@ import server.data.Receiver;
 
 public class Show extends Command {
     public Show() {
-        super("show", "Output all elements from collection", 0, CommandType.INFO_WORKER);
+        super("show", "show", "Output all elements from collection", 0, CommandType.INFO_WORKER);
     }
 
     @Override
