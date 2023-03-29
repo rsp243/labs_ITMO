@@ -8,7 +8,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.crypto.KeyGenerator;
+
 import client.streams.in.File.ReaderCSV;
+import server.data.Factories.CityFactory;
 import server.fillers.Increment;
 
 /**
@@ -67,6 +70,20 @@ public class Receiver {
         String strSuccess = "Successufully";
         this.getMainCollection().remove(key);
         return strSuccess;
+    }
+
+    public String removeGreater(ArrayList<String> extraArguments) {
+        LinkedHashMap<String, City> mainCollection = getMainCollection();
+        Long id = Long.parseLong(extraArguments.remove(0));
+        City newCity = new CityFactory().createCity(id, extraArguments);
+        int deletedCount = 0; 
+        for (String key : mainCollection.keySet()) {
+            if (mainCollection.get(key).compareTo(newCity) > 0) {
+                this.removeKey(key);
+                deletedCount++;
+            }
+        }
+        return "Count of removed elements: " + deletedCount + ".";
     }
 
     /**

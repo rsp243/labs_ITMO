@@ -22,9 +22,7 @@ public class RemoveGreater extends Command {
     }
 
     @Override
-    public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
-        StringBuilder execution = new StringBuilder();
-        
-        return execution.toString();
+    public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {        
+        return worker.removeGreater(extraArguments);
     }
 }
