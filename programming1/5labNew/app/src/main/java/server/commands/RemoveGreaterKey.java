@@ -3,6 +3,7 @@ package server.commands;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import client.streams.DataInOutStatus;
 import client.streams.in.ExecutionMode;
 import server.data.City;
 import server.data.Receiver;
@@ -22,17 +23,20 @@ public class RemoveGreaterKey extends Command {
     @Override
     public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {
         StringBuilder execution = new StringBuilder();
-        LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
+        DataInOutStatus correctnessStatus = worker.checkCorrectnessOfComplicatedCommand(this, extraArguments, execMode);
         int count = 0;
-        ArrayList<String> removeKeyArray = new ArrayList<>();
-        for (String key : mainCollection.keySet()) {
-            if (key.compareTo(extraArguments.get(0)) < 0) {
-                removeKeyArray.add(key);
-                count++;
+        if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
+            LinkedHashMap<String, City> mainCollection = worker.getMainCollection();
+            ArrayList<String> removeKeyArray = new ArrayList<>();
+            for (String key : mainCollection.keySet()) {
+                if (key.compareTo(extraArguments.get(0)) < 0) {
+                    removeKeyArray.add(key);
+                    count++;
+                }
             }
-        }
-        for (String key : removeKeyArray) {
-            worker.removeKey(key);
+            for (String key : removeKeyArray) {
+                worker.removeKey(key);
+            }
         }
         execution.append("Count of removed objects from collection: " + count + ".");
         return execution.toString();

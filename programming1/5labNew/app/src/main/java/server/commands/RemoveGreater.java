@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import client.MetaInfoCommand;
+import client.streams.DataInOutStatus;
 import client.streams.in.ExecutionMode;
 import server.data.City;
 import server.data.Receiver;
@@ -23,6 +24,7 @@ public class RemoveGreater extends Command {
 
     @Override
     public String execute(Receiver worker, ArrayList<String> extraArguments, ExecutionMode execMode) {        
+        DataInOutStatus correctnessStatus = worker.checkCorrectnessOfComplicatedCommand(this, extraArguments, execMode);
         return worker.removeGreater(extraArguments);
     }
 }

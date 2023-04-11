@@ -17,7 +17,7 @@ import server.fillers.Increment;
  * Add an element with typed key into the main collection
  */
 
-public class Insert extends Command implements ComplicatedCommandValidatorable {
+public class Insert extends Command {
     /**
      * uniqueID used to create IDs of objects
      */
@@ -42,7 +42,7 @@ public class Insert extends Command implements ComplicatedCommandValidatorable {
         if (worker.getMainCollection().keySet().contains(key)) {
             return resultStr = "You typed wrong key of object. There is the same key in main collection. Failed.";
         }
-        DataInOutStatus correctnessStatus = checkCorrectnessOfComplicatedCommand(this, extraArguments, execMode);
+        DataInOutStatus correctnessStatus = worker.checkCorrectnessOfComplicatedCommand(this, extraArguments, execMode);
         if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
             extraArguments.remove(0);
             City newCity = new CityFactory().createCity(uniqueID.getNewId(), extraArguments);
@@ -51,23 +51,5 @@ public class Insert extends Command implements ComplicatedCommandValidatorable {
             return resultStr;
         }
         return correctnessStatus.getMessage();
-    }
-
-    @Override
-    public DataInOutStatus checkCorrectnessOfComplicatedCommand(Command commandObj,
-            ArrayList<String> argumentsToCommand, ExecutionMode execMode) {
-        DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
-        LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
-        CommandDataChecker commandChecker = new CommandDataChecker();
-        correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields,
-                execMode);
-        if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
-            argumentsToCommand.addAll(commandChecker.getExtraArguments());
-        }        
-        if (argumentsToCommand.size() == this.getCountOfExtraInlineArgs()) {
-            return DataInOutStatus.WRONGARGS;
-        } else {
-            return DataInOutStatus.SUCCESFULLY;
-        }
     }
 }

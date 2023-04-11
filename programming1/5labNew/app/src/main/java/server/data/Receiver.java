@@ -10,7 +10,12 @@ import java.util.Set;
 
 import javax.crypto.KeyGenerator;
 
+import client.MetaInfoCommand;
+import client.streams.DataInOutStatus;
+import client.streams.in.CommandDataChecker;
+import client.streams.in.ExecutionMode;
 import client.streams.in.File.ReaderCSV;
+import server.commands.Command;
 import server.data.Factories.CityFactory;
 import server.fillers.Increment;
 
@@ -134,12 +139,32 @@ public class Receiver {
     public void setDateOfLastChange() {
         database.setDateOfLastChange(new Date());
     }
-
-    public boolean insertKeyCheck(String key) {
-        if (getMainCollection().keySet().contains(key)) {
-            return false;
+    
+    
+    /**
+     * Check correctness arguments of complicated command with > 1 extra arguments
+     * 
+     * @param commandName        Name of command
+     * @param argumentsToCommand ArrayList of arguments typed in the same line as
+     *                           command
+     * @param execMode           ExecutionMode Enum value
+     * @return status of correctness of readed data
+     */
+    public DataInOutStatus checkCorrectnessOfComplicatedCommand(Command commandObj,
+    ArrayList<String> argumentsToCommand, ExecutionMode execMode) {
+        DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
+        LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
+        CommandDataChecker commandChecker = new CommandDataChecker();
+        correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields,
+                execMode);
+        if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
+            argumentsToCommand.addAll(commandChecker.getExtraArguments());
+        }        
+        if (argumentsToCommand.size() == commandObj.getCountOfExtraInlineArgs()) {
+            return DataInOutStatus.WRONGARGS;
+        } else {
+            return DataInOutStatus.SUCCESFULLY;
         }
-        return true;
     }
 
     public LocalDatabase getDataBase() {

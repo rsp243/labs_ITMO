@@ -51,42 +51,4 @@ public class CommandChecker {
         }
         return DataInOutStatus.SUCCESFULLY;
     }
-
-    /**
-     * Check correctness arguments of complicated command with > 1 extra arguments
-     * 
-     * @param commandName        Name of command
-     * @param argumentsToCommand ArrayList of arguments typed in the same line as
-     *                           command
-     * @param execMode           ExecutionMode Enum value
-     * @return
-     */
-    public DataInOutStatus checkCorrectnessOfComplicatedCommand(Command commandObj,
-            ArrayList<String> argumentsToCommand,
-            ExecutionMode execMode) {
-        DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
-        if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
-            if (commandObj.getCountOfExtraInlineArgs() == 1) {
-                if (argumentsToCommand.size() != 1) {
-                    return DataInOutStatus.WRONGARGS;
-                }
-            }
-            LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
-            CommandDataChecker commandChecker = new CommandDataChecker();
-            correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields,
-                    execMode);
-            if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
-                argumentsToCommand.addAll(commandChecker.getExtraArguments());
-            } 
-            return correctnessStatus;
-        }
-        if (commandObj.getCountOfExtraInlineArgs() == 1) {
-            if (argumentsToCommand.size() == 1) {
-                return DataInOutStatus.SUCCESFULLY;
-            } else {
-                return DataInOutStatus.WRONGARGS;
-            }
-        }
-        return correctnessStatus;
-    }
 }

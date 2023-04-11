@@ -2,6 +2,7 @@ package server.commands;
 
 import java.util.ArrayList;
 
+import client.streams.DataInOutStatus;
 import client.streams.in.ExecutionMode;
 import server.data.City;
 import server.data.Receiver;
@@ -25,8 +26,12 @@ public class Update extends Command {
         if (!worker.getIds().contains(id)) {
             return resultStr = "You typed wrong key of object. There is no objects in main collection with that id. Failed.";
         } else {
-            City newCity = new CityFactory().createCity(id, extraArguments);
-            worker.update(id, newCity);
+            DataInOutStatus correctnessStatus = worker.checkCorrectnessOfComplicatedCommand(this, extraArguments,
+                    execMode);
+            if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
+                City newCity = new CityFactory().createCity(id, extraArguments);
+                worker.update(id, newCity);
+            }
         }
         return resultStr;
     }
