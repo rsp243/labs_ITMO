@@ -16,7 +16,7 @@ public class FieldFetcher {
         Field[] cityClass = City.class.getDeclaredFields();
         for (Field cityField : cityClass) {
             if (cityField.isAnnotationPresent(Complex.class)) {
-                resultHashMap.putAll(this.fetchFromField(cityField, "StudyGroup", new StringBuilder()));
+                resultHashMap.putAll(this.fetchFromField(cityField, "City", new StringBuilder()));
             } else {
                 resultHashMap.put(cityField.getDeclaringClass().getSimpleName() + "." + cityField.getName(),
                         cityField.getType().getSimpleName());

@@ -47,7 +47,11 @@ public class City implements Comparable<City> {
         resultArrayList.add(creationDate.toString());
         resultArrayList.add(Long.toString(area));
         resultArrayList.add(Long.toString(population));
-        resultArrayList.add(Long.toString(metersAboveSeaLevel));
+        if (metersAboveSeaLevel != null) {
+            resultArrayList.add(metersAboveSeaLevel.toString());
+        } else {
+            resultArrayList.add("null");
+        }
         resultArrayList.add(Long.toString(telephoneCode));
         resultArrayList.add(Long.toString(carCode));
         resultArrayList.add(climate.toString());

@@ -135,6 +135,13 @@ public class Receiver {
         database.setDateOfLastChange(new Date());
     }
 
+    public boolean insertKeyCheck(String key) {
+        if (getMainCollection().keySet().contains(key)) {
+            return false;
+        }
+        return true;
+    }
+
     public LocalDatabase getDataBase() {
         return database;
     }

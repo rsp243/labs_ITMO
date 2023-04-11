@@ -18,7 +18,6 @@ public class MetaInfoCommand {
     public MetaInfoCommand() {
         mapOfCommands = Invoker.getMapOfCommands();
         fields = new FieldFetcher().fetchFields();
-
     }
     
     /**

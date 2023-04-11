@@ -36,8 +36,10 @@ public class CommandChecker {
             if (commandObj.getCountOfExtraInlineArgs() == 0 && argumentsToCommand.size() != 0) {
                 return DataInOutStatus.WRONGARGS;
             }
-            if (commandObj.getCountOfExtraInlineArgs() == 1 || commandObj.getCommandType() == CommandType.CITY_WORKER) {
-                correctnessStatus = checkCorrectnessOfComplicatedCommand(commandObj, argumentsToCommand, execMode);
+            if (commandObj.getCountOfExtraInlineArgs() == 1) {
+                if (argumentsToCommand.size() != 1) {
+                    return DataInOutStatus.WRONGARGS;
+                }
             }
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
                 OutStream.outputIntoCLI(Invoker.invoke(commandObj, argumentsToCommand, execMode), execMode);
@@ -75,8 +77,8 @@ public class CommandChecker {
                     execMode);
             if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
                 argumentsToCommand.addAll(commandChecker.getExtraArguments());
-                return correctnessStatus;
-            }
+            } 
+            return correctnessStatus;
         }
         if (commandObj.getCountOfExtraInlineArgs() == 1) {
             if (argumentsToCommand.size() == 1) {

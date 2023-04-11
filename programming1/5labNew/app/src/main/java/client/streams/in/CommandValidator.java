@@ -11,8 +11,9 @@ public class CommandValidator {
     public DataInOutStatus validate(String inputData, ExecutionMode execMode) {
         String[] splittedInputData = inputData.split(" ");
         commandName = splittedInputData[0];
-        for (int i = 1; i < splittedInputData.length; i++) {
-            commandArguments.add(splittedInputData[i]);
+        String extraArgument = inputData.replace(commandName, "").trim(); 
+        if (!extraArgument.equals("")) {
+            commandArguments.add(extraArgument);
         }
         return new CommandChecker().checkCorrectnessOfCommand(commandName, commandArguments, execMode);
     }

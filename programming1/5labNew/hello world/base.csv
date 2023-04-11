@@ -1,0 +1,9 @@
+key,City.id,City.name,City.Coordinates.x,City.Coordinates.y,City.creationDate,City.area,City.population,City.metersAboveSeaLevel,City.telephoneCode,City.carCode,City.Climate,City.Human.age,City.Human.height,City.Human.birthday
+1,2,sp,11,22,Tue Feb 28 03:08:16 MSK 2023,33,22,11,22,33,RAIN_FOREST,18,200.0,2004-06-26
+2,3,sp,11,22,Tue Feb 28 03:08:16 MSK 2023,33,22,12,22,33,RAIN_FOREST,18,200.0,2004-06-26
+4,5,sp,11,22,Tue Feb 28 03:08:16 MSK 2023,33,22,13,22,33,RAIN_FOREST,18,200.0,2004-06-26
+5,6,sp,11,22,Tue Feb 28 03:08:16 MSK 2023,33,22,15,22,33,RAIN_FOREST,18,200.0,2004-06-26
+3,4,zzz,11,22,Tue Feb 28 20:27:52 MSK 2023,33,44,12,22,33,RAIN_FOREST,18,180.0,2004-06-26
+10,7,Saint-Peterburh,233,2,Wed Mar 29 15:14:56 MSK 2023,23,11,23,2,33,RAIN_FOREST,33,22.0,2004-06-26
+222,8,Samara,555,111,Mon Mar 13 14:34:04 MSK 2023,33,222,333,222,333,RAIN_FOREST,18,190.0,2009-09-19
+111,9,ssjsj,11,2,Tue Apr 11 22:32:00 MSK 2023,3,22,null,222,33,RAIN_FOREST,222,33.0,2000-02-20

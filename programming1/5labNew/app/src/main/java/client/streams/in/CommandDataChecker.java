@@ -16,10 +16,9 @@ public class CommandDataChecker {
 
     public DataInOutStatus checkInputedCommand(Command commandObj, ArrayList<String> arguments,
             LinkedHashMap<String, String> fields, ExecutionMode execMode) {
-
         extraArguments = new ObjReading().objRead(commandObj, fields, execMode);
         if (extraArguments.size() == 0) {
-            return DataInOutStatus.FAILED;
+            return DataInOutStatus.WRONGARGS;
         }
         return DataInOutStatus.SUCCESFULLY;
     }

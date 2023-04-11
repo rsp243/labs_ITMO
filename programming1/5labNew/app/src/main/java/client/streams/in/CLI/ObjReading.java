@@ -12,7 +12,6 @@ import server.commands.CommandType;
 import server.commands.ExecuteScript;
 import server.data.Validators.AbstractValidator;
 import server.data.Validators.ValidatorManager;
-import server.data.Validators.CityValidator.CityValidator;
 
 /**
  * ObjReading class
@@ -26,8 +25,9 @@ public class ObjReading {
     public ArrayList<String> objRead(Command commandObj, LinkedHashMap<String, String> fields, ExecutionMode execMode) {
         ArrayList<String> extraArguments = new ArrayList<String>();
         try {
-            OutStream.outputIntoCLI("Type extra data for object.", execMode);
             if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
+                
+                OutStream.outputIntoCLI("Type extra data for object.", execMode);
                 ValidatorManager validatorManager = new ValidatorManager(fields);
                 if (execMode == ExecutionMode.CLI) {
                     int iter = 1;
@@ -45,7 +45,7 @@ public class ObjReading {
                         }
                         if (field.equals("City.Human.birthday")) {
                             OutStream.outputIntoCLI("Type '" + field + "'. Type of '" + field + "' is "
-                                    + fields.get(field) + ". Type it in format 'day.month.year' > ", execMode);
+                                    + fields.get(field) + ". Type it in format 'DD.MM.YYYY' > ", execMode);
                         }
                         String valueOfField = InputCLIstream.getInpReader().readLine().trim();
 

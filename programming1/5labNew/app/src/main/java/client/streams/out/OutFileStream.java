@@ -46,7 +46,7 @@ public class OutFileStream {
                     }
                     outputStreamWriter.close();
                     outputFileStream.close();
-                } catch (IOException | NullPointerException e) {
+                } catch (IOException e) {
                     return DataInOutStatus.FAILED;
                 }
             }
