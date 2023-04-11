@@ -38,7 +38,7 @@ public class Show extends Command {
         for (City city : arrayCities) {
             for (String key : mainCollection.keySet()) {
                 if (mainCollection.get(key).equals(city)) {
-                    execution.append("key = " + key + " : " + city.toString() + "\n");
+                    execution.append("key = " + key + "\n" + city.toString() + "\n");
                 }                
             }
         }

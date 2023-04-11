@@ -192,10 +192,10 @@ public class City implements Comparable<City> {
     
     @Override
     public String toString() {
-        return "City [id=" + id + ", name=" + name + ", coordinates=" + coordinates + ", creationDate=" + creationDate
-                + ", area=" + area + ", population=" + population + ", metersAboveSeaLevel=" + metersAboveSeaLevel
-                + ", telephoneCode=" + telephoneCode + ", carCode=" + carCode + ", climate=" + climate + ", governor="
-                + governor + "]";
+        return " id=" + id + ",\n name=" + name + ",\n coordinates=" + coordinates + ",\n creationDate=" + creationDate
+                + ",\n area=" + area + ",\n population=" + population + ",\n metersAboveSeaLevel=" + metersAboveSeaLevel
+                + ",\n telephoneCode=" + telephoneCode + ",\n carCode=" + carCode + ",\n climate=" + climate + ",\n governor="
+                + governor;
     }
 
     @Override
