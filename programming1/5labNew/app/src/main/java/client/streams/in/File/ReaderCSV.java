@@ -16,6 +16,8 @@ import client.streams.in.ExecutionMode;
 import client.streams.out.OutStream;
 import server.data.City;
 import server.data.Factories.CityFactory;
+import server.data.Validators.ValidatorInterface;
+import server.data.Validators.CityValidator.CityValidator;
 import server.fillers.Increment;
 
 /**
@@ -28,6 +30,7 @@ public class ReaderCSV {
 
     /**
      * Read file in CSV format with Scanner and CSVParser from lib opencsv
+     * 
      * @return Saved Main collection
      */
     public LinkedHashMap<String, City> getSavedCollection() {
@@ -50,21 +53,41 @@ public class ReaderCSV {
                 String id = arrayListArgs.remove(0);
                 String creationDate = arrayListArgs.remove(3);
                 if (iterator != 0) {
-                    String birthday = arrayListArgs.remove(arrayListArgs.size() - 1);
-                    String[] arrayBirthday = birthday.split("-");
-                    birthday = arrayBirthday[2] + "." + arrayBirthday[1] + "." + arrayBirthday[0];
-                    arrayListArgs.add(birthday);
-                    City cityObj = new CityFactory().createCity((long) 0, arrayListArgs);
-                    cityObj.setId(Long.parseLong(id));
-                    idArray.add(Long.parseLong(id));
-                    try {
-                        SimpleDateFormat parser = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
-                        Date date = parser.parse(creationDate);
-                        new Date();
-                        cityObj.setCreationDate(date);
-                        savedCollection.put(key, cityObj);
-                    } catch (ParseException e) {
-                        OutStream.outputIntoCLI("Error with parsing DATA! Check correctness of your data. Check line:" + iterator, ExecutionMode.CLI);
+                    if (idArray.contains(Long.parseLong(id))) {
+                        OutStream.outputIntoCLI(
+                                "Error with id! Check correctness your file's data. Check line:" + iterator,
+                                ExecutionMode.CLI);
+                    } else {
+                        String birthday = arrayListArgs.remove(arrayListArgs.size() - 1);
+                        String[] arrayBirthday = birthday.split("-");
+                        birthday = arrayBirthday[2] + "." + arrayBirthday[1] + "." + arrayBirthday[0];
+                        arrayListArgs.add(birthday);
+                        CityValidator cityValidator = new CityValidator();
+                        try {
+                            if (cityValidator.validate(arrayListArgs)) {
+                                City cityObj = new CityFactory().createCity((long) 0, arrayListArgs);
+                                cityObj.setId(Long.parseLong(id));
+                                idArray.add(Long.parseLong(id));
+                                try {
+                                    SimpleDateFormat parser = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",
+                                            Locale.ENGLISH);
+                                    Date date = parser.parse(creationDate);
+                                    new Date();
+                                    cityObj.setCreationDate(date);
+                                    savedCollection.put(key, cityObj);
+                                } catch (ParseException e) {
+                                    OutStream.outputIntoCLI(
+                                            "Error with parsing creation date! Check correctness of your data. Check line:"
+                                                    + iterator,
+                                            ExecutionMode.CLI);
+                                }
+                            }
+                        } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
+                            OutStream.outputIntoCLI(
+                                "Error with dowloaded data! Check correctness of your data. Check line: "
+                                        + iterator,
+                                ExecutionMode.CLI);
+                        }
                     }
                 }
                 iterator++;
