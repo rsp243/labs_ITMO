@@ -1,3 +1,4 @@
+clear
 insert 11
 NameCity
 1
@@ -7,10 +8,11 @@ NameCity
 15
 993
 243
-RAIN_FOREST1
+RAIN_FOREST11
 18
 80
 26.06.2004
 
-help
-show
+clear
+
+                        

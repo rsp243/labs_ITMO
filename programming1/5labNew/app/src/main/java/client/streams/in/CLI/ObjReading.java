@@ -12,6 +12,7 @@ import server.commands.CommandType;
 import server.commands.ExecuteScript;
 import server.data.Validators.AbstractValidator;
 import server.data.Validators.ValidatorManager;
+import server.data.Validators.CityValidator.CityValidator;
 
 /**
  * ObjReading class
@@ -26,7 +27,7 @@ public class ObjReading {
         ArrayList<String> extraArguments = new ArrayList<String>();
         try {
             if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
-                
+
                 OutStream.outputIntoCLI("Type extra data for object.", execMode);
                 ValidatorManager validatorManager = new ValidatorManager(fields);
                 if (execMode == ExecutionMode.CLI) {
@@ -55,10 +56,14 @@ public class ObjReading {
                                 extraArguments.add(valueOfField);
                                 iter++;
                             } else {
-                                OutStream.outputIntoCLI("You've typed wrong value of field. Restrictions to that field: " + validator.getRestrictions() + ".", execMode);
+                                OutStream
+                                        .outputIntoCLI("You've typed wrong value of field. Restrictions to that field: "
+                                                + validator.getRestrictions() + ".", execMode);
                             }
                         } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
-                            OutStream.outputIntoCLI("You've typed wrong value of field. Check that you type right type of field: " + fields.get(field) + ".",
+                            OutStream.outputIntoCLI(
+                                    "You've typed wrong value of field. Check that you type right type of field: "
+                                            + fields.get(field) + ".",
                                     execMode);
                         }
                     }
@@ -69,10 +74,19 @@ public class ObjReading {
                     }
                     int startValue = ExecuteScript.getCurrentCommand();
                     for (int iter = startValue + 1; iter < ExecuteScript.getReadedCommands().size()
-                            - startValue; iter++) {
+                            - startValue - 1; iter++) {
                         extraArguments.add(ExecuteScript.getReadedCommands().get(iter).trim());
                         ExecuteScript.setCurrentCommand(ExecuteScript.getCurrentCommand() + 1);
                     }
+                    try {
+                        CityValidator cityValidator = new CityValidator();
+                        if (!cityValidator.validate(extraArguments)) {
+                            extraArguments = new ArrayList<String>();
+                        }
+                    } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
+                        extraArguments = new ArrayList<String>();
+                    }
+
                 }
             }
         } catch (IOException | NullPointerException e) {

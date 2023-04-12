@@ -28,7 +28,7 @@ public class CityFactory {
         int area = Integer.parseInt(args.get(3));
         Integer population = Integer.parseInt(args.get(4));
         Integer metersAboveSeaLevel = null;
-        if (!args.get(5).equals("null")) {
+        if (!args.get(5).equals("null") && !args.get(5).equals("")) {
             metersAboveSeaLevel = Integer.parseInt(args.get(5));
         }
         Long telephoneCode = Long.parseLong(args.get(6));

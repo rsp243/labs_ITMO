@@ -60,6 +60,10 @@ public class ExecuteScript extends Command {
         StringBuilder execution = new StringBuilder();
         String fileName = extraArguments.get(0);
         if (historyOfFiles.contains(fileName)) {
+            historyOfFiles = new ArrayList<>();
+            currentCommand = 0;
+            readedCommands = new ArrayList<>();
+            System.out.println(historyOfFiles);
             return execution.append("You have recursion in your script. Failed.").toString();
         }
         historyOfFiles.add(fileName);
