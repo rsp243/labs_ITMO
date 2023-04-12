@@ -27,10 +27,9 @@ public class ObjReading {
         ArrayList<String> extraArguments = new ArrayList<String>();
         try {
             if (commandObj.getCommandType() == CommandType.CITY_WORKER) {
-
-                OutStream.outputIntoCLI("Type extra data for object.", execMode);
-                ValidatorManager validatorManager = new ValidatorManager(fields);
                 if (execMode == ExecutionMode.CLI) {
+                    OutStream.outputIntoCLI("Type extra data for object.", execMode);
+                    ValidatorManager validatorManager = new ValidatorManager(fields);
                     int iter = 1;
                     while (iter < fields.keySet().size()) {
                         String field = fields.keySet().toArray()[iter].toString();
@@ -73,8 +72,8 @@ public class ObjReading {
                         return new ArrayList<String>();
                     }
                     int startValue = ExecuteScript.getCurrentCommand();
-                    for (int iter = startValue + 1; iter < ExecuteScript.getReadedCommands().size()
-                            - startValue - 1; iter++) {
+
+                    for (int iter = startValue + 1; iter < fields.size(); iter++) {
                         extraArguments.add(ExecuteScript.getReadedCommands().get(iter).trim());
                         ExecuteScript.setCurrentCommand(ExecuteScript.getCurrentCommand() + 1);
                     }
@@ -86,7 +85,6 @@ public class ObjReading {
                     } catch (IndexOutOfBoundsException | DateTimeException | IllegalArgumentException m) {
                         extraArguments = new ArrayList<String>();
                     }
-
                 }
             }
         } catch (IOException | NullPointerException e) {

@@ -152,6 +152,9 @@ public class Receiver {
      */
     public DataInOutStatus checkCorrectnessOfComplicatedCommand(Command commandObj,
     ArrayList<String> argumentsToCommand, ExecutionMode execMode) {
+        if (argumentsToCommand.size() > 1) {
+            return DataInOutStatus.SUCCESFULLY;
+        }
         DataInOutStatus correctnessStatus = DataInOutStatus.SUCCESFULLY;
         LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
         CommandDataChecker commandChecker = new CommandDataChecker();
