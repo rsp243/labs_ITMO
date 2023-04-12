@@ -1,5 +1,6 @@
 package server.commands;
 
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 
 import client.streams.DataInOutStatus;
@@ -15,8 +16,8 @@ import server.data.Receiver;
 
 public class ExecuteScript extends Command {
     private ArrayList<String> historyOfFiles;
-    private static ArrayList<String> readedCommands;
-    private static Integer currentCommand;
+    private static ArrayList<String> readedCommands = new ArrayList<>();
+    private static Integer currentCommand = 0;
 
     /**
      * Get number of current command parsing
@@ -63,24 +64,35 @@ public class ExecuteScript extends Command {
             historyOfFiles = new ArrayList<>();
             currentCommand = 0;
             readedCommands = new ArrayList<>();
-            System.out.println(historyOfFiles);
             return execution.append("You have recursion in your script. Failed.").toString();
         }
         historyOfFiles.add(fileName);
-        currentCommand = 0;
-        readedCommands = new FileReader().readFile(fileName);
+
+        if (readedCommands.size() != 0) {
+            ArrayList<String> afterScriptCommands = new ArrayList<>();
+            for (int iter = currentCommand + 1; iter < readedCommands.size(); iter++) {
+                afterScriptCommands.add(readedCommands.get(iter));
+            }
+            readedCommands.addAll(new FileReader().readFile(fileName));
+            readedCommands.addAll(afterScriptCommands);
+        } else {
+            readedCommands.addAll(new FileReader().readFile(fileName));
+        }
+        System.out.println(readedCommands);
         int iter = 0;
         if (readedCommands.size() != 0) {
             while (iter < readedCommands.size()) {
                 String commandLine = readedCommands.get(iter);
                 if (new CommandValidator().validate(commandLine,
                         ExecutionMode.EXECUTESCRIPT) != DataInOutStatus.SUCCESFULLY) {
+                            historyOfFiles.remove(fileName);
                     return execution.append("Check correctness of commands in your script '" + fileName
                             + "'. Failed.\nSome commands can be completed.").toString();
                 }
                 currentCommand++;
                 iter = currentCommand;
-            }
+            }  
+            historyOfFiles.remove(fileName);
             execution.append("Commands from file '" + fileName + "' successfully completed.").toString();
         } else {
             execution.append("There are some errors with file '" + fileName + "'. Try again.").toString();

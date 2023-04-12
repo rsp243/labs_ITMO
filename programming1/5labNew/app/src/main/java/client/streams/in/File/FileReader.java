@@ -9,10 +9,13 @@ import client.streams.in.ExecutionMode;
 import client.streams.out.OutStream;
 
 public class FileReader {    
+
+
+
     public ArrayList<String> readFile(String fileName) {
         ArrayList<String> linesArrayList = new ArrayList<>();
         String filepath = "./" + fileName; 
-        OutStream.outputIntoCLI("Name of file: '" + fileName + "'.\nFilePath: '" + filepath + "'." + "\nTaken from environment variable: 'FILE_NAME'.", ExecutionMode.CLI);
+        OutStream.outputIntoCLI("Name of file: '" + fileName + "'.\nFilePath: '" + filepath + "'.", ExecutionMode.CLI);
         try {
             Scanner sc = new Scanner(new File(filepath));
             while (sc.hasNextLine()) {
@@ -23,7 +26,7 @@ public class FileReader {
             OutStream.outputIntoCLI("File was readed successfully.", ExecutionMode.CLI);
             return linesArrayList;
         } catch (IOException | NullPointerException e) {
-            OutStream.outputIntoCLI("Error with file, check path of the file. Check file's format: '<filename>.<FileFormat>'.\nWe have searched this file in directory: './'.", ExecutionMode.CLI);
+            OutStream.outputIntoCLI("Error with file, check path of the file. Check file's format: '<filename>.<FileFormat>'.\nWe have searched this file in directory: './'.\nIf you want to set up collection with elements, add an evironment variable 'FILE_NAME' with path of csv file.", ExecutionMode.CLI);
             return new ArrayList<>();
         }
     }

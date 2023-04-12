@@ -159,7 +159,7 @@ public class Receiver {
         LinkedHashMap<String, String> fields = MetaInfoCommand.getFields();
         CommandDataChecker commandChecker = new CommandDataChecker();
         correctnessStatus = commandChecker.checkInputedCommand(commandObj, argumentsToCommand, fields,
-                execMode);
+                execMode);        
         if (correctnessStatus == DataInOutStatus.SUCCESFULLY) {
             argumentsToCommand.addAll(commandChecker.getExtraArguments());
         }        

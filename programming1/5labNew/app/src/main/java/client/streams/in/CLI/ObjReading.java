@@ -68,12 +68,11 @@ public class ObjReading {
                     }
                 } else {
                     if (ExecuteScript.getReadedCommands().size() - ExecuteScript
-                            .getCurrentCommand() < ExecuteScript.getCurrentCommand() + fields.size() - 1) {
+                            .getCurrentCommand() < ExecuteScript.getCurrentCommand() + fields.size() - 3) {
                         return new ArrayList<String>();
                     }
                     int startValue = ExecuteScript.getCurrentCommand();
-
-                    for (int iter = startValue + 1; iter < fields.size(); iter++) {
+                    for (int iter = startValue + 1; iter < startValue + fields.size() - 2 + 1; iter++) {
                         extraArguments.add(ExecuteScript.getReadedCommands().get(iter).trim());
                         ExecuteScript.setCurrentCommand(ExecuteScript.getCurrentCommand() + 1);
                     }
