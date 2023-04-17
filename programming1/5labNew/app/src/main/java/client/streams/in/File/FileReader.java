@@ -1,6 +1,7 @@
 package client.streams.in.File;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,7 +26,11 @@ public class FileReader {
             sc.close();
             OutStream.outputIntoCLI("File was readed successfully.", ExecutionMode.CLI);
             return linesArrayList;
-        } catch (IOException | NullPointerException e) {
+        } catch (FileNotFoundException e) {
+            OutStream.outputIntoCLI("Error with file, check that the file is readable (check user's permissions to the file). Path to file: '" + filepath + "'. \nCollection wasn't filled.", ExecutionMode.CLI);
+            return new ArrayList<>();
+        }
+        catch (NullPointerException e) {
             OutStream.outputIntoCLI("Error with file, check path of the file. Check file's format: '<filename>.<FileFormat>'.\nWe have searched this file in directory: './'.\nIf you want to set up collection with elements, add an evironment variable 'FILE_NAME' with path of csv file.", ExecutionMode.CLI);
             return new ArrayList<>();
         }

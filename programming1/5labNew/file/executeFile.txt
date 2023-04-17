@@ -1,4 +1,5 @@
-insert 11
+info
+insert 10
 NameCity
 1
 2
@@ -7,10 +8,7 @@ NameCity
 15
 993
 243
-RAIN_FOREST1
+RAIN_FOREST
 18
 80
 26.06.2004
-
-help
-show

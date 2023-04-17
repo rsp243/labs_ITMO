@@ -1,5 +1,6 @@
 package client.streams.out;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -46,6 +47,9 @@ public class OutFileStream {
                     }
                     outputStreamWriter.close();
                     outputFileStream.close();
+                } catch (FileNotFoundException e) {
+                    OutStream.outputIntoCLI("Error with file, check that the file is writable (check user's permissions to the file). Path to file: '" + filepath + "'. \nCollection wasn't saved.", ExecutionMode.CLI);
+                    return DataInOutStatus.FAILED;
                 } catch (IOException e) {
                     return DataInOutStatus.FAILED;
                 }
