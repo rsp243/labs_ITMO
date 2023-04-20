@@ -1,5 +1,5 @@
 info
-insert 10
+insert 10z
 NameCity
 1
 2

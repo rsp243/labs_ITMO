@@ -16,7 +16,6 @@ import client.streams.in.ExecutionMode;
 import client.streams.out.OutStream;
 import server.data.City;
 import server.data.Factories.CityFactory;
-import server.data.Validators.ValidatorInterface;
 import server.data.Validators.CityValidator.CityValidator;
 import server.fillers.Increment;
 
