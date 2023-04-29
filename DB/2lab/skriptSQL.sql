@@ -68,8 +68,8 @@ FROM
     ) AS Н_ЛЮДИ1
 WHERE
     Н_ЛЮДИ1.КОЛИЧЕСТВО = 10;
---task's solution
 
+--task's solution
 --5
 SELECT
     AVG(age(ДАТА_РОЖДЕНИЯ))
@@ -77,6 +77,7 @@ FROM
     Н_УЧЕНИКИ AS p
     INNER JOIN Н_ЛЮДИ AS l ON p.ГРУППА = ('1101' :: varchar)
     AND p.ЧЛВК_ИД = l.ИД;
+
 --average age in 1101 group
 SELECT
     AVG(age(ДАТА_РОЖДЕНИЯ))
@@ -181,3 +182,16 @@ ORDER BY
     Н_ЛЮДИ.ИМЯ;
 
 --task's solution
+
+    
+CREATE FUNCTION count_of_people_in_location(location_id int) RETURNS int AS $ result $
+SET
+    result =
+SELECT
+    count(*)
+FROM
+    location
+    JOIN creature ON creature.location = location.id
+    AND location.id = location_id RETURNING result;
+
+$ result $ LANGUAGE pgsql;

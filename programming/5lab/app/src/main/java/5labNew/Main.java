@@ -22,12 +22,12 @@ class Main {
          * Initialasing LocalDatabase, CollectionWorker, Opening InputCLIStream,
          * generating CommandController.
          * LocalDatabase, InputCLIStream, CommandController
-         */
+        //  */
+
         LocalDatabase localDatabase = new LocalDatabase(new ArrayList<City>());
         Receiver receiver = new Receiver(localDatabase);
         new InputCLIstream();
         new Invoker(receiver);
         InputCLIstream.openCLIStream(ExecutionMode.CLI);
-
     }
 }
