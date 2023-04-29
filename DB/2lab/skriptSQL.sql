@@ -183,15 +183,19 @@ ORDER BY
 
 --task's solution
 
-    
-CREATE FUNCTION count_of_people_in_location(location_id int) RETURNS int AS $ result $
-SET
-    result =
+--lab3 function
+
+CREATE FUNCTION count_of_people_in_location(location_id int) RETURNS integer AS $ $ DECLARE result := 0;
+
+BEGIN
 SELECT
-    count(*)
+    count(*) INTO result
 FROM
     location
     JOIN creature ON creature.location = location.id
-    AND location.id = location_id RETURNING result;
+    AND location.id = location_id;
 
-$ result $ LANGUAGE pgsql;
+RAISE NOTICE 'Count creatures in location with typed id: %', result;
+END;
+
+$ $ LANGUAGE plpgsql;
