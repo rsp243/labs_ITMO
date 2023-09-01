@@ -1,0 +1,11 @@
+header {
+    margin: 10px;
+    border: 1px solid black;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+header p, header a {
+    font-size: 15px;
+    line-height: 30%;
+}
