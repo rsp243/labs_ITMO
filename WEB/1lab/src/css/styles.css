@@ -1,8 +1,10 @@
 body {
     font-family: 'Nunito Sans', sans-serif;
     margin: 0;
-    background-image: url(../img/background-2.jpg), url(../img/background-2.jpg);
-    color: white;
+    background: url(../img/background-2.jpg) no-repeat fixed, url(../img/background-2.jpg) no-repeat right fixed;
+    background-size: 50% 100%; 
+ 
+    color: black;
 }
 
 header {
@@ -17,7 +19,11 @@ header .introduction {
     display: flex;
     align-items: center;
     margin: 0 10px;
-    line-height: 0px;
+    color: white;
+}
+
+header .introduction h3 {
+    margin: 0;
 }
 
 header .introduction p{
@@ -27,19 +33,19 @@ header .introduction p{
 .nav-button {
     background-color: #3399ff; 
     border: none;
-    color: white;
+    color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    height: 100%;
 }
 
 .nav-button:hover {
     background-color: #1569bd; /* Green */
 }
 
-header p,
 header form {
     font-size: 15px;
     line-height: 30%;
@@ -56,8 +62,10 @@ header form {
 
 .canvas-and-selection {
     margin: 0 0 20px 0;
-    background-color: rgba(185, 180, 206, 0.618);
+    padding: 0 20px 20px 20px;
+    background-color: rgba(185, 180, 206, 0.786);
     border-radius: 0 0 30px 30px;
+    border: 2px solid #1c8bfa;
 }
 
 #canvas {
@@ -71,6 +79,7 @@ header form {
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin: 0 0 30px 0;
 }
 
 .params-selection {
@@ -96,11 +105,30 @@ header form {
 
 .data-table {
     margin: 30px 0 0 0;
-    background-color: rgba(185, 180, 206, 0.618);
+    background-color: rgba(185, 180, 206, 0.786);
     border-radius: 10px 10px 0px 0px;
+    border: 2px solid #1c8bfa;
 }
 
 .data-table table {
-    border-collapse: separate;
-    border-spacing: 50px 0;
+    border: none;
+    border-radius: 10px 10px 0px 0px;
+    border-collapse: collapse;
+}
+
+.data-table table td, .data-table table th {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.data-table table th {
+    border-bottom: 1px solid #000;
+}
+
+.data-table table td:first-child, .data-table table th:first-child {
+    border-left: none;
+}
+
+.data-table table td:last-child, .data-table table th:last-child {
+    border-right: none;
 }
