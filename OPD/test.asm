@@ -1,14 +1,27 @@
-word 0x0200
-word 0xEEFD
-word 0xAF05
-word 0xEEFA
-word 0xAEF7
-word 0xEEF7
-word 0xAAF6
-word 0x0480
-word 0xF402
-word 0x0400
-word 0x6AF4
-word 0x85B9
-word 0xCEF9
-word 0x0100
+org 0x020
+
+X:      word 0x0001
+Y:      word 0x0004
+LD X
+PUSH
+LD Y
+PUSH
+CALL $START
+POP
+
+org 0x300
+START:  CLA
+LD #0x54
+PUSH
+CLA
+ADD &3
+ADD &2
+ADD &0
+PUSH
+SWAP
+ST &3
+POP
+SWAP
+POP
+RET
+
