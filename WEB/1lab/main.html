@@ -18,7 +18,7 @@
     <header>
         <div class="introduction">
             <h3>First web laboratory</h3>
-            <p>Reshetov Semen, P3206. Variant: 1623</p>
+            <strong>Reshetov Semen, P3206. Variant: 1623</strong>
         </div>
         <div class="links">
             <form action="https://se.ifmo.ru/courses/web" target="_blank">
@@ -45,13 +45,14 @@
             <div class="params-selection">
                 <div class="Xselection">
                     <p>Choose X value</p>
+                    <p class="X-error-message error-message">X value have to be whole number between -3 and 5 (including)</p>
                     <input type="radio" id="contactChoice1" name="Xvalue" value="-3" />
                     <label for="contactChoice1">-3</label>
                     <input type="radio" id="contactChoice2" name="Xvalue" value="-2" />
                     <label for="contactChoice2">-2</label>
                     <input type="radio" id="contactChoice3" name="Xvalue" value="-1" />
                     <label for="contactChoice3">-1</label>
-                    <input type="radio" id="contactChoice4" name="Xvalue" value="0" />
+                    <input type="radio" id="contactChoice4" name="Xvalue" value="0" checked />
                     <label for="contactChoice4">0</label>
                     <input type="radio" id="contactChoice5" name="Xvalue" value="1" />
                     <label for="contactChoice5">1</label>
@@ -66,21 +67,23 @@
                 </div>
                 <div class="Yselection">
                     <p>Choose Y value</p>
-                    <input type="text" id="Yselection" name="Yvalue" placeholder="Y value" />
+                    <p class="Y-error-message error-message">Y value have to be float number between -3 and 5 (not including)</p>
+                    <input class="Yselection-text" type="text" id="Yselection" name="Yvalue" placeholder="Y value" />
                 </div>
                 <div class="Rselection">
                     <p>Choose R value</p>
+                    <p class="R-error-message error-message">R value have to be float number between 1 and 3 (including)</p>
                     <select id="Rselection" name="Rvalue">
-                        <option value="value1" selected>1</option>
-                        <option value="value1.5">1.5</option>
-                        <option value="value2">2</option>
-                        <option value="value2.5">2.5</option>
-                        <option value="value3">3</option>
+                        <option value="1" selected>1</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2">2</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
             </div>
             <div class="">
-                <button class="control-btn">Process</button>
+                <button class="control-btn btn-process">Process</button>
                 <button class="control-btn">Clear table</button>
             </div>
         </div>
@@ -117,7 +120,9 @@
         </div>
     </div>
 
-    <script src="src/js/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="src/js/canvas.js"></script>
+    <script src="src/js/validation.js"></script>
 </body>
 
 </html>

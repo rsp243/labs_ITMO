@@ -2,8 +2,8 @@ body {
     font-family: 'Nunito Sans', sans-serif;
     margin: 0;
     background: url(../img/background-2.jpg) no-repeat fixed, url(../img/background-2.jpg) no-repeat right fixed;
-    background-size: 50% 100%; 
- 
+    background-size: 50% 100%;
+
     color: black;
 }
 
@@ -26,12 +26,12 @@ header .introduction h3 {
     margin: 0;
 }
 
-header .introduction p{
+header .introduction strong {
     margin: 0 0 0 15px;
 }
 
 .nav-button {
-    background-color: #3399ff; 
+    background-color: #3399ff;
     border: none;
     color: black;
     padding: 15px 32px;
@@ -101,6 +101,13 @@ header form {
 
 #Rselection {
     padding: 0 30px 0 50px;
+}
+
+.error-message {
+    display: none;
+    color: #000;
+    background-color: rgb(218, 42, 42);
+    line-height: normal;
 }
 
 .data-table {

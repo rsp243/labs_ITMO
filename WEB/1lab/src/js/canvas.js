@@ -41,7 +41,7 @@ ctx.stroke();
 ctx.beginPath();
 ctx.strokeStyle = "black";
 
-// graph arrows 
+// graph arrows
 // vertical arrow
 ctx.moveTo(canvas.width / 2, 0);
 ctx.lineTo(canvas.width / 2, canvas.height);
@@ -57,7 +57,7 @@ ctx.lineTo(canvas.width, canvas.height / 2);
 ctx.moveTo(canvas.width * 0.97, canvas.height / 2.05);
 ctx.lineTo(canvas.width, canvas.height / 2);
 
-// R unit marks 
+// R unit marks
 // vertical marks
 ctx.moveTo(canvas.width / 2.04, canvas.height / 1.20);
 ctx.lineTo(canvas.width / 1.96, canvas.height / 1.20);
