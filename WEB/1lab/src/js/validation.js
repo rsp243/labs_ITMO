@@ -44,7 +44,7 @@ $(".btn-process").on( "click", function() {
     let yFloat = parseFloat(isFloat(yValue));
     let rFloat = parseFloat(isFloat(rValue));
 
-    if (validate(xNum, yFloat, rFloat)) {
+    if (validateEntryData(xNum, yFloat, rFloat)) {
         console.log("Values are ready to go to php server.");
     }
 });
