@@ -45,8 +45,17 @@ $(".btn-process").on( "click", function() {
     let rFloat = parseFloat(isFloat(rValue));
 
     if (validate(xNum, yFloat, rFloat)) {
-        console.log("Values are ready to go to php server.");
-    }
+        let requestBody = {'X': xNum, "Y": yFloat, "R": rFloat} 
+        fetch(new URL("src/php/index.php", window.location.href), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        })
+           .then(response => response.json())
+           .then(response => console.log(JSON.stringify(response)))    }
 });
 
 
