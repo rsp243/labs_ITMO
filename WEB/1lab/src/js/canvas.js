@@ -11,7 +11,7 @@ ctx.fillStyle = "#3399ff";
 ctx.fillRect(canvas.width / 2, canvas.height / 2, canvas.width / 3, canvas.height / 3);
 ctx.moveTo(canvas.width / 2, canvas.height / 2);
 // 1/4 of circle
-ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 3, 0, 4.71, 1);
+ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 6, 0, 4.71, 1);
 ctx.fill();
 // triangle
 ctx.moveTo(canvas.width / 2, canvas.height / 2);

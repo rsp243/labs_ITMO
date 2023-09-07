@@ -36,7 +36,7 @@ function validateEntryData(xNum, yFloat, rFloat) {
     return result;
 }
 
-$(".btn-process").on( "click", function() {
+$(".btn-process").on( "click", async function() {
     let xValue = $("input[name=\'Xvalue\']:checked").val();
     let yValue = $(".Yselection-text").val();
     let rValue = $("select[name=\'Rvalue\'] option:selected").val();
@@ -44,18 +44,23 @@ $(".btn-process").on( "click", function() {
     let yFloat = parseFloat(isFloat(yValue));
     let rFloat = parseFloat(isFloat(rValue));
 
-    if (validate(xNum, yFloat, rFloat)) {
-        let requestBody = {'X': xNum, "Y": yFloat, "R": rFloat} 
-        fetch(new URL("src/php/index.php", window.location.href), {
+    if (validateEntryData(xNum, yFloat, rFloat)) {
+        let requestBody = {"X": xNum, "Y": yFloat, "R": rFloat}
+        response = await fetch(new URL("src/php/index.php", window.location.href), {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(requestBody)
         })
-           .then(response => response.json())
-           .then(response => console.log(JSON.stringify(response)))    }
+        .then(responseCatched => {
+            if (responseCatched.ok) {
+                return responseCatched.json()
+            }
+            throw new Error(responseCatched.statusText)
+        })
+        console.log(response)
+    }
 });
 
 
