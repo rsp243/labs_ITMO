@@ -46,7 +46,7 @@ $(".btn-process").on( "click", async function() {
 
     if (validateEntryData(xNum, yFloat, rFloat)) {
         let requestBody = {"X": xNum, "Y": yFloat, "R": rFloat}
-        response = await fetch(new URL("src/php/index.php", window.location.href), {
+        let response = await fetch(new URL("src/php/index.php", window.location.href), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ $(".btn-process").on( "click", async function() {
             }
             throw new Error(responseCatched.statusText)
         })
-        console.log(response)
+        addOneRowToTable(response);
     }
 });
 

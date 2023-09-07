@@ -7,7 +7,7 @@ function echoResponse(int $http_response_code, string $echoJson)
     die;
 }
 
-$start_time = time();
+$start_time = microtime(true);
 $x = "";
 $y = "";
 $r = "";
@@ -29,7 +29,21 @@ if (!empty($data)) {
             $sector_4 = $x > 0 && $y < 0 && $x <= $r && $y <= -$r;
 
             $isHit = $sector_1 || $sector_2 || $sector_3 || $sector_4;
-            $result_array = array($x, $y, $r, $isHit, time(), $_SERVER['REQUEST_TIME'] - $start_time);
+            $hitValue = "MISS";
+            if ($isHit) {
+                $hitValue = "HIT";
+            }
+            $currentDateTime = new DateTime('now'); 
+            $currentDateTimeFormatted = $currentDateTime -> format('d-m-Y H:i:s');
+            $executionTime = (microtime(true) - $start_time);
+            $result_array = array(
+                "xValue" => "<td scope=\"row\">" . $x . "</td>",
+                "yValue" => "<td scope=\"row\">" . $y . "</td>",
+                "rValue" => "<td scope=\"row\">" . $r . "</td>",
+                "isHit" => "<td scope=\"row\">" . $hitValue . "</td>",
+                "currentTime" => "<td scope=\"row\">" . $currentDateTimeFormatted . "</td>",
+                "executionTime" => "<td scope=\"row\">" . number_format((float) $executionTime, 6, '.', '') . "</td>"
+            );
 
             echoResponse(200, json_encode($result_array));
         }

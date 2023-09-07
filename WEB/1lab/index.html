@@ -45,7 +45,8 @@
             <div class="params-selection">
                 <div class="Xselection">
                     <p>Choose X value</p>
-                    <p class="X-error-message error-message">X value have to be whole number between -3 and 5 (including)</p>
+                    <p class="X-error-message error-message">X value have to be whole number between -3 and 5
+                        (including)</p>
                     <input type="radio" id="contactChoice1" name="Xvalue" value="-3" />
                     <label for="contactChoice1">-3</label>
                     <input type="radio" id="contactChoice2" name="Xvalue" value="-2" />
@@ -67,12 +68,14 @@
                 </div>
                 <div class="Yselection">
                     <p>Choose Y value</p>
-                    <p class="Y-error-message error-message">Y value have to be float number between -3 and 5 (not including)</p>
+                    <p class="Y-error-message error-message">Y value have to be float number between -3 and 5 (not
+                        including)</p>
                     <input class="Yselection-text" type="text" id="Yselection" name="Yvalue" placeholder="Y value" />
                 </div>
                 <div class="Rselection">
                     <p>Choose R value</p>
-                    <p class="R-error-message error-message">R value have to be float number between 1 and 3 (including)</p>
+                    <p class="R-error-message error-message">R value have to be float number between 1 and 3 (including)
+                    </p>
                     <select id="Rselection" name="Rvalue">
                         <option value="1" selected>1</option>
                         <option value="1.5">1.5</option>
@@ -89,33 +92,20 @@
         </div>
         <div class="data-table">
             <table cellspacing="1" cellpadding="10" width="100%">
-                <tr>
-                    <th>X Value</th>
-                    <th>Y Value</th>
-                    <th>R Value</th>
-                    <th>Hit/Miss</th>
-                    <th>Event time</th>
-                    <th>Execution time, ms</th>
-                    <th>Color(RGB)</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+
+                <thead>
+                    <tr>
+                        <th scope="col">X Value</th>
+                        <th scope="col">Y Value</th>
+                        <th scope="col">R Value</th>
+                        <th scope="col">Hit/Miss</th>
+                        <th scope="col">Event time</th>
+                        <th scope="col">Execution time, ms</th>
+                        <th scope="col">Color(RGB)</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                </tbody>
             </table>
         </div>
     </div>
@@ -123,6 +113,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="src/js/canvas.js"></script>
     <script src="src/js/validation.js"></script>
+    <script src="src/js/table.js"></script>
 </body>
 
 </html>
