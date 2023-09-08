@@ -1,6 +1,4 @@
-import drawPoint from './canvas.js'
-
-function isFloat(str) {
+export function isFloat(str) {
     str = str.trim();
     if (!str) {
         return false;
@@ -13,7 +11,7 @@ function isFloat(str) {
     return false;
 }
 
-function validateEntryData(xNum, yFloat, rFloat) {
+export function validateEntryData(xNum, yFloat, rFloat) {
     let result = true;
     if (xNum == NaN || !(-3 <= xNum <= 5)) {
         $(".X-error-message").css("display", "block");
@@ -37,33 +35,3 @@ function validateEntryData(xNum, yFloat, rFloat) {
     }
     return result;
 }
-
-$(".btn-process").on( "click", async function() {
-    let xValue = $("input[name=\'Xvalue\']:checked").val();
-    let yValue = $(".Yselection-text").val();
-    let rValue = $("select[name=\'Rvalue\'] option:selected").val();
-    let xNum = Math.floor(xValue);
-    let yFloat = parseFloat(isFloat(yValue));
-    let rFloat = parseFloat(isFloat(rValue));
-
-    if (validateEntryData(xNum, yFloat, rFloat)) {
-        let requestBody = {"X": xNum, "Y": yFloat, "R": rFloat}
-        let response = await fetch(new URL("src/php/index.php", window.location.href), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        })
-        .then(responseCatched => {
-            if (responseCatched.ok) {
-                return responseCatched.json()
-            }
-            throw new Error(responseCatched.statusText)
-        })
-        addOneRowToTable(response);
-        drawPoint(response["xValue"], response["yValue"], response['rValue'], response['color(RGB)']);
-    }
-});
-
-
