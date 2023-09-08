@@ -40,7 +40,6 @@ ctx.stroke();
 
 ctx.beginPath();
 ctx.strokeStyle = "black";
-
 // graph arrows
 // vertical arrow
 ctx.moveTo(canvas.width / 2, 0);
@@ -78,3 +77,18 @@ ctx.lineTo(canvas.width / 3, canvas.height / 1.96);
 ctx.moveTo(canvas.width / 6, canvas.height / 2.04);
 ctx.lineTo(canvas.width / 6, canvas.height / 1.96);
 ctx.stroke();
+
+function drawPoint(xValue, yValue, rValue, color) {
+    ctx.beginPath();
+
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    let xOnCanvas = canvas.width / 2 + canvas.width / 3 * (xValue / rValue)
+    let yOnCanvas = canvas.width / 2 - canvas.width / 3 * (yValue / rValue)
+    ctx.arc(xOnCanvas, yOnCanvas, 4, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.stroke();
+}
+
+export { drawPoint };

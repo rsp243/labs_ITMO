@@ -1,3 +1,5 @@
+import drawPoint from 'canvas'
+
 function isFloat(str) {
     str = str.trim();
     if (!str) {
@@ -60,6 +62,7 @@ $(".btn-process").on( "click", async function() {
             throw new Error(responseCatched.statusText)
         })
         addOneRowToTable(response);
+        drawPoint(response["xValue"], response["yValue"], response['rValue'], response['color(RGB)']);
     }
 });
 
