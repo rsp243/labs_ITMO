@@ -1,3 +1,5 @@
+import { addTableFromLocalStorage } from './table.js'
+
 export function drawBeginnigGraph() {
     let canvas = document.getElementById("canvas"),
         ctx = canvas.getContext('2d');
@@ -105,4 +107,5 @@ export function clearCanvas() {
 
 window.onload = function() {
     drawBeginnigGraph()
+    addTableFromLocalStorage()
 }
