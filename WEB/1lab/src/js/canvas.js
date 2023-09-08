@@ -1,4 +1,4 @@
-var canvas = document.getElementById("canvas"),
+let canvas = document.getElementById("canvas"),
     ctx = canvas.getContext('2d');
 
 ctx.beginPath();
@@ -78,7 +78,10 @@ ctx.moveTo(canvas.width / 6, canvas.height / 2.04);
 ctx.lineTo(canvas.width / 6, canvas.height / 1.96);
 ctx.stroke();
 
-function drawPoint(xValue, yValue, rValue, color) {
+export default function drawPoint(xValue, yValue, rValue, color) {
+    let canvas = document.getElementById("canvas"),
+    ctx = canvas.getContext('2d');
+
     ctx.beginPath();
 
     ctx.strokeStyle = color;
@@ -90,5 +93,3 @@ function drawPoint(xValue, yValue, rValue, color) {
 
     ctx.stroke();
 }
-
-export { drawPoint };

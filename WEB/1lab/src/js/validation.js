@@ -1,4 +1,4 @@
-import drawPoint from 'canvas'
+import drawPoint from './canvas.js'
 
 function isFloat(str) {
     str = str.trim();
@@ -6,7 +6,7 @@ function isFloat(str) {
         return false;
     }
     str = str.replace("/,/", ".");
-    let result = str.match(/^[0-9]+(?:|\.)[0-9]*$/);
+    let result = str.match(/^(?:|\+|-)[0-9]+(?:|\.)[0-9]*$/);
     if (result !== null) {
         return result[0];
     }
@@ -15,7 +15,7 @@ function isFloat(str) {
 
 function validateEntryData(xNum, yFloat, rFloat) {
     let result = true;
-    if (xNum == NaN || !(xNum in [-3, -2, -1, 0, 1, 2, 3, 4, 5])) {
+    if (xNum == NaN || !(-3 <= xNum <= 5)) {
         $(".X-error-message").css("display", "block");
         result = false;
     } else {
