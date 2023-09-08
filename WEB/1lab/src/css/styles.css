@@ -43,7 +43,7 @@ header .introduction strong {
 }
 
 .nav-button:hover {
-    background-color: #1569bd; /* Green */
+    background-color: #1569bd;
 }
 
 header form {
@@ -58,6 +58,10 @@ header form {
     align-items: center;
     border: 2px solid;
     border-color: #1c8bfa;
+}
+
+.prepend-color {
+    background-color: #1569bd8c;
 }
 
 .canvas-and-selection {

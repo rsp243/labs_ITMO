@@ -36,13 +36,15 @@ if (!empty($data)) {
             $currentDateTime = new DateTime('now'); 
             $currentDateTimeFormatted = $currentDateTime -> format('d-m-Y H:i:s');
             $executionTime = (microtime(true) - $start_time);
+            $colorRGB = "rgb(" . rand(0, 255) . ", " . rand(0, 255) . ", " . rand(0, 255) . ")";
             $result_array = array(
                 "xValue" => "<td scope=\"row\">" . $x . "</td>",
                 "yValue" => "<td scope=\"row\">" . $y . "</td>",
                 "rValue" => "<td scope=\"row\">" . $r . "</td>",
                 "isHit" => "<td scope=\"row\">" . $hitValue . "</td>",
                 "currentTime" => "<td scope=\"row\">" . $currentDateTimeFormatted . "</td>",
-                "executionTime" => "<td scope=\"row\">" . number_format((float) $executionTime, 6, '.', '') . "</td>"
+                "executionTime" => "<td scope=\"row\">" . number_format((float) $executionTime, 6, '.', '') . "</td>",
+                "color(RGB)" => "<td scope=\"row\">" . $colorRGB . "</td>"
             );
 
             echoResponse(200, json_encode($result_array));
