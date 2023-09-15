@@ -7,7 +7,6 @@ export function addOneRowToTable(array) {
     }
     row_html_code += "</tr>\n"
     let localStorageTable = localStorage.getItem("table")
-    console.log(localStorageTable)
     localStorage.removeItem("table")
     localStorage.setItem("table", row_html_code + "\n" + localStorageTable)
     $('.data-table table .table-body').prepend(row_html_code)
@@ -16,7 +15,6 @@ export function addOneRowToTable(array) {
     }, 400).animate({
         backgroundColor: "rgba(185, 180, 206, 0)",
     }, 500);
-    console.log(localStorage.getItem("table"))
 }
 
 export function addTableFromLocalStorage() {
