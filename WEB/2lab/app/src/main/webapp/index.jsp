@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<jsp:useBean id="userData" class="beans.UserDataList" scope="session"/>
+<jsp:useBean id="userDataList" class="beans.UserDataList" scope="session"/>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <!doctype html>
 <html lang="en">
@@ -50,26 +51,14 @@
             <div class="params-selection">
                 <div class="Xselection">
                     <p>Choose X value</p>
-                    <p class="X-error-message error-message">X value have to be whole number between -3 and 5
-                        (including)</p>
-                    <input class="form" type="radio" id="contactChoice1" name="Xvalue" value="-3" />
-                    <label for="contactChoice1">-3</label>
-                    <input class="form" type="radio" id="contactChoice2" name="Xvalue" value="-2" />
-                    <label for="contactChoice2">-2</label>
-                    <input class="form" type="radio" id="contactChoice3" name="Xvalue" value="-1" />
-                    <label for="contactChoice3">-1</label>
-                    <input class="form" type="radio" id="contactChoice4" name="Xvalue" value="0" checked />
-                    <label for="contactChoice4">0</label>
-                    <input class="form" type="radio" id="contactChoice5" name="Xvalue" value="1" />
-                    <label for="contactChoice5">1</label>
-                    <input class="form" type="radio" id="contactChoice6" name="Xvalue" value="2" />
-                    <label for="contactChoice6">2</label>
-                    <input class="form" type="radio" id="contactChoice7" name="Xvalue" value="3" />
-                    <label for="contactChoice7">3</label>
-                    <input class="form" type="radio" id="contactChoice8" name="Xvalue" value="4" />
-                    <label for="contactChoice8">4</label>
-                    <input class="form" type="radio" id="contactChoice9" name="Xvalue" value="5" />
-                    <label for="contactChoice9">5</label>
+                    <%-- <p class="X-error-message error-message">X value have to be whole number between -3 and 5
+                        (including)</p> --%>
+                    <div class="form">
+                        <% for (int i = -3; i <= 5; i++) { %>
+                            <input type="radio" id="contactChoice1" name="Xvalue" value="<%=i%>" />
+                            <label for="contactChoice<%=i%>"><%=i%></label>
+                        <% } %>
+                    </div>
                 </div>
                 <div class="Yselection">
                     <p>Choose Y value</p>
@@ -95,7 +84,7 @@
                 <button class="control-btn btn-clear">Clear table</button>
             </div>
         </div>
-        <div class="data-table">
+            <div class="data-table">
             <table cellspacing="1" cellpadding="10" width="100%">
 
                 <thead>
@@ -110,6 +99,16 @@
                     </tr>
                 </thead>
                 <tbody class="table-body">
+                    <% for (int i = 0; i < (userDataList.isUserDataListIsNull() ? 0 : userDataList.getUserDataList().size()); i++) { %>
+                        <tr>
+                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getxVal()%>"</td>
+                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getyVal()%>"</td>
+                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getrVal()%>"</td>
+                            <td scope="row">"<%=userDataList.getUserDataList().get(i).isHit()%>"</td>
+                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getCurrentTime()%>"</td>
+                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getExecutionTime()%>"</td>
+                        </tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>

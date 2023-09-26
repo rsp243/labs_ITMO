@@ -11,6 +11,14 @@ public class UserDataList implements Serializable {
         userDataList = anUserDataList;        
     }
 
+    public UserDataList () {
+        super();
+    }
+
+    public boolean isUserDataListIsNull() {
+        return userDataList == null;
+    }
+
     public List<UserData> getUserDataList() {
         return userDataList;
     }
