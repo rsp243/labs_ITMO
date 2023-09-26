@@ -9,20 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AreaCheckServlet extends HttpServlet {
-    private String output;
-
-    // Initializing servlet
-    public void init() throws ServletException {
-
-    }
-
     // Requesting and printing the output
+    @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-
-    }
-
-    public void destroy() {
-
     }
 }

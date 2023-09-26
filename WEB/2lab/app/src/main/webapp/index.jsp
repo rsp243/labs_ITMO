@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<jsp:useBean id="userData" class="beans.UserDataList" scope="session"/>
+
 <!doctype html>
 <html lang="en">
 
@@ -48,36 +52,36 @@
                     <p>Choose X value</p>
                     <p class="X-error-message error-message">X value have to be whole number between -3 and 5
                         (including)</p>
-                    <input type="radio" id="contactChoice1" name="Xvalue" value="-3" />
+                    <input class="form" type="radio" id="contactChoice1" name="Xvalue" value="-3" />
                     <label for="contactChoice1">-3</label>
-                    <input type="radio" id="contactChoice2" name="Xvalue" value="-2" />
+                    <input class="form" type="radio" id="contactChoice2" name="Xvalue" value="-2" />
                     <label for="contactChoice2">-2</label>
-                    <input type="radio" id="contactChoice3" name="Xvalue" value="-1" />
+                    <input class="form" type="radio" id="contactChoice3" name="Xvalue" value="-1" />
                     <label for="contactChoice3">-1</label>
-                    <input type="radio" id="contactChoice4" name="Xvalue" value="0" checked />
+                    <input class="form" type="radio" id="contactChoice4" name="Xvalue" value="0" checked />
                     <label for="contactChoice4">0</label>
-                    <input type="radio" id="contactChoice5" name="Xvalue" value="1" />
+                    <input class="form" type="radio" id="contactChoice5" name="Xvalue" value="1" />
                     <label for="contactChoice5">1</label>
-                    <input type="radio" id="contactChoice6" name="Xvalue" value="2" />
+                    <input class="form" type="radio" id="contactChoice6" name="Xvalue" value="2" />
                     <label for="contactChoice6">2</label>
-                    <input type="radio" id="contactChoice7" name="Xvalue" value="3" />
+                    <input class="form" type="radio" id="contactChoice7" name="Xvalue" value="3" />
                     <label for="contactChoice7">3</label>
-                    <input type="radio" id="contactChoice8" name="Xvalue" value="4" />
+                    <input class="form" type="radio" id="contactChoice8" name="Xvalue" value="4" />
                     <label for="contactChoice8">4</label>
-                    <input type="radio" id="contactChoice9" name="Xvalue" value="5" />
+                    <input class="form" type="radio" id="contactChoice9" name="Xvalue" value="5" />
                     <label for="contactChoice9">5</label>
                 </div>
                 <div class="Yselection">
                     <p>Choose Y value</p>
                     <p class="Y-error-message error-message">Y value have to be float number between -3 and 5 (not
                         including)</p>
-                    <input class="Yselection-text" type="text" id="Yselection" name="Yvalue" placeholder="Y value" maxlength="15" />
+                    <input class="form" type="text" id="Yselection" name="Yvalue" placeholder="Y value" maxlength="15" />
                 </div>
                 <div class="Rselection">
                     <p>Choose R value</p>
                     <p class="R-error-message error-message">R value have to be float number between 1 and 3 (including)
                     </p>
-                    <select id="Rselection" name="Rvalue">
+                    <select class="form" id="Rselection" name="Rvalue">
                         <option value="1" selected>1</option>
                         <option value="1.5">1.5</option>
                         <option value="2">2</option>

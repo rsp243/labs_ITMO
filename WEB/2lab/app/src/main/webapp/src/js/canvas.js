@@ -14,12 +14,12 @@ export function drawBeginnigGraph() {
     ctx.fillRect(canvas.width / 2, canvas.height / 2, canvas.width / 3, canvas.height / 3);
     ctx.moveTo(canvas.width / 2, canvas.height / 2);
     // 1/4 of circle
-    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 6, 0, 4.71, 1);
+    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 3, -3.14, 1.57, 1);
     ctx.fill();
     // triangle
     ctx.moveTo(canvas.width / 2, canvas.height / 2);
-    ctx.lineTo(canvas.width / 3, canvas.height / 2);
-    ctx.lineTo(canvas.width / 2, canvas.height / 1.2);
+    ctx.lineTo(canvas.width / 2, canvas.height / 6);
+    ctx.lineTo(canvas.width / 1.2, canvas.height / 2);
     ctx.lineTo(canvas.width / 2, canvas.height / 2);
     ctx.fill();
 
