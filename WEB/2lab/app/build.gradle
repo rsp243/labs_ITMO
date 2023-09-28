@@ -25,6 +25,10 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
 }
 
+war {
+    archiveFileName = '2lab.war'
+}
+
 testing {
     suites {
         // Configure the built-in test suite

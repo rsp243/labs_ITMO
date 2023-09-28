@@ -48,41 +48,41 @@
     <div class="main-container">
         <div class="canvas-and-selection">
             <canvas id="canvas" width="300" height="300"></canvas>
-            <div class="params-selection">
-                <div class="Xselection">
-                    <p>Choose X value</p>
-                    <%-- <p class="X-error-message error-message">X value have to be whole number between -3 and 5
-                        (including)</p> --%>
-                    <div class="form">
+            <form action="v1/areacheck" method="GET">    
+                <div class="params-selection">
+                    <div class="Xselection">
+                        <p>Choose X value</p>
+                        <%-- <p class="X-error-message error-message">X value have to be whole number between -3 and 5
+                            (including)</p> --%>
                         <% for (int i = -3; i <= 5; i++) { %>
-                            <input type="radio" id="contactChoice1" name="Xvalue" value="<%=i%>" />
+                            <input type="radio" id="contactChoice1" name="xVal" value="<%=i%>" required />
                             <label for="contactChoice<%=i%>"><%=i%></label>
                         <% } %>
                     </div>
+                    <div class="Yselection">
+                        <p>Choose Y value</p>
+                        <p class="Y-error-message error-message">Y value have to be float number between -3 and 5 (not
+                            including)</p>
+                        <input type="text" class="Yselection-text" id="Yselection" name="yVal" placeholder="Y value" maxlength="15" required />
+                    </div>
+                    <div class="Rselection">
+                        <p>Choose R value</p>
+                            <p class="R-error-message error-message">R value have to be float number between 1 and 3 (including)
+                        </p>
+                        <select class="form" id="Rselection" name="rVal">
+                            <option value="1" selected>1</option>
+                            <option value="1.5">1.5</option>
+                            <option value="2">2</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="Yselection">
-                    <p>Choose Y value</p>
-                    <p class="Y-error-message error-message">Y value have to be float number between -3 and 5 (not
-                        including)</p>
-                    <input class="form" type="text" id="Yselection" name="Yvalue" placeholder="Y value" maxlength="15" />
-                </div>
-                <div class="Rselection">
-                    <p>Choose R value</p>
-                    <p class="R-error-message error-message">R value have to be float number between 1 and 3 (including)
-                    </p>
-                    <select class="form" id="Rselection" name="Rvalue">
-                        <option value="1" selected>1</option>
-                        <option value="1.5">1.5</option>
-                        <option value="2">2</option>
-                        <option value="2.5">2.5</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-            </div>
             <div class="btn-block">
-                <button class="control-btn btn-process">Process</button>
+                <input type="submit" class="control-btn btn-process" value="Process">
                 <button class="control-btn btn-clear">Clear table</button>
             </div>
+            </form>
         </div>
             <div class="data-table">
             <table cellspacing="1" cellpadding="10" width="100%">
