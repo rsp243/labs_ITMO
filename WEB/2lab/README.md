@@ -1,7 +1,7 @@
 # Web-Programming
 ## 2 laboratory. Variant 1710
 
-![Task graph](WEB/2lab/static/variant-snapshot.png)
+![Task graph](./static/variant-snapshot.png)
 
 Разработать веб-приложение на базе сервлетов и JSP, определяющее попадание точки на координатной плоскости в заданную область.
 
