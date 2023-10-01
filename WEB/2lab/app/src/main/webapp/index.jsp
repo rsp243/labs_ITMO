@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<jsp:useBean id="userDataList" class="beans.UserDataList" scope="session"/>
-<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.format.DateTimeFormatter,java.util.List" %>
+<%@ page import="beans.UserDataList,beans.UserData" %>
 
 <!doctype html>
 <html lang="en">
@@ -94,20 +94,25 @@
                         <th scope="col">R Value</th>
                         <th scope="col">Hit/Miss</th>
                         <th scope="col">Event time</th>
-                        <th scope="col">Execution time, ms</th>
+                        <th scope="col">Execution time, ns</th>
                         <th scope="col">Color(RGB)</th>
                     </tr>
                 </thead>
                 <tbody class="table-body">
-                    <% for (int i = 0; i < (userDataList.isUserDataListIsNull() ? 0 : userDataList.getUserDataList().size()); i++) { %>
-                        <tr>
-                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getxVal()%>"</td>
-                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getyVal()%>"</td>
-                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getrVal()%>"</td>
-                            <td scope="row">"<%=userDataList.getUserDataList().get(i).isHit()%>"</td>
-                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getCurrentTime()%>"</td>
-                            <td scope="row">"<%=userDataList.getUserDataList().get(i).getExecutionTime()%>"</td>
-                        </tr>
+                    <% UserDataList userDataListObj = (UserDataList) getServletContext().getAttribute("UserDataList"); %>
+                    <% if (userDataListObj != null) { %>
+                        <% List<UserData> userDataList = userDataListObj.getUserDataList(); %>
+                        <% for (int i = 0; i < (userDataList == null ? 0 : userDataList.size()); i++) { %>
+                            <tr>
+                                <td scope="row"><%=userDataList.get(i).getxVal()%></td>
+                                <td scope="row"><%=userDataList.get(i).getyVal()%></td>
+                                <td scope="row"><%=userDataList.get(i).getrVal()%></td>
+                                <td scope="row"><%=userDataList.get(i).isHit() ? "HIT" : "MISS" %></td>
+                                <td scope="row"><%=userDataList.get(i).getCurrentTime()%></td>
+                                <td scope="row"><%=userDataList.get(i).getExecutionTime()%></td>
+                                <td scope="row"><%=userDataList.get(i).getPointColor()%></td>
+                            </tr>
+                        <% } %>
                     <% } %>
                 </tbody>
             </table>

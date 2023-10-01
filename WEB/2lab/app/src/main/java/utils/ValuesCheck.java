@@ -49,7 +49,7 @@ public class ValuesCheck {
             float yVal = Float.parseFloat(yStr);
             float rVal = Float.parseFloat(rStr);
             List<Integer> xAvailibleValues = new ArrayList<>();
-            for (int i = xRangeStartValue; i < xRangeEndValue; i++) {
+            for (int i = xRangeStartValue; i <= xRangeEndValue; i++) {
                 xAvailibleValues.add(i);
             }
             List<Float> yAvailibleValues = new ArrayList<>();

@@ -1,15 +1,20 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.lang.System;
-import static java.lang.Math.pow;
-import utils.ValuesCheck;
 
+import beans.UserData;
+import beans.UserDataList;
+
+import static java.lang.Math.pow;
+import static java.lang.Math.round;
+import static java.lang.Math.random;
+import utils.ValuesCheck;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,11 +24,9 @@ public class AreaCheckServlet extends HttpServlet {
     // Requesting and printing the output
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
         String queryString = req.getQueryString();
         if (queryString != null) {
-            Calendar calendar = Calendar.getInstance();
-            long nowTime = calendar.getTimeInMillis();
+            long nowTime = System.nanoTime();
             String[] parametersPairs = queryString.split("&");
             Map<String, String> parametersMap = new HashMap<String, String>();
             for (String parametersPair : parametersPairs) {
@@ -37,6 +40,8 @@ public class AreaCheckServlet extends HttpServlet {
             ValuesCheck valuesCheckObj = new ValuesCheck();
 
             if (valuesCheckObj.xyrCheck(xStr, yStr, rStr)) {
+                ServletContext servletContext = this.getServletContext();
+                UserDataList userDataList = (UserDataList) servletContext.getAttribute("UserDataList");
                 int xVal = Integer.parseInt(xStr);
                 float yVal = Float.parseFloat(yStr);
                 float rVal = Float.parseFloat(rStr);
@@ -49,8 +54,20 @@ public class AreaCheckServlet extends HttpServlet {
                 // square hit check
                 boolean sector4Hit = xVal > 0 && yVal < 0 && xVal <= rVal && yVal <= rVal;
                 boolean isHit = sector1Hit || sector2Hit || sector3Hit || sector4Hit;
-                long executionTime = calendar.getTimeInMillis() - nowTime;
+                
+                String pointColor = "rgb(" + round(random() * 255) + ", " + round(random() * 255) + ", " + round(random() * 255) + ")";
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");  
+                LocalDateTime now = LocalDateTime.now();  
+                String currentTime = dtf.format(now);  
+
+                Long executionTime = System.nanoTime() - nowTime;
+
+                // form UserData object
+                UserData userData = new UserData(xVal, yVal, rVal, isHit, currentTime, executionTime.toString(), pointColor);
+                userDataList.getUserDataList().add(userData);
             }
         }
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

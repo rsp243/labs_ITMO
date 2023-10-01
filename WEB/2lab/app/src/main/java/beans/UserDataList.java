@@ -1,18 +1,20 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserDataList implements Serializable {
     
-    private List<UserData> userDataList;
+    private LinkedList<UserData> userDataList;
 
-    public UserDataList (List<UserData> anUserDataList) {
+    public UserDataList (LinkedList<UserData> anUserDataList) {
         userDataList = anUserDataList;        
     }
 
     public UserDataList () {
         super();
+        userDataList = new LinkedList<>();
     }
 
     public boolean isUserDataListIsNull() {
@@ -23,7 +25,7 @@ public class UserDataList implements Serializable {
         return userDataList;
     }
 
-    public void setUserDataList(List<UserData> userDataList) {
+    public void setUserDataList(LinkedList<UserData> userDataList) {
         this.userDataList = userDataList;
     }
 
