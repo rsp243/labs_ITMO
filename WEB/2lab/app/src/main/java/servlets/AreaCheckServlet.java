@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class AreaCheckServlet extends HttpServlet {
+
     // Requesting and printing the output
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -161,4 +162,5 @@ public class AreaCheckServlet extends HttpServlet {
                 </html>
                     """);
     }
+    
 }

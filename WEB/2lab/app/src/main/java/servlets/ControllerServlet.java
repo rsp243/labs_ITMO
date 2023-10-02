@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class ControllerServlet extends HttpServlet {
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String queryString = req.getQueryString();
@@ -33,4 +34,5 @@ public class ControllerServlet extends HttpServlet {
         } 
         resp.sendRedirect(forwardAddress);
     }
+    
 }
