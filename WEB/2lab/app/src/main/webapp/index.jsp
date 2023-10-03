@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.time.format.DateTimeFormatter,java.util.List" %>
-<%@ page import="beans.UserDataList,beans.UserData" %>
+<%@ page import="model.UserDataList,model.UserData" %>
 
 <!doctype html>
 <html lang="en">
