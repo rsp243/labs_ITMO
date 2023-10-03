@@ -1,9 +1,9 @@
 package servlets;
 
-import beans.UserDataList;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
+import model.UserDataList;
 
 public class AppStartListener implements ServletContextListener {
 
