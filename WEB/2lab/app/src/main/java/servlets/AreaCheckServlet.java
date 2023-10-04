@@ -7,9 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import beans.UserData;
-import beans.UserDataList;
-
 import static java.lang.Math.pow;
 import static java.lang.Math.round;
 import static java.lang.Math.random;
@@ -19,6 +16,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.UserData;
+import model.UserDataList;
 
 public class AreaCheckServlet extends HttpServlet {
 

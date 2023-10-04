@@ -1,0 +1,84 @@
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 0;
+    background: url(../img/background-2.jpg) no-repeat fixed, url(../img/background-2.jpg) no-repeat right fixed;
+    background-size: 50% 100%;
+
+    color: black;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid;
+    border-color: #1c8bfa;
+}
+
+header .introduction {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    color: white;
+}
+
+header .introduction h3 {
+    margin: 0;
+}
+
+header .introduction strong {
+    margin: 0 0 0 15px;
+}
+
+.nav-button {
+    background-color: #3399ff;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    height: 100%;
+}
+
+.nav-button:hover {
+    background-color: #1569bd;
+}
+
+header form {
+    font-size: 15px;
+    line-height: 30%;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid;
+    border-color: #1c8bfa;
+}
+
+.main-container {
+    text-align: center;
+    margin: 0 50px 0 50px;
+}
+
+.error-info {
+    margin: 50px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(185, 180, 206, 0.786);
+    border: rgb(150, 4, 40) 2px solid;
+    border-radius: 10px;
+}
+
+.control-btn {
+    font-size: large;
+    background-color: #3399ff;
+    width: 80%;
+    margin: 50px auto;
+    border-radius: 4px;
+    padding: 15px 0;
+}
