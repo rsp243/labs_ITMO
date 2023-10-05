@@ -52,15 +52,11 @@ public class ValuesCheck {
             for (int i = xRangeStartValue; i <= xRangeEndValue; i++) {
                 xAvailibleValues.add(i);
             }
-            List<Float> yAvailibleValues = new ArrayList<>();
-            for (float i = yRangeStartValue; i < yRangeEndValue; i++) {
-                yAvailibleValues.add(i);
-            }
             List<Float> rAvailibleValues = new ArrayList<>();
             for (float i = rRangeStartValue; i < rRangeEndValue; i = i + (float) 0.5) {
                 rAvailibleValues.add(i);
             }
-            if (xAvailibleValues.contains(xVal) && yAvailibleValues.contains(yVal) && rAvailibleValues.contains(rVal)) {
+            if (xAvailibleValues.contains(xVal) && yRangeStartValue < yVal && yVal < yRangeEndValue && rAvailibleValues.contains(rVal)) {
                 return true;
             }
         }
