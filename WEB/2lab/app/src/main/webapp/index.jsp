@@ -48,7 +48,7 @@
     <div class="main-container">
         <div class="canvas-and-selection">
             <canvas id="canvas" width="300" height="300"></canvas>
-            <form action="v1/areacheck" method="GET">    
+            <form action="controller" method="GET">    
                 <div class="params-selection">
                     <div class="Xselection">
                         <p>Choose X value</p>

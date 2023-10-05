@@ -46,7 +46,7 @@ public class AreaCheckServlet extends HttpServlet {
             }
             ValuesCheck valuesCheckObj = new ValuesCheck();
             if (!valuesCheckObj.xyrCheck(xStr, yStr, rStr)) {
-                resp.sendError(400, "Parameters Are Not In Their Ranges");
+                resp.sendError(400, "Parameters Are Not In Their Ranges Or Wrong Attribute Names");
                 return;
             }
             resp.setContentType("text/html");

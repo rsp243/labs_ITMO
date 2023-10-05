@@ -26,10 +26,11 @@ public class ControllerServlet extends HttpServlet {
                 String yStr = parametersMap.get("yVal");
                 String rStr = parametersMap.get("rVal");
                 if (xStr != null && yStr != null && rStr != null) {
-                    forwardAddress += "/v1/areacheck" ;
+                    forwardAddress += "/v1/areacheck?" + queryString;
                 }
             } catch(Exception exception) {
-                log("The request is not valid", exception);
+                resp.sendError(400, "Bad Request");
+                return;
             }
         } 
         resp.sendRedirect(forwardAddress);
