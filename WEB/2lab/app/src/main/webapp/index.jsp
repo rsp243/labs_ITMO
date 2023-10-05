@@ -55,7 +55,7 @@
                         <%-- <p class="X-error-message error-message">X value have to be whole number between -3 and 5
                             (including)</p> --%>
                         <% for (int i = -3; i <= 5; i++) { %>
-                            <input type="radio" id="contactChoice1" name="xVal" value="<%=i%>" required />
+                            <input type="radio" id="contactChoice<%=i%>" name="xVal" value="<%=i%>" required />
                             <label for="contactChoice<%=i%>"><%=i%></label>
                         <% } %>
                     </div>
@@ -69,13 +69,12 @@
                         <p>Choose R value</p>
                             <p class="R-error-message error-message">R value have to be float number between 1 and 3 (including)
                         </p>
-                        <select class="form" id="Rselection" name="rVal">
-                            <option value="1" selected>1</option>
-                            <option value="1.5">1.5</option>
-                            <option value="2">2</option>
-                            <option value="2.5">2.5</option>
-                            <option value="3">3</option>
-                        </select>
+                        <div class="checkbox-block">
+                            <% for (float i = 1; i <= 3; i = i + (float) 0.5) { %>
+                                <input type="checkbox" id="Rselection" name="rVal" value="<%=i%>" required/>
+                                <label for="Rselection<%=i%>"><%=i%></label>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
             <div class="btn-block">
@@ -126,6 +125,7 @@
     <script type="module" src="src/js/validation.js"></script>
     <script type="module" src="src/js/table.js"></script>
     <script type="module" src="src/js/btn-events.js"></script>
+    <script type="module" src="src/js/checkbox-limit.js"></script>
 </body>
 
 </html>⏎ 

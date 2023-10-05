@@ -53,7 +53,7 @@ public class ValuesCheck {
                 xAvailibleValues.add(i);
             }
             List<Float> rAvailibleValues = new ArrayList<>();
-            for (float i = rRangeStartValue; i < rRangeEndValue; i = i + (float) 0.5) {
+            for (float i = rRangeStartValue; i <= rRangeEndValue; i = i + (float) 0.5) {
                 rAvailibleValues.add(i);
             }
             if (xAvailibleValues.contains(xVal) && yRangeStartValue < yVal && yVal < yRangeEndValue && rAvailibleValues.contains(rVal)) {

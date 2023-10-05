@@ -101,22 +101,24 @@ export function drawPoint(xValue, yValue, rValue, color) {
 }
 
 function canvasClick() {
-    let canvas = document.getElementById("canvas"), ctx = canvas.getContext('2d');
+    let canvas = document.getElementById("canvas");
     canvas.addEventListener('click', (event) => {
-        let rValue = $("#Rselection option:selected").text()
-        console.log(rValue)
+        let rValue =  $('input[type="checkbox"]:checked').serialize()
         if (!rValue) {
             alert("R value is not set")
             return
         }
-        let xValue = (event.offsetX - canvas.width / 2) / (canvas.width / 3) 
-        let yValue = (event.offsetY - canvas.height / 2) / (canvas.height / 3)
 
-        let xNum = Math.round(parseInt(xValue))
+        $('input:checkbox').not(this).prop('checked', false);
+
+        // need to fix : * rNum both xValue and yValue
+        let xValue = (event.offsetX - canvas.width / 2) / (canvas.width / 3)
+        let yValue = - (event.offsetY - canvas.height / 2) / (canvas.height / 3)
+
+        let xNum = Math.round(parseFloat(xValue))
         let yFloat = parseFloat(yValue)
-        let rFloat = parseFloat(rValue)
 
-        let queryString = "xVal=" + xNum + "&yVal=" + yFloat + "&rVal=" + rFloat 
+        let queryString = "xVal=" + xNum + "&yVal=" + yFloat + "&" + rValue 
         fetch(new URL("controller?" + queryString, window.location.href), {
             method: 'GET',
             headers: {
@@ -124,12 +126,11 @@ function canvasClick() {
             },
         }).then(responseCatched => {
             if (responseCatched.ok) {
-                alert("Successfully got a result")
+                location.reload()
                 return
             }
             throw new Error(responseCatched.statusText)
         })
-        console.log(xValue, yValue)
     })
 }
 
