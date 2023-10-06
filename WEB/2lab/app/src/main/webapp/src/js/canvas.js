@@ -103,22 +103,22 @@ export function drawPoint(xValue, yValue, rValue, color) {
 function canvasClick() {
     let canvas = document.getElementById("canvas");
     canvas.addEventListener('click', (event) => {
-        let rValue =  $('input[type="checkbox"]:checked').serialize()
+        let rValue =  $('input[type="checkbox"]:checked:first').val()
         if (!rValue) {
             alert("R value is not set")
             return
         }
-
         $('input:checkbox').not(this).prop('checked', false);
 
         // need to fix : * rNum both xValue and yValue
-        let xValue = (event.offsetX - canvas.width / 2) / (canvas.width / 3)
-        let yValue = - (event.offsetY - canvas.height / 2) / (canvas.height / 3)
+        let rFloat = parseFloat(rValue)
+        let xValue = (event.offsetX - canvas.width / 2) / (canvas.width / 3) * rFloat
+        let yValue = - (event.offsetY - canvas.height / 2) / (canvas.height / 3) * rFloat
 
         let xNum = Math.round(parseFloat(xValue))
         let yFloat = parseFloat(yValue)
 
-        let queryString = "xVal=" + xNum + "&yVal=" + yFloat + "&" + rValue 
+        let queryString = "xVal=" + xNum + "&yVal=" + yFloat + "&rVal=" + rFloat  
         fetch(new URL("controller?" + queryString, window.location.href), {
             method: 'GET',
             headers: {
