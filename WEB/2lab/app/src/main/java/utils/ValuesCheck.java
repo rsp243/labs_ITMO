@@ -34,29 +34,16 @@ public class ValuesCheck {
         }
     }
 
-    public static boolean isInt(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException exception) {
-            return false;
-        }
-    }
-
     public boolean xyrCheck(String xStr, String yStr, String rStr) {
-        if (isInt(xStr) && isFloat(yStr) && isFloat(rStr)) {
-            int xVal = Integer.parseInt(xStr);
+        if (isFloat(xStr) && isFloat(yStr) && isFloat(rStr)) {
+            float xVal = Float.parseFloat(xStr);
             float yVal = Float.parseFloat(yStr);
             float rVal = Float.parseFloat(rStr);
-            List<Integer> xAvailibleValues = new ArrayList<>();
-            for (int i = xRangeStartValue; i <= xRangeEndValue; i++) {
-                xAvailibleValues.add(i);
-            }
             List<Float> rAvailibleValues = new ArrayList<>();
             for (float i = rRangeStartValue; i <= rRangeEndValue; i = i + (float) 0.5) {
                 rAvailibleValues.add(i);
             }
-            if (xAvailibleValues.contains(xVal) && yRangeStartValue < yVal && yVal < yRangeEndValue && rAvailibleValues.contains(rVal)) {
+            if (xRangeStartValue <= xVal && xVal <= xRangeEndValue && yRangeStartValue < yVal && yVal < yRangeEndValue && rAvailibleValues.contains(rVal)) {
                 return true;
             }
         }

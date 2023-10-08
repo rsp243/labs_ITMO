@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class UserData implements Serializable {
     
-    private int xVal;
+    private float xVal;
     private float yVal ,rVal;
     private boolean isHit;
     private String currentTime, executionTime, pointColor;
 
-    public UserData(int aXVal, float anYVal, float aRVal, boolean anIsHit, String aCurrentTime, String anExecutionTime, String aPointColor) {
+    public UserData(float aXVal, float anYVal, float aRVal, boolean anIsHit, String aCurrentTime, String anExecutionTime, String aPointColor) {
         xVal = aXVal;
         yVal = anYVal;
         rVal = aRVal;
@@ -27,7 +27,7 @@ public class UserData implements Serializable {
         return xVal;
     }
 
-    public void setxVal(int xVal) {
+    public void setxVal(float xVal) {
         this.xVal = xVal;
     }
     

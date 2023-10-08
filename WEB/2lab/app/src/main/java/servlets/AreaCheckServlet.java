@@ -102,7 +102,7 @@ public class AreaCheckServlet extends HttpServlet {
 
             ServletContext servletContext = this.getServletContext();
             UserDataList userDataList = (UserDataList) servletContext.getAttribute("UserDataList");
-            int xVal = Integer.parseInt(xStr);
+            float xVal = Float.parseFloat(xStr);
             float yVal = Float.parseFloat(yStr);
             float rVal = Float.parseFloat(rStr);
 

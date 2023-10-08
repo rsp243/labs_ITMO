@@ -1,5 +1,5 @@
 window.onload = function () {
-    drawBeginnigGraph()
+    // drawPointsOnCanvas()
     canvasClick()
 }
 
@@ -84,22 +84,6 @@ export function drawBeginnigGraph() {
     ctx.stroke();
 }
 
-export function drawPoint(xValue, yValue, rValue, color) {
-    let canvas = document.getElementById("canvas"),
-        ctx = canvas.getContext('2d');
-
-    ctx.beginPath();
-
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
-    let xOnCanvas = canvas.width / 2 + canvas.width / 3 * (xValue / rValue)
-    let yOnCanvas = canvas.width / 2 - canvas.width / 3 * (yValue / rValue)
-    ctx.arc(xOnCanvas, yOnCanvas, 4, 0, 2 * Math.PI);
-    ctx.fill();
-
-    ctx.stroke();
-}
-
 function canvasClick() {
     let canvas = document.getElementById("canvas");
     canvas.addEventListener('click', (event) => {
@@ -110,30 +94,28 @@ function canvasClick() {
         }
         $('input:checkbox').not(this).prop('checked', false);
 
-        // need to fix : * rNum both xValue and yValue
         let rFloat = parseFloat(rValue)
         let xValue = (event.offsetX - canvas.width / 2) / (canvas.width / 3) * rFloat
         let yValue = - (event.offsetY - canvas.height / 2) / (canvas.height / 3) * rFloat
 
-        let xNum = Math.round(parseFloat(xValue))
+        let xFloat = parseFloat(xValue)
         let yFloat = parseFloat(yValue)
 
-        let queryString = "xVal=" + xNum + "&yVal=" + yFloat + "&rVal=" + rFloat  
+        let queryString = "xVal=" + xFloat + "&yVal=" + yFloat + "&rVal=" + rFloat  
         fetch(new URL("controller?" + queryString, window.location.href), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
         }).then(responseCatched => {
+            location.reload()
             if (responseCatched.ok) {
-                location.reload()
                 return
             }
             throw new Error(responseCatched.statusText)
         })
     })
 }
-
 
 export function clearCanvas() {
     let canvas = document.getElementById("canvas"),

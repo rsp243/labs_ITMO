@@ -103,13 +103,13 @@
                         <% List<UserData> userDataList = userDataListObj.getUserDataList(); %>
                         <% for (int i = 0; i < (userDataList == null ? 0 : userDataList.size()); i++) { %>
                             <tr>
-                                <td scope="row"><%=userDataList.get(i).getxVal()%></td>
-                                <td scope="row"><%=userDataList.get(i).getyVal()%></td>
-                                <td scope="row"><%=userDataList.get(i).getrVal()%></td>
+                                <td class="xTable" scope="row"><%=userDataList.get(i).getxVal()%></td>
+                                <td class="yTable" scope="row"><%=userDataList.get(i).getyVal()%></td>
+                                <td class="rTable" scope="row"><%=userDataList.get(i).getrVal()%></td>
                                 <td scope="row"><%=userDataList.get(i).isHit() ? "HIT" : "MISS" %></td>
                                 <td scope="row"><%=userDataList.get(i).getCurrentTime()%></td>
                                 <td scope="row"><%=userDataList.get(i).getExecutionTime()%></td>
-                                <td scope="row"><%=userDataList.get(i).getPointColor()%></td>
+                                <td class="colorTable" scope="row"><%=userDataList.get(i).getPointColor()%></td>
                             </tr>
                         <% } %>
                     <% } %>
@@ -121,11 +121,126 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
         integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function drawBeginnigGraph() {
+            let canvas = document.getElementById("canvas"),
+                ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            // setting blue color
+            ctx.strokeStyle = "#3399ff";
+            ctx.fillStyle = "#3399ff";
+
+            // filling area
+            // rectangle
+            ctx.fillRect(canvas.width / 2, canvas.height / 2, canvas.width / 3, canvas.height / 3);
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            // 1/4 of circle
+            ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 3, -3.14, 1.57, 1);
+            ctx.fill();
+            // triangle
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.lineTo(canvas.width / 2, canvas.height / 6);
+            ctx.lineTo(canvas.width / 1.2, canvas.height / 2);
+            ctx.lineTo(canvas.width / 2, canvas.height / 2);
+            ctx.fill();
+
+            // setting black color
+            ctx.fillStyle = "black";
+            ctx.font = "12px serif";
+
+            // vertical 'R' marks
+            ctx.fillText("R", canvas.width / 1.95, canvas.height / 5.5);
+            ctx.fillText("R/2", canvas.width / 1.93, canvas.height / 2.85);
+            ctx.fillText("-R/2", canvas.width / 1.93, canvas.height / 1.475);
+            ctx.fillText("-R", canvas.width / 1.93, canvas.height / 1.184);
+
+            // horizontal 'R' marks
+            ctx.fillText("-R", canvas.width / 6.7, canvas.height / 2.05);
+            ctx.fillText("-R/2", canvas.width / 3.38, canvas.height / 2.05);
+            ctx.fillText("R/2", canvas.width / 1.59, canvas.height / 2.05);
+            ctx.fillText("R", canvas.width / 1.23, canvas.height / 2.05);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.strokeStyle = "black";
+            // graph arrows
+            // vertical arrow
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.moveTo(canvas.width / 1.95, canvas.height * 0.03);
+            ctx.lineTo(canvas.width / 2, 0);
+            ctx.moveTo(canvas.width / 2.05, canvas.height * 0.03);
+            ctx.lineTo(canvas.width / 2, 0);
+            // horizontal arrow
+            ctx.moveTo(0, canvas.height / 2);
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.moveTo(canvas.width * 0.97, canvas.height / 1.95);
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.moveTo(canvas.width * 0.97, canvas.height / 2.05);
+            ctx.lineTo(canvas.width, canvas.height / 2);
+
+            // R unit marks
+            // vertical marks
+            ctx.moveTo(canvas.width / 2.04, canvas.height / 1.20);
+            ctx.lineTo(canvas.width / 1.96, canvas.height / 1.20);
+            ctx.moveTo(canvas.width / 2.04, canvas.height / 1.5);
+            ctx.lineTo(canvas.width / 1.96, canvas.height / 1.5);
+            ctx.moveTo(canvas.width / 2.04, canvas.height / 3);
+            ctx.lineTo(canvas.width / 1.96, canvas.height / 3);
+            ctx.moveTo(canvas.width / 2.04, canvas.height / 6);
+            ctx.lineTo(canvas.width / 1.96, canvas.height / 6);
+
+            // horizontal marks
+            ctx.moveTo(canvas.width / 1.2, canvas.height / 2.04);
+            ctx.lineTo(canvas.width / 1.2, canvas.height / 1.96);
+            ctx.moveTo(canvas.width / 1.5, canvas.height / 2.04);
+            ctx.lineTo(canvas.width / 1.5, canvas.height / 1.96);
+            ctx.moveTo(canvas.width / 3, canvas.height / 2.04);
+            ctx.lineTo(canvas.width / 3, canvas.height / 1.96);
+            ctx.moveTo(canvas.width / 6, canvas.height / 2.04);
+            ctx.lineTo(canvas.width / 6, canvas.height / 1.96);
+            ctx.stroke();
+        }
+    </script>
     <script type="module" src="src/js/canvas.js"></script>
     <script type="module" src="src/js/validation.js"></script>
     <script type="module" src="src/js/table.js"></script>
     <script type="module" src="src/js/btn-events.js"></script>
     <script type="module" src="src/js/checkbox-limit.js"></script>
+    <script type="text/javascript">
+    function drawPoint(xValue, yValue, rValue, color) {
+        let canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+
+        ctx.beginPath();
+
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        let xOnCanvas = canvas.width / 2 + canvas.width / 3 * (xValue / rValue)
+        let yOnCanvas = canvas.width / 2 - canvas.width / 3 * (yValue / rValue)
+        ctx.arc(xOnCanvas, yOnCanvas, 4, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.stroke();
+    }
+    </script>
+    <script type="text/javascript">
+        drawBeginnigGraph()
+        <% if (userDataListObj != null) { %>
+            <% List<UserData> userDataList = userDataListObj.getUserDataList(); %>
+            <% if (userDataList != null && userDataList.size() > 0) { %>
+                <% float rShowingValue = userDataList.get(userDataList.size() - 1).getrVal(); %>
+                <% for (int i = 0; i < userDataList.size(); i++) { %>
+                    <% if (rShowingValue == userDataList.get(i).getrVal()) { %>
+                        drawPoint(<%= userDataList.get(i).getxVal() %>, <%= userDataList.get(i).getyVal() %>,
+                                <%= userDataList.get(i).getrVal() %>, <%= "\"" + userDataList.get(i).getPointColor() + "\"" %>);
+                    <% } %>
+                <% } %>
+            <% } %>
+        <% } %>
+    </script>
+
 </body>
 
 </html>⏎ 
