@@ -7,20 +7,19 @@ public class UserData implements Serializable {
     private float xVal;
     private float yVal ,rVal;
     private boolean isHit;
-    private String currentTime, executionTime, pointColor;
+    private String currentTime, executionTime;
 
-    public UserData(float aXVal, float anYVal, float aRVal, boolean anIsHit, String aCurrentTime, String anExecutionTime, String aPointColor) {
+    public UserData(float aXVal, float anYVal, float aRVal, boolean anIsHit, String aCurrentTime, String anExecutionTime) {
         xVal = aXVal;
         yVal = anYVal;
         rVal = aRVal;
         isHit = anIsHit;
         currentTime = aCurrentTime;
         executionTime = anExecutionTime;
-        pointColor = aPointColor;
     }
 
     public UserData() {
-        this(0, 0, 0, false, "", "", "");
+        this(0, 0, 0, false, "", "");
     }
 
     public float getxVal() {
@@ -69,14 +68,6 @@ public class UserData implements Serializable {
     
     public void setExecutionTime(String executionTime) {
         this.executionTime = executionTime;
-    }
-
-    public String getPointColor() {
-        return pointColor;
-    }
-
-    public void setPointColor(String pointColor) {
-        this.pointColor = pointColor;
     }
 
 }

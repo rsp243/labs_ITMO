@@ -23,8 +23,8 @@
 <body>
     <header>
         <div class="introduction">
-            <h3>First web laboratory</h3>
-            <strong>Reshetov Semen, P3206. Variant: 1623</strong>
+            <h3>Second web laboratory</h3>
+            <strong>Reshetov Semen, P3206. Variant: 1710</strong>
         </div>
         <div class="links">
             <form action="https://se.ifmo.ru/courses/web" target="_blank">
@@ -94,7 +94,6 @@
                         <th scope="col">Hit/Miss</th>
                         <th scope="col">Event time</th>
                         <th scope="col">Execution time, ns</th>
-                        <th scope="col">Color(RGB)</th>
                     </tr>
                 </thead>
                 <tbody class="table-body">
@@ -109,7 +108,6 @@
                                 <td scope="row"><%=userDataList.get(i).isHit() ? "HIT" : "MISS" %></td>
                                 <td scope="row"><%=userDataList.get(i).getCurrentTime()%></td>
                                 <td scope="row"><%=userDataList.get(i).getExecutionTime()%></td>
-                                <td class="colorTable" scope="row"><%=userDataList.get(i).getPointColor()%></td>
                             </tr>
                         <% } %>
                     <% } %>
@@ -209,20 +207,22 @@
     <script type="module" src="src/js/btn-events.js"></script>
     <script type="module" src="src/js/checkbox-limit.js"></script>
     <script type="text/javascript">
-    function drawPoint(xValue, yValue, rValue, color) {
+    function drawPoint(xValue, yValue, rValue) {
         let canvas = document.getElementById("canvas"),
             ctx = canvas.getContext('2d');
 
-        ctx.beginPath();
+        let img = new Image() 
 
-        ctx.strokeStyle = color;
-        ctx.fillStyle = color;
-        let xOnCanvas = canvas.width / 2 + canvas.width / 3 * (xValue / rValue)
-        let yOnCanvas = canvas.width / 2 - canvas.width / 3 * (yValue / rValue)
-        ctx.arc(xOnCanvas, yOnCanvas, 4, 0, 2 * Math.PI);
-        ctx.fill();
+        let imgHeight = 25
+        let imgWidth = 25
 
-        ctx.stroke();
+        let xOnCanvas = canvas.width / 2 + canvas.width / 3 * (xValue / rValue) - imgWidth / 1.3
+        let yOnCanvas = canvas.width / 2 - canvas.width / 3 * (yValue / rValue) - imgHeight / 2
+
+        img.onload = function() {
+            ctx.drawImage(img, xOnCanvas, yOnCanvas, imgWidth, imgHeight);
+		};
+        img.src = "src/img/axe.png" 
     }
     </script>
     <script type="text/javascript">
@@ -234,7 +234,7 @@
                 <% for (int i = 0; i < userDataList.size(); i++) { %>
                     <% if (rShowingValue == userDataList.get(i).getrVal()) { %>
                         drawPoint(<%= userDataList.get(i).getxVal() %>, <%= userDataList.get(i).getyVal() %>,
-                                <%= userDataList.get(i).getrVal() %>, <%= "\"" + userDataList.get(i).getPointColor() + "\"" %>);
+                                <%= userDataList.get(i).getrVal() %>);
                     <% } %>
                 <% } %>
             <% } %>

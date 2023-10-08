@@ -115,9 +115,6 @@ public class AreaCheckServlet extends HttpServlet {
             boolean sector4Hit = xVal > 0 && yVal < 0 && xVal <= rVal && yVal <= rVal;
             boolean isHit = sector1Hit || sector2Hit || sector3Hit || sector4Hit;
 
-            String pointColor = "rgb(" + round(random() * 255) + ", " + round(random() * 255) + ", "
-                    + round(random() * 255) + ")";
-
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             String currentTime = dtf.format(now);
@@ -125,8 +122,7 @@ public class AreaCheckServlet extends HttpServlet {
             Long executionTime = System.nanoTime() - nowTime;
 
             // form UserData object
-            UserData userData = new UserData(xVal, yVal, rVal, isHit, currentTime, executionTime.toString(),
-                    pointColor);
+            UserData userData = new UserData(xVal, yVal, rVal, isHit, currentTime, executionTime.toString());
             userDataList.getUserDataList().add(userData);
 
             out.println(
@@ -141,7 +137,6 @@ public class AreaCheckServlet extends HttpServlet {
                                             <th scope="col">Hit/Miss</th>
                                             <th scope="col">Event time</th>
                                             <th scope="col">Execution time, ns</th>
-                                            <th scope="col">Color(RGB)</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-body">
@@ -151,8 +146,7 @@ public class AreaCheckServlet extends HttpServlet {
             out.println("<td scope='row'>" + userData.getrVal() + "</td>");
             out.println("<td scope='row'>" + (userData.isHit() ? "HIT" : "MISS") + "</td>");
             out.println("<td scope='row'>" + userData.getCurrentTime() + "</td>");
-            out.println("<td scope='row'>" + userData.getExecutionTime() + "</td>");
-            out.println("<td scope='row'>" + userData.getPointColor() + "</td></tr>");
+            out.println("<td scope='row'>" + userData.getExecutionTime() + "</td></tr>");
             out.println("""
                                         </tbody>
                                         </table>
