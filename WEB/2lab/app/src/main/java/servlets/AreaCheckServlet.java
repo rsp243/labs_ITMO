@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.Math.pow;
-import static java.lang.Math.round;
-import static java.lang.Math.random;
 import utils.ValuesCheck;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
