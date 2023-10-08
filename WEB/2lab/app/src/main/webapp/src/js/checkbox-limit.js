@@ -1,9 +1,9 @@
 jQuery(function(){
-    var max = 1;
-    var checkboxes = $('input[type="checkbox"]');
+    let max = 1;
+    let checkboxes = $('input[type="checkbox"]');
 
     checkboxes.change(function(){
-        var current = checkboxes.filter(':checked').length;
+        let current = checkboxes.filter(':checked').length;
         checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
     });
 });

@@ -224,14 +224,21 @@
 		};
         img.src = "src/img/axe.png" 
     }
+
+    function setPreviousRValue(rValue) {
+        let checkboxes = $('input[type="checkbox"]');
+        $('input[type="checkbox"][value="' + rValue.toFixed(1) + '"]').prop('checked', true)
+        checkboxes.filter(':not(:checked)').prop('disabled', true);
+    }
     </script>
     <script type="text/javascript">
         drawBeginnigGraph()
         <% if (userDataListObj != null) {
             List<UserData> userDataList = userDataListObj.getUserDataList();
             if (userDataList != null && userDataList.size() > 0) {
-                float rShowingValue = userDataList.get(userDataList.size() - 1).getrVal();
-                int index = userDataList.size() - 1;
+                float rShowingValue = userDataList.get(userDataList.size() - 1).getrVal(); %>
+                setPreviousRValue(<%= rShowingValue %>);
+                <% int index = userDataList.size() - 1;
                 while (index >= 0 && userDataList.get(index).getrVal() == rShowingValue) { %>
                     drawPoint(<%= userDataList.get(index).getxVal() %>, <%= userDataList.get(index).getyVal() %>,
                                 <%= userDataList.get(index).getrVal() %>);
