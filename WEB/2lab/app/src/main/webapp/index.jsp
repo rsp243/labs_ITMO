@@ -97,10 +97,10 @@
                     </tr>
                 </thead>
                 <tbody class="table-body">
-                    <% UserDataList userDataListObj = (UserDataList) getServletContext().getAttribute("UserDataList"); %>
-                    <% if (userDataListObj != null) { %>
-                        <% List<UserData> userDataList = userDataListObj.getUserDataList(); %>
-                        <% for (int i = 0; i < (userDataList == null ? 0 : userDataList.size()); i++) { %>
+                    <% UserDataList userDataListObj = (UserDataList) getServletContext().getAttribute("UserDataList"); 
+                    if (userDataListObj != null) { 
+                        List<UserData> userDataList = userDataListObj.getUserDataList();
+                        for (int i = 0; i < (userDataList == null ? 0 : userDataList.size()); i++) { %>
                             <tr>
                                 <td class="xTable" scope="row"><%=userDataList.get(i).getxVal()%></td>
                                 <td class="yTable" scope="row"><%=userDataList.get(i).getyVal()%></td>
@@ -109,8 +109,8 @@
                                 <td scope="row"><%=userDataList.get(i).getCurrentTime()%></td>
                                 <td scope="row"><%=userDataList.get(i).getExecutionTime()%></td>
                             </tr>
-                        <% } %>
-                    <% } %>
+                        <% }
+                    } %>
                 </tbody>
             </table>
         </div>
@@ -227,18 +227,18 @@
     </script>
     <script type="text/javascript">
         drawBeginnigGraph()
-        <% if (userDataListObj != null) { %>
-            <% List<UserData> userDataList = userDataListObj.getUserDataList(); %>
-            <% if (userDataList != null && userDataList.size() > 0) { %>
-                <% float rShowingValue = userDataList.get(userDataList.size() - 1).getrVal(); %>
-                <% for (int i = 0; i < userDataList.size(); i++) { %>
-                    <% if (rShowingValue == userDataList.get(i).getrVal()) { %>
-                        drawPoint(<%= userDataList.get(i).getxVal() %>, <%= userDataList.get(i).getyVal() %>,
-                                <%= userDataList.get(i).getrVal() %>);
-                    <% } %>
-                <% } %>
-            <% } %>
-        <% } %>
+        <% if (userDataListObj != null) {
+            List<UserData> userDataList = userDataListObj.getUserDataList();
+            if (userDataList != null && userDataList.size() > 0) {
+                float rShowingValue = userDataList.get(userDataList.size() - 1).getrVal();
+                int index = userDataList.size() - 1;
+                while (index >= 0 && userDataList.get(index).getrVal() == rShowingValue) { %>
+                    drawPoint(<%= userDataList.get(index).getxVal() %>, <%= userDataList.get(index).getyVal() %>,
+                                <%= userDataList.get(index).getrVal() %>);
+                    <% index--;
+                }
+            }
+        } %>
     </script>
 
 </body>
