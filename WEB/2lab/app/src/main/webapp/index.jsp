@@ -222,33 +222,33 @@
         let yOnCanvas = canvas.width / 2 - canvas.width / 3 * (yValue / rValue) - imgHeight / 2
 
         img.onload = function() {
-            ctx.drawImage(img, xOnCanvas, yOnCanvas, imgWidth, imgHeight);
+            ctx.drawImage(img, xOnCanvas, yOnCanvas, imgWidth, imgHeight)
 		};
         img.src = "src/img/axe.png" 
     }
-
+    
     function setPreviousRValue(rValue) {
-        let checkboxes = $('input[type="checkbox"]');
+        let checkboxes = $('input[type="checkbox"]')
         $('input[type="checkbox"][value="' + rValue.toFixed(1) + '"]').prop('checked', true)
-        checkboxes.filter(':not(:checked)').prop('disabled', true);
+        checkboxes.filter(':not(:checked)').prop('disabled', true)
     }
 
     jQuery(function(){
         let max = 1;
-        let checkboxes = $('input[type="checkbox"]');
+        let checkboxes = $('input[type="checkbox"]')
 
         checkboxes.change(function(){
-            let current = checkboxes.filter(':checked').length;
+            let current = checkboxes.filter(':checked').length
             if (!current) {
                 drawBeginnigGraph()
-                checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+                checkboxes.filter(':not(:checked)').prop('disabled', current >= max)
             } 
         });
     });
 
     </script>
     <script type="text/javascript">
-        drawBeginnigGraph()
+        drawBeginnigGraph();
         <% if (userDataListObj != null) {
             List<UserData> userDataList = userDataListObj.getUserDataList();
             if (userDataList != null && userDataList.size() > 0) { 
