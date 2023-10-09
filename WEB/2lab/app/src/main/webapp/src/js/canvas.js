@@ -8,6 +8,9 @@ export function drawBeginnigGraph() {
         ctx = canvas.getContext('2d');
 
     ctx.beginPath();
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     // setting blue color
     ctx.strokeStyle = "#3399ff";
     ctx.fillStyle = "#3399ff";

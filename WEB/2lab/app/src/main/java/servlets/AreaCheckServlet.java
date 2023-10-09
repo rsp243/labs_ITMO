@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
 
 import static java.lang.Math.pow;
 import utils.ValuesCheck;
@@ -104,7 +102,7 @@ public class AreaCheckServlet extends HttpServlet {
             // 1/4 circle hit check
             boolean sector3Hit = xVal < 0 && yVal < 0 && pow(xVal, 2) + pow(yVal, 2) <= pow(rVal, 2);
             // square hit check
-            boolean sector4Hit = xVal > 0 && yVal < 0 && xVal <= rVal && yVal <= rVal;
+            boolean sector4Hit = xVal > 0 && yVal < 0 && xVal <= rVal && Math.abs(yVal) <= rVal;
             boolean isHit = sector1Hit || sector2Hit || sector3Hit || sector4Hit;
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
