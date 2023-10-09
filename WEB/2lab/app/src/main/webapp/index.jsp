@@ -227,10 +227,26 @@
         img.src = "src/img/axe.png" 
     }
     
-    function setPreviousRValue(rValue) {
+    function setPreviousRValue() {
+        let rValue = getRValue()
         let checkboxes = $('input[type="checkbox"]')
         $('input[type="checkbox"][value="' + rValue.toFixed(1) + '"]').prop('checked', true)
         checkboxes.filter(':not(:checked)').prop('disabled', true)
+    }
+
+    function setRValue() {
+        let newRVal = $('input[type="checkbox"]:checked').val()
+        localStorage.setItem("rValue", newRVal)
+        return newRVal
+    }
+
+    function getRValue() {
+        let rValue = parseFloat(localStorage.getItem("rValue"))
+        if (!rValue) {
+            rValue = parseFloat(setRValue())
+        }
+        console.log(rValue)
+        return rValue
     }
 
     jQuery(function(){
@@ -242,7 +258,10 @@
             if (!current) {
                 drawBeginnigGraph()
                 checkboxes.filter(':not(:checked)').prop('disabled', current >= max)
-            } 
+            } else {
+                setRValue()
+                location.reload()
+            }
         });
     });
 
@@ -251,18 +270,20 @@
         drawBeginnigGraph();
         <% if (userDataListObj != null) {
             List<UserData> userDataList = userDataListObj.getUserDataList();
-            if (userDataList != null && userDataList.size() > 0) { 
-                float rShowingValue = userDataList.get(userDataList.size() - 1).getrVal(); %>
-                setPreviousRValue(<%= rShowingValue %>);
-                <% LinkedList<UserData> pointsToDrawList = userDataListObj.getUserDataByR(rShowingValue); 
-                for (int index = 0; index < pointsToDrawList.size(); index++) { %>
-                    drawPoint(<%= pointsToDrawList.get(index).getxVal() %>, <%= pointsToDrawList.get(index).getyVal() %>,
-                                <%= pointsToDrawList.get(index).getrVal() %>); 
+            if (userDataList != null && userDataList.size() > 0) { %> 
+                let rShowingValue = getRValue().toFixed(1)
+                setPreviousRValue()
+             
+                <% for (int index = 0; index < userDataList.size(); index++) { %> 
+                    if (<%= userDataList.get(index).getrVal() %> == rShowingValue) {
+                        drawPoint(<%= userDataList.get(index).getxVal() %>, <%= userDataList.get(index).getyVal() %>,
+                                <%= userDataList.get(index).getrVal() %>) 
+                    }
                 <% }
             }
         } %>
-    </script>
+    </script> 
 
 </body>
 
-</html>⏎ 
+</html>
