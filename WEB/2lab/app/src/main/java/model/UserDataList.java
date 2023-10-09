@@ -17,6 +17,16 @@ public class UserDataList implements Serializable {
         userDataList = new LinkedList<>();
     }
 
+    public LinkedList<UserData> getUserDataByR(float rValue) {
+        LinkedList<UserData> resultList = new LinkedList<>();
+        for (UserData userData : this.userDataList) {
+            if (userData.getrVal() == rValue) {
+                resultList.add(userData);
+            }
+        }
+        return resultList;
+    }
+
     public boolean isUserDataListIsNull() {
         return userDataList == null;
     }

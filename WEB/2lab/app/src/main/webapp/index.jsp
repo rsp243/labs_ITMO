@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.time.format.DateTimeFormatter,java.util.List" %>
-<%@ page import="model.UserDataList,model.UserData" %>
+<%@ page import="model.UserDataList,model.UserData,java.util.LinkedList" %>
 
 <!doctype html>
 <html lang="en">
@@ -232,20 +232,33 @@
         $('input[type="checkbox"][value="' + rValue.toFixed(1) + '"]').prop('checked', true)
         checkboxes.filter(':not(:checked)').prop('disabled', true);
     }
+
+    jQuery(function(){
+        let max = 1;
+        let checkboxes = $('input[type="checkbox"]');
+
+        checkboxes.change(function(){
+            let current = checkboxes.filter(':checked').length;
+            if (!current) {
+                drawBeginnigGraph()
+                checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+            } 
+        });
+    });
+
     </script>
     <script type="text/javascript">
         drawBeginnigGraph()
         <% if (userDataListObj != null) {
             List<UserData> userDataList = userDataListObj.getUserDataList();
-            if (userDataList != null && userDataList.size() > 0) {
+            if (userDataList != null && userDataList.size() > 0) { 
                 float rShowingValue = userDataList.get(userDataList.size() - 1).getrVal(); %>
                 setPreviousRValue(<%= rShowingValue %>);
-                <% int index = userDataList.size() - 1;
-                while (index >= 0 && userDataList.get(index).getrVal() == rShowingValue) { %>
-                    drawPoint(<%= userDataList.get(index).getxVal() %>, <%= userDataList.get(index).getyVal() %>,
-                                <%= userDataList.get(index).getrVal() %>);
-                    <% index--;
-                }
+                <% LinkedList<UserData> pointsToDrawList = userDataListObj.getUserDataByR(rShowingValue); 
+                for (int index = 0; index < pointsToDrawList.size(); index++) { %>
+                    drawPoint(<%= pointsToDrawList.get(index).getxVal() %>, <%= pointsToDrawList.get(index).getyVal() %>,
+                                <%= pointsToDrawList.get(index).getrVal() %>); 
+                <% }
             }
         } %>
     </script>
