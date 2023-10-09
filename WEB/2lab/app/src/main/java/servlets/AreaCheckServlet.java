@@ -29,22 +29,16 @@ public class AreaCheckServlet extends HttpServlet {
             String yStr = "";
             String rStr = "";
             try {
-                String[] parametersPairs = queryString.split("&");
-                Map<String, String> parametersMap = new HashMap<String, String>();
-                for (String parametersPair : parametersPairs) {
-                    String[] parameter = parametersPair.split("=");
-                    parametersMap.put(parameter[0], parameter[1].length() > 0 ? parameter[1] : "");
+                xStr = req.getParameter("xVal");
+                yStr = req.getParameter("yVal");
+                rStr = req.getParameter("rVal");
+                ValuesCheck valuesCheckObj = new ValuesCheck();
+                if (!valuesCheckObj.xyrCheck(xStr, yStr, rStr)) {
+                    resp.sendError(400, "Parameters Are Not In Their Ranges Or Wrong Attribute Names");
+                    return;
                 }
-                xStr = parametersMap.get("xVal");
-                yStr = parametersMap.get("yVal");
-                rStr = parametersMap.get("rVal");
             } catch (ArrayIndexOutOfBoundsException | NullPointerException exception) {
                 resp.sendError(400, "Bad Request");
-                return;
-            }
-            ValuesCheck valuesCheckObj = new ValuesCheck();
-            if (!valuesCheckObj.xyrCheck(xStr, yStr, rStr)) {
-                resp.sendError(400, "Parameters Are Not In Their Ranges Or Wrong Attribute Names");
                 return;
             }
             resp.setContentType("text/html");

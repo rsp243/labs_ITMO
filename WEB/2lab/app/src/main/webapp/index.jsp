@@ -78,7 +78,7 @@
                     </div>
                 </div>
             <div class="btn-block">
-                <input type="submit" class="control-btn btn-process" value="Process">
+                <input type="submit" class="control-btn btn-process" value="Throw An Axe">
                 <button class="control-btn btn-clear">Clear table</button>
             </div>
             </form>
