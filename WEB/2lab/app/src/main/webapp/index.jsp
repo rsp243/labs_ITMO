@@ -207,7 +207,6 @@
     <script type="module" src="src/js/validation.js"></script>
     <script type="module" src="src/js/table.js"></script>
     <script type="module" src="src/js/btn-events.js"></script>
-    <script type="module" src="src/js/checkbox-limit.js"></script>
     <script type="text/javascript">
     function drawPoint(xValue, yValue, rValue) {
         let canvas = document.getElementById("canvas"),
@@ -269,11 +268,10 @@
     <script type="text/javascript">
         drawBeginnigGraph();
         <% if (userDataListObj != null) {
-            List<UserData> userDataList = userDataListObj.getUserDataList();
-            if (userDataList != null && userDataList.size() > 0) { %> 
+            List<UserData> userDataList = userDataListObj.getUserDataList(); %> 
+            setPreviousRValue()
+            <% if (userDataList != null && userDataList.size() > 0) { %> 
                 let rShowingValue = getRValue().toFixed(1)
-                setPreviousRValue()
-             
                 <% for (int index = 0; index < userDataList.size(); index++) { %> 
                     if (<%= userDataList.get(index).getrVal() %> == rShowingValue) {
                         drawPoint(<%= userDataList.get(index).getxVal() %>, <%= userDataList.get(index).getyVal() %>,
