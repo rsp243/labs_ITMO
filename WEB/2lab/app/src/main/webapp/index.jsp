@@ -228,9 +228,12 @@
     
     function setPreviousRValue() {
         let rValue = getRValue()
-        let checkboxes = $('input[type="checkbox"]')
-        $('input[type="checkbox"][value="' + rValue.toFixed(1) + '"]').prop('checked', true)
-        checkboxes.filter(':not(:checked)').prop('disabled', true)
+        console.log(rValue)
+        if (!isNaN(rValue)) {
+            let checkboxes = $('input[type="checkbox"]')
+            $('input[type="checkbox"][value="' + rValue.toFixed(1) + '"]').prop('checked', true)
+            checkboxes.filter(':not(:checked)').prop('disabled', true)
+        }
     }
 
     function setRValue() {
@@ -244,7 +247,6 @@
         if (!rValue) {
             rValue = parseFloat(setRValue())
         }
-        console.log(rValue)
         return rValue
     }
 
