@@ -113,7 +113,16 @@ header form {
 .checkbox-block {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+}
+
+.checkbox-block input {
+    padding: 0.5em 2em;
+    background-color: #1c8bfa;
+}
+
+.checkbox-block input:hover {
+    background-color: #1f69b3;
 }
 
 #Rselection {

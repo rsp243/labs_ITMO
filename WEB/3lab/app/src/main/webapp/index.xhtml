@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://java.sun.com/jsf/core">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
     <meta charset="utf-8" />
@@ -60,7 +60,7 @@
                         <p>Choose Y value</p>
                         <p class="Y-error-message error-message">Y value have to be float number between -3 and 5 (not
                             including)</p>
-                        <h:inputText type="text" class="Yselection-text" id="Yselection" name="yVal" placeholder="Y value"
+                        <h:inputText type="text" class="Yselection-text" id="Yselection" name="yVal" a:placeholder="Y value"
                             maxlength="15" required="true" />
                     </div>
                     <div class="Rselection">
@@ -103,7 +103,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <h:outputStylesheet src="resources/js/canvas.js" /> 
+    <h:outputScript library = "js" name = "canvas.js" /> 
 </h:body>
 
 </html>
