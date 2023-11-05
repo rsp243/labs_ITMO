@@ -5,7 +5,7 @@
 <%
     Integer statusCode = (Integer) request.getAttribute("jakarta.servlet.error.status_code");
     String errorMessage = (String) request.getAttribute("jakarta.servlet.error.message");
-    String stylesPath = "./faces/jakarta.faces.resource/css/errorPageStyles.css"; 
+    String stylesPath = request.getContextPath() + "/faces/jakarta.faces.resource/css/errorPageStyles.css"; 
 %>
 
 <!doctype html>
