@@ -140,14 +140,14 @@ header form {
     line-height: normal;
 }
 
-.btn-block {
+.btn-main-block {
     display: flex;
 }
 
 .control-btn {
     background-color: #3399ff;
-    width: 50%;
-    margin: 0 5px 0 5px;
+    width: 98%;
+    margin: 0 5px 5px 5px;
     border-radius: 4px;
     padding: 5px 0 5px 0;
 }

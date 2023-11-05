@@ -45,23 +45,23 @@
                     <div class="Xselection">
                         <p>Choose X value</p>
                         <h:selectOneRadio>
-                            <f:selectItem itemValue = "-5" itemLabel = "-5"/>
-                            <f:selectItem itemValue = "-4" itemLabel = "-4"/>
-                            <f:selectItem itemValue = "-3" itemLabel = "-3"/>
-                            <f:selectItem itemValue = "-2" itemLabel = "-2"/>
-                            <f:selectItem itemValue = "-1" itemLabel = "-1"/>
-                            <f:selectItem itemValue = "0" itemLabel = "0"/>
-                            <f:selectItem itemValue = "1" itemLabel = "1"/>
-                            <f:selectItem itemValue = "2" itemLabel = "2"/>
-                            <f:selectItem itemValue = "3" itemLabel = "3"/>
+                            <f:selectItem itemValue="-5" itemLabel="-5" />
+                            <f:selectItem itemValue="-4" itemLabel="-4" />
+                            <f:selectItem itemValue="-3" itemLabel="-3" />
+                            <f:selectItem itemValue="-2" itemLabel="-2" />
+                            <f:selectItem itemValue="-1" itemLabel="-1" />
+                            <f:selectItem itemValue="0" itemLabel="0" />
+                            <f:selectItem itemValue="1" itemLabel="1" />
+                            <f:selectItem itemValue="2" itemLabel="2" />
+                            <f:selectItem itemValue="3" itemLabel="3" />
                         </h:selectOneRadio>
                     </div>
                     <div class="Yselection">
                         <p>Choose Y value</p>
                         <p class="Y-error-message error-message">Y value have to be float number between -3 and 5 (not
                             including)</p>
-                        <h:inputText type="text" class="Yselection-text" id="Yselection" name="yVal" a:placeholder="Y value"
-                            maxlength="15" required="true" />
+                        <h:inputText type="text" class="Yselection-text" id="Yselection" name="yVal"
+                            a:placeholder="Y value" maxlength="15" required="true" />
                     </div>
                     <div class="Rselection">
                         <p>Choose R value</p>
@@ -78,8 +78,11 @@
                     </div>
                 </div>
                 <div class="btn-block">
-                    <h:inputText type="submit" class="control-btn btn-process" value="Throw An Axe" />
-                    <button class="control-btn btn-clear">Clear table</button>
+                    <div class="btn-main-block">
+                        <h:inputText class="control-btn btn-process" type="submit" value="Throw An Axe" />
+                        <button class="control-btn btn-clear">Clear table</button>
+                    </div>
+                    <h:button class="control-btn" value="Go to watches page" outcome="watches" />
                 </div>
             </h:form>
         </div>
@@ -101,10 +104,10 @@
         </div>
     </div>
 
-    
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
-    <h:outputScript library = "js" name = "canvas.js" /> 
+    <h:outputScript library="js" name="canvas.js" />
 </h:body>
 
 </html>
