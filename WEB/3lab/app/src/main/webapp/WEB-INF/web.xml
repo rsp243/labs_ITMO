@@ -4,7 +4,7 @@
   xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee https://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
   <welcome-file-list>
-    <welcome-file>faces/index.xhtml</welcome-file>
+    <welcome-file>faces/watch.xhtml</welcome-file>
   </welcome-file-list>
 
   <session-config>
