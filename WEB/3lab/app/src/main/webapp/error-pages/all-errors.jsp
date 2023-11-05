@@ -56,7 +56,7 @@
             </h2>
         </div>
         <div class="btn-block">
-            <a href="${pageContext.request.contextPath}"><button class="control-btn">Back To The Main Page</button></a>
+            <a href="${pageContext.request.contextPath}"><button class="control-btn">Back To The Watches Page</button></a>
         </div>
     </div>
 </body>
