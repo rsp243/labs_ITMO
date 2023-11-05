@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
     <meta charset="utf-8" />
@@ -40,6 +41,9 @@
     <div class="main-container">
         <div class="canvas-and-selection">
             <canvas id="canvas" width="300" height="300"></canvas>
+            <div class="rValueSelectedInfo">
+                Chosen R value - <div class="rValueSelected"></div>
+            </div>
             <h:form action="controller" method="GET">
                 <div class="params-selection">
                     <div class="Xselection">
@@ -69,11 +73,11 @@
                             (including)
                         </p>
                         <div class="checkbox-block">
-                            <h:commandButton value="1" onclick="console.log('Hello')" required="true" />
-                            <h:commandButton value="1.5" onclick="console.log('Hello')" required="true" />
-                            <h:commandButton value="2" onclick="console.log('Hello')" required="true" />
-                            <h:commandButton value="2.5" onclick="console.log('Hello')" required="true" />
-                            <h:commandButton value="3" onclick="console.log('Hello')" required="true" />
+                            <h:commandButton value="1" onclick="setRValue(this.value)" />
+                            <h:commandButton value="1.5" onclick="setRValue(this.value)" />
+                            <h:commandButton value="2" onclick="setRValue(this.value)" />
+                            <h:commandButton value="2.5" onclick="setRValue(this.value)" />
+                            <h:commandButton value="3" onclick="setRValue(this.value)" />
                         </div>
                     </div>
                 </div>
@@ -108,6 +112,29 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
     <h:outputScript library="js" name="canvas.js" />
+    <script type="text/javascript">
+    function setRValue(commandButtonValue) {
+        localStorage.setItem("rValue", commandButtonValue)
+        return commandButtonValue
+    }
+
+    function getRValue() {
+        let rValue = parseFloat(localStorage.getItem("rValue"))
+        if (!rValue) {
+            rValue = "Not Selected"
+        }
+        $(".rValueSelected").text(rValue);
+        return rValue
+    }
+
+
+    window.onload = function () {
+        getRValue()
+        drawBeginnigGraph()
+        canvasClick()
+    }
+
+    </script>
 </h:body>
 
 </html>

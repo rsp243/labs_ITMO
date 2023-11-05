@@ -76,8 +76,18 @@ header form {
 }
 
 #canvas {
-    margin: 50px auto;
+    margin: 50px auto 0 auto;
     border: 1px solid black;
+}
+
+.rValueSelectedInfo {
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.rValueSelected {
+    text-decoration: underline;
 }
 
 .main-container {
@@ -90,6 +100,7 @@ header form {
 }
 
 .params-selection {
+    margin: 20px 0 0 0;
     padding: 15px;
     line-height: 1px;
 }
