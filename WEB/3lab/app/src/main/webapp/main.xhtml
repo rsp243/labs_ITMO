@@ -91,20 +91,83 @@
             </h:form>
         </div>
         <div class="data-table">
-            <table cellspacing="1" cellpadding="10" width="100%">
-                <thead>
-                    <tr>
-                        <th scope="col">X Value</th>
-                        <th scope="col">Y Value</th>
-                        <th scope="col">R Value</th>
-                        <th scope="col">Hit/Miss</th>
-                        <th scope="col">Event time</th>
-                        <th scope="col">Execution time, ns</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body">
-                </tbody>
-            </table>
+            <h:dataTable value="#{ResultsList.resultsList}" var="result" cellspacing="1" cellpadding="10" width="100%">
+
+                <h:column>
+                    <f:facet name="header">X Value</f:facet>
+                    #{result.xValue}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Y Value</f:facet>
+                    #{result.yValue}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">R Value</f:facet>
+                    #{result.rValue}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Hit/Miss</f:facet>
+                    #{result.isHit}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Event time</f:facet>
+                    #{result.currentTime}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Execution time, ns</f:facet>
+                    #{result.executionTime}
+                </h:column>
+            </h:dataTable>
+            <!-- <h:panelGrid columns="6" cellspacing="10" cellpadding="10" width="100%" border="1">
+                    <h:panelGroup>X Value</h:panelGroup>
+                    <h:panelGroup>Y Value</h:panelGroup>
+                    <h:panelGroup>R Value</h:panelGroup>
+                    <h:panelGroup>Hit/Miss</h:panelGroup>
+                    <h:panelGroup>Event time</h:panelGroup>
+                    <h:panelGroup>Execution time, ns</h:panelGroup> -->
+            <!-- <f:facet name="body">
+                    <h:panelGroup>OS Verison</h:panelGroup>
+                    <h:panelGroup>Linux</h:panelGroup>
+                    <h:panelGroup>Installed packages</h:panelGroup>
+                    <h:panelGroup>30</h:panelGroup>
+                    <h:panelGroup>Free HDD Space</h:panelGroup>
+                    <h:panelGroup>30 GB</h:panelGroup>
+                </f:facet> -->
+            <!-- </h:panelGrid> -->
+            <!-- <h:panelGrid columns="6">
+                <h:panelGroup>OS Verison</h:panelGroup>
+                <h:panelGroup>Linux</h:panelGroup>
+                <h:panelGroup>Installed packages</h:panelGroup>
+                <h:panelGroup>30</h:panelGroup>
+                <h:panelGroup>Free HDD Space</h:panelGroup>
+                <h:panelGroup>30 GB</h:panelGroup>
+            </h:panelGrid> -->
+
+            <!-- <h:panelGrid id="panel" columns="2" border="1" cellpadding="10" cellspacing="1">
+
+                <f:facet name="header">
+                    <h:outputText value="Login" />
+                </f:facet>
+                <h:outputLabel value="Username" />
+                <h:inputText />
+                <h:outputLabel value="Password" />
+                <h:inputSecret />
+
+                <f:facet name="footer">
+                    <h:panelGroup style="display:block; text-align:center">
+                        <h:commandButton id="submit" value="Submit" />
+                    </h:panelGroup>
+                </f:facet>
+            </h:panelGrid> -->
+
+            <!-- <ui:repeat value="#{ResultsList.resultsList}" var="result">
+                <h:outputText value = "#{result.x}, #{result.y}, #" />
+            </ui:repeat> -->
         </div>
     </div>
 
@@ -113,26 +176,27 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
     <h:outputScript library="js" name="canvas.js" />
     <script type="text/javascript">
-    function setRValue(commandButtonValue) {
-        localStorage.setItem("rValue", commandButtonValue)
-        return commandButtonValue
-    }
 
-    function getRValue() {
-        let rValue = parseFloat(localStorage.getItem("rValue"))
-        if (!rValue) {
-            rValue = "Not Selected"
+        function setRValue(commandButtonValue) {
+            localStorage.setItem("rValue", commandButtonValue)
+            return commandButtonValue
         }
-        $(".rValueSelected").text(rValue);
-        return rValue
-    }
+
+        function getRValue() {
+            let rValue = parseFloat(localStorage.getItem("rValue"))
+            if (!rValue) {
+                rValue = "Not Selected"
+            }
+            $(".rValueSelected").text(rValue);
+            return rValue
+        }
 
 
-    window.onload = function () {
-        getRValue()
-        drawBeginnigGraph()
-        canvasClick()
-    }
+        window.onload = function () {
+            getRValue()
+            drawBeginnigGraph()
+            canvasClick()
+        }
 
     </script>
 </h:body>
