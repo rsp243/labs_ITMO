@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<meta charset="utf-8" />
+    <title>Reshetov Semen P3206 WEB 2lab</title>
+    <meta name="description" content="Reshetov Semen P3206 WEB 3lab" />
+    <meta name="author" content="Reshetov Semen" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <h:outputStylesheet library="css" name="watchStyles.css" />
+</h:head>
+
+<h:body>
+	<div class="center-container">
+		<div id="clock" class="light">
+			<div class="display">
+				<div class="weekdays"></div>
+				<div class="alarm"></div>
+				<div class="digits">
+					<div class="am_pm"></div>
+				</div>
+			</div>
+		</div>
+		<h:button value="Go To Main Page" outcome="main" />
+	</div>	
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<h:outputScript library="js" name="watch.js" /> 
+</h:body>
+
+</html>
