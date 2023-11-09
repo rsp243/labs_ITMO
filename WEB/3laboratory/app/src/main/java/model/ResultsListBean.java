@@ -58,10 +58,14 @@ public class ResultsListBean implements Serializable {
         currentResult.setExecutionTime(executionTime);
         try {
             DAOFactory.getInstance().getResultDAO().addNewObj(currentResult);
+            String jsFunction = "drawIsHitPoint(" + x + ", " + y + ", " + r +", " + result +")";
+            FacesContext.getCurrentInstance().getPartialViewContext().getEvalScripts().add(jsFunction);
         } catch (SQLException exception) {
             System.err.println("Adding new object to DataBase failed with: " + exception.toString());
         }
         results.addLast(currentResult);
+
+        
     }
 
     public void deleteAll() {

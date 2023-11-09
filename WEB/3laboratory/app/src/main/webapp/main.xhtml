@@ -106,7 +106,7 @@
                 <div class="btn-block">
                     <div class="btn-main-block">
                         <h:commandButton class="control-btn btn-process" id="submit_button" value="Throw An Axe">
-                            <f:ajax event="click" execute="@form" render="@form resultsTable"
+                            <f:ajax event="click" execute="@form" render="@form resultsTable canvas"
                                 listener="#{resultsListBean.newResult(xBean.value, yBean.value, rBean.value)}" />
                         </h:commandButton>
                         <h:commandButton class="control-btn btn-process" id="clear_button" value="Clear Table">
@@ -157,9 +157,11 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
     <h:outputScript library="js" name="canvas.js" />
+    <h:outputScript>let axeImage = "${resource['img/axe.png']}";</h:outputScript>
     <script type="text/javascript">
 
         function drawPoint(xValue, yValue, rValue, imageName) {
+            console.log("executing drawPoint");
             let canvas = document.getElementById("canvas"),
                 ctx = canvas.getContext('2d');
 
@@ -174,12 +176,12 @@
             img.onload = function() {
                 ctx.drawImage(img, xOnCanvas, yOnCanvas, imgWidth, imgHeight)
             };
-            img.src = "src/img/axe.png" 
+            img.src = imageName
         }
 
         function drawIsHitPoint(xValue, yValue, rValue, isHit) {
             if (isHit) {
-                drawPoint(xValue, yValue, rValue, 'img/axe.png')
+                drawPoint(xValue, yValue, rValue, axeImage)
             }
         }
 
