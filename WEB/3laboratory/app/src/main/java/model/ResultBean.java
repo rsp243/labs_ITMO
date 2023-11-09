@@ -33,7 +33,7 @@ public class ResultBean implements Serializable {
     private float r;
 
     @Column(name = "ishit")
-    private String isHit;
+    private boolean isHit;
 
     @Column(name = "currenttime")
     private LocalDateTime currentTime;
@@ -44,5 +44,9 @@ public class ResultBean implements Serializable {
     public String getFormattedCurrentTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return currentTime.format(formatter);
+    }
+    
+    public String getFormattedIsHit() {
+        return isHit ? "HIT" : "MISS";
     }
 }

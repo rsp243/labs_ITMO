@@ -46,14 +46,14 @@ public class ResultsListBean implements Serializable {
         final ResultBean currentResult = new ResultBean();
 
         final long startExec = System.nanoTime();
-        final String result = AreaResultChecker.getResult(x, y, r) ? "HIT" : "MISS";
+        final boolean result = AreaResultChecker.getResult(x, y, r);
         final long endExec = System.nanoTime();
         final int executionTime = (int) (endExec - startExec);
 
         currentResult.setX(x);
         currentResult.setY(y);
         currentResult.setR(r);
-        currentResult.setIsHit(result);
+        currentResult.setHit(result);
         currentResult.setCurrentTime(LocalDateTime.now());
         currentResult.setExecutionTime(executionTime);
         try {

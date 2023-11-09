@@ -14,7 +14,7 @@ import java.io.Serializable;
 @ApplicationScoped
 @Data
 public class RBean implements Serializable {
-    private Float value = null;
+    private Float value = (float) 1;
 
     public void rValueAction() {
         System.out.println("RValue - " + value);

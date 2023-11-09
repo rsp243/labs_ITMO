@@ -137,7 +137,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Hit/Miss</f:facet>
-                    #{axe.isHit}
+                    #{axe.getFormattedIsHit()}
                 </h:column>
 
                 <h:column>
@@ -158,6 +158,30 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
     <h:outputScript library="js" name="canvas.js" />
     <script type="text/javascript">
+
+        function drawPoint(xValue, yValue, rValue, imageName) {
+            let canvas = document.getElementById("canvas"),
+                ctx = canvas.getContext('2d');
+
+            let img = new Image() 
+
+            let imgHeight = 25
+            let imgWidth = 25
+
+            let xOnCanvas = canvas.width / 2 + canvas.width / 3 * (xValue / rValue) - imgWidth / 1.3
+            let yOnCanvas = canvas.width / 2 - canvas.width / 3 * (yValue / rValue) - imgHeight / 2
+
+            img.onload = function() {
+                ctx.drawImage(img, xOnCanvas, yOnCanvas, imgWidth, imgHeight)
+            };
+            img.src = "src/img/axe.png" 
+        }
+
+        function drawIsHitPoint(xValue, yValue, rValue, isHit) {
+            if (isHit) {
+                drawPoint(xValue, yValue, rValue, 'img/axe.png')
+            }
+        }
 
         function setRValue(commandButtonValue) {
             localStorage.setItem("rValue", commandButtonValue)
