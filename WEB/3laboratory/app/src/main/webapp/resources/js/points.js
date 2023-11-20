@@ -1,6 +1,8 @@
 let canvas = document.getElementById("canvas"),
     ctx = canvas.getContext('2d');
 
+let canvasWithAxes = document.getElementById("canvasWithAxes"),
+    ctxWithAxes = canvasWithAxes.getContext('2d');
 
 class Point {
     constructor(x, y, r, imgSrc, offsetX, offsetY, scale, rotationAngle) {
@@ -52,9 +54,6 @@ function drawAnimatedRotatedPoint(xValue, yValue, rValue, img, offsetX, offsetY,
 }
 
 function drawIsHitPoint(xValue, yValue, rValue, isHit) {
-    // $("#canvas").css("display", "block")
-    // $("#canvasWithAxes").css("display", "none")
-
     let xValueRotate = xValue - rValue * 3
 
     let axeImg = new Image()
@@ -69,15 +68,17 @@ function drawIsHitPoint(xValue, yValue, rValue, isHit) {
     let frameCount = 80
     let frameRestCount = frameCount
     let angle = 0
+    let axeScale
+    let rotation
 
-    setTimeout(draw)
+    setTimeout(drawFhrow)
 
-    function draw() {
+    function drawFhrow() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         angle = (Math.random() * (23 - 2) + 2 + angle) % 360
-        let axeScale = axeHeight / axeImg.height
-        let rotation = angle * Math.PI / 180
+        axeScale = axeHeight / axeImg.height
+        rotation = angle * Math.PI / 180
         axeImg.onload = function () {
             drawAnimatedRotatedPoint(xValueRotate, yValue, rValue, axeImg, axeHeight * 5, - axeHeight, axeScale, rotation, ctx)
         };
@@ -86,34 +87,49 @@ function drawIsHitPoint(xValue, yValue, rValue, isHit) {
         frameRestCount--
         xValueRotate = xValueRotate + rValue / frameCount * 3
         if (frameRestCount != 0) {
-            setTimeout(draw, 10)
+            setTimeout(drawFhrow, 10)
         } else {
-            // $("#canvas").css("display", "none")
-            // $("#canvasWithAxes").css("display", "block")
-            let canvasWithAxes = document.getElementById("canvasWithAxes"),
-                ctxWithAxes = canvasWithAxes.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             fissureImg.onload = function () {
                 drawAnimatedRotatedPoint(xValue, yValue, rValue, fissureImg, 0, 0, fissureScale, rotation, ctxWithAxes)
-                // pointArray.push(new Point(xValue, yValue, rValue, fissureImageSrc, 0, 0, fissureScale, rotation))
-                axeImg.onload = function () {
-                    drawAnimatedRotatedPoint(xValue, yValue, rValue, axeImg, axeHeight * 5, - axeHeight, axeScale, rotation, ctxWithAxes)
-                    pointArray.push(new Point(xValue, yValue, rValue, axeImageSrc, axeHeight * 5, - axeHeight, axeScale, rotation))
-                };
-                axeImg.src = axeImageSrc
+                drawIsHit()
             };
             fissureImg.src = fissureImageSrc
-
-            console.log("saved")
         }
     }
 
-    // if (!isHit) {
-    //     axeImg.onload = function () {
-    //         drawAnimatedRotatedPoint(xValue, yValue, rValue, axeImg, axeHeight * 5, - axeHeight, axeScale, rotation)
-    //         pointArray.push(new Point(xValue, yValue, rValue, axeImageSrc, axeHeight * 5, - axeHeight, axeScale, rotation))
-    //     };
-    //     axeImg.src = axeImageSrc
-    // } else {
+    function drawIsHit() {
+        if (isHit) {
+            axeImg.onload = function () {
+                drawAnimatedRotatedPoint(xValue, yValue, rValue, axeImg, axeHeight * 5, - axeHeight, axeScale, rotation, ctxWithAxes)
+                pointArray.push(new Point(xValue, yValue, rValue, axeImageSrc, axeHeight * 5, - axeHeight, axeScale, rotation))
+            };
+            axeImg.src = axeImageSrc
+        } else {
+            frameRestCount = frameCount
+            setTimeout(drawNotHit)
+        }
 
-    // }
+        let yValueRotate = yValue
+
+        function drawNotHit() {
+            xValueRotate -= rValue / frameCount * 3 / 2
+            yValueRotate -= ((xValue - xValueRotate)  ** 2) / frameCount * 4
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+            angle = (Math.random() * (23 - 2) + 2 + angle) % 360
+            let axeScale = axeHeight / axeImg.height
+            let rotation = angle * Math.PI / 180
+            axeImg.onload = function () {
+                drawAnimatedRotatedPoint(xValueRotate, yValueRotate, rValue, axeImg, axeHeight * 5, - axeHeight, axeScale, - rotation, ctx)
+            };
+            axeImg.src = axeImageSrc
+    
+            frameRestCount--
+            if (frameRestCount != 0) {
+                setTimeout(drawNotHit, 10)
+            }
+        }
+    }
 }
