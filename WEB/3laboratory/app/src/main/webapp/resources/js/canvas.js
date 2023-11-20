@@ -7,6 +7,8 @@ function drawBeginnigGraph() {
     let canvas = document.getElementById("canvas"),
         ctx = canvas.getContext('2d');
 
+    ctx.globalCompositeOperation = "source-over";
+
     ctx.beginPath();
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -85,12 +87,14 @@ function drawBeginnigGraph() {
     ctx.moveTo(canvas.width / 6, canvas.height / 2.04);
     ctx.lineTo(canvas.width / 6, canvas.height / 1.96);
     ctx.stroke();
+
+    ctx.save();
 }
 
 function canvasClick() {
     let canvas = document.getElementById("canvas");
     canvas.addEventListener('click', (event) => {
-        let rValue =  $('input[type="checkbox"]:checked:first').val()
+        let rValue = $('input[type="checkbox"]:checked:first').val()
         if (!rValue) {
             alert("R value is not set")
             return
@@ -104,7 +108,7 @@ function canvasClick() {
         let xFloat = parseFloat(xValue)
         let yFloat = parseFloat(yValue)
 
-        let queryString = "xVal=" + xFloat + "&yVal=" + yFloat + "&rVal=" + rFloat  
+        let queryString = "xVal=" + xFloat + "&yVal=" + yFloat + "&rVal=" + rFloat
         fetch(new URL("controller?" + queryString, window.location.href), {
             method: 'GET',
             headers: {
