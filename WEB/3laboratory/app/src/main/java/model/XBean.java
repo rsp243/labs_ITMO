@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;

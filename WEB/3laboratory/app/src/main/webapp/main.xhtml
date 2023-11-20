@@ -155,36 +155,13 @@
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
     <h:outputScript library="js" name="canvas.js" />
-    <h:outputScript>let axeImage = "${resource['img/axe.png']}";</h:outputScript>
+    <h:outputScript library="js" name="points.js" />
+    <h:outputScript>
+        let axeImageSrc = "${resource['img/axe.png']}";
+        let fissureImageSrc = "${resource['img/fissure.png']}";
+    </h:outputScript>
     <script type="text/javascript">
-
-        function drawPoint(xValue, yValue, rValue, imageName) {
-            console.log("executing drawPoint");
-            let canvas = document.getElementById("canvas"),
-                ctx = canvas.getContext('2d');
-
-            let img = new Image() 
-
-            let imgHeight = 25
-            let imgWidth = 25
-
-            let xOnCanvas = canvas.width / 2 + canvas.width / 3 * (xValue / rValue) - imgWidth / 1.3
-            let yOnCanvas = canvas.width / 2 - canvas.width / 3 * (yValue / rValue) - imgHeight / 2
-
-            img.onload = function() {
-                ctx.drawImage(img, xOnCanvas, yOnCanvas, imgWidth, imgHeight)
-            };
-            img.src = imageName
-        }
-
-        function drawIsHitPoint(xValue, yValue, rValue, isHit) {
-            if (isHit) {
-                drawPoint(xValue, yValue, rValue, axeImage)
-            }
-        }
-
         function setRValue(commandButtonValue) {
             localStorage.setItem("rValue", commandButtonValue)
             document.getElementById("canvas_form:canvas_r").value = commandButtonValue;
@@ -205,7 +182,6 @@
             drawBeginnigGraph()
             canvasClick()
         }
-
     </script>
 </h:body>
 

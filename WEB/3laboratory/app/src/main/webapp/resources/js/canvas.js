@@ -1,7 +1,7 @@
-window.onload = function () {
-    drawBeginnigGraph()
-    canvasClick()
-}
+// window.onload = function () {
+//     drawBeginnigGraph()
+//     canvasClick()
+// }
 
 function drawBeginnigGraph() {
     let canvas = document.getElementById("canvas"),

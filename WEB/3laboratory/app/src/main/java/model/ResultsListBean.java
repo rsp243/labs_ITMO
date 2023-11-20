@@ -1,6 +1,5 @@
 package model;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -8,7 +7,6 @@ import java.util.LinkedList;
 
 import db.DAOFactory;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -64,8 +62,6 @@ public class ResultsListBean implements Serializable {
             System.err.println("Adding new object to DataBase failed with: " + exception.toString());
         }
         results.addLast(currentResult);
-
-        
     }
 
     public void deleteAll() {
