@@ -75,9 +75,22 @@ header form {
     border: 2px solid #1c8bfa;
 }
 
-#canvas {
+#canvas, #canvasWithAxes {
     margin: 50px auto 0 auto;
     border: 1px solid black;
+}
+
+#canvas {
+    z-index: 5;
+    position: relative;
+
+}
+
+#canvasWithAxes {
+    z-index: 4;
+    position: absolute;
+    /* left: 50%; */
+    /* transform: translateX(-50%) translateY(0%); */
 }
 
 .rValueSelectedInfo {

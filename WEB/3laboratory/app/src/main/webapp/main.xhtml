@@ -40,6 +40,7 @@
     </header>
     <div class="main-container">
         <div class="canvas-and-selection">
+            <canvas id="canvasWithAxes" width="300" height="300"></canvas>
             <canvas id="canvas" width="300" height="300"></canvas>
             <div class="rValueSelectedInfo">
                 Chosen R value:
@@ -179,7 +180,8 @@
 
         window.onload = function () {
             getRValue()
-            drawBeginnigGraph()
+            // drawBeginnigGraph("canvas")
+            drawBeginnigGraph("canvasWithAxes")
             canvasClick()
         }
     </script>

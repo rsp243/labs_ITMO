@@ -3,8 +3,8 @@
 //     canvasClick()
 // }
 
-function drawBeginnigGraph() {
-    let canvas = document.getElementById("canvas"),
+function drawBeginnigGraph(canvasIdStr) {
+    let canvas = document.getElementById(canvasIdStr),
         ctx = canvas.getContext('2d');
 
     ctx.globalCompositeOperation = "source-over";
@@ -87,8 +87,6 @@ function drawBeginnigGraph() {
     ctx.moveTo(canvas.width / 6, canvas.height / 2.04);
     ctx.lineTo(canvas.width / 6, canvas.height / 1.96);
     ctx.stroke();
-
-    ctx.save();
 }
 
 function canvasClick() {
