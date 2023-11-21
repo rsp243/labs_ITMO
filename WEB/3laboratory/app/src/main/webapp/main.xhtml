@@ -110,8 +110,9 @@
                             <f:ajax event="click" execute="@form" render="@form resultsTable canvas"
                                 listener="#{resultsListBean.newResult(xBean.value, yBean.value, rBean.value)}" />
                         </h:commandButton>
-                        <h:commandButton class="control-btn btn-process" id="clear_button" value="Clear Table">
-                            <f:ajax event="click" execute="@form" render="@form resultsTable"
+                        <h:commandButton class="control-btn btn-process clear_button" onclick="clearCanvas()" id="clear_button"
+                            value="Clear Table">
+                            <f:ajax event="click" execute="@form" render="@form resultsTable canvasWithAxes canvas"
                                 listener="#{resultsListBean.deleteAll()}" />
                         </h:commandButton>
                     </div>
@@ -162,6 +163,12 @@
         let axeImageSrc = "${resource['img/axe.png']}";
         let fissureImageSrc = "${resource['img/fissure.png']}";
     </h:outputScript>
+    <script id="drawAllPoints" type="text/javascript">
+        function drawAllPoints(rValue) {
+            <ui:repeat id="drawFunction" value="#{resultsListBean.results}" var="point">
+                if (rValue == #{point.r}) drawPoint(#{point.x}, #{point.y}, #{point.r}, 0, fissureImageSrc, Math.random() * Math.PI / 2, "canvasWithAxes", false);</ui:repeat>
+        }
+    </script>
     <script type="text/javascript">
         function setRValue(commandButtonValue) {
             localStorage.setItem("rValue", commandButtonValue)
@@ -179,10 +186,11 @@
         }
 
         window.onload = function () {
-            getRValue()
+            rValue = getRValue()
             // drawBeginnigGraph("canvas")
             drawBeginnigGraph("canvasWithAxes")
-            canvasClick()
+            drawAllPoints(rValue)
+            // canvasClick()
         }
     </script>
 </h:body>

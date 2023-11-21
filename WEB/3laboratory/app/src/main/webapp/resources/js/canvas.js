@@ -89,43 +89,14 @@ function drawBeginnigGraph(canvasIdStr) {
     ctx.stroke();
 }
 
-function canvasClick() {
-    let canvas = document.getElementById("canvas");
-    canvas.addEventListener('click', (event) => {
-        let rValue = $('input[type="checkbox"]:checked:first').val()
-        if (!rValue) {
-            alert("R value is not set")
-            return
-        }
-        $('input:checkbox').not(this).prop('checked', false);
-
-        let rFloat = parseFloat(rValue)
-        let xValue = (event.offsetX - canvas.width / 2) / (canvas.width / 3) * rFloat
-        let yValue = - (event.offsetY - canvas.height / 2) / (canvas.height / 3) * rFloat
-
-        let xFloat = parseFloat(xValue)
-        let yFloat = parseFloat(yValue)
-
-        let queryString = "xVal=" + xFloat + "&yVal=" + yFloat + "&rVal=" + rFloat
-        fetch(new URL("controller?" + queryString, window.location.href), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        }).then(responseCatched => {
-            location.reload()
-            if (responseCatched.ok) {
-                return
-            }
-            throw new Error(responseCatched.statusText)
-        })
-    })
-}
-
 function clearCanvas() {
     let canvas = document.getElementById("canvas"),
         ctx = canvas.getContext('2d');
+    let canvas1 = document.getElementById("canvasWithAxes"),
+    ctx1 = canvas1.getContext('2d');
 
     ctx.clearRect(0, 0, canvas.width, canvas.width)
-    drawBeginnigGraph()
+    ctx1.clearRect(0, 0, canvas.width, canvas.width)
+
+    drawBeginnigGraph("canvasWithAxes")
 }
