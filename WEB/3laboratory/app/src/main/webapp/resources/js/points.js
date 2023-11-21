@@ -98,6 +98,5 @@ function drawIsHitPoint(xValue, yValue, rValue, isHit) {
                 setTimeout(drawNotHit, 10)
             }
         }
-
     }
 }

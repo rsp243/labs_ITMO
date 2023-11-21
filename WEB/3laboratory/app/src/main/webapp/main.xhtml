@@ -40,6 +40,15 @@
     </header>
     <div class="main-container">
         <div class="canvas-and-selection">
+            <h:form id="hidden-form">
+                <h:inputHidden value="#{xBean.value}" id="hidden-x" />
+                <h:inputHidden value="#{yBean.value}" id="hidden-y" />
+                <h:inputHidden value="#{rBean.value}" id="hidden-r" />
+                <h:commandButton id="hidden-send" style="opacity: 0">
+                    <f:ajax event="click" execute="@form" render="@form resultsTable canvas"
+                        listener="#{resultsListBean.newResult(xBean.value, yBean.value, rBean.value)}" />
+                </h:commandButton>
+            </h:form>
             <canvas id="canvasWithAxes" width="300" height="300"></canvas>
             <canvas id="canvas" width="300" height="300"></canvas>
             <div class="rValueSelectedInfo">
@@ -77,28 +86,28 @@
                             (including)
                         </p>
                         <div class="checkbox-block">
-                            <h:commandButton type="submit" action="#{rBean.rValueAction}" id="r_1" value="1"
-                                validator="${rBean.validateR}" update="rValueSelected">
+                            <h:commandButton type="submit" action="#{rBean.rValueAction}" render="canvasWithAxes canvas" id="r_1" value="1"
+                                validator="${rBean.validateR}" update="rValueSelected canvasWithAxes canvas">
                                 <f:setPropertyActionListener target="#{rBean.value}" value="1" />
                             </h:commandButton>
 
-                            <h:commandButton type="submit" action="#{rBean.rValueAction}" id="r_2" value="1.5"
-                                validator="${rBean.validateR}" update="rValueSelected">
+                            <h:commandButton type="submit" action="#{rBean.rValueAction}" render="canvasWithAxes canvas" id="r_2" value="1.5"
+                                validator="${rBean.validateR}" update="rValueSelected canvasWithAxes canvas">
                                 <f:setPropertyActionListener target="#{rBean.value}" value="1.5" />
                             </h:commandButton>
 
-                            <h:commandButton type="submit" action="#{rBean.rValueAction}" id="r_3" value="2"
-                                validator="${rBean.validateR}" update="rValueSelected">
+                            <h:commandButton type="submit" action="#{rBean.rValueAction}" render="canvasWithAxes canvas" id="r_3" value="2"
+                                validator="${rBean.validateR}" update="rValueSelected canvasWithAxes canvas">
                                 <f:setPropertyActionListener target="#{rBean.value}" value="2" />
                             </h:commandButton>
 
-                            <h:commandButton type="submit" action="#{rBean.rValueAction}" id="r_4" value="2.5"
-                                validator="${rBean.validateR}" update="rValueSelected">
+                            <h:commandButton type="submit" action="#{rBean.rValueAction}" render="canvasWithAxes canvas" id="r_4" value="2.5"
+                                validator="${rBean.validateR}" update="rValueSelected canvasWithAxes canvas">
                                 <f:setPropertyActionListener target="#{rBean.value}" value="2.5" />
                             </h:commandButton>
 
-                            <h:commandButton type="submit" action="#{rBean.rValueAction}" id="r_5" value="3"
-                                validator="${rBean.validateR}" update="rValueSelected">
+                            <h:commandButton type="submit" action="#{rBean.rValueAction}" render="canvasWithAxes canvas" id="r_5" value="3"
+                                validator="${rBean.validateR}" update="rValueSelected canvasWithAxes canvas">
                                 <f:setPropertyActionListener target="#{rBean.value}" value="3" />
                             </h:commandButton>
                         </div>
@@ -110,8 +119,8 @@
                             <f:ajax event="click" execute="@form" render="@form resultsTable canvas"
                                 listener="#{resultsListBean.newResult(xBean.value, yBean.value, rBean.value)}" />
                         </h:commandButton>
-                        <h:commandButton class="control-btn btn-process clear_button" onclick="clearCanvas()" id="clear_button"
-                            value="Clear Table">
+                        <h:commandButton class="control-btn btn-process clear_button" onclick="clearCanvas()"
+                            id="clear_button" value="Clear Table">
                             <f:ajax event="click" execute="@form" render="@form resultsTable canvasWithAxes canvas"
                                 listener="#{resultsListBean.deleteAll()}" />
                         </h:commandButton>
@@ -189,7 +198,7 @@
             rValue = getRValue()
             // drawBeginnigGraph("canvas")
             drawBeginnigGraph("canvasWithAxes")
-            drawAllPoints(rValue)
+            // drawAllPoints(rValue)
             // canvasClick()
         }
     </script>

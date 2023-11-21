@@ -3,6 +3,11 @@
 //     canvasClick()
 // }
 
+const HIDDEN_X = document.getElementById("hidden-form:hidden-x");
+const HIDDEN_Y = document.getElementById("hidden-form:hidden-y");
+const HIDDEN_R = document.getElementById("hidden-form:hidden-r");
+const HIDDEN_BUTTON = document.getElementById("hidden-form:hidden-send");
+
 function drawBeginnigGraph(canvasIdStr) {
     let canvas = document.getElementById(canvasIdStr),
         ctx = canvas.getContext('2d');
@@ -93,10 +98,38 @@ function clearCanvas() {
     let canvas = document.getElementById("canvas"),
         ctx = canvas.getContext('2d');
     let canvas1 = document.getElementById("canvasWithAxes"),
-    ctx1 = canvas1.getContext('2d');
+        ctx1 = canvas1.getContext('2d');
 
     ctx.clearRect(0, 0, canvas.width, canvas.width)
     ctx1.clearRect(0, 0, canvas.width, canvas.width)
 
     drawBeginnigGraph("canvasWithAxes")
+}
+
+document.getElementById("canvas").addEventListener("click", function (evt) {
+    cavas = document.getElementById("canvas")
+    const rect = canvas.getBoundingClientRect();
+    const userX = evt.clientX - rect.left - canvas.width / 2;
+    const userY = (evt.clientY - rect.top - canvas.height / 2) * -1;
+
+    triggerRequest({
+        x: userX,
+        y: userY
+    });
+})
+
+function triggerRequest(point) {
+    const radius = getRValue();
+
+    point.x = point.x / (canvas.width / 3) * radius
+    point.y = point.y / (canvas.height / 3) * radius
+
+    console.log(point.x);
+    console.log(point.y);
+
+    HIDDEN_X.value = point.x
+    HIDDEN_Y.value = point.y
+    HIDDEN_R.value = radius
+
+    HIDDEN_BUTTON.click()
 }
