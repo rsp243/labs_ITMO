@@ -11,7 +11,7 @@ public class AreaResultChecker {
 
     // Maybe errors with isHit value
     private static boolean checkTriangle(final double xValue, final double yValue, final double rValue){
-        return xValue <= 0 && yValue <= 0 && abs(xValue) + abs(yValue) <= rValue / 2;
+        return xValue <= 0 && yValue <= 0 && abs(xValue) + abs(yValue) / 2 <= rValue / 2;
     }
 
     private static boolean checkRectangle(final double xValue, final double yValue, final double rValue){
