@@ -1,0 +1,7 @@
+    <!-- <script id="drawPointsScript">
+        function drawAllPoints() {
+            <ui:repeat id="draw_function" value="#{userDataBean}" var="[point]">
+                drawAnimatedRotatedPoint(#{point.x}, #{point.y}, #{point.r}, fissureImageSrc, 0, 0, );
+            </ui:repeat>
+        }
+    </script> -->
