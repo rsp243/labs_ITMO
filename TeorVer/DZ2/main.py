@@ -159,26 +159,26 @@ for i in range(1, l + 1):
 print("Пункт В")
 
 # add coordinate axes
-figure = plt.figure()
-coordinate_axes = figure.add_subplot(1, 1, 1)
+# figure = plt.figure()
+# coordinate_axes = figure.add_subplot(1, 1, 1)
 
-# drawing coordinate xes
-coordinate_axes.spines['left'].set_position('center')
-coordinate_axes.spines['bottom'].set_position('zero')
-coordinate_axes.spines['right'].set_color('none')
-coordinate_axes.spines['top'].set_color('none')
-coordinate_axes.xaxis.set_ticks_position('bottom')
-coordinate_axes.yaxis.set_ticks_position('left')
+# # drawing coordinate xes
+# coordinate_axes.spines['left'].set_position('center')
+# coordinate_axes.spines['bottom'].set_position('zero')
+# coordinate_axes.spines['right'].set_color('none')
+# coordinate_axes.spines['top'].set_color('none')
+# coordinate_axes.xaxis.set_ticks_position('bottom')
+# coordinate_axes.yaxis.set_ticks_position('left')
 
-plt.plot(x_i_avg_list, n_i_list, 'b') 
-plt.show()
+# plt.plot(x_i_avg_list, n_i_list, 'b') 
+# plt.show()
 
-# need to fix!
-plt.bar(x_i_avg_list, W_i_h_list)
-plt.show()
+# # need to fix!
+# plt.bar(x_i_avg_list, W_i_h_list)
+# plt.show()
 
-plt.plot(x_list, F_list)
-plt.show()
+# plt.plot(x_list, F_list)
+# plt.show()
 
 print()
 print("Пункт Г")
@@ -276,14 +276,19 @@ print(" ", sumn_i, "\t \t", round(sumn_i_sh, 3), "\t\t\t\t", round(sumhi_kv, 4),
 print()
 print("Проверка:", round(sumn_i_kv_del_n_i_sh, 4), "-", sumn_i, "=", round(round(sumn_i_kv_del_n_i_sh, 4) - sumn_i, 4))
 
-print("alpha = 0.01, k = l - 3 = 6, l - число интервалов")
-print("hi_cr^2 = 16.8")
-print(f"Так как hi_набл^2 < hi_cr^2, где hi_набл^2 = {round(sumhi_kv, 4)} и hi_cr^2 = 16.8, то гипотеза о нормальном распределении генеральной совокупности принимается.")
+print("alpha = 0.025, k = l - 3 = 6, l - число интервалов")
+print("hi_cr^2 = 14,4")
+print(f"Так как hi_набл^2 < hi_cr^2, где hi_набл^2 = {round(sumhi_kv, 4)} и hi_cr^2 = 14,4, то гипотеза о нормальном распределении генеральной совокупности принимается.")
 
 print()
 print("Пункт E")
-print(f"Дельта (точность оценки) - {round((length / (length - 1) * D) ** 0.5, 10) / (length ** 0.5) * 1.95}")
-print(f"Доверительный интервал для а - ({x_vi_avg + round((length / (length - 1) * D) ** 0.5, 10) / (length ** 0.5) * 1.95}; {x_vi_avg - round((length / (length - 1) * D) ** 0.5, 10) / (length ** 0.5) * 1.95})")
+t_gamma = 1.86
+print(f"Дельта (точность оценки) - {round((length / (length - 1) * D) ** 0.5, 10) / (length ** 0.5) * t_gamma}")
+print(f"Доверительный интервал для а (с вероятностью 90% этот интервал накроет занчение генеральной средней) - ({x_vi_avg - round((length / (length - 1) * D) ** 0.5, 10) / (length ** 0.5) * t_gamma}; {x_vi_avg + round((length / (length - 1) * D) ** 0.5, 10) / (length ** 0.5) * t_gamma})")
+
+print()
+
+q = 0.11
 print(f"Доверительный интервал, покрывающий среднее квадратичное отлонение сигма с заданной надежностью гамма = (сигма_в_sh(1 - q); сигма_в_sh(1 + q)). q = 0.143 (из таблицы 9)")
-print(f"Доверительный интервал, покрывающий среднее квадратичное отлонение сигма с заданной надежностью гамма = ({round((length / (length - 1) * D) ** 0.5, 10) * (1 - 0.143)}; {round((length / (length - 1) * D) ** 0.5, 10) * (1 + 0.143)})")
-print(f"Доверительным интервалом для сигма будет ({round((length / (length - 1) * D) ** 0.5, 10) * (1 - 0.143)}; {round((length / (length - 1) * D) ** 0.5, 10) * (1 + 0.143)})")
+print(f"Доверительный интервал, покрывающий среднее квадратичное отлонение сигма с заданной надежностью гамма = ({round((length / (length - 1) * D) ** 0.5, 10) * (1 - q)}; {round((length / (length - 1) * D) ** 0.5, 10) * (1 + q)})")
+print(f"Доверительным интервалом для сигма будет ({round((length / (length - 1) * D) ** 0.5, 10) * (1 - q)}; {round((length / (length - 1) * D) ** 0.5, 10) * (1 + q)})")
