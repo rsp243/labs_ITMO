@@ -1,0 +1,156 @@
+import json
+import numpy as np
+from sympy import sympify
+
+def checkInt(n):
+    if not n.isdigit():
+        print("Entered value is not an integer")
+        exit(-1)
+
+def checkSplittedStrOnCount(splittedStr, n):
+    if len(splittedStr) != n:
+        print(f"You entered incorrect count of values in matrix row")
+        exit(-1)
+
+def getFunc():
+    filename = "initfunc.json"
+    f = open(f"{filename}", "r")
+    bodyJson = f.read()
+    bodyDict = json.loads(bodyJson)
+    availibleFunc = bodyDict['functions']
+
+    print("Choose one function you would like to integrate")
+    for i in range(len(availibleFunc)):
+        print(f"{i + 1}. {availibleFunc[i]}")
+    num = input().strip()
+    while not num.isdigit() and num not in [x + 1 for x in range(len(availibleFunc))]:
+        print("You entered not integer or there is not function labeled with that integer - try again")
+        print("Choose one function you would like to integrate")
+        for i in range(len(availibleFunc)):
+            print(f"{i + 1}. {availibleFunc[i]}")
+        num = input().strip()
+
+    return sympify(availibleFunc[int(num) - 1])
+
+def getBoundariesN():
+    print("Enter boundaries in format 'a b'")
+    cin = input().strip().split(" ")
+    checkSplittedStrOnCount(cin, 2)
+    for i in range(len(cin)):
+        checkInt(cin[i])
+        cin[i] = int(cin[i])
+    a, b = cin
+    if abs(a) > abs(b):
+        a, b = b, a
+
+    print("Enter accuracy of calculations (in percents)")
+    cin = input().strip()
+    checkInt(cin)
+    acc = int(cin)
+
+    print("Enter start value of interval partion")
+    cin = input().strip()
+    checkInt(cin)
+    n = int(cin)
+
+    return (a, b, n, acc)
+
+def integrateSquare(func, a, b, n, acc):
+    print("What type of square's method you would like to integrate of chosen function?")
+    print("Enter 'l' to use left-square's method, 'r' to use right-square's method, or 'm' to use middle-square's method")
+    squaresType = input().strip()
+    while squaresType != 'l' and squaresType != 'r' and squaresType != 'm':
+        print("You entered not 'p', not 't', and not 's' - try again")
+        print("Enter 'l' to use left-square's method, 'r' to use right-square's method, or 'm' to use middle-square's method")
+        squaresType = input().strip()
+
+    print()
+    print("Execution:")
+    h = (b - a) / n
+    print(f"h = {h}")
+    x = np.arange(a, b + h, h)
+    print("Summing up below values ->")
+    sum = 0
+    if squaresType == "l":
+        print("0 <= i <= n - 1")
+        for i in range(n):
+            fValI = func.subs({'x': x[i]})
+            sum += fValI
+            print(f"f(x_{i}) = f({'%7.4f' % x[i]}) = {'%7.4f' % fValI}")
+    elif squaresType == "r":
+        print("1 <= i <= n")
+        for i in range(1, n + 1):
+            fValI = func.subs({'x': x[i - 1]}) 
+            sum += fValI
+            print(f"f(x_{i}) = f({'%7.4f' % x[i - 1]}) = {'%7.4f' % fValI}")
+    else:
+        print("1 <= i <= n")
+        for i in range(1, n + 1):
+            fValI = func.subs({'x': (x[i - 1] + x[i]) / 2})
+            sum += fValI
+            print(f"f(x_({i}-1/2)) = f({'%7.4f' % ((x[i - 1] + x[i]) / 2)}) = {'%7.4f' % fValI}")
+    return sum * h
+
+def integrateTrapetion(func, a, b, n, acc):
+    print()
+    print("Execution:")
+    h = (b - a) / n
+    print(f"h = {h}")
+    x = np.arange(a, b + h, h)
+    sum = 0
+    print("Summing up below values ->")
+    print("1 <= i <= n - 1")
+    for i in range(1, n):
+        fValI = func.subs({'x': x[i]})
+        sum += fValI
+        print(f"f(x_{i}) = f({'%7.4f' % x[i]}) = {'%7.4f' % fValI}")
+    sum += (func.subs({'x': x[0]}) + func.subs({'x': x[n]})) / 2
+    print(f"(f(x_0) + f(x_n)) / 2 = {'%7.4f' % ((func.subs({'x': x[0]}) + func.subs({'x': x[n]})) / 2)}")
+
+    return sum * h
+
+def integrateSimpson(func, a, b, n, acc):
+    print()
+    print("Execution:")
+    h = (b - a) / n
+    print(f"h = {h}")
+    x = np.arange(a, b + h, h)
+    sum = func.subs({'x': x[0]})
+    print("Summing up below values ->")
+    print(f"f(x_0) = f({'%7.4f' % x[0]}) = {'%7.4f' % sum}")
+    print("1 <= i <= n - 1")
+    for i in range(1, n):
+        fValI = func.subs({'x': x[i]})
+        if i % 2:
+            sum += 4 * fValI
+            print(f"4 * f(x_{i}) = 4 * f({'%7.4f' % x[i]}) = {'%7.4f' % (4 * fValI)}")
+        else:
+            sum += 2 * fValI
+            print(f"2 * f(x_{i}) = 2 * f({'%7.4f' % x[i]}) = {'%7.4f' % (2 * fValI)}")
+    sum += func.subs({'x': x[n]})
+    print(f"f(x_0) = f({'%7.4f' % x[n]}) = {'%7.4f' % func.subs({'x': x[n]})}")
+
+    return sum * h / 3
+
+print("Var: 11.")
+print("Integration of functions.")
+
+func = getFunc()
+a, b, n, acc = getBoundariesN()
+
+print("What method you would like to integrate of chosen function?")
+print("Enter 'p' to use square's method, 't' to use trapetion's method, or 's' to use Simpson's method")
+integrationMethod = input().strip()
+while integrationMethod != 'p' and integrationMethod != 't' and integrationMethod != 's':
+    print("You entered not 'p', not 't', and not 's' - try again")
+    print("Enter 'p' to use square's method, 't' to use trapetion's method, or 's' to use Simpson's method")
+    integrationMethod = input().strip()
+
+if integrationMethod == 'p':
+    result = integrateSquare(func, a, b, n, acc)
+elif integrationMethod == 't':
+    result = integrateTrapetion(func, a, b, n, acc)
+else:
+    result = integrateSimpson(func, a, b, n, acc)
+print()
+print(f"Result of integration of chosen function using chosen integration method = {'%7.4f' % result}")
