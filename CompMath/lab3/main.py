@@ -198,7 +198,8 @@ print()
 print(f"Executing integration using entered accuration of calculations")
 if integrationMethod == 'p':
     fSec = getSecondDerivative(func)
-    maxValue = max([fSec.subs({'x': value}) for value in np.arange(a, b + acc, acc)])
+    fSecValList = [fSec.subs({'x': value}) for value in np.arange(a, b + 1, 1)]
+    maxValue = max(fSecValList)
     nNew = int(np.ceil(np.sqrt(float(maxValue * (b - a) ** 3 / (24 * acc)))))
     print(f"Derivative of function = {fSec}")
     print(f"Max value of function in range ({a}, {b}) = {maxValue}")
@@ -206,7 +207,8 @@ if integrationMethod == 'p':
     result, _ = integrateSquare(func, a, b, nNew, squaresType)
 elif integrationMethod == 't':
     fSec = getSecondDerivative(func)
-    maxValue = max([fSec.subs({'x': value}) for value in np.arange(a, b + acc, acc)])
+    fSecValList = [fSec.subs({'x': value}) for value in np.arange(a, b + 1, 1)]
+    maxValue = max(fSecValList)
     nNew = int(np.ceil(np.sqrt(float(maxValue * (b - a) ** 3 / (12 * acc)))))
     print(f"Derivative of function = {fSec}")
     print(f"Max value of function in range ({a}, {b}) = {maxValue}")
@@ -215,12 +217,14 @@ elif integrationMethod == 't':
 else:
     fSec = getSecondDerivative(func)
     fForth = getSecondDerivative(fSec)
-    maxValue = max([fForth.subs({'x': value}) for value in np.arange(a, b + acc, acc)])
+    fSecValList = [fSec.subs({'x': value}) for value in np.arange(a, b + 1, 1)]
+    maxValue = max(fSecValList)
     nNew = int(np.ceil(np.sqrt(np.sqrt(float(maxValue * (b - a) ** 5 / (180 * acc))))))
     print(f"Derivative of function = {fSec}")
     print(f"Max value of function in range ({a}, {b}) = {maxValue}")
     print(f"New n = {nNew}")
     result = integrateSimpson(func, a, b, nNew)
+print(f"Result = {result}")
 errorApproximate = abs(result - accurateResult)
 print(f"|R| = |I - Iac| = {errorApproximate}")
 print(f"Is accuracy was reached? {'YES' if errorApproximate < acc else 'NO'}")
