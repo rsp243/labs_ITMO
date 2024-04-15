@@ -17,6 +17,11 @@ def checkSplittedStrOnCount(splittedStr, n):
         print(f"You entered incorrect count of values in matrix row")
         exit(-1)
 
+def checkDet(det):
+    if det == 0:
+        print(f"Impossible to solve entered system of equations")
+        exit(-1)
+
 def getFloatMatrix(m):
     n = len(m)
     for i in range(n):
@@ -195,6 +200,7 @@ for x in range(n):
 
 det = getDeterminant(m, k)
 print(f"Determinant of matrix = {det}")
+checkDet(det)
 
 print()
 xList = getSolution(m, r)
