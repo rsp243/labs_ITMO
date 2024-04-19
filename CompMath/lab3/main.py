@@ -50,16 +50,25 @@ def getBoundariesN():
     a, b = cin
     if abs(a) > abs(b):
         a, b = b, a
+    if a == b:
+        print(f"You entered two equal boundaries")
+        exit(-1)
 
     print("Enter accuracy of calculations")
     cin = input().strip()
     isFloat(cin)
     acc = float(cin)
+    if acc <= 0:
+        print(f"Accurancy cannot be 0 or less than <")
+        exit(-1)
 
-    print("Enter start value of interval partion")
+    print("Enter count of interval partion")
     cin = input().strip()
     checkInt(cin)
     n = int(cin)
+    if n <= 0:
+        print(f"count of interval partion cannot be 0 or less than 0")
+        exit(-1)
 
     return (a, b, n, acc)
 
