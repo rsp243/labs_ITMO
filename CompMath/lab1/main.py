@@ -135,18 +135,18 @@ def getTriangleSystem(matrix, resultList):
 
     return matrix, resultList, count
 
-def getDeterminant(matrix, k):
+def getDeterminant(matrix):
     n = len(matrix)
     p = 1
     for i in range(n):
         p *= m[i][i]
-    return (-1) ** (k - 1) * p
+    return p
 
 def getSolution(matrix, resultList):
     n = len(matrix)
     xList = [0 for _ in range(n)]
     
-    for i in range(n - 1, 0, -1):
+    for i in range(n - 1, -1, -1):
         b = resultList[i]
         for j in range(n - 1, i, -1):
             b -= matrix[i][j] * xList[j]
@@ -198,7 +198,7 @@ for x in range(n):
         print("%7.4f" % m[x][q], end=" ")
     print("%7.4f" % r[x])
 
-det = getDeterminant(m, k)
+det = getDeterminant(m)
 print(f"Determinant of matrix = {det}")
 checkDet(det)
 
