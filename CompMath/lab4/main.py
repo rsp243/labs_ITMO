@@ -213,7 +213,7 @@ def getLinearFunction(xArray, yArray):
 
     linSol = getLinearABCoeficients(xArray, yArray)
     funcP1 = sympify(f"{'%.4f' % linSol[0]} * x + {'%.4f' % linSol[1]}")
-    output.write("P_1(x) =", funcP1)
+    output.write(f"P_1(x) = {funcP1}")
     yArrayP1 = getyArray(funcP1, xArray)
     epsilonArrayP1 = getEpsilonArray(yArray, yArrayP1)
     sP1 = sum(getArrayWithElemInDegree(epsilonArrayP1, 2))
@@ -248,7 +248,7 @@ def getSecondDegreePolinomialFunction(xArray, yArray):
     resultNP = np.array(result)
     polSquareSol = np.linalg.inv(matrixNP).dot(resultNP)
     funcP2 = sympify(f"{'%.4f' % polSquareSol[2]} * x^2 + {'%.4f' % polSquareSol[1]} * x + {'%.4f' % polSquareSol[0]}")
-    output.write("P_2(x) =", funcP2)
+    output.write(f"P_2(x) = {funcP2}")
     yArrayP2 = getyArray(funcP2, xArray)
     epsilonArrayP2 = getEpsilonArray(yArray, yArrayP2)
     sP2 = sum(getArrayWithElemInDegree(epsilonArrayP2, 2))
@@ -287,7 +287,7 @@ def getThirdDegreePolinomialFunction(xArray, yArray):
     resultNP = np.array(result)
     thirdDegreePolSol = np.linalg.inv(matrixNP).dot(resultNP)
     funcP3 = sympify(f"{'%.4f' % thirdDegreePolSol[3]} * x^3 + {'%.4f' % thirdDegreePolSol[2]} * x^2 + {'%.4f' % thirdDegreePolSol[1]} * x + {'%.4f' % thirdDegreePolSol[0]}")
-    output.write("P_3(x) =", funcP3)
+    output.write(f"P_3(x) = {funcP3}")
     yArrayP3 = getyArray(funcP3, xArray)
     epsilonArrayP3 = getEpsilonArray(yArray, yArrayP3)
     sP3 = sum(getArrayWithElemInDegree(epsilonArrayP3, 2))
@@ -300,10 +300,10 @@ def getPowerFunction(xArray, yArray):
     output.write("Calculating power function")
     funcP4 = 0
     linSol = getLinearABCoeficients(xArray, yArray)
-    if (not(abs(linSol[1]) < 1 or isSomeElemIsNegative(xArray))):
+    if (not isSomeElemIsNegative(xArray) or not abs(linSol[1]) < 1):
         aPowerCoef = math.e ** linSol[0]
         funcP4 = sympify(f"{'%.4f' % aPowerCoef} * x ^ {'%.4f' % linSol[1]}")
-        output.write("P_4(x) =", funcP4)
+        output.write(f"P_4(x) = {funcP4}")
         yArrayP4 = getyArray(funcP4, xArray)
         epsilonArrayP4 = getEpsilonArray(yArray, yArrayP4)
         sP4 = sum(getArrayWithElemInDegree(epsilonArrayP4, 2))
@@ -321,7 +321,7 @@ def getExponentialFunction(xArray, yArray):
     linSol = getLinearABCoeficients(xArray, yArray)
     aExpCoef = math.e ** linSol[0]
     funcP5 = sympify(f"{'%.4f' % aExpCoef} * e ^ ({'%.4f' % linSol[1]} * x)")
-    output.write("P_5(x) =", funcP5)
+    output.write(f"P_5(x) = {funcP5}")
     yArrayP5 = getyArray(funcP5, xArray)
     epsilonArrayP5 = getEpsilonArray(yArray, yArrayP5)
     sP5 = sum(getArrayWithElemInDegree(epsilonArrayP5, 2))
@@ -338,7 +338,7 @@ def getLogarithmFunction(xArray, yArray):
     if (not(isSomeElemIsNegative(xArray) or xArray.count(0) != 0)):
         aLogCoef = linSol[0]
         funcP6 = sympify(f"{'%.4f' % aLogCoef} * ln(x) + {'%.4f' % linSol[1]}")
-        output.write("P_6(x) =", funcP6)
+        output.write(f"P_6(x) = {funcP6}")
         yArrayP6 = getyArray(funcP6, xArray)
         epsilonArrayP6 = getEpsilonArray(yArray, yArrayP6)
         sP6 = sum(getArrayWithElemInDegree(epsilonArrayP6, 2))
@@ -426,7 +426,8 @@ epsilonP6 = 999999
 if funcP6:
     yArrayP6 = getyArray(funcP6, xArray)
     epsilonP6 = sum(getArrayWithElemInDegree(getEpsilonArray(yArray, yArrayP6), 2))
-    plt.plot(xArray, yArrayP6, label=str(funcP6))
+    plt.plot(xArray, yArrayP6, label=
+             str(funcP6))
 epsilonList = [epsilonP1, epsilonP2, epsilonP3, epsilonP4, epsilonP5, epsilonP6]
 funcList = [funcP1, funcP2, funcP3, funcP4, funcP5, funcP6]
 output.write(f"Minimum epsilon among all aproximate functions epsilons = {min(epsilonList)}")
