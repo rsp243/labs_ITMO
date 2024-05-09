@@ -376,7 +376,7 @@ else:
     func, a, b, h = fileInput()
 
 output = Output()
-output.initFileOrCLIOutput(output)
+output.initFileOrCLIOutput(fileOrCliOutput)
 
 n = int((b - a) / h) + 1
 xArray = getxArray(a, b, h)
