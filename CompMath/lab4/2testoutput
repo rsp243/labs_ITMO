@@ -37,7 +37,7 @@ e   -0.0489    0.0231    0.0646    0.0765    0.0663    0.0440    0.0181   -0.005
 S = sum(epsilon_i^2) = 0.0560617412860461
 
 
-Calculating second degree polinomial function
+Calculating third degree polinomial function
 SX = sum(x_i) = 253.0000
 SXX = sum(x_i^2) = 1715.8000
 SXXX = sum(x_i^3) = 13004.2000

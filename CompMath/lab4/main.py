@@ -15,8 +15,8 @@ class Output:
     file = 0
 
     def initFileOrCLIOutput(self, fileOrCliOutput):    
-        self.fileOrCliOutput = fileOrCliOutput
-        if fileOrCliOutput:
+        self.fileOrCliOutput = fileOrCliOutput == "1"
+        if fileOrCliOutput == "1":
             print("Enter filename for output")
             filename = input()
             try:
@@ -26,10 +26,10 @@ class Output:
                 exit(1)
 
     def write(self, string = "", end="\n"):
-        if not fileOrCliOutput:
-            print(string)
-            return
-        self.file.write(f"{string}{end}")
+        if fileOrCliOutput:
+            print(string, end=end)
+        else:
+            self.file.write(f"{string}{end}")
 
     def closeFile(self):
         if self.fileOrCliOutput:
@@ -206,7 +206,7 @@ def getPirconsCoeficient(xArray, yArray):
         sum2 += x_iMinusAvg ** 2
         sum3 += y_iMinusAvg ** 2
     
-    return sum1 / (sum2 * sum3) ** 0.5 
+    return sum1 / (sum2 * sum3) ** 0.5
 
 def getLinearFunction(xArray, yArray):
     output.write("Calculating linear function")
@@ -258,7 +258,7 @@ def getSecondDegreePolinomialFunction(xArray, yArray):
     return funcP2
 
 def getThirdDegreePolinomialFunction(xArray, yArray):
-    output.write("Calculating second degree polinomial function")
+    output.write("Calculating third degree polinomial function")
     s1x = sum(xArray)
     s2x = sum(getArrayWithElemInDegree(xArray, 2))
     s1y = sum(yArray)

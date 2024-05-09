@@ -1,0 +1,110 @@
+Table of X, Y, epsilon (if aproximate function has passed) values, calculated based on entered (and aproximate) function, interval and step
+X    1.0000    1.3000    1.6000    1.9000    2.2000    2.5000    2.8000 
+Y   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+
+Calculating linear function
+Calculating linear coeficients
+SX = sum(x_i) = 13.3000
+SXX = sum(x_i^2) = 27.7900
+SY = sum(y_i) = 84.0000
+SXY = sum(x_i * y_i) = 159.6000
+P_1(x) = 12.0000000000000
+Pirson's coefficient = nan
+
+Table of X, Y, epsilon (if aproximate function has passed) values, calculated based on entered (and aproximate) function, interval and step
+X    1.0000    1.3000    1.6000    1.9000    2.2000    2.5000    2.8000 
+Y   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+P   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+e    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000 
+S = sum(epsilon_i^2) = 0
+
+
+Calculating second degree polinomial function
+SX = sum(x_i) = 13.3000
+SXX = sum(x_i^2) = 27.7900
+SXXX = sum(x_i^3) = 62.3770
+SXXXX = sum(x_i^4) = 147.3955
+SY = sum(y_i) = 84.0000
+SXY = sum(x_i * y_i) = 159.6000
+SXXY = sum(x_i^2 * y_i) = 333.4800
+P_2(x) = 12.0000000000000
+
+Table of X, Y, epsilon (if aproximate function has passed) values, calculated based on entered (and aproximate) function, interval and step
+X    1.0000    1.3000    1.6000    1.9000    2.2000    2.5000    2.8000 
+Y   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+P   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+e    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000 
+S = sum(epsilon_i^2) = 0
+
+
+Calculating third degree polinomial function
+SX = sum(x_i) = 13.3000
+SXX = sum(x_i^2) = 27.7900
+SXXX = sum(x_i^3) = 62.3770
+SXXXX = sum(x_i^4) = 147.3955
+SXXXXX = sum(x_i^5) = 361.2559
+SXXXXXX = sum(x_i^6) = 909.0607
+SY = sum(y_i) = 84.0000
+SXY = sum(x_i * y_i) = 159.6000
+SXXY = sum(x_i^2 * y_i) = 333.4800
+SXXXY = sum(x_i^3 * y_i) = 748.5240
+P_3(x) = 12.0000000000000
+
+Table of X, Y, epsilon (if aproximate function has passed) values, calculated based on entered (and aproximate) function, interval and step
+X    1.0000    1.3000    1.6000    1.9000    2.2000    2.5000    2.8000 
+Y   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+P   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+e    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000 
+S = sum(epsilon_i^2) = 0
+
+
+Calculating power function
+Calculating linear coeficients
+SX = sum(x_i) = 13.3000
+SXX = sum(x_i^2) = 27.7900
+SY = sum(y_i) = 84.0000
+SXY = sum(x_i * y_i) = 159.6000
+P_4(x) = 1.0*x**12.0
+
+Table of X, Y, epsilon (if aproximate function has passed) values, calculated based on entered (and aproximate) function, interval and step
+X    1.0000    1.3000    1.6000    1.9000    2.2000    2.5000    2.8000 
+Y   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+P    1.0000   23.2981  281.4750 2213.3149 12855.0026 59604.6448 232218.2651 
+e   11.0000  -11.2981 -269.4750 -2201.3149 -12843.0026 -59592.6448 -232206.2651 
+S = sum(epsilon_i^2) = 57640894227.3712
+
+
+Calculating exponential function
+Calculating linear coeficients
+SX = sum(x_i) = 13.3000
+SXX = sum(x_i^2) = 27.7900
+SY = sum(y_i) = 84.0000
+SXY = sum(x_i * y_i) = 159.6000
+P_5(x) = 1.0*e**(12.0*x)
+
+Table of X, Y, epsilon (if aproximate function has passed) values, calculated based on entered (and aproximate) function, interval and step
+X    1.0000    1.3000    1.6000    1.9000    2.2000    2.5000    2.8000 
+Y   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+P 162754.7914 5956538.0132 217998774.6792 7978370264.1442 291994265405.6215 10686474581524.4453 391106102111034.9375 
+e -162742.7914 -5956526.0132 -217998762.6792 -7978370252.1442 -291994265393.6215 -10686474581512.4453 -391106102111022.9375 
+S = sum(epsilon_i^2) = 1.53078269171812E+29
+
+
+Calculating logarithm function
+Calculating linear coeficients
+SX = sum(x_i) = 13.3000
+SXX = sum(x_i^2) = 27.7900
+SY = sum(y_i) = 84.0000
+SXY = sum(x_i * y_i) = 159.6000
+P_6(x) = 12.0000000000000
+
+Table of X, Y, epsilon (if aproximate function has passed) values, calculated based on entered (and aproximate) function, interval and step
+X    1.0000    1.3000    1.6000    1.9000    2.2000    2.5000    2.8000 
+Y   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+P   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000   12.0000 
+e    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000 
+S = sum(epsilon_i^2) = 0
+
+
+Minimum epsilon among all aproximate functions epsilons = 0
+The most similar aproximate function = 12.0000000000000
