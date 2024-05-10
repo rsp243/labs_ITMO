@@ -1,5 +1,5 @@
 import numpy as np
-from sympy import Symbol, sympify, evalf
+from sympy import Symbol, sympify, evalf, diff, solve, Max
 import matplotlib.pyplot as plt
 import math
 
@@ -103,17 +103,18 @@ def fileInput():
     return (func, a, b, e)
 
 def printArrInColumns(*args):
-    output.write("%9s" % "Iteration", end=" ")
+    output.write("%15s" % "Iteration", end = " ")
     for i in range(len(args)):
-        output.write("%9s" % args[i].name, end = " ")
+        output.write("%15s" % args[i].name, end = " ")
     output.write()
 
     n = len(args[0].array)
-    for i in range(len(args)):
-        output.write("%9d" % i, end=" ")
-        for j in range(n):
-            output.write("%9.3f" % args[j].array[i], end=" ")
+    for j in range(n):
+        output.write("%15s" % j, end = " ")
+        for i in range(len(args)):
+            output.write("%15.3f" % args[i].array[j], end=" ")
         output.write()
+    output.write()
 
 def getXHalfDevisionMethod(func, a, b, e):
     output.write("Calculating with half devision method")
@@ -123,6 +124,8 @@ def getXHalfDevisionMethod(func, a, b, e):
     beginning = a
     end = b
     x_i = (beginning + end) / 2
+    
+    # output arrays initialization
     aArr = ArrayWithName("a", [])
     bArr = ArrayWithName("b", [])
     xArr = ArrayWithName("x", [])
@@ -131,13 +134,13 @@ def getXHalfDevisionMethod(func, a, b, e):
     fXArr = ArrayWithName("f(x)", [])
     diffArr = ArrayWithName("|a - b|", [])
 
-
     while (abs(func.subs({Symbol("x"): x_i})) > e and abs(beginning - end) > e):
         x_i = (beginning + end) / 2
         fBegVal = func.subs({Symbol("x"): beginning})
         fEndVal = func.subs({Symbol("x"): end})
         fXVal = func.subs({Symbol("x"): x_i})
         
+        # output arrays filling
         aArr.array.append(beginning)
         bArr.array.append(end)
         xArr.array.append(x_i)
@@ -154,6 +157,85 @@ def getXHalfDevisionMethod(func, a, b, e):
     printArrInColumns(aArr, bArr, xArr, fBegArr, fEndArr, fXArr, diffArr)
     return (beginning + end) / 2
 
+def getStartingPoints(func, a, b):
+    if func.subs({Symbol("x"): a}) * diff(diff(func)).subs({Symbol("x"): a}) > 0:
+        x_0 = a
+        x_1 = x_0 + abs(a - b) / 3
+    else:
+        x_0 = b
+        x_1 = x_0 - abs(b - a) / 3
+        
+    return [x_0, x_1]    
+
+def getXSecantMethod(func, a, b, e):
+    output.write("Calculating with secant method")
+    xArr = getStartingPoints(func, a, b)
+
+    # output arrays initialization
+    xiPrevArr = ArrayWithName("x_(i-1)", [])
+    xiArr = ArrayWithName("x_i", [])
+    xiNextArr = ArrayWithName("x_(i+1)", [])
+    fNextArr = ArrayWithName("f(x_(i+1))", [])
+    diffArr = ArrayWithName("|x_(i+1) - x_i|", [])
+    
+    i = 1
+    while abs(xArr[i] - xArr[i - 1]) > e and abs(func.subs({Symbol("x"): xArr[i]})) > e:
+        f_x_i = func.subs({Symbol("x"): xArr[i]})
+        xArr.append(xArr[i] - (xArr[i] - xArr[i - 1]) * f_x_i / (f_x_i - func.subs({Symbol("x"): xArr[i - 1]})))
+
+        # output arrays filling
+        xiPrevArr.array.append(xArr[i - 1])
+        xiArr.array.append(xArr[i])
+        xiNextArr.array.append(xArr[i + 1])
+        fNextArr.array.append(func.subs({Symbol("x"): xArr[i + 1]}))
+        diffArr.array.append(abs(xArr[i + 1] - xArr[i]))
+
+        i += 1
+    printArrInColumns(xiPrevArr, xiArr, xiNextArr, fNextArr, diffArr)
+    
+    return xArr[i]
+
+def getPhiFunc(func, a, b):
+    func_hatch = diff(func) # differential of func
+    lam = - 1 / (Max(abs(func_hatch.subs({Symbol("x"): a})), abs(func_hatch.subs({Symbol("x"): a}))))
+    phi = sympify(f"x + {lam} * ({func})")
+        
+    return phi
+
+def getXSimpleIterationMethod(func, a, b, e):
+    output.write("Calculating with method of simple iterations")
+    phi = getPhiFunc(func, a, b)
+    x_0 = getStartingPoints(func, a, b)[0]
+    q = min(abs(diff(phi).subs({Symbol("x"): a})), abs(diff(phi).subs({Symbol("x"): b})))
+    if q >= 1 or q < 0:
+        output.write("Iterational sequence of method of simple iterations {x_n} does not converge to the root of the equation.")
+        return
+    xArr = [x_0]
+    xArr.append(phi.subs({Symbol("x"): x_0}))
+    i = 0
+
+    # output arrays initialization
+    xiArr = ArrayWithName("x_i", [xArr[i]])
+    xiNextArr = ArrayWithName("x_(i+1)", [xArr[i + 1]])
+    phiNextArr = ArrayWithName("φ(x_(i+1))", [phi.subs({Symbol("x"): xArr[i + 1]})])
+    fNextArr = ArrayWithName("f(x_(i+1))", [func.subs({Symbol("x"): xArr[i + 1]})])
+    diffArr = ArrayWithName("|x_(i+1) - x_i|", [abs(xArr[i] - xArr[i + 1])])
+
+    i += 1
+    while (abs(xArr[i] - xArr[i - 1]) > e):
+        xArr.append(phi.subs({Symbol("x"): xArr[i]}))
+        
+        # output arrays filling
+        xiArr.array.append(xArr[i])
+        xiNextArr.array.append(xArr[i + 1])
+        phiNextArr.array.append(phi.subs({Symbol("x"): xArr[i + 1]}))
+        fNextArr.array.append(func.subs({Symbol("x"): xArr[i + 1]}))
+        diffArr.array.append(abs(xArr[i] - xArr[i + 1]))
+        
+        i += 1
+    printArrInColumns(xiArr, xiNextArr, phiNextArr, fNextArr, diffArr)
+    
+    return xArr[i]
 
 
 print("Var: 11.")
@@ -185,3 +267,7 @@ output.initFileOrCLIOutput(fileOrCliOutput)
 
 # methods - метод половинного деления, метод секущих, метод простой итерации, системы - метод Ньютона
 output.write(getXHalfDevisionMethod(func, a, b, e))
+
+output.write(getXSecantMethod(func, a, b, e))
+
+output.write(getXSimpleIterationMethod(func, a, b, e))
