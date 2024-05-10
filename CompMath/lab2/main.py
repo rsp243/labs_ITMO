@@ -43,6 +43,22 @@ class ArrayWithName:
         self.name = name
         self.array = array
 
+def getxArray(a, b, h):
+    n = int((b - a) / h) + 1
+    xArray = [0 for _ in range(n)]
+    i = 0
+    while (i < n):
+        xArray[i] = a + h * i
+        i += 1
+    
+    return xArray
+
+def getyArray(func, xArray):
+    yArray = [0 for _ in range(len(xArray))]
+    for i in range(len(xArray)):
+        yArray[i] = func.subs({Symbol("x"): xArray[i], Symbol("e"): math.e})
+
+    return yArray
 
 def checkSplittedStrOnCount(splittedStr, n):
     if len(splittedStr) != n:
@@ -50,10 +66,24 @@ def checkSplittedStrOnCount(splittedStr, n):
         exit(-1)
 
 def cliInput():
-    print("Enter function")
+    print("Enter function or functions (for system of equations)")
 
     func = input().strip()
     func = sympify(func)
+    funcArr = [func]
+    
+    systemOrOneEquation = ''
+    while (systemOrOneEquation != '0'):
+        print("Continue entering functions for system of equations?")    
+        print("Enter '1' to enter more functions, or '0' to continue entered function(-s)")
+        systemOrOneEquation = input().strip()
+        while systemOrOneEquation != '0' and systemOrOneEquation != '1':
+            print("You entered not '1' and not '0' - try again")
+            print("Enter '1' to enter more functions, or '0' to continue entered function(-s)")
+            systemOrOneEquation = input().strip()
+        func = input().strip()
+        funcArr.append(sympify(func))
+    
 
     print("Enter x interval of function in format 'a b'. a and b included into interval")
     boundariesSplittedStr = input().strip().split(" ")
@@ -72,7 +102,7 @@ def cliInput():
     isFloat(e)
     e = float(e)
     
-    return (func, a, b, e)
+    return (funcArr, a, b, e)
 
 def fileInput():
     print("Enter filename for input")
@@ -83,10 +113,25 @@ def fileInput():
         print("There is no file with that name, or there is no permissions to read it")
         exit(1)
 
-    func = f.readline().strip()
-    func = sympify(func)
-
-    boundariesSplittedStr = f.readline().strip().split(" ")
+    lines = f.readlines()
+    print(lines)
+    funcArr = []
+    i = 0
+    while i < len(lines) - 2:
+        parts = lines[i].strip().split("=")
+        if len(parts) > 2:
+            print("You've entered wrong equations. There is equation with 2 signs '='")
+            exit(1)
+        if len(parts) > 1:
+            funcStr = str(parts[0]) + " - (" + str(parts[1]) + ")"
+        else:
+            funcStr = lines[i].strip()
+        func = sympify(funcStr)
+        funcArr.append(func)
+        
+        i += 1
+    
+    boundariesSplittedStr = lines[i].strip().split(" ")
     checkSplittedStrOnCount(boundariesSplittedStr, 2)
     a = float(boundariesSplittedStr[0])
     b = float(boundariesSplittedStr[1])
@@ -96,23 +141,23 @@ def fileInput():
         print(f"You entered two equal boundaries")
         exit(-1)
 
-    e = f.readline().strip()
+    e = lines[i + 1].strip()
     isFloat(e)
     e = float(e)
     
-    return (func, a, b, e)
+    return (funcArr, a, b, e)
 
 def printArrInColumns(*args):
-    output.write("%15s" % "Iteration", end = " ")
+    output.write("%16s" % "Iteration", end = " ")
     for i in range(len(args)):
-        output.write("%15s" % args[i].name, end = " ")
+        output.write("%16s" % args[i].name, end = " ")
     output.write()
 
     n = len(args[0].array)
     for j in range(n):
-        output.write("%15s" % j, end = " ")
+        output.write("%16s" % j, end = " ")
         for i in range(len(args)):
-            output.write("%15.3f" % args[i].array[j], end=" ")
+            output.write("%16.4f" % args[i].array[j], end=" ")
         output.write()
     output.write()
 
@@ -237,6 +282,53 @@ def getXSimpleIterationMethod(func, a, b, e):
     
     return xArr[i]
 
+def getSystemOfEquation(funcArr, *args):
+    symbolsArr = sorted(list(set(str(j) for i in range(len(funcArr)) for j in funcArr[i].free_symbols)))
+
+    matrix = [[0 for _ in range(len(symbolsArr))] for _ in range(len(funcArr))]
+    for symIndex in range(len(symbolsArr)):
+        for funcIndex in range(len(funcArr)):
+            # print(diff(funcArr[funcIndex], symbolsArr[symIndex]))
+            matrix[funcIndex][symIndex] = sympify("(" + str(diff(funcArr[funcIndex], symbolsArr[symIndex])) + f") * delta_{str(symbolsArr[symIndex])}")
+            for i in range(len(symbolsArr)):
+                matrix[funcIndex][symIndex] = matrix[funcIndex][symIndex].subs({symbolsArr[i]: args[i]})
+
+    return matrix
+
+def getXNewtonMethodSystem(funcArr, e, *args):
+    matrix = getSystemOfEquation(funcArr, *args)
+    result = []
+    print(args)
+    symbolsArr = sorted(list(set(str(j) for i in range(len(funcArr)) for j in funcArr[i].free_symbols)))
+    print(symbolsArr)
+    for funcIndex in range(len(funcArr)):
+        result.append(-1 * (funcArr[funcIndex]))
+        for i in range(len(symbolsArr)):
+            result[funcIndex] = result[funcIndex].subs({Symbol(symbolsArr[i]): args[i]})
+            print(result[funcIndex])
+
+    print(matrix)
+    print(result)
+    x_i = np.linalg.solve(matrix, result)
+    print(x_i)
+
+def getSolutionOfOneEquation(func, a, b, e):
+    output.write(f"Function crosses y=0 in x (found using half devision method) = {'%.4f' % getXHalfDevisionMethod(func, a, b, e)}")
+
+    output.write(f"Function crosses y=0 in x (found using secant method) = {'%.4f' % getXSecantMethod(func, a, b, e)}")
+
+    output.write(f"Function crosses y=0 in x (found using method of simple iterations) = {'%.4f' % getXSimpleIterationMethod(func, a, b, e)}")
+
+    xArray = getxArray(a, b, 0.1)
+    yArray = getyArray(func, xArray)
+    plt.plot(xArray, yArray, label=str(func))
+    plt.axhline(y=0, color='black', linestyle='--')
+    plt.legend(loc="upper left")
+    plt.show()
+    
+def getSolutionOfSystem(funcArr, a, b, e):
+    output.write(getXNewtonMethodSystem(funcArr, a, b, e))
+
 
 print("Var: 11.")
 print("Numerical solution of nonlinear equations and of system of nonlinear equations.")
@@ -258,16 +350,28 @@ while fileOrCliOutput != '0' and fileOrCliOutput != '1':
     fileOrCliOutput = input().strip()
 
 if fileOrCliInput == "0":
-    func, a, b, e = cliInput()
+    funcArr, a, b, e = cliInput()
 else:
-    func, a, b, e = fileInput()
+    funcArr, a, b, e = fileInput()
 
 output = Output()
 output.initFileOrCLIOutput(fileOrCliOutput)
 
+if len(funcArr) != 1:
+    getSolutionOfSystem(funcArr, e, a, b)
+else:
+    getSolutionOfOneEquation(funcArr[0], a, b, e)
+
 # methods - метод половинного деления, метод секущих, метод простой итерации, системы - метод Ньютона
-output.write(getXHalfDevisionMethod(func, a, b, e))
 
-output.write(getXSecantMethod(func, a, b, e))
+# print("""
+# x ** 2 + y ** 2 = 4
+# y = 3 * x ** 2
+# """)
+# f = "x ** 2 + y ** 2 = 4".split("=")
+# g = "y = 3 * x ** 2".split("=")
 
-output.write(getXSimpleIterationMethod(func, a, b, e))
+# print(f)
+# print(g)
+# part = solve(str(f[0]) + " - (" + str(f[1]) + ")")
+# print(part)
