@@ -289,28 +289,44 @@ def getSystemOfEquation(funcArr, *args):
     for symIndex in range(len(symbolsArr)):
         for funcIndex in range(len(funcArr)):
             # print(diff(funcArr[funcIndex], symbolsArr[symIndex]))
-            matrix[funcIndex][symIndex] = sympify("(" + str(diff(funcArr[funcIndex], symbolsArr[symIndex])) + f") * delta_{str(symbolsArr[symIndex])}")
+            matrix[funcIndex][symIndex] = sympify(diff(funcArr[funcIndex], symbolsArr[symIndex]))
             for i in range(len(symbolsArr)):
                 matrix[funcIndex][symIndex] = matrix[funcIndex][symIndex].subs({symbolsArr[i]: args[i]})
+
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            matrix[i][j] = float(matrix[i][j])
 
     return matrix
 
 def getXNewtonMethodSystem(funcArr, e, *args):
+    argsNext = args
     matrix = getSystemOfEquation(funcArr, *args)
-    result = []
-    print(args)
     symbolsArr = sorted(list(set(str(j) for i in range(len(funcArr)) for j in funcArr[i].free_symbols)))
-    print(symbolsArr)
-    for funcIndex in range(len(funcArr)):
-        result.append(-1 * (funcArr[funcIndex]))
-        for i in range(len(symbolsArr)):
-            result[funcIndex] = result[funcIndex].subs({Symbol(symbolsArr[i]): args[i]})
-            print(result[funcIndex])
+    isSolutionFound = False
 
-    print(matrix)
-    print(result)
-    x_i = np.linalg.solve(matrix, result)
-    print(x_i)
+    while not isSolutionFound:
+        result = []
+        args = argsNext
+        for funcIndex in range(len(funcArr)):
+            result.append(-1 * (funcArr[funcIndex]))
+            for i in range(len(symbolsArr)):
+                result[funcIndex] = result[funcIndex].subs({Symbol(symbolsArr[i]): args[i]})
+                print(result[funcIndex])
+
+        for i in range(len(result)):
+            result[i] = float(result[i])
+
+        print(matrix)
+        print(result)
+        approximation = np.linalg.solve(matrix, result)
+        print(approximation)
+        for i in range(len(argsNext)):
+            argsNext += approximation
+            if abs(argsNext[i] - args[i]) <= e:
+                isSolutionFound = True
+    
+    return argsNext
 
 def getSolutionOfOneEquation(func, a, b, e):
     output.write(f"Function crosses y=0 in x (found using half devision method) = {'%.4f' % getXHalfDevisionMethod(func, a, b, e)}")
