@@ -1,5 +1,5 @@
 import numpy as np
-from sympy import Symbol, sympify, evalf, diff, solve, Max
+from sympy import Symbol, sympify, evalf, diff, solve, Max, lambdify
 import matplotlib.pyplot as plt
 import math
 
@@ -53,10 +53,10 @@ def getxArray(a, b, h):
     
     return xArray
 
-def getyArray(func, xArray):
+def getyArray(func, xArray, symbol):
     yArray = [0 for _ in range(len(xArray))]
     for i in range(len(xArray)):
-        yArray[i] = func.subs({Symbol("x"): xArray[i], Symbol("e"): math.e})
+        yArray[i] = func.subs({symbol: xArray[i], Symbol("e"): math.e})
 
     return yArray
 
@@ -66,10 +66,18 @@ def checkSplittedStrOnCount(splittedStr, n):
         exit(-1)
 
 def cliInput():
-    print("Enter function or functions (for system of equations)")
+    print("Enter function, equation or equations (for system of equations)")
 
     func = input().strip()
-    func = sympify(func)
+    parts = input().strip().split("=")
+    if len(parts) > 2:
+        print("You've entered wrong equations. There is equation with 2 signs '='")
+        exit(1)
+    if len(parts) > 1:
+        funcStr = str(parts[0]) + " - (" + str(parts[1]) + ")"
+    else:
+        funcStr = func.strip()
+    func = sympify(funcStr)
     funcArr = [func]
     
     systemOrOneEquation = ''
@@ -81,9 +89,18 @@ def cliInput():
             print("You entered not '1' and not '0' - try again")
             print("Enter '1' to enter more functions, or '0' to continue entered function(-s)")
             systemOrOneEquation = input().strip()
+        print("Enter function or equation")
         func = input().strip()
-        funcArr.append(sympify(func))
-    
+        parts = input().strip().split("=")
+        if len(parts) > 2:
+            print("You've entered wrong equations. There is equation with 2 signs '='")
+            exit(1)
+        if len(parts) > 1:
+            funcStr = str(parts[0]) + " - (" + str(parts[1]) + ")"
+        else:
+            funcStr = func.strip()
+        func = sympify(funcStr)
+        funcArr.append(func)
 
     print("Enter x interval of function in format 'a b'. a and b included into interval")
     boundariesSplittedStr = input().strip().split(" ")
@@ -114,7 +131,6 @@ def fileInput():
         exit(1)
 
     lines = f.readlines()
-    print(lines)
     funcArr = []
     i = 0
     while i < len(lines) - 2:
@@ -282,9 +298,37 @@ def getXSimpleIterationMethod(func, a, b, e):
     
     return xArr[i]
 
-def getSystemOfEquation(funcArr, *args):
-    symbolsArr = sorted(list(set(str(j) for i in range(len(funcArr)) for j in funcArr[i].free_symbols)))
+def getSymbolsArr(funcArr):
+    return sorted(list(set(str(j) for i in range(len(funcArr)) for j in funcArr[i].free_symbols)))
 
+def outputSystemOfEquations(matrix, result, symbolsArr):
+    output.write("System of equations to solve:")
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            output.write(matrix[i][j], end=f" * delta_{symbolsArr[j]} ")
+        output.write(f"= {result[i]}")
+
+def outputFoundApproximations(approximation, symbolsArr):
+    output.write("Solution of system of equations:")
+    for i in range(len(symbolsArr)):
+        output.write(f"delta_{symbolsArr[i]} = {approximation[i]}")
+
+def outputArgsValWithName(symbolsArr, argsVal):
+    output.write("New values of variables:")
+    result = dict()
+    for i in range(len(symbolsArr)):
+        result[symbolsArr[i]] = argsVal[i]
+        output.write(f"{symbolsArr[i]} = {argsVal[i]}")
+    
+    return result
+        
+def getSystemOfEquation(funcArr, symbolsArr, *args):
+    '''
+    function create matrix of left part of system of equation of Newton's method
+    calculate differentials of each function in each symbol in entered equations
+    result matrix have to be multiplied by matrix of (delta_{SYMBOL_1}, delta_{SYMBOL_2}, ...)^T to be equal matrix of passed functions
+    '''
+    
     matrix = [[0 for _ in range(len(symbolsArr))] for _ in range(len(funcArr))]
     for symIndex in range(len(symbolsArr)):
         for funcIndex in range(len(funcArr)):
@@ -299,35 +343,50 @@ def getSystemOfEquation(funcArr, *args):
 
     return matrix
 
-def getXNewtonMethodSystem(funcArr, e, *args):
+def getXNewtonMethodSystem(funcArr, e, symbolsArr, *args):
     argsNext = args
-    matrix = getSystemOfEquation(funcArr, *args)
-    symbolsArr = sorted(list(set(str(j) for i in range(len(funcArr)) for j in funcArr[i].free_symbols)))
+    matrix = getSystemOfEquation(funcArr, symbolsArr, *args)
     isSolutionFound = False
 
+    iterCounter = 0
     while not isSolutionFound:
+        output.write(f"Iteration {iterCounter}")
         result = []
         args = argsNext
         for funcIndex in range(len(funcArr)):
             result.append(-1 * (funcArr[funcIndex]))
             for i in range(len(symbolsArr)):
                 result[funcIndex] = result[funcIndex].subs({Symbol(symbolsArr[i]): args[i]})
-                print(result[funcIndex])
+                # print(result[funcIndex])
 
         for i in range(len(result)):
             result[i] = float(result[i])
 
-        print(matrix)
-        print(result)
+        outputSystemOfEquations(matrix, result, symbolsArr)
         approximation = np.linalg.solve(matrix, result)
-        print(approximation)
+        outputFoundApproximations(approximation, symbolsArr)
         for i in range(len(argsNext)):
             argsNext += approximation
             if abs(argsNext[i] - args[i]) <= e:
                 isSolutionFound = True
+        
+        outputArgsValWithName(symbolsArr, argsNext)
+        output.write()
+        iterCounter += 1
+    output.write(f"Solution found with {iterCounter} iterations")
     
-    return argsNext
+    return outputArgsValWithName(symbolsArr, argsNext) 
 
+def drawAFuncInInterval(func, symbolsArr, xStart, yStart):    
+    Z_func = lambdify((symbolsArr[0], symbolsArr[1]), func, modules='numpy')
+
+    xLinSpace = np.linspace(xStart - 3, xStart + 3, 100)
+    yLinSpace = np.linspace(yStart - 3, yStart + 3, 100)
+    x, y = np.meshgrid(xLinSpace, yLinSpace)    
+
+    plt.contour(x, y, Z_func(x, y), levels=[0])
+    plt.gca().set_aspect('equal', adjustable='box')
+    
 def getSolutionOfOneEquation(func, a, b, e):
     output.write(f"Function crosses y=0 in x (found using half devision method) = {'%.4f' % getXHalfDevisionMethod(func, a, b, e)}")
 
@@ -342,8 +401,15 @@ def getSolutionOfOneEquation(func, a, b, e):
     plt.legend(loc="upper left")
     plt.show()
     
-def getSolutionOfSystem(funcArr, a, b, e):
-    output.write(getXNewtonMethodSystem(funcArr, a, b, e))
+def getSolutionOfSystem(funcArr, e, *args):
+    symbolsArr = getSymbolsArr(funcArr)
+    result = getXNewtonMethodSystem(funcArr, e, symbolsArr, *args)
+    output.write(f"Solution: {result}")
+    if len(getSymbolsArr(funcArr)) < 3:
+        for func in funcArr:
+            drawAFuncInInterval(func, symbolsArr, result[symbolsArr[0]], result[symbolsArr[1]])
+
+    plt.show()
 
 
 print("Var: 11.")
@@ -379,15 +445,3 @@ else:
     getSolutionOfOneEquation(funcArr[0], a, b, e)
 
 # methods - метод половинного деления, метод секущих, метод простой итерации, системы - метод Ньютона
-
-# print("""
-# x ** 2 + y ** 2 = 4
-# y = 3 * x ** 2
-# """)
-# f = "x ** 2 + y ** 2 = 4".split("=")
-# g = "y = 3 * x ** 2".split("=")
-
-# print(f)
-# print(g)
-# part = solve(str(f[0]) + " - (" + str(f[1]) + ")")
-# print(part)
