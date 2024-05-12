@@ -43,6 +43,20 @@ class ArrayWithName:
         self.name = name
         self.array = array
 
+def verifySolutionInInterval(func, a, b, symbol):
+    f_a = func.subs({symbol: a})
+    f_b = func.subs({symbol: b})
+    if f_a * f_b > 0:
+        print(f"There are no solutions in interval [{a}, {b}] for {func}")
+        exit(1)
+    
+    diff_func = diff(func, symbol)
+    diff_func_a = diff_func.subs({symbol: a})
+    diff_func_b = diff_func.subs({symbol: b})
+    if diff_func_a * diff_func_b < 0:
+        print(f"There are more than one solution in interval [{a}, {b}] for {func}")
+        exit(1)
+
 def getxArray(a, b, h):
     n = int((b - a) / h) + 1
     xArray = [0 for _ in range(n)]
@@ -266,6 +280,7 @@ def getPhiFunc(func, a, b):
 def getXSimpleIterationMethod(func, a, b, e):
     output.write("Calculating with method of simple iterations")
     phi = getPhiFunc(func, a, b)
+    output.write(f"Found φ function: φ = {phi}")
     x_0 = getStartingPoints(func, a, b)[0]
     q = min(abs(diff(phi).subs({Symbol("x"): a})), abs(diff(phi).subs({Symbol("x"): b})))
     if q >= 1 or q < 0:
@@ -388,14 +403,18 @@ def drawAFuncInInterval(func, symbolsArr, xStart, yStart):
     plt.gca().set_aspect('equal', adjustable='box')
     
 def getSolutionOfOneEquation(func, a, b, e):
+    symbolsArr = getSymbolsArr([func])
+    verifySolutionInInterval(func, a, b, symbolsArr[0])
+    
     output.write(f"Function crosses y=0 in x (found using half devision method) = {'%.4f' % getXHalfDevisionMethod(func, a, b, e)}")
 
     output.write(f"Function crosses y=0 in x (found using secant method) = {'%.4f' % getXSecantMethod(func, a, b, e)}")
 
     output.write(f"Function crosses y=0 in x (found using method of simple iterations) = {'%.4f' % getXSimpleIterationMethod(func, a, b, e)}")
 
+    output.closeFile()
     xArray = getxArray(a, b, 0.1)
-    yArray = getyArray(func, xArray)
+    yArray = getyArray(func, xArray, symbolsArr[0])
     plt.plot(xArray, yArray, label=str(func))
     plt.axhline(y=0, color='black', linestyle='--')
     plt.legend(loc="upper left")
@@ -408,7 +427,7 @@ def getSolutionOfSystem(funcArr, e, *args):
     if len(getSymbolsArr(funcArr)) < 3:
         for func in funcArr:
             drawAFuncInInterval(func, symbolsArr, result[symbolsArr[0]], result[symbolsArr[1]])
-
+    output.closeFile()
     plt.show()
 
 
