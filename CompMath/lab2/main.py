@@ -79,6 +79,17 @@ def checkSplittedStrOnCount(splittedStr, n):
         print(f"You entered incorrect count of values in matrix row")
         exit(-1)
 
+def makeArrFloat(boundariesSplittedStr):
+    result = []
+    for i in boundariesSplittedStr:
+        if isFloat(i):
+            result.append(float(i))
+        else:
+            print("Start values are not float")
+            exit(1)
+    
+    return result
+
 def cliInput():
     print("Enter function, equation or equations (for system of equations)")
 
@@ -160,22 +171,27 @@ def fileInput():
         funcArr.append(func)
         
         i += 1
-    
+            
     boundariesSplittedStr = lines[i].strip().split(" ")
-    checkSplittedStrOnCount(boundariesSplittedStr, 2)
-    a = float(boundariesSplittedStr[0])
-    b = float(boundariesSplittedStr[1])
-    if a > b:
-        a, b = b, a
-    if a == b:
-        print(f"You entered two equal boundaries")
-        exit(-1)
+    if len(funcArr) < 2:
+        checkSplittedStrOnCount(boundariesSplittedStr, 2)
+        a = float(boundariesSplittedStr[0])
+        b = float(boundariesSplittedStr[1])
+        if a > b:
+            a, b = b, a
+        if a == b:
+            print(f"You entered two equal boundaries")
+            exit(-1)
+    else:
+        checkSplittedStrOnCount(boundariesSplittedStr, len(funcArr))
+        startValuesList = makeArrFloat(boundariesSplittedStr)
 
     e = lines[i + 1].strip()
     isFloat(e)
     e = float(e)
-    
-    return (funcArr, a, b, e)
+    if len(funcArr) < 2:
+        return (funcArr, [a, b], e)
+    return (funcArr, startValuesList, e)
 
 def printArrInColumns(*args):
     output.write("%16s" % "Iteration", end = " ")
@@ -270,6 +286,63 @@ def getXSecantMethod(func, a, b, e):
     
     return xArr[i]
 
+def getHordMethod(func, a, b, e):
+    output.write("Calculating with hord method")
+    # n = int(np.log2(abs(a - b) / e)) + 1
+    # output.write(f"Count of iterations = {n}")
+
+    # output arrays initialization
+    aArr = ArrayWithName("a", [])
+    bArr = ArrayWithName("b", [])
+    xArr = ArrayWithName("x", [])
+    fBegArr = ArrayWithName("f(a)", [])
+    fEndArr = ArrayWithName("f(b)", [])
+    fXArr = ArrayWithName("f(x)", [])
+    diffArr = ArrayWithName("|x_n - x_(n-1)|", [])
+    
+    beginning = a
+    end = b
+    fBegVal = func.subs({Symbol("x"): beginning})
+    fEndVal = func.subs({Symbol("x"): end})
+    x_i = beginning - (end - beginning) / (fEndVal - fBegVal) * fBegVal
+    fXVal = func.subs({Symbol("x"): x_i})
+    
+    aArr.array.append(beginning)
+    bArr.array.append(end)
+    xArr.array.append(x_i)
+    fBegArr.array.append(fBegVal)
+    fEndArr.array.append(fEndVal)
+    fXArr.array.append(fXVal)
+    diffArr.array.append(x_i - a)
+            
+    if np.sign(fBegVal) != np.sign(fXVal):
+        end = x_i
+    else:
+        beginning = x_i
+
+    while (abs(func.subs({Symbol("x"): x_i})) > e and abs(diffArr.array[len(diffArr.array) - 1]) > e and abs(fBegVal - fEndVal) > e):
+        fBegVal = func.subs({Symbol("x"): beginning})
+        fEndVal = func.subs({Symbol("x"): end})
+        x_i = (beginning * fEndVal - end * fBegVal) / (fEndVal - fBegVal)
+        fXVal = func.subs({Symbol("x"): x_i})
+        
+        # output arrays filling
+        aArr.array.append(beginning)
+        bArr.array.append(end)
+        xArr.array.append(x_i)
+        fBegArr.array.append(fBegVal)
+        fEndArr.array.append(fEndVal)
+        fXArr.array.append(fXVal)
+        diffArr.array.append(x_i - xArr.array[len(xArr.array) - 2])
+        
+        if np.sign(fBegVal) != np.sign(fXVal):
+            end = x_i
+        else:
+            beginning = x_i
+
+    printArrInColumns(aArr, bArr, xArr, fBegArr, fEndArr, fXArr, diffArr)
+    return xArr.array[len(xArr.array) - 1]
+
 def getPhiFunc(func, a, b):
     func_hatch = diff(func) # differential of func
     lam = - 1 / (Max(abs(func_hatch.subs({Symbol("x"): a})), abs(func_hatch.subs({Symbol("x"): a}))))
@@ -285,7 +358,7 @@ def getXSimpleIterationMethod(func, a, b, e):
     q = min(abs(diff(phi).subs({Symbol("x"): a})), abs(diff(phi).subs({Symbol("x"): b})))
     if q >= 1 or q < 0:
         output.write("Iterational sequence of method of simple iterations {x_n} does not converge to the root of the equation.")
-        return
+        return "None"
     xArr = [x_0]
     xArr.append(phi.subs({Symbol("x"): x_0}))
     i = 0
@@ -337,7 +410,7 @@ def outputArgsValWithName(symbolsArr, argsVal):
     
     return result
         
-def getSystemOfEquation(funcArr, symbolsArr, *args):
+def getSystemOfEquation(funcArr, symbolsArr, args):
     '''
     function create matrix of left part of system of equation of Newton's method
     calculate differentials of each function in each symbol in entered equations
@@ -358,9 +431,9 @@ def getSystemOfEquation(funcArr, symbolsArr, *args):
 
     return matrix
 
-def getXNewtonMethodSystem(funcArr, e, symbolsArr, *args):
+def getXNewtonMethodSystem(funcArr, e, symbolsArr, args):
     argsNext = args
-    matrix = getSystemOfEquation(funcArr, symbolsArr, *args)
+    matrix = getSystemOfEquation(funcArr, symbolsArr, args)
     isSolutionFound = False
 
     iterCounter = 0
@@ -410,8 +483,12 @@ def getSolutionOfOneEquation(func, a, b, e):
 
     output.write(f"Function crosses y=0 in x (found using secant method) = {'%.4f' % getXSecantMethod(func, a, b, e)}")
 
-    output.write(f"Function crosses y=0 in x (found using method of simple iterations) = {'%.4f' % getXSimpleIterationMethod(func, a, b, e)}")
+    simpleIterX = getXSimpleIterationMethod(func, a, b, e)
+    if simpleIterX != "None":
+        output.write(f"Function crosses y=0 in x (found using method of simple iterations) = {'%.4f' % simpleIterX}")
 
+    # output.write(getHordMethod(func, a, b, e))
+    
     output.closeFile()
     xArray = getxArray(a, b, 0.1)
     yArray = getyArray(func, xArray, symbolsArr[0])
@@ -451,16 +528,18 @@ while fileOrCliOutput != '0' and fileOrCliOutput != '1':
     fileOrCliOutput = input().strip()
 
 if fileOrCliInput == "0":
-    funcArr, a, b, e = cliInput()
+    funcArr, startVal, e = cliInput()
 else:
-    funcArr, a, b, e = fileInput()
+    funcArr, startVal, e = fileInput()
+
+print(startVal)
 
 output = Output()
 output.initFileOrCLIOutput(fileOrCliOutput)
 
 if len(funcArr) != 1:
-    getSolutionOfSystem(funcArr, e, a, b)
+    getSolutionOfSystem(funcArr, e, startVal)
 else:
-    getSolutionOfOneEquation(funcArr[0], a, b, e)
+    getSolutionOfOneEquation(funcArr[0], startVal[0], startVal[1], e)
 
 # methods - метод половинного деления, метод секущих, метод простой итерации, системы - метод Ньютона

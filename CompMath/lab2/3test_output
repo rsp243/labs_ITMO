@@ -1,0 +1,27 @@
+Iteration 0
+System of equations to solve:
+2.0 * delta_x 4.0 * delta_y = -1.0
+-6.0 * delta_x 1.0 * delta_y = 1.0
+Solution of system of equations:
+delta_x = -0.19230769230769232
+delta_y = -0.15384615384615388
+New values of variables:
+x = 0.6153846153846154
+y = 1.692307692307692
+
+Iteration 1
+System of equations to solve:
+2.0 * delta_x 4.0 * delta_y = 0.7573964497041428
+-6.0 * delta_x 1.0 * delta_y = -0.556213017751479
+Solution of system of equations:
+delta_x = 0.11470186618115612
+delta_y = 0.13199817933545763
+New values of variables:
+x = 0.8447883477469276
+y = 1.9563040509786074
+
+Solution found with 2 iterations
+New values of variables:
+x = 0.8447883477469276
+y = 1.9563040509786074
+Solution: {'x': 0.8447883477469276, 'y': 1.9563040509786074}

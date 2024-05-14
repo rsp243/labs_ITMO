@@ -1,0 +1,21 @@
+Calculating with half devision method
+Count of iterations = 7
+       Iteration                a                b                x             f(a)             f(b)             f(x)          |a - b| 
+               0          -1.0000           0.0000          -0.5000           4.8100          -8.1700          -1.9638           1.0000 
+               1          -1.0000          -0.5000          -0.7500           4.8100          -1.9638           1.5608           0.5000 
+               2          -0.7500          -0.5000          -0.6250           1.5608          -1.9638          -0.1931           0.2500 
+               3          -0.7500          -0.6250          -0.6875           1.5608          -0.1931           0.6892           0.1250 
+               4          -0.6875          -0.6250          -0.6562           0.6892          -0.1931           0.2489           0.0625 
+               5          -0.6562          -0.6250          -0.6406           0.2489          -0.1931           0.0281           0.0312 
+               6          -0.6406          -0.6250          -0.6328           0.0281          -0.1931          -0.0825           0.0156 
+
+Function crosses y=0 in x (found using half devision method) = -0.6367
+Calculating with secant method
+       Iteration          x_(i-1)              x_i          x_(i+1)       f(x_(i+1))  |x_(i+1) - x_i| 
+               0           0.0000          -0.3333          -0.6966           0.8165           0.3632 
+               1          -0.3333          -0.6966          -0.6382          -0.0069           0.0584 
+
+Function crosses y=0 in x (found using secant method) = -0.6382
+Calculating with method of simple iterations
+Found φ function: φ = -0.374264087468461*x**3 - 0.656854499579479*x**2 + 1.80908326324643*x + 0.687132043734231
+Iterational sequence of method of simple iterations {x_n} does not converge to the root of the equation.
