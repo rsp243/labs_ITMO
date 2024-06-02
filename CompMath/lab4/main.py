@@ -34,7 +34,6 @@ class Output:
     def closeFile(self):
         if self.fileOrCliOutput:
             self.file.close()
-        
 
 def checkSplittedStrOnCount(splittedStr, n):
     if len(splittedStr) != n:
@@ -165,7 +164,7 @@ calculated based on entered (and aproximate) function, interval and step")
         output.write()
         output.write(f"S = sum(epsilon_i^2) = {s}")
     output.write("\n")
-    
+
 def isSomeElemIsNegative(xArray):
     for x in xArray:
         if x < 0:
