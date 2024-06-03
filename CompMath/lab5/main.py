@@ -89,12 +89,12 @@ def getBoundaries():
 
     return (a, b, n)
 
-def getxArray(a, b, h):
-    n = int((b - a) / h) + 1
+def getxArray(a, b, n):
+    h = abs(a - b) / (n - 1)
     xArray = [0 for _ in range(n)]
     i = 0
     while (i < n):
-        xArray[i] = float(a + h * i)
+        xArray[i] = round(float(a + h * i), 5)
         i += 1
     
     return xArray
@@ -136,8 +136,8 @@ def cliInput():
         return (x, y)
     
     func = getFunc()
-    a, b, h = getBoundaries()
-    x = getxArray(a, b, h)
+    a, b, n = getBoundaries()
+    x = getxArray(a, b, n)
     y = getyArray(func, x)
     
     return (x, y)
@@ -215,15 +215,12 @@ def getMaxLenVal(xList):
 
 def isXListHasFiniteDiffs(xList):
     xFirst = xList[0]
-    xSecond = xList[1]
-    diff = xSecond - xFirst
-    sum = xFirst
-    maxValLen = getMaxLenVal(xList)
-    for i in range(len(xList)):
-        if sum != xList[i]:
-            return False
-        sum = round(sum + diff, maxValLen)
-    return True
+    xLast = xList[-1]
+    xListCheck = getxArray(xFirst, xLast, len(xList))
+    if xListCheck == xList:
+        return True
+
+    return False
 
 def getSmallRange(xList, xPoint):
     for i in range(len(xList) - 1):
