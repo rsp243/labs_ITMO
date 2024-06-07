@@ -4,6 +4,14 @@ from sympy import Symbol, Function, Derivative, Eq, sympify, solve, diff, dsolve
 import matplotlib.pyplot as plt
 import math
 
+class ArrayWithName:
+    name = ""
+    array = []
+
+    def __init__(self, name, array) -> None:
+        self.name = name
+        self.array = array
+
 def isFloat(n):
     try:
         float(n)
@@ -112,32 +120,6 @@ def getBoundariesN():
 def getSymbolsArr(funcArr):
     return sorted(list(set(str(j) for i in range(len(funcArr)) for j in funcArr[i].free_symbols)))
 
-def printValuesTable(xArray, yArray, yArrayP = [], epsilonArray = [], s = -1):
-    output.write("Table of X, Y, epsilon (if aproximate function has passed) values, \
-calculated based on entered (and aproximate) function, interval and step")
-    output.write("X", end=" ")
-    for x in xArray:
-        output.write('%9.4f' % x, end=" ")
-    output.write()
-    output.write("Y", end=" ")
-    for y in yArray:
-        output.write('%9.4f' % y, end=" ")
-    
-    if yArrayP != []:
-        output.write()
-        output.write("P", end=" ")
-        for y in yArrayP:
-            output.write('%9.4f' % y, end=" ")
-    if epsilonArray != []:
-        output.write()
-        output.write("e", end=" ")
-        for eps in epsilonArray:
-            output.write('%9.4f' % eps, end=" ")
-    if s != -1:
-        output.write()
-        output.write(f"S = sum(epsilon_i^2) = {s}")
-    output.write("\n")
-
 def getxArray(a, b, h):
     n = int((b - a) / h) + 1
     xArray = [0 for _ in range(n)]
@@ -160,8 +142,31 @@ def getYListEqlerModMethod(func, xList, startY, h):
     for i in range(1, len(xList)):
         fVal = func.subs({Symbol("x"): xList[i - 1], Symbol("y"): yList[i - 1]})
         fValNext = func.subs({Symbol("x"): xList[i], Symbol("y"): yList[i - 1] + h * fVal})
-        yList.append(yList[i - 1] + h / 2 * (fVal + fValNext))
+        yNext = yList[i - 1] + h / 2 * (fVal + fValNext)
+        yList.append(yNext)
     
+    return yList
+
+def getAccYListEqlerModMethod(func, xList, startY, h, epsilon):
+    output.write("Calculations with Modificated Eqler method")
+    p = 2
+    yList = getYListEqlerModMethod(func, xList, startY, h)
+    xListHnew = getxArray(xList[0], xList[-1], h / 2)
+    yListHnew = getYListEqlerModMethod(func, xListHnew, startY, h / 2)
+    r = abs(yList[-1] - yListHnew[-1]) / (2 ** p - 1)
+    while r > epsilon:
+        h = h / 2
+        xList = getxArray(xList[0], xList[-1], h)
+        yList = getYListEqlerModMethod(func, xListHnew, startY, h)
+        xListHnew = getxArray(xList[0], xList[-1], h / 2)
+        yListHnew = getYListEqlerModMethod(func, xList, startY, h / 2)
+        r = abs(yList[-1] - yListHnew[-1]) / 2 ** p - 1
+    
+    output.write("%10s %10s %10s" % ("i", "x_i", "y_i"))
+    for i in range(len(xList)):
+        output.write("%10d %10f %10f" % (i, round(xList[i], 5), round(yList[i], 5)))
+    output.write(f"Result was taken with error R = {r}, and end step was h = {h}")
+
     return yList
 
 def getYListRungeKettaMethod(func, xList, startY, h):
@@ -179,6 +184,28 @@ def getYListRungeKettaMethod(func, xList, startY, h):
     
     return yList
 
+def getAccYListRungeKettaMethod(func, xList, startY, h, epsilon):
+    output.write("Calculations with Runge-Ketta method")
+    p = 4
+    yList = getYListRungeKettaMethod(func, xList, startY, h)
+    xListHnew = getxArray(xList[0], xList[-1], h / 2)
+    yListHnew = getYListRungeKettaMethod(func, xListHnew, startY, h / 2)
+    r = abs(yList[-1] - yListHnew[-1]) / (2 ** p - 1)
+    while r > epsilon:
+        h = h / 2
+        xList = getxArray(xList[0], xList[-1], h)
+        yList = getYListRungeKettaMethod(func, xListHnew, startY, h)
+        xListHnew = getxArray(xList[0], xList[-1], h / 2)
+        yListHnew = getYListRungeKettaMethod(func, xList, startY, h / 2)
+        r = abs(yList[-1] - yListHnew[-1]) / 2 ** p - 1
+
+    output.write("%10s %10s %10s" % ("i", "x_i", "y_i"))
+    for i in range(len(xList)):
+        output.write("%10d %10f %10f" % (i, round(xList[i], 5), round(yList[i], 5)))
+    output.write(f"Result was taken with error R = {r}, and end step was h = {h}")
+    
+    return yList
+
 def getFuncValue(func, xList, yList):
     result = list()
     for i in range(len(xList)):
@@ -187,6 +214,7 @@ def getFuncValue(func, xList, yList):
     return result
 
 def getYListAdamsMethod(func, xList, startY, h):
+    output.write("Calculations with method Adams")
     yListAdams = getYListRungeKettaMethod(func, xList[:4], startY, h)
     fValArray = getFuncValue(func, xList[:4], yListAdams)
     for i in range(4, len(xList)):
@@ -201,13 +229,19 @@ def getYListAdamsMethod(func, xList, startY, h):
                           3 * h ** 4 / 8 * delta_3f_i)
         fValArray.append(func.subs({Symbol("x"): xList[i], Symbol("y"): yListAdams[i]}))
 
+    output.write("%10s %10s %10s" % ("i", "x_i", "y_i"))
+    for i in range(len(xList)):
+        output.write("%10d %10f %10f" % (i, round(xList[i], 5), round(yListAdams[i], 5)))
+    
     return yListAdams
 
 def getCorrectYList(func, xList, startY):
+    output.write("Accurate calculation of solution of differential equation")
     x = Symbol('x')
     y = Function('y')
     equation = Eq(y(x).diff(x), sympify(str(func).replace("y", "y(x)")))
     solvedODE = dsolve(equation).rhs
+    output.write(f"General solution - {solvedODE}")
 
     func = getFuncValue(solvedODE, xList[0:1], [startY])[0]
     symbolsArr = getSymbolsArr([func])
@@ -216,11 +250,26 @@ def getCorrectYList(func, xList, startY):
     for i in range(len(symbolsArr)):
         symbolsDict[symbolsArr[i]] = cValSolution[i]
     resultFunc = solvedODE.subs(symbolsDict)
+    output.write(f"Private solution - {resultFunc}")
+
     yList = list()
     for i in range(len(xList)):
         yList.append(resultFunc.subs({x: xList[i]}))
     
+    output.write("%10s %10s %10s" % ("i", "x_i", "y_i"))
+    for i in range(len(xList)):
+        output.write("%10d %10f %10f" % (i, round(xList[i], 5), round(yList[i], 5)))
+    
     return yList
+
+def getMultiStepEpsilon(yList, yCorrectList):
+    max = 0
+    for i in range(len(yList)):
+        diff = abs(yCorrectList[i] - yList[i])
+        if max < diff:
+            max = diff
+    
+    return max
 
 
 print("Var: 11.")
@@ -240,20 +289,21 @@ print(yListCorrect)
 # Одношаговые - усовершенствованный метод Эйлера, метод Рунге-Кутта 4 порядка
 # Многошаговые - метод Адамса
 
-# one-step methods 
-xList = getxArray(a, b, h)
-yListEqlerMod = getYListEqlerModMethod(func, xList, startY, h)
+# one-step methods
+yListEqlerMod = getAccYListEqlerModMethod(func, xList, startY, h, epsilon)
 plt.plot(xList, yListEqlerMod, label="Eqler modificatied method")
-print(yListEqlerMod)
+# output.write(yListEqlerMod)
 
-yListRungeKutta = getYListRungeKettaMethod(func, xList, startY, h)
+yListRungeKutta = getAccYListRungeKettaMethod(func, xList, startY, h, epsilon)
 plt.plot(xList, yListRungeKutta, label="Runge-Ketta method")
-print(yListRungeKutta)
+# output.write(yListRungeKutta)
 
 # multi-step method
 yListAdams = getYListAdamsMethod(func, xList, startY, h)
 plt.plot(xList, yListAdams, label="Adams method")
-print(yListAdams)
+# output.write(yListAdams)
+eps = getMultiStepEpsilon(yListAdams, yListCorrect)
+output.write(f"{('Accurate result got using Adams method. Error = ' + str(eps)) if eps <= epsilon else ('Inaccurate result got using Adams method. Error = ' + str(eps))}")
 
 plt.legend(loc="upper left")
 plt.show()
