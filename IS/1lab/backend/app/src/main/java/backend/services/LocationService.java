@@ -1,9 +1,12 @@
 package backend.services;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import backend.DTO.DeletedDTO;
+import backend.DTO.IdDTO;
 import backend.DTO.LocationCreatedDTO;
 import backend.DTO.LocationDTO;
 import backend.exceptions.DoesNotExistException;
@@ -40,5 +43,22 @@ public class LocationService {
 
         locationRepository.save(location);
         return location.getCreatedLocation(location);
+    }
+
+    public List<Integer> getAllLocationCreatedByUser(int user_id) {
+        List<Integer> result = new LinkedList<Integer>();
+        for (Location loc : getAllLocation()) {
+            if (loc.getUserId().getId() == user_id) {
+                result.add(loc.getId());
+            }
+        }
+        
+        return result;
+    }
+
+    public DeletedDTO deleteLocation(int locationId) {
+        locationRepository.deleteById(locationId);
+
+        return new DeletedDTO("Successfully deleted.");
     }
 }

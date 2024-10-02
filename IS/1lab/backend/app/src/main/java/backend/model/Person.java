@@ -119,6 +119,7 @@ public class Person {
 
     public PersonCreatedDTO getCreatedPerson(Person person) {
         return new PersonCreatedDTO(
+            person.getId(),
             person.getName(),
             person.getCoordinates().getId(),
             person.getCreationDate(),

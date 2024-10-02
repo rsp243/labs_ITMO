@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.nio.charset.StandardCharsets;
 
 @Component
+@Slf4j
 public class JwtUtils {
     @Value("${spring.jwt.secret}")
     private String jwtSecret;
@@ -37,7 +38,7 @@ public class JwtUtils {
                 .setSubject(user.getName())
                 .setExpiration(accessExpiration)
                 .signWith(getSigningKey())
-                .claim("username", user.getName())
+                .claim("id", user.getId())
                 .compact();
     }
 
@@ -64,5 +65,9 @@ public class JwtUtils {
     private SecretKey getSigningKey() {
         byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public int getIdFromToken(String token) {
+        return getClaims(token).get("sub", int.class);
     }
 }

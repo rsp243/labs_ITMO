@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 public class Coordinates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     
     @Column(name = "x", nullable = false)
     private Long x; //Максимальное значение поля: 288, Поле не может быть null

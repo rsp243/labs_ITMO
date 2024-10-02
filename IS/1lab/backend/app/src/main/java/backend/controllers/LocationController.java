@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.LinkedList;
 
+import backend.DTO.DeletedDTO;
+import backend.DTO.IdDTO;
 import backend.DTO.LocationCreatedDTO;
 import backend.DTO.LocationDTO;
 import backend.DTO.TokenDTO;
@@ -43,12 +45,28 @@ public class LocationController {
     }
 
     @PostMapping(path = "/add")
-    public ResponseEntity<?> addPoint(@RequestBody LocationDTO req) {
+    public ResponseEntity<?> addLocation(@RequestBody LocationDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req);
 
         return ControllerExecutor.execute(validator, () -> {
             LocationCreatedDTO LocationDTO = locationService.addLocation(req);
             return ResponseEntity.ok().body(LocationDTO);
+        });
+    }
+    
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> deleteLocation(@RequestBody IdDTO req) {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
+
+        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+        int location_id = req.getId();
+        if (locationService.getAllLocationCreatedByUser(user_id).contains(location_id)) {
+            validator.addViolation("affiliation", "Location doesn't affiliate to user");
+        }
+
+        return ControllerExecutor.execute(validator, () -> {
+            DeletedDTO locationDTO = locationService.deleteLocation(location_id);
+            return ResponseEntity.ok().body(locationDTO);
         });
     }
 }

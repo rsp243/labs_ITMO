@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
 import backend.DTO.PointsCreatedDTO;
-import backend.DTO.PointsDeletedDTO;
+// import backend.DTO.DeletedDTO;
 import backend.DTO.TokenDTO;
 import backend.exceptions.DoesNotExistException;
 import backend.exceptions.TokenNotPassedException;

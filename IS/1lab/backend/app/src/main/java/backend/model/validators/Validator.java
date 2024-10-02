@@ -10,7 +10,7 @@ public class Validator {
         violations = new LinkedList<Violation>();
     }
 
-    protected void addViolation(String field, String violation) {
+    public void addViolation(String field, String violation) {
         violations.add(new Violation(field, violation));
     }
 

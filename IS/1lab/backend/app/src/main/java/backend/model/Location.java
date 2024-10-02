@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "x", nullable = false)
     private Integer x; // Поле не может быть null
