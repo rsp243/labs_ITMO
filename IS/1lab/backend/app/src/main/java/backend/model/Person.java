@@ -13,6 +13,8 @@ import backend.DTO.PointsCreatedDTO;
 
 import java.time.format.DateTimeFormatter;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 // @Entity
@@ -85,7 +87,7 @@ public class Person {
     private String name; // Поле не может быть null, Строка не может быть пустой
 
     @Embedded
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates; // Поле не может быть null
 
@@ -102,7 +104,7 @@ public class Person {
     private Color hairColor; // Поле не может быть null
 
     @Embedded
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location; // Поле не может быть null
 

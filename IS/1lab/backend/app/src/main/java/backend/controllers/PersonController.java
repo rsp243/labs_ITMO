@@ -14,13 +14,17 @@ import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
 import backend.DTO.PointsCreatedDTO;
 import backend.DTO.DeletedDTO;
+import backend.DTO.IdDTO;
 import backend.DTO.TokenDTO;
 import backend.DTO.UsersDTO;
 import backend.exceptions.ApiException;
+import backend.exceptions.ForbiddenException;
+import backend.exceptions.ObjectNotFoundException;
 import backend.model.validators.TokenValidator;
 import backend.model.validators.UsersValidator;
 import backend.security.JwtUtils;
 import backend.services.PersonService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -52,6 +56,24 @@ public class PersonController {
 
         return ControllerExecutor.execute(validator, () -> {
             PersonCreatedDTO personDTO = personService.addPerson(req);
+            return ResponseEntity.ok().body(personDTO);
+        });
+    }
+
+    @Transactional
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> deletePerson(@RequestBody IdDTO req) throws ForbiddenException, ObjectNotFoundException {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
+
+        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+        int person_id = req.getId();
+
+        if (personService.getById(person_id).getUserId().getId() != user_id) {
+            throw new ForbiddenException("It's forbidden to you to delete this object.");
+        }
+
+        return ControllerExecutor.execute(validator, () -> {
+            DeletedDTO personDTO = personService.deletePerson(person_id);
             return ResponseEntity.ok().body(personDTO);
         });
     }

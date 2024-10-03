@@ -68,6 +68,6 @@ public class JwtUtils {
     }
 
     public int getIdFromToken(String token) {
-        return getClaims(token).get("sub", int.class);
+        return getClaims(token).get("id", Integer.class);
     }
 }

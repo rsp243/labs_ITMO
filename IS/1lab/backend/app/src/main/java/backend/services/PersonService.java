@@ -2,12 +2,14 @@ package backend.services;
 
 import org.springframework.stereotype.Service;
 
+import backend.DTO.DeletedDTO;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
 import backend.DTO.PointsCreatedDTO;
 // import backend.DTO.DeletedDTO;
 import backend.DTO.TokenDTO;
 import backend.exceptions.DoesNotExistException;
+import backend.exceptions.ObjectNotFoundException;
 import backend.exceptions.TokenNotPassedException;
 import backend.model.Coordinates;
 import backend.model.Location;
@@ -66,6 +68,23 @@ public class PersonService {
 
         peopleRepository.save(person);
         return person.getCreatedPerson(person);
+    }
+
+    public DeletedDTO deletePerson(int personId) {
+        coordinatesRepository.deleteById(personId);
+
+        return new DeletedDTO("Successfully deleted.");
+    }
+
+    public Person getById(int id) throws ObjectNotFoundException {
+        List<Person> people = this.getAllPeople(); 
+        for (int i = 0; i < people.size(); i++) {
+            if (id == people.get(i).getId()) {
+                return people.get(i);
+            }
+        }
+
+        throw new ObjectNotFoundException("Object wasn't found in database");
     }
 
     // public boolean checkArea(float xValue, float yValue, float rValue) {

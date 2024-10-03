@@ -14,10 +14,13 @@ import backend.DTO.IdDTO;
 import backend.DTO.LocationCreatedDTO;
 import backend.DTO.LocationDTO;
 import backend.DTO.TokenDTO;
+import backend.exceptions.ForbiddenException;
+import backend.exceptions.ObjectNotFoundException;
 import backend.model.Location;
 import backend.model.validators.TokenValidator;
 import backend.security.JwtUtils;
 import backend.services.LocationService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 
@@ -53,15 +56,17 @@ public class LocationController {
             return ResponseEntity.ok().body(LocationDTO);
         });
     }
-    
+
+    @Transactional
     @PostMapping(path = "/delete")
-    public ResponseEntity<?> deleteLocation(@RequestBody IdDTO req) {
+    public ResponseEntity<?> deleteLocation(@RequestBody IdDTO req) throws ForbiddenException, ObjectNotFoundException {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
 
         int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
         int location_id = req.getId();
-        if (locationService.getAllLocationCreatedByUser(user_id).contains(location_id)) {
-            validator.addViolation("affiliation", "Location doesn't affiliate to user");
+
+        if (locationService.getById(location_id).getUserId().getId() != user_id) {
+            throw new ForbiddenException("It's forbidden to you to delete this object.");
         }
 
         return ControllerExecutor.execute(validator, () -> {

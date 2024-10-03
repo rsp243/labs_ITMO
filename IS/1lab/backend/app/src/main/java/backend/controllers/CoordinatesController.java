@@ -11,15 +11,20 @@ import java.util.LinkedList;
 
 import backend.DTO.CoordinatesCreatedDTO;
 import backend.DTO.CoordinatesDTO;
+import backend.DTO.DeletedDTO;
+import backend.DTO.IdDTO;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
 import backend.DTO.TokenDTO;
+import backend.exceptions.ForbiddenException;
+import backend.exceptions.ObjectNotFoundException;
 import backend.model.Coordinates;
 import backend.model.Person;
 import backend.model.validators.TokenValidator;
 import backend.security.JwtUtils;
 import backend.services.CoordinatesService;
 import backend.services.PersonService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 
@@ -52,6 +57,24 @@ public class CoordinatesController {
 
         return ControllerExecutor.execute(validator, () -> {
             CoordinatesCreatedDTO coordinatesDTO = coordinatesService.addCoordinates(req);
+            return ResponseEntity.ok().body(coordinatesDTO);
+        });
+    }
+
+    @Transactional
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> deleteCoordinates(@RequestBody IdDTO req) throws ForbiddenException, ObjectNotFoundException {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
+
+        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+        int coordinates_id = req.getId();
+
+        if (coordinatesService.getById(coordinates_id).getUserId().getId() != user_id) {
+            throw new ForbiddenException("It's forbidden to you to delete this object.");
+        }
+
+        return ControllerExecutor.execute(validator, () -> {
+            DeletedDTO coordinatesDTO = coordinatesService.deleteCoordinates(coordinates_id);
             return ResponseEntity.ok().body(coordinatesDTO);
         });
     }

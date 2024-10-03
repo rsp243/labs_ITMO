@@ -1,5 +1,7 @@
 package backend.model;
 
+import java.util.List;
+
 import backend.DTO.CoordinatesCreatedDTO;
 import backend.DTO.PersonCreatedDTO;
 import jakarta.persistence.CascadeType;
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +41,8 @@ public class Coordinates {
     @JoinColumn(name = "user_id")
     private Users userId;
 
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "coordinates")
+    private List<Person> people;
 
     public CoordinatesCreatedDTO getCreatedCoordinates(Coordinates coordinates) {
         return new CoordinatesCreatedDTO(
