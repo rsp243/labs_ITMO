@@ -38,14 +38,13 @@ public class PersonService {
     private final UserRepository userRepository;
     private final CoordinatesRepository coordinatesRepository;
     private final LocationRepository locationRepository;
-    private final AuthService authService;
 
     public List<Person> getAllPeople() {
         return peopleRepository.findAll();
     }
 
     public PersonCreatedDTO addPerson(PersonDTO req) throws DoesNotExistException {
-        final long userId = authService.getUserIdFromToken(req.getToken().getToken());
+        final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
 
         final Coordinates coordinates = coordinatesRepository.getReferenceById(req.getCoordinates_id());

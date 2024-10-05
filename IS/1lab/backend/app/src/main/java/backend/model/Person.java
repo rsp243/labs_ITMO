@@ -113,6 +113,7 @@ public class Person {
     private int height; // Значение поля должно быть больше 0
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "nationality", nullable = true)
     private Country nationality; // Поле может быть null
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)

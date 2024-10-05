@@ -18,11 +18,14 @@ import backend.DTO.IdDTO;
 import backend.DTO.TokenDTO;
 import backend.DTO.UsersDTO;
 import backend.exceptions.ApiException;
+import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ForbiddenException;
 import backend.exceptions.ObjectNotFoundException;
 import backend.model.validators.TokenValidator;
 import backend.model.validators.UsersValidator;
 import backend.security.JwtUtils;
+import backend.services.AdminService;
+import backend.services.AuthService;
 import backend.services.PersonService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -34,6 +37,7 @@ public class PersonController {
 
     private final JwtUtils jwtUtils;
     private final PersonService personService;
+    private final AdminService adminService;
 
     @PostMapping(path = "/all")
     public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
@@ -62,13 +66,13 @@ public class PersonController {
 
     @Transactional
     @PostMapping(path = "/delete")
-    public ResponseEntity<?> deletePerson(@RequestBody IdDTO req) throws ForbiddenException, ObjectNotFoundException {
+    public ResponseEntity<?> deletePerson(@RequestBody IdDTO req) throws ForbiddenException, ObjectNotFoundException, DoesNotExistException {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
 
         int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
         int person_id = req.getId();
 
-        if (personService.getById(person_id).getUserId().getId() != user_id) {
+        if (!adminService.isAdmin(user_id) && personService.getById(person_id).getUserId().getId() != user_id) {
             throw new ForbiddenException("It's forbidden to you to delete this object.");
         }
 

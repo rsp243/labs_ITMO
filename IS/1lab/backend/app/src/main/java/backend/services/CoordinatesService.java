@@ -31,7 +31,7 @@ public class CoordinatesService {
     }
 
     public CoordinatesCreatedDTO addCoordinates(CoordinatesDTO req) throws DoesNotExistException {
-        final long userId = authService.getUserIdFromToken(req.getToken().getToken());
+        final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
 
         Coordinates coordinates = Coordinates.builder()

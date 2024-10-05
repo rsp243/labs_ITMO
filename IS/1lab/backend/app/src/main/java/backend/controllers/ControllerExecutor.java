@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import backend.exceptions.ApiException;
 import backend.exceptions.DatabaseConflictException;
 import backend.exceptions.DoesNotExistException;
+import backend.exceptions.ForbiddenException;
 import backend.exceptions.WrongPasswordException;
 import backend.model.validators.Validator;
 
@@ -25,6 +26,8 @@ public class ControllerExecutor {
                 throw new ApiException(HttpStatus.CONFLICT, ex.getMessage());
             } catch (WrongPasswordException ex) {
                 throw new ApiException(HttpStatus.CONFLICT, ex.getMessage());
+            } catch (ForbiddenException ex) {
+                throw new ApiException(HttpStatus.FORBIDDEN, ex.getMessage());
             } catch (Exception ex) {
                 throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
             }

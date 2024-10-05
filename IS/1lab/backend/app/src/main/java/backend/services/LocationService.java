@@ -33,7 +33,7 @@ public class LocationService {
     }
 
     public LocationCreatedDTO addLocation(LocationDTO req) throws DoesNotExistException {
-        final long userId = authService.getUserIdFromToken(req.getToken().getToken());
+        final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
 
         Location location = Location.builder()
