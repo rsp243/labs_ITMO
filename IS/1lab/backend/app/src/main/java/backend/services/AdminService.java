@@ -40,6 +40,12 @@ public class AdminService {
         return user.isAdmin();
     }
 
+    public boolean isAdmin(TokenDTO req) throws DoesNotExistException {
+        final long userId = jwtUtils.getIdFromToken(req.getToken());
+        
+        return isAdmin(userId);
+    }
+
     public UsersCreatedDTO addAdmin(TokenDTO req) throws DoesNotExistException {
         final long userId = jwtUtils.getIdFromToken(req.getToken());
         final Users user = usersRepository.getReferenceById(userId);
