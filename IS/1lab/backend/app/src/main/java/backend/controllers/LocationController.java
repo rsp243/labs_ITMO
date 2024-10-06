@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.LinkedList;
 
+import backend.DTO.CoordinatesCreatedDTO;
+import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
 import backend.DTO.IdDTO;
 import backend.DTO.LocationCreatedDTO;
 import backend.DTO.LocationDTO;
+import backend.DTO.LocationEditDTO;
 import backend.DTO.TokenDTO;
 import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ForbiddenException;
@@ -76,6 +79,23 @@ public class LocationController {
         return ControllerExecutor.execute(validator, () -> {
             DeletedDTO locationDTO = locationService.deleteLocation(location_id);
             return ResponseEntity.ok().body(locationDTO);
+        });
+    }
+
+    @PostMapping(path = "/edit")
+    public ResponseEntity<?> editLocation(@RequestBody LocationEditDTO req) throws ForbiddenException, ObjectNotFoundException, DoesNotExistException {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
+
+        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+        int location_id = req.getId();
+
+        if (!adminService.isAdmin(user_id) && locationService.getById(location_id).getUserId().getId() != user_id) {
+            throw new ForbiddenException("It's forbidden to you to edit this object.");
+        }
+
+        return ControllerExecutor.execute(validator, () -> {
+            LocationCreatedDTO coordinatesDTO = locationService.editLocation(req);
+            return ResponseEntity.ok().body(coordinatesDTO);
         });
     }
 }

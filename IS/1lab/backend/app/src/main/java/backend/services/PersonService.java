@@ -2,9 +2,12 @@ package backend.services;
 
 import org.springframework.stereotype.Service;
 
+import backend.DTO.CoordinatesCreatedDTO;
+import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
+import backend.DTO.PersonEditDTO;
 import backend.DTO.PointsCreatedDTO;
 // import backend.DTO.DeletedDTO;
 import backend.DTO.TokenDTO;
@@ -86,40 +89,35 @@ public class PersonService {
         throw new ObjectNotFoundException("Object wasn't found in database");
     }
 
-    // public boolean checkArea(float xValue, float yValue, float rValue) {
-    //     boolean inCircle = checkCircle(xValue, yValue, rValue);
-    //     boolean inTriangle = checkTriangle(xValue, yValue, rValue);
-    //     boolean inRectangle = checkRectangle(xValue, yValue, rValue);
-    //     return inCircle || inTriangle || inRectangle;
-    // }
+    public PersonCreatedDTO editPerson(PersonEditDTO req) throws ObjectNotFoundException {
+        Person person = peopleRepository.getReferenceById(Long.valueOf(req.getId()));
+        final Coordinates coordinates = coordinatesRepository.getReferenceById(req.getCoordinates_id());
+        final Location location = locationRepository.getReferenceById(req.getLocation_id());
 
-    // private static boolean checkCircle(final float xValue, final float yValue, final float rValue) {
-    //     return xValue > 0 && yValue > 0 && sqrt(pow(xValue, 2) + pow(yValue, 2)) <= rValue / 2;
-    // }
+        List<Person> coordinatesPeople = coordinates.getPeople();
+        coordinatesPeople.remove(person);
+        
+        List<Person> locationPeople = location.getPeople();
+        locationPeople.remove(person);
 
-    // private static boolean checkTriangle(final float xValue, final float yValue, final float rValue) {
-    //     return xValue <= 0 && yValue <= 0 && abs(xValue) + abs(yValue) / 2 <= rValue / 2;
-    // }
+        person.setName(req.getName());
+        person.setCoordinates(coordinates);
+        person.setLocation(location);
+        person.setEyeColor(req.getEye_color());
+        person.setHairColor(req.getHair_color());
+        person.setHeight(req.getHeight());
+        person.setNationality(req.getNationality());
+        
+        peopleRepository.save(person);
 
-    // private static boolean checkRectangle(final float xValue, final float yValue, final float rValue) {
-    //     return xValue <= 0 && yValue >= 0 && abs(xValue) <= rValue && yValue <= rValue / 2;
-    // }
+        coordinatesPeople.add(person);
+        coordinates.setPeople(coordinatesPeople);
+        coordinatesRepository.save(coordinates);
 
-    // private static boolean validateXYR(float x, float y, float r) {
-    //     return x >= -2 && x <= 2 && y >= -5 && y <= 5 && r >= -2 && r <= 2;
-    // }
-
-    // public boolean getResult(float x, float y, float r) {
-    //     return validateXYR(x, y, r) && checkArea(x, y, r);
-    // }
-
-    // public void deletePoint(long pointId) {
-    //     pointsRepository.deleteById(pointId);
-    // }
-
-    // public PointsDeletedDTO deleteAllPoints(List<Points> pointsList) {
-    //     pointsRepository.deleteAll(pointsList);
-
-    //     return new PointsDeletedDTO("Deleted successfully.");
-    // }
+        locationPeople.add(person);
+        location.setPeople(locationPeople);
+        locationRepository.save(location);
+        
+        return person.getCreatedPerson(person);
+    }
 }

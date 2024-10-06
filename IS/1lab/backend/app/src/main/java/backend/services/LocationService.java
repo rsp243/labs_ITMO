@@ -6,12 +6,16 @@ import java.util.List;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import backend.DTO.CoordinatesCreatedDTO;
+import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
 import backend.DTO.IdDTO;
 import backend.DTO.LocationCreatedDTO;
 import backend.DTO.LocationDTO;
+import backend.DTO.LocationEditDTO;
 import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ObjectNotFoundException;
+import backend.model.Coordinates;
 import backend.model.Location;
 import backend.model.Users;
 import backend.repository.LocationRepository;
@@ -62,5 +66,15 @@ public class LocationService {
         }
 
         throw new ObjectNotFoundException("Object wasn't found in database");
+    }
+
+    public LocationCreatedDTO editLocation(LocationEditDTO req) throws ObjectNotFoundException {
+        Location location = locationRepository.getReferenceById(Long.valueOf(req.getId()));
+        location.setX(req.getX());
+        location.setY(req.getY());
+        location.setZ(req.getZ());
+        locationRepository.save(location);
+
+        return location.getCreatedLocation(location);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import backend.DTO.CoordinatesCreatedDTO;
 import backend.DTO.CoordinatesDTO;
+import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
 import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ObjectNotFoundException;
@@ -51,7 +52,7 @@ public class CoordinatesService {
     }
 
     public Coordinates getById(int id) throws ObjectNotFoundException {
-        List<Coordinates> coordinates = this.getAllCoordinates(); 
+        List<Coordinates> coordinates = this.getAllCoordinates();
         for (int i = 0; i < coordinates.size(); i++) {
             if (id == coordinates.get(i).getId()) {
                 return coordinates.get(i);
@@ -59,5 +60,14 @@ public class CoordinatesService {
         }
 
         throw new ObjectNotFoundException("Object wasn't found in database");
+    }
+
+    public CoordinatesCreatedDTO editCoordinates(CoordinatesEditDTO req) throws ObjectNotFoundException {
+        Coordinates coordinates = coordinatesRepository.getReferenceById(Long.valueOf(req.getId()));
+        coordinates.setX(req.getX());
+        coordinates.setY(req.getY());
+        coordinatesRepository.save(coordinates);
+
+        return coordinates.getCreatedCoordinates(coordinates);
     }
 }

@@ -12,7 +12,10 @@ import java.util.LinkedList;
 import backend.model.Person;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
+import backend.DTO.PersonEditDTO;
 import backend.DTO.PointsCreatedDTO;
+import backend.DTO.CoordinatesCreatedDTO;
+import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
 import backend.DTO.IdDTO;
 import backend.DTO.TokenDTO;
@@ -82,14 +85,20 @@ public class PersonController {
         });
     }
 
-    // @PostMapping(path = "/delete")
-    // public ResponseEntity<?> deleteAllPoints(@RequestBody TokenDTO req) {
-    //     TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+    @PostMapping(path = "/edit")
+    public ResponseEntity<?> editPerson(@RequestBody PersonEditDTO req) throws ForbiddenException, ObjectNotFoundException, DoesNotExistException {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
 
-    //     return ControllerExecutor.execute(validator, () -> {
-    //         PointsDeletedDTO pointDTO = personService.deleteAllPoints(
-    //             personService.getAllPointsCreatedByUser(req));
-    //         return ResponseEntity.ok().body(pointDTO);
-    //     });
-    // }
+        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+        int person_id = req.getId();
+
+        if (!adminService.isAdmin(user_id) && personService.getById(person_id).getUserId().getId() != user_id) {
+            throw new ForbiddenException("It's forbidden to you to edit this object.");
+        }
+
+        return ControllerExecutor.execute(validator, () -> {
+            PersonCreatedDTO personDTO = personService.editPerson(req);
+            return ResponseEntity.ok().body(personDTO);
+        });
+    }
 }
