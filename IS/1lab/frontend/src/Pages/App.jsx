@@ -2,6 +2,9 @@ import axios from "axios";
 import PropTypes from 'prop-types';
 import { Messages } from 'primereact/messages';
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'primereact/button';
+
 
 import ButtonBlock from '../components/App/ActionButtonBlock';
 import Canvas from '../components/App/Canvas';
@@ -17,32 +20,14 @@ import fissureSrc from './src/img/fissure.png';
 
 export default function App({ getToken }) {
 	const msgs = useRef(null);
-	const [results, setResults] = useState([]);
+	const navigate = useNavigate();
 
-	useEffect(() => {
-		axios.post(`http://localhost:8080/api/v1/person/all`, { token: getToken() })
-			.then(res => {
-				console.log(res.status);
-				console.log(res.data);
-				setResults(res.data);
-			})
-			.catch(function (error) {
-				let myError = "";
-				if (error.response) {
-					// The request was made and the server responded with a status code
-					// that falls out of the range of 2xx
-					console.log(error.response.data);
-					myError = error.response.data.message
-				} else {
-					// Something happened in setting up the request that triggered an Error
-					console.log('Error', error.message);
-					myError = "An error during request setting up has happened"
-				}
-				msgs.current.show([
-					{ severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
-				]);
-			})
-	}, [msgs])
+	const handleAddClick = _ => {
+		setTimeout(() => {
+			navigate('/add', { replace: true })
+			navigate(0)
+		}, 0)
+	}
 
 	const handleThrowClick = async e => {
 		e.preventDefault();
@@ -84,9 +69,9 @@ export default function App({ getToken }) {
 					isHitBool,
 					"canvas", "canvas1")
 
-				setResults(results => (
-					[...results, res.data]
-				))
+				// setResults(results => (
+				// 	[...results, res.data]
+				// ))
 
 				msgs.current.show([
 					{ sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: 'Successfully Thrown', closable: false },
@@ -110,50 +95,22 @@ export default function App({ getToken }) {
 			});
 	}
 
-	const handleAnotherAttemptClick = async e => {
-		e.preventDefault();
-
-		let data = {
-			token: getToken()
-		}
-
-		axios.post(`http://localhost:8080/api/v1/person/delete`, data)
-			.then(res => {
-				console.log(res.status);
-				console.log(res.data);
-				setResults([])
-				drawBeginnigGraph("canvas")
-
-				msgs.current.show([
-					{ sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: res.data.message, closable: false },
-				])
-			})
-			.catch(function (error) {
-				let myError = "";
-				if (error.response) {
-					// The request was made and the server responded with a status code
-					// that falls out of the range of 2xx
-					console.log(error.response.data);
-					myError = error.response.data.message
-				} else {
-					// Something happened in setting up the request that triggered an Error
-					console.log('Error', error.message);
-					myError = "An error during request setting up has happened"
-				}
-				msgs.current.show([
-					{ severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
-				]);
-			});
-	}
-
 	return (
 		<div className="App">
+			<Button 
+                label="Create objects" 
+                icon="pi pi-plus" 
+                onClick={handleAddClick} 
+                className="top-right-button" 
+				style={{ position: "absolute", top: "85px", right: "20px" }}
+            />
+			<div style={{"height": "30px"}}></div>
 			<div className="card flex flex-column justify-content-center align-items-center">
 				<Messages ref={msgs} />
 			</div>
 			<div style={{"height": "50px"}}></div>
 			<div className="wrapper align-middle">
-				<ResultTable results={results} getToken={getToken} />
+				<ResultTable getToken={getToken} />
 			</div>
 			<div style={{"height": "50px"}}></div>
 		</div>

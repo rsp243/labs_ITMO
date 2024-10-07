@@ -17,6 +17,7 @@ import Request from "../Authorization/Request.jsx";
 import Approve from "../App/Approve.jsx";
 
 import { getToken, setTokenLS, logout } from "../Authorization/token.js";
+import Add from "../App/Add.jsx";
 
 
 export default function Router() {
@@ -48,6 +49,7 @@ export default function Router() {
                     <Route path="/about" element={<About />} />
                     <Route path="/request" element={<Request getToken={getToken} />} />
                     <Route path="/approve" element={<Approve getToken={getToken} />} />
+                    <Route path="/add" element={<Add getToken={getToken} />} />
                 </Route>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login setToken={setTokenLS} />} />

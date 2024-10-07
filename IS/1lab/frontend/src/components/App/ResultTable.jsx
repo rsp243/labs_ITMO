@@ -7,9 +7,16 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Messages } from 'primereact/messages';
 
-export default function ResultTable({results, getToken}) {
+export default function ResultTable({getToken}) {
     const msgs = useRef(null);
-    const [row, setRowState] = useState();
+    const [results, setResults] = useState([]);
+    const [reload, setReload] = useState(true);
+
+    const [resultsCoordinates, setResultsCoordinates] = useState([]);
+    const [reloadCoordinates, setReloadCoordinates] = useState(true);
+
+    const [resultsLocation, setResultsLocation] = useState([]);
+    const [reloadLocation, setReloadLocation] = useState(true);
 
     const handleDeleteClick = async (id) => {
         let data = {
@@ -20,6 +27,7 @@ export default function ResultTable({results, getToken}) {
         axios.post(`http://localhost:8080/api/v1/person/delete`, data)
             .then(res => {
                 console.log(res)
+                setReload(!reload)
                 msgs.current.show([
                     { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: res.data.message, closable: false },
                 ])
@@ -42,6 +50,82 @@ export default function ResultTable({results, getToken}) {
             });
     }
 
+
+	useEffect(() => {
+		axios.post(`http://localhost:8080/api/v1/person/all`, { token: getToken() })
+			.then(res => {
+				console.log(res.status);
+				console.log(res.data);
+				setResults(res.data);
+			})
+			.catch(function (error) {
+				let myError = "";
+				if (error.response) {
+					// The request was made and the server responded with a status code
+					// that falls out of the range of 2xx
+					console.log(error.response.data);
+					myError = error.response.data.message
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.log('Error', error.message);
+					myError = "An error during request setting up has happened"
+				}
+				msgs.current.show([
+					{ severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
+				]);
+			})
+	}, [reload])
+
+    useEffect(() => {
+		axios.post(`http://localhost:8080/api/v1/coordinates/all`, { token: getToken() })
+			.then(res => {
+				console.log(res.status);
+				console.log(res.data);
+				setResultsCoordinates(res.data);
+			})
+			.catch(function (error) {
+				let myError = "";
+				if (error.response) {
+					// The request was made and the server responded with a status code
+					// that falls out of the range of 2xx
+					console.log(error.response.data);
+					myError = error.response.data.message
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.log('Error', error.message);
+					myError = "An error during request setting up has happened"
+				}
+				msgs.current.show([
+					{ severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
+				]);
+			})
+	}, [reloadCoordinates])
+
+    useEffect(() => {
+		axios.post(`http://localhost:8080/api/v1/location/all`, { token: getToken() })
+			.then(res => {
+				console.log(res.status);
+				console.log(res.data);
+				setResultsLocation(res.data);
+			})
+			.catch(function (error) {
+				let myError = "";
+				if (error.response) {
+					// The request was made and the server responded with a status code
+					// that falls out of the range of 2xx
+					console.log(error.response.data);
+					myError = error.response.data.message
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.log('Error', error.message);
+					myError = "An error during request setting up has happened"
+				}
+				msgs.current.show([
+					{ severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
+				]);
+			})
+	}, [reloadCoordinates])
+    
     return (
         <>
             <div className="card flex flex-column justify-content-center align-items-center">

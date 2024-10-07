@@ -87,7 +87,7 @@ public class Person {
     private String name; // Поле не может быть null, Строка не может быть пустой
 
     @Embedded
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates; // Поле не может быть null
 
@@ -104,7 +104,7 @@ public class Person {
     private Color hairColor; // Поле не может быть null
 
     @Embedded
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location; // Поле не может быть null
 

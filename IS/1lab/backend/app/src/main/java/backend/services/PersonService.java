@@ -73,7 +73,13 @@ public class PersonService {
     }
 
     public DeletedDTO deletePerson(int personId) {
-        coordinatesRepository.deleteById(personId);
+        Person person = peopleRepository.getReferenceById(Long.valueOf(personId));
+        final Coordinates coordinates = person.getCoordinates();
+        final Location location = person.getLocation();
+
+        location.getPeople().remove(person);
+        coordinates.getPeople().remove(person);
+        peopleRepository.deleteById(Long.valueOf(personId));
 
         return new DeletedDTO("Successfully deleted.");
     }
