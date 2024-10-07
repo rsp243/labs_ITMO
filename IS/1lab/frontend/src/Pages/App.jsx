@@ -153,7 +153,7 @@ export default function App({ getToken }) {
 			</div>
 			<div style={{"height": "50px"}}></div>
 			<div className="wrapper align-middle">
-				<ResultTable results={results} />
+				<ResultTable results={results} getToken={getToken} />
 			</div>
 			<div style={{"height": "50px"}}></div>
 		</div>

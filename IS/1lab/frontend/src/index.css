@@ -28,3 +28,11 @@ body {
     /* left: 50%; */
     transform: translateX(-100%) translateY(0%);
 }
+
+.tableButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* margin: 5px 0 5px 0; */
+    align-items: center;
+}
