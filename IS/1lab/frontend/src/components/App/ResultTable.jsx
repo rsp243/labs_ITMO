@@ -37,14 +37,14 @@ export default function ResultTable({getToken}) {
                 if (error.response) {
                     // The request was made and the server responded with a status code
                     // that falls out of the range of 2xx
-                    console.log(error.response.data);
+                    
                     myError = error.response.data.message
                 } else {
                     // Something happened in setting up the request that triggered an Error
                     console.log('Error', error.message);
                     myError = "An error during request setting up has happened"
                 }
-                msgs.current.show([
+                msgs.current.replace([
                     { severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
                 ]);
             });
@@ -52,6 +52,7 @@ export default function ResultTable({getToken}) {
 
 
 	useEffect(() => {
+        msgs.current.clear();
 		axios.post(`http://localhost:8080/api/v1/person/all`, { token: getToken() })
 			.then(res => {
 				console.log(res.status);
@@ -63,20 +64,21 @@ export default function ResultTable({getToken}) {
 				if (error.response) {
 					// The request was made and the server responded with a status code
 					// that falls out of the range of 2xx
-					console.log(error.response.data);
+					
 					myError = error.response.data.message
 				} else {
 					// Something happened in setting up the request that triggered an Error
-					console.log('Error', error.message);
+
 					myError = "An error during request setting up has happened"
 				}
-				msgs.current.show([
-					{ severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
-				]);
+                msgs.current.replace([
+                    { severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
+                ]);
 			})
 	}, [reload])
 
     useEffect(() => {
+        msgs.current.clear();
 		axios.post(`http://localhost:8080/api/v1/coordinates/all`, { token: getToken() })
 			.then(res => {
 				console.log(res.status);
@@ -88,20 +90,21 @@ export default function ResultTable({getToken}) {
 				if (error.response) {
 					// The request was made and the server responded with a status code
 					// that falls out of the range of 2xx
-					console.log(error.response.data);
+					
 					myError = error.response.data.message
 				} else {
 					// Something happened in setting up the request that triggered an Error
-					console.log('Error', error.message);
+
 					myError = "An error during request setting up has happened"
 				}
-				msgs.current.show([
-					{ severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
-				]);
+                msgs.current.replace([
+                    { severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
+                ]);
 			})
 	}, [reloadCoordinates])
 
     useEffect(() => {
+        msgs.current.clear();
 		axios.post(`http://localhost:8080/api/v1/location/all`, { token: getToken() })
 			.then(res => {
 				console.log(res.status);
@@ -113,16 +116,16 @@ export default function ResultTable({getToken}) {
 				if (error.response) {
 					// The request was made and the server responded with a status code
 					// that falls out of the range of 2xx
-					console.log(error.response.data);
+					
 					myError = error.response.data.message
 				} else {
 					// Something happened in setting up the request that triggered an Error
-					console.log('Error', error.message);
+
 					myError = "An error during request setting up has happened"
 				}
-				msgs.current.show([
-					{ severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
-				]);
+                msgs.current.replace([
+                    { severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
+                ]);
 			})
 	}, [reloadCoordinates])
     

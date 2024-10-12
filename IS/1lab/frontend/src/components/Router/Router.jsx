@@ -4,7 +4,6 @@ import {
     Route,
     Routes,
 } from "react-router-dom";
-import axios from "axios";
 
 import App from "../../Pages/App";
 import Home from "../../Pages/Home";
@@ -18,6 +17,10 @@ import Approve from "../App/Approve.jsx";
 
 import { getToken, setTokenLS, logout } from "../Authorization/token.js";
 import Add from "../App/Add.jsx";
+import AddPerson from "../App/AddPerson.jsx";
+import AddLocation from "../App/AddLocation.jsx";
+import AddCoordinates from "../App/AddCoordinates.jsx";
+import AddWrapper from "../App/AddWrapper.jsx";
 
 
 export default function Router() {
@@ -50,6 +53,9 @@ export default function Router() {
                     <Route path="/request" element={<Request getToken={getToken} />} />
                     <Route path="/approve" element={<Approve getToken={getToken} />} />
                     <Route path="/add" element={<Add getToken={getToken} />} />
+                    <Route path="/add/coordinates" element={<AddWrapper Component={AddCoordinates} getToken={getToken} />} />
+                    <Route path="/add/location" element={<AddWrapper Component={AddLocation} getToken={getToken} />} />
+                    <Route path="/add/person" element={<AddWrapper Component={AddPerson} getToken={getToken} />} />
                 </Route>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login setToken={setTokenLS} />} />

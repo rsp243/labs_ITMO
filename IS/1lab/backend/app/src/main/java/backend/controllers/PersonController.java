@@ -58,7 +58,7 @@ public class PersonController {
     }
 
     @PostMapping(path = "/add")
-    public ResponseEntity<?> addPoint(@RequestBody PersonDTO req) {
+    public ResponseEntity<?> addPerson(@RequestBody PersonDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req);
 
         return ControllerExecutor.execute(validator, () -> {
