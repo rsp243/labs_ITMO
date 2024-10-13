@@ -36,3 +36,15 @@ body {
     /* margin: 5px 0 5px 0; */
     align-items: center;
 }
+
+.absolute-top-right {
+    position: absolute; /* Enables absolute positioning */
+    top: 12px; /* Distance from the top */
+    right: 10px; /* Distance from the right */
+    width: 200px; /* Set width as needed */
+    padding: 10px; /* Padding for content */
+    background-color: #3e9ea1; /* Background color for visibility */
+    border-radius: 5px;
+    text-align: center;
+    color: black;
+}

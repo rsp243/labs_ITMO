@@ -17,6 +17,22 @@ export default function ResultTable({getToken}) {
 
     const [resultsLocation, setResultsLocation] = useState([]);
     const [reloadLocation, setReloadLocation] = useState(true);
+    const [expandedRows, setExpandedRows] = useState({});
+
+
+    function performCoordinatesOption(coord)  {
+        return {
+            label: `id: ${coord.id}, X: ${coord.x}, Y: ${coord.y}`, // Constructing the label
+            value: `${coord.id}` // Constructing the value
+        };
+    }
+    
+    function performLocationOption(loc)  {
+        return {
+            label: `id: ${loc.id}, X: ${loc.x}, Y: ${loc.y}, Z: ${loc.z}`, // Constructing the label
+            value: `${loc.id}` // Constructing the value
+        };
+    }
 
     const handleDeleteClick = async (id) => {
         let data = {
@@ -50,6 +66,16 @@ export default function ResultTable({getToken}) {
             });
     }
 
+    const handleMoreClick = (id) => {
+        setExpandedRows((prev) => ({
+            ...prev,
+            [id]: !prev[id], // Toggle the visibility of the row
+        }));
+    };
+
+    const getObjectById = (array, id) => {
+        return array.find(item => item.id === id);
+    };
 
 	useEffect(() => {
         msgs.current.clear();
@@ -141,10 +167,10 @@ export default function ResultTable({getToken}) {
                         <th style={{ border: '1px solid blue', padding: '8px' }}>Name</th>
                         <th style={{ border: '1px solid blue', padding: '8px' }}>Coordinates</th>
                         <th style={{ border: '1px solid blue', padding: '8px' }}>Creation date</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Eye</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Hair</th>
+                        <th style={{ border: '1px solid blue', padding: '8px' }}>Eye color</th>
+                        <th style={{ border: '1px solid blue', padding: '8px' }}>Hair color</th>
                         <th style={{ border: '1px solid blue', padding: '8px' }}>Location</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Height</th>
+                        <th style={{ border: '1px solid blue', padding: '8px' }}>Height (cm)</th>
                         <th style={{ border: '1px solid blue', padding: '8px' }}>Nationality</th>
                         <th style={{ border: '1px solid blue', padding: '8px' }}>Actions</th>
                         </tr>
@@ -154,16 +180,21 @@ export default function ResultTable({getToken}) {
                         <tr key={row.id}>
                             <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.id || "Not specified"}</td>
                             <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.name || "Not specified"}</td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.coordinates_id || "Not specified"}</td>
+                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >
+                                {expandedRows[row.id] ? performCoordinatesOption(getObjectById(resultsCoordinates, row.coordinates_id))["label"] : "id: " + row.coordinates_id || "Not specified"}
+                            </td>
                             <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.creationDate.join(".") || "Not specified"}</td>
                             <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.eyeColor || "Not specified"}</td>
                             <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.hairColor || "Not specified"}</td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.location_id || "Not specified"}</td>
+                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >
+                                {expandedRows[row.id] ? performLocationOption(getObjectById(resultsLocation, row.location_id))["label"] : "id: " + row.location_id || "Not specified"}
+                            </td>
                             <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.height || "Not specified"}</td>
                             <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.nationality || "Not specified"}</td>
                             <td  className='tableButtons' style={{ border: '1px solid blue', padding: '8px'}}>
                                 <Button label="Edit" icon="pi pi-pencil"></Button>
                                 <Button label="Delete" icon="pi pi-times" onClick={() => handleDeleteClick(row.id)}></Button>
+                                <Button label={expandedRows[row.id] ? 'Less info' : 'More info'} icon="pi pi-info" onClick={() => handleMoreClick(row.id)}></Button>
                             </td>
                         </tr>
                     ))}

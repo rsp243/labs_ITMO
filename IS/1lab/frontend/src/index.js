@@ -7,7 +7,7 @@ import 'primeicons/primeicons.css';
 import '/node_modules/primeflex/primeflex.css';
 import './index.css';
 
-import Router from './components/Router/Router.jsx'
+import AdminWrapper from './components/Router/AdminWrapper.jsx'
 
 import reportWebVitals from './reportWebVitals.js';
 
@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
 		<PrimeReactProvider>
-			<Router />
+			<AdminWrapper />
 		</PrimeReactProvider>
 	</React.StrictMode>
 );

@@ -5,27 +5,9 @@ import axios from "axios";
 import PropTypes from 'prop-types';
 import { Menubar } from 'primereact/menubar';
 
-export default function NavigationBar({start, getToken, logout}) {
+export default function NavigationBar({start, getToken, logout, isAdmin}) {
     const navigate = useNavigate()    
     const token = getToken()
-
-    const [isAdmin, setIsAdmin] = useState(false);
-
-
-    	useEffect(() => {
-            if (token) {
-                let data = {
-                    token: getToken()
-                }
-                    
-                axios.post(`http://localhost:8080/api/v1/admin/check`, data)
-                .then(res => {
-                    setIsAdmin(res.data.status)
-                })
-                .catch(function (error) {
-                });
-            }
-        }, [token])
 
     const notAuthorizedItems = [
         {
@@ -129,9 +111,14 @@ export default function NavigationBar({start, getToken, logout}) {
 
     if (isAdmin) {
         return (
-            <div className="card w-full">
-                <Menubar model={adminItems} start={start} />
-            </div>
+            <>
+                <div className="card w-full">
+                    <Menubar model={adminItems} start={start} />
+                </div>
+                <div className="admin_block absolute-top-right">
+                    Administrator
+                </div>
+            </>
         )
     }
     return (

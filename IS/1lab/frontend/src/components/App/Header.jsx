@@ -6,12 +6,13 @@ import Introduction from './Introduction.jsx';
 
 import './src/css/header.css';
 
-export default function Header({ getToken, logout }) {
+export default function Header({ getToken, logout, isAdmin }) {
     return (
         <>
             <header>
-                <NavigationBar start={<Introduction />} getToken={getToken} logout={logout}/>
+                <NavigationBar start={<Introduction />} getToken={getToken} logout={logout} isAdmin={isAdmin}/>
             </header>
+            
             <div className="content">
                 <Outlet />
             </div>
