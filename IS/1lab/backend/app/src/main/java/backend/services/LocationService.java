@@ -48,7 +48,7 @@ public class LocationService {
                 .build();
 
         locationRepository.save(location);
-        return location.getCreatedLocation(location);
+        return Location.getCreatedLocation(location);
     }
 
     public DeletedDTO deleteLocation(int locationId) {
@@ -75,6 +75,6 @@ public class LocationService {
         location.setZ(req.getZ());
         locationRepository.save(location);
 
-        return location.getCreatedLocation(location);
+        return Location.getCreatedLocation(location);
     }
 }

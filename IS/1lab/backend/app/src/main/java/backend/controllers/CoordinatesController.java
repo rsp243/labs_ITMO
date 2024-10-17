@@ -1,6 +1,7 @@
 package backend.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import backend.DTO.CoordinatesDTO;
 import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
 import backend.DTO.IdDTO;
+import backend.DTO.LocationCreatedDTO;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
 import backend.DTO.TokenDTO;
@@ -21,6 +23,7 @@ import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ForbiddenException;
 import backend.exceptions.ObjectNotFoundException;
 import backend.model.Coordinates;
+import backend.model.Location;
 import backend.model.Person;
 import backend.model.validators.TokenValidator;
 import backend.security.JwtUtils;
@@ -40,6 +43,17 @@ public class CoordinatesController {
     private final CoordinatesService coordinatesService;
     private final AdminService adminService;
 
+    @PostMapping(path = "/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") int id, @RequestBody TokenDTO req) {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+
+        return ControllerExecutor.execute(validator, () -> {
+            CoordinatesCreatedDTO result = Coordinates.getCreatedCoordinates(coordinatesService.getById(id));
+
+            return ResponseEntity.ok().body(result);
+        });
+    }
+
     @PostMapping(path = "/all")
     public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
@@ -49,7 +63,7 @@ public class CoordinatesController {
             List<CoordinatesCreatedDTO> result = new LinkedList<CoordinatesCreatedDTO>();
             for (int i = 0; i < allCoordinates.size(); i++) {
                 Coordinates iCoordinates = allCoordinates.get(i);
-                result.add(iCoordinates.getCreatedCoordinates(iCoordinates));
+                result.add(Coordinates.getCreatedCoordinates(iCoordinates));
             }
             return ResponseEntity.ok().body(result);
         });

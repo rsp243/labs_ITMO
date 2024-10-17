@@ -35,22 +35,6 @@ export default function EditPerson({ getToken }) {
     
     useEffect(() => {
         msgs.current.clear();
-        axios.post(`http://localhost:8080/api/v1/person/${id}`, { token: getToken() })
-        .then(res => {
-            console.log(res.data);
-            setPerson(res.data);
-        })
-        .catch(function (error) {
-            let myError = "";
-            if (error.response) {					
-                myError = error.response.data.message
-            } else {
-                myError = "An error during request setting up has happened"
-            }
-            msgs.current.replace([
-                { severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
-            ]);
-        })
         axios.post(`http://localhost:8080/api/v1/coordinates/all`, { token: getToken() })
             .then(res => {
                 console.log(res.data);
@@ -95,7 +79,7 @@ export default function EditPerson({ getToken }) {
                     <div className="card flex flex-column">
                         <Messages ref={msgs} />
                     </div>
-                    <EditPersonFields id={id} person={person} coordinatesOptions={coordinatesOptions} locationOptions={locationOptions} msgs={msgs} getToken={getToken}/>
+                    <EditPersonFields id={id} coordinatesOptions={coordinatesOptions} locationOptions={locationOptions} msgs={msgs} getToken={getToken}/>
                 </div>
             </div>
         </div>

@@ -120,7 +120,7 @@ public class Person {
     @JoinColumn(name = "user_id")
     private Users userId;
 
-    public PersonCreatedDTO getCreatedPerson(Person person) {
+    public static PersonCreatedDTO getCreatedPerson(Person person) {
         return new PersonCreatedDTO(
             person.getId(),
             person.getName(),

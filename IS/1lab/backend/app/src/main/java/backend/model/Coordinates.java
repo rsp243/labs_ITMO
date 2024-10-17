@@ -44,7 +44,7 @@ public class Coordinates {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "coordinates")
     private List<Person> people;
 
-    public CoordinatesCreatedDTO getCreatedCoordinates(Coordinates coordinates) {
+    public static CoordinatesCreatedDTO getCreatedCoordinates(Coordinates coordinates) {
         return new CoordinatesCreatedDTO(
             coordinates.getId(),
             coordinates.getX(),

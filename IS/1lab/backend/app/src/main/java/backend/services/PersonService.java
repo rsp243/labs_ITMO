@@ -69,7 +69,7 @@ public class PersonService {
 
 
         peopleRepository.save(person);
-        return person.getCreatedPerson(person);
+        return Person.getCreatedPerson(person);
     }
 
     public DeletedDTO deletePerson(int personId) {
@@ -124,6 +124,6 @@ public class PersonService {
         location.setPeople(locationPeople);
         locationRepository.save(location);
         
-        return person.getCreatedPerson(person);
+        return Person.getCreatedPerson(person);
     }
 }

@@ -69,7 +69,7 @@ export default function AddPersonFields({ coordinatesOptions, locationOptions, m
                 <div className="fields flex flex-column gap-1 m-4">
                     <div className="field flex justify-content-between align-items-center ">
                         <label className='m-0'>Name</label>
-                        <InputText className="w-7" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <InputText className="w-7" value={name} onChange={(e) => setName(e.target.value)} placeholder="Write Name" required />
                     </div>
                     <div className="field flex justify-content-between align-items-center">
                         <label className='m-0'>Coordinates</label>

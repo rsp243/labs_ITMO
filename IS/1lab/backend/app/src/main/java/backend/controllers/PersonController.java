@@ -1,6 +1,7 @@
 package backend.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,17 @@ public class PersonController {
     private final PersonService personService;
     private final AdminService adminService;
 
+    @PostMapping(path = "/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") int id, @RequestBody TokenDTO req) {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+
+        return ControllerExecutor.execute(validator, () -> {
+            PersonCreatedDTO result = Person.getCreatedPerson(personService.getById(id));
+
+            return ResponseEntity.ok().body(result);
+        });
+    }
+
     @PostMapping(path = "/all")
     public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
@@ -51,7 +63,7 @@ public class PersonController {
             List<PersonCreatedDTO> result = new LinkedList<PersonCreatedDTO>();
             for (int i = 0; i < allPeople.size(); i++) {
                 Person iPerson = allPeople.get(i);
-                result.add(iPerson.getCreatedPerson(iPerson));
+                result.add(Person.getCreatedPerson(iPerson));
             }
             return ResponseEntity.ok().body(result);
         });

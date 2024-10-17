@@ -42,7 +42,7 @@ public class CoordinatesService {
                 .build();
 
         coordinatesRepository.save(coordinates);
-        return coordinates.getCreatedCoordinates(coordinates);
+        return Coordinates.getCreatedCoordinates(coordinates);
     }
 
     public DeletedDTO deleteCoordinates(int coordinatesId) {
@@ -68,6 +68,6 @@ public class CoordinatesService {
         coordinates.setY(req.getY());
         coordinatesRepository.save(coordinates);
 
-        return coordinates.getCreatedCoordinates(coordinates);
+        return Coordinates.getCreatedCoordinates(coordinates);
     }
 }

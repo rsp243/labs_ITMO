@@ -2,15 +2,19 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router'
 import axios from "axios";
 
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Messages } from 'primereact/messages';
+import { TabMenu } from 'primereact/tabmenu';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+
 
 export default function ResultTable({getToken}) {
     const msgs = useRef(null);
+    const navigate = useNavigate();
     const [results, setResults] = useState([]);
     const [reload, setReload] = useState(true);
+    const [tableVal, setTableVal] = useState(0); // Default value
 
     const [resultsCoordinates, setResultsCoordinates] = useState([]);
     const [reloadCoordinates, setReloadCoordinates] = useState(true);
@@ -33,6 +37,15 @@ export default function ResultTable({getToken}) {
             value: `${loc.id}` // Constructing the value
         };
     }
+
+    const handleEditClick = (id) => {
+        navigate("/edit/person/" + id)
+        navigate(0)
+    }
+
+    const handleTabChange = (e) => {
+        setTableVal(e.index);
+    };
 
     const handleDeleteClick = async (id) => {
         let data = {
@@ -154,52 +167,106 @@ export default function ResultTable({getToken}) {
                 ]);
 			})
 	}, [reloadCoordinates])
-    
+
+    const tableItems = [
+        {
+            label: 'Person',
+            icon: 'pi pi-fw pi-user',
+            tableVal: 0,
+        },
+        {
+            label: 'Coordinates',
+            icon: 'pi pi-fw pi-map',
+            tableVal: 1,
+        },
+        {
+            label: 'Location',
+            icon: 'pi pi-fw pi-map-marker',
+            tableVal: 2,
+        },
+    ]
+
+    const users = [
+        { id: 1, name: 'John Doe', email: 'john@example.com' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+        { id: 3, name: 'Alice Johnson', email: 'alice@example.com' }
+    ];
     return (
         <>
             <div className="card flex flex-column justify-content-center align-items-center">
                 <Messages ref={msgs} />
             </div>
-            <table style={{ width: '80%', borderCollapse: 'collapse', margin: "auto auto", backgroundColor: "rgba(52,62,77,0.9)" }}>
-                <thead style={{ }}>
-                    <tr>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Id</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Name</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Coordinates</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Creation date</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Eye color</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Hair color</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Location</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Height (cm)</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Nationality</th>
-                        <th style={{ border: '1px solid blue', padding: '8px' }}>Actions</th>
-                        </tr>
-                </thead>
-                <tbody>
-                    {results.map((row) => (
-                        <tr key={row.id}>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.id || "Not specified"}</td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.name || "Not specified"}</td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >
-                                {expandedRows[row.id] ? performCoordinatesOption(getObjectById(resultsCoordinates, row.coordinates_id))["label"] : "id: " + row.coordinates_id || "Not specified"}
-                            </td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.creationDate.join(".") || "Not specified"}</td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.eyeColor || "Not specified"}</td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.hairColor || "Not specified"}</td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >
-                                {expandedRows[row.id] ? performLocationOption(getObjectById(resultsLocation, row.location_id))["label"] : "id: " + row.location_id || "Not specified"}
-                            </td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.height || "Not specified"}</td>
-                            <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.nationality || "Not specified"}</td>
-                            <td  className='tableButtons' style={{ border: '1px solid blue', padding: '8px'}}>
-                                <Button label="Edit" icon="pi pi-pencil"></Button>
-                                <Button label="Delete" icon="pi pi-times" onClick={() => handleDeleteClick(row.id)}></Button>
-                                <Button label={expandedRows[row.id] ? 'Less info' : 'More info'} icon="pi pi-info" onClick={() => handleMoreClick(row.id)}></Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className="" style={{ width: '80%', borderCollapse: 'collapse', margin: "auto auto" }}>
+                <TabMenu 
+                    model={tableItems} 
+                    onTabChange={handleTabChange} />
+                { tableVal === 0 &&
+                    (<DataTable value={results} paginator rows={5} header="Person List">
+                        <Column field="id" header="ID" />
+                        <Column field="name" header="Name" />
+                        <Column field="coordinates_id" header="Coordinates" />
+                        <Column field="eyeColor" header="Eye Color" />
+                        <Column field="hairColor" header="Hair Color" />
+                        <Column field="location_id" header="Location" />
+                        <Column field="height" header="Height (cm)" />
+                        <Column field="nationality" header="Nationality" />
+                    </DataTable>)
+                }
+                { tableVal === 1 &&
+                    (<DataTable value={users} paginator rows={5} header="Coordinates List">
+                        <Column field="id" header="ID" />
+                        <Column field="name" header="Name" />
+                        <Column field="email" header="Email" />
+                    </DataTable>)
+                }
+                { tableVal === 2 &&
+                    (<DataTable value={users} paginator rows={5} header="Location List">
+                        <Column field="id" header="ID" />
+                        <Column field="name" header="Name" />
+                        <Column field="email" header="Email" />
+                    </DataTable>)
+                }
+                {/* <table>
+                    <thead style={{ }}>
+                        <tr>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Id</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Name</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Coordinates</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Creation date</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Eye color</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Hair color</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Location</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Height (cm)</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Nationality</th>
+                            <th style={{ border: '1px solid blue', padding: '8px' }}>Actions</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        {results.map((row) => (
+                            <tr key={row.id}>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.id || "Not specified"}</td>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.name || "Not specified"}</td>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >
+                                    {expandedRows[row.id] ? performCoordinatesOption(getObjectById(resultsCoordinates, row.coordinates_id))["label"] : "id: " + row.coordinates_id || "Not specified"}
+                                </td>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.creationDate.join(".") || "Not specified"}</td>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.eyeColor || "Not specified"}</td>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.hairColor || "Not specified"}</td>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >
+                                    {expandedRows[row.id] ? performLocationOption(getObjectById(resultsLocation, row.location_id))["label"] : "id: " + row.location_id || "Not specified"}
+                                </td>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.height || "Not specified"}</td>
+                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.nationality || "Not specified"}</td>
+                                <td  className='tableButtons' style={{ border: '1px solid blue', padding: '8px'}}>
+                                    <Button label="Edit" icon="pi pi-pencil" onClick={() => handleEditClick(row.id)}></Button>
+                                    <Button label="Delete" icon="pi pi-times" onClick={() => handleDeleteClick(row.id)}></Button>
+                                    <Button label={expandedRows[row.id] ? 'Less info' : 'More info'} icon="pi pi-info" onClick={() => handleMoreClick(row.id)}></Button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table> */}
+            </div>
         </>
 
         // <DataTable scrollable scrollHeight="400px" value={results} tableStyle={{ maxWidth: '70rem', margin: "auto auto" }}>

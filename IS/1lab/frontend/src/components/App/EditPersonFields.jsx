@@ -5,7 +5,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
-export default function AddPersonFields({ id, person, coordinatesOptions, locationOptions, msgs, getToken }) {
+export default function EditPersonFields({ id, coordinatesOptions, locationOptions, msgs, getToken }) {
     const [name, setName] = useState('');
     const [coordinates, setCoordinates] = useState(null);
     const [eyeColor, setEyeColor] = useState('');
@@ -13,6 +13,35 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
     const [location, setLocation] = useState(null);
     const [height, setHeight] = useState('');
     const [nationality, setNationality] = useState('');
+
+    useEffect(() => {
+        axios.post(`http://localhost:8080/api/v1/person/${id}`, { token: getToken() })
+        .then(res => {
+            setName(res.data.name);
+            setCoordinates(String(res.data.coordinates_id))
+            setEyeColor(res.data.eyeColor)
+            setHairColor(res.data.hairColor)
+            setLocation(String(res.data.location_id))
+            setHeight(res.data.height)
+            setNationality(res.data.nationality)
+        })
+        .catch(function (error) {
+            let myError = "";
+            if (error.response) {					
+                myError = error.response.data.message
+            } else {
+                myError = "An error during request setting up has happened"
+            }
+            msgs.current.replace([
+                { severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
+            ]);
+        })
+    
+    }, [])
+
+    const getObjectById = (array, id) => {
+        return array.find(item => item.value == id);
+    };
 
     const colorOptions = [
         { label: 'RED', value: 'RED' },
@@ -27,10 +56,6 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
         {label: "JAPAN", value: "JAPAN"}
     ]
 
-    const getObjectById = (array, id) => {
-        return array.find(item => item.id === id);
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const personData = {
@@ -44,15 +69,13 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
             nationality: nationality,
             token: getToken()
         };
-        
-        console.log(personData)
 
         msgs.current.clear();
         axios.post(`http://localhost:8080/api/v1/person/edit`, personData)
             .then(res => {
                 console.log(res.data);
                 msgs.current.show([
-                    { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: 'Successfully created', closable: false },
+                    { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: 'Successfully edited', closable: false },
                 ])
             })
             .catch(function (error) {
@@ -74,7 +97,7 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
                 <div className="fields flex flex-column gap-1 m-4">
                     <div className="field flex justify-content-between align-items-center ">
                         <label className='m-0'>Name</label>
-                        <InputText className="w-7" value={name} onChange={(e) => setName(e.target.value)} placeholder={person.name} required />
+                        <InputText className="w-7" value={name} onChange={(e) => setName(e.target.value)} placeholder="Write Name" required />
                     </div>
                     <div className="field flex justify-content-between align-items-center">
                         <label className='m-0'>Coordinates</label>
@@ -82,7 +105,7 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
                             options={coordinatesOptions} 
                             value={coordinates} 
                             onChange={(e) => setCoordinates(e.value)} 
-                            placeholder={getObjectById(coordinatesOptions, person.coordinates_id)}
+                            placeholder="Select Coordinates" 
                             required 
                         />
                     </div>
@@ -92,7 +115,7 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
                             options={colorOptions}
                             value={eyeColor}
                             onChange={(e) => setEyeColor(e.value)} 
-                            placeholder={person.eye_color}
+                            placeholder="Select Color" 
                             required 
                         />
                     </div>
@@ -102,7 +125,7 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
                             options={colorOptions} 
                             value={hairColor}
                             onChange={(e) => setHairColor(e.value)} 
-                            placeholder={person.hair_color}
+                            placeholder="Select Color" 
                             required
                         />
                     </div>
@@ -112,13 +135,13 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
                             options={locationOptions} 
                             value={location} 
                             onChange={(e) => setLocation(e.value)} 
-                            placeholder={getObjectById(locationOptions, person.location_id)} 
+                            placeholder="Select Location" 
                             required 
                         />
                     </div>
                     <div className="field flex justify-content-between align-items-center">
                         <label className='m-0'>Height (cm)</label>
-                        <InputText className="w-4" type="number" value={height} onChange={(e) => setHeight(e.target.value)} placeholder={person.height} required />
+                        <InputText className="w-4" type="number" value={height} onChange={(e) => setHeight(e.target.value)} placeholder="Write Height in cm" required />
                     </div>
                     <div className="field flex justify-content-between align-items-center">
                         <label className='m-0'>Nationality</label>
@@ -126,7 +149,7 @@ export default function AddPersonFields({ id, person, coordinatesOptions, locati
                             options={countryOptions} 
                             value={nationality}
                             onChange={(e) => setNationality(e.value)} 
-                            placeholder={person.nationality} 
+                            placeholder="Select nationality" 
                             required
                         />
                     </div>
