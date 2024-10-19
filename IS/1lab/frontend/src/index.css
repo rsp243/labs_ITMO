@@ -48,3 +48,14 @@ body {
     text-align: center;
     color: black;
 }
+
+/* Ensure the header background remains solid */
+.p-datatable .p-datatable-thead > tr > th {
+    background-color: #2a323d; /* Set your desired background color */
+    transition: background-color 0.3s ease; /* Optional: smooth transition */
+}
+
+/* Prevent transparency on hover */
+.p-datatable .p-datatable-thead > tr > th:hover {
+    background-color: #334968; /* Change to a slightly darker shade on hover */
+}   
