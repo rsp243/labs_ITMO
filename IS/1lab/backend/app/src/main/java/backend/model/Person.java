@@ -120,7 +120,7 @@ public class Person {
     @JoinColumn(name = "user_id")
     private Users userId;
 
-    public static PersonCreatedDTO getCreatedPerson(Person person) {
+    public static PersonCreatedDTO getCreatedPerson(Person person, int requestUserID) {
         return new PersonCreatedDTO(
             person.getId(),
             person.getName(),
@@ -130,7 +130,8 @@ public class Person {
             person.getHairColor(),
             person.getLocation().getId(),
             person.getHeight(),
-            person.getNationality()
+            person.getNationality(),
+            person.getUserId().getId() == requestUserID
         );
     }
 }

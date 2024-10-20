@@ -46,9 +46,10 @@ public class CoordinatesController {
     @PostMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") int id, @RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+        int user_id = jwtUtils.getIdFromToken(req.getToken());
 
         return ControllerExecutor.execute(validator, () -> {
-            CoordinatesCreatedDTO result = Coordinates.getCreatedCoordinates(coordinatesService.getById(id));
+            CoordinatesCreatedDTO result = Coordinates.getCreatedCoordinates(coordinatesService.getById(id), user_id);
 
             return ResponseEntity.ok().body(result);
         });
@@ -57,13 +58,14 @@ public class CoordinatesController {
     @PostMapping(path = "/all")
     public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+        int user_id = jwtUtils.getIdFromToken(req.getToken());
 
         return ControllerExecutor.execute(validator, () -> {
             List<Coordinates> allCoordinates = coordinatesService.getAllCoordinates();
             List<CoordinatesCreatedDTO> result = new LinkedList<CoordinatesCreatedDTO>();
             for (int i = 0; i < allCoordinates.size(); i++) {
                 Coordinates iCoordinates = allCoordinates.get(i);
-                result.add(Coordinates.getCreatedCoordinates(iCoordinates));
+                result.add(Coordinates.getCreatedCoordinates(iCoordinates, user_id));
             }
             return ResponseEntity.ok().body(result);
         });

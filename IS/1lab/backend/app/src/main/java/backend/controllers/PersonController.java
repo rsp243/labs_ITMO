@@ -46,9 +46,10 @@ public class PersonController {
     @PostMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") int id, @RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+        int user_id = jwtUtils.getIdFromToken(req.getToken());
 
         return ControllerExecutor.execute(validator, () -> {
-            PersonCreatedDTO result = Person.getCreatedPerson(personService.getById(id));
+            PersonCreatedDTO result = Person.getCreatedPerson(personService.getById(id), user_id);
 
             return ResponseEntity.ok().body(result);
         });
@@ -57,8 +58,10 @@ public class PersonController {
     @PostMapping(path = "/max_id")
     public ResponseEntity<?> getMaxIdPerson(@RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+        int user_id = jwtUtils.getIdFromToken(req.getToken());
+
         return ControllerExecutor.execute(validator, () -> {
-            PersonCreatedDTO result = Person.getCreatedPerson(personService.getMaxIdPerson());
+            PersonCreatedDTO result = Person.getCreatedPerson(personService.getMaxIdPerson(), user_id);
 
             return ResponseEntity.ok().body(result);
         });
@@ -67,13 +70,14 @@ public class PersonController {
     @PostMapping(path = "/all")
     public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
-
+        int user_id = jwtUtils.getIdFromToken(req.getToken());
+        
         return ControllerExecutor.execute(validator, () -> {
             List<Person> allPeople = personService.getAllPeople();
             List<PersonCreatedDTO> result = new LinkedList<PersonCreatedDTO>();
             for (int i = 0; i < allPeople.size(); i++) {
                 Person iPerson = allPeople.get(i);
-                result.add(Person.getCreatedPerson(iPerson));
+                result.add(Person.getCreatedPerson(iPerson, user_id));
             }
 
             return ResponseEntity.ok().body(result);

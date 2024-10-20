@@ -10,4 +10,5 @@ public class LocationCreatedDTO {
     private Integer x;
     private Integer y;
     private long z;
+    private boolean updatable;
 }

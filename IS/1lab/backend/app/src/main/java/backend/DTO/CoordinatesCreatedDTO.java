@@ -9,4 +9,5 @@ public class CoordinatesCreatedDTO {
     private int id;
     private Long x;
     private Double y;
+    private boolean updatable;
 }

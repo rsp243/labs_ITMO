@@ -17,4 +17,5 @@ public class PersonCreatedDTO {
     private int location_id;
     private int height;
     private Country nationality;
+    private boolean updatable;
 }

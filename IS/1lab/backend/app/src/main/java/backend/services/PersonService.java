@@ -78,7 +78,7 @@ public class PersonService {
 
 
         peopleRepository.save(person);
-        return Person.getCreatedPerson(person);
+        return Person.getCreatedPerson(person, owner.getId());
     }
 
     public DeletedDTO deletePerson(int personId) {
@@ -133,6 +133,6 @@ public class PersonService {
         location.setPeople(locationPeople);
         locationRepository.save(location);
         
-        return Person.getCreatedPerson(person);
+        return Person.getCreatedPerson(person, person.getUserId().getId());
     }
 }

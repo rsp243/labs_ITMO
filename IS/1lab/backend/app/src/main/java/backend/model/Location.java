@@ -48,12 +48,13 @@ public class Location {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "location")
     private List<Person> people;
 
-    public static LocationCreatedDTO getCreatedLocation(Location location) {
+    public static LocationCreatedDTO getCreatedLocation(Location location, int requestUserID) {
         return new LocationCreatedDTO(
             location.getId(),
             location.getX(),
             location.getY(),
-            location.getZ()
+            location.getZ(),
+            location.getUserId().getId() == requestUserID
         );
     }
 }

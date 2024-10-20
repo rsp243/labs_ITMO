@@ -44,11 +44,12 @@ public class Coordinates {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "coordinates")
     private List<Person> people;
 
-    public static CoordinatesCreatedDTO getCreatedCoordinates(Coordinates coordinates) {
+    public static CoordinatesCreatedDTO getCreatedCoordinates(Coordinates coordinates, int requestUserID) {
         return new CoordinatesCreatedDTO(
             coordinates.getId(),
             coordinates.getX(),
-            coordinates.getY()
+            coordinates.getY(),
+            coordinates.getUserId().getId() == requestUserID
         );
     }
 }

@@ -45,9 +45,10 @@ public class LocationController {
     @PostMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") int id, @RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+        int user_id = jwtUtils.getIdFromToken(req.getToken());
 
         return ControllerExecutor.execute(validator, () -> {
-            LocationCreatedDTO result = Location.getCreatedLocation(locationService.getById(id));
+            LocationCreatedDTO result = Location.getCreatedLocation(locationService.getById(id), user_id);
 
             return ResponseEntity.ok().body(result);
         });
@@ -56,13 +57,14 @@ public class LocationController {
     @PostMapping(path = "/all")
     public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+        int user_id = jwtUtils.getIdFromToken(req.getToken());
 
         return ControllerExecutor.execute(validator, () -> {
             List<Location> allLocation = locationService.getAllLocation();
             List<LocationCreatedDTO> result = new LinkedList<LocationCreatedDTO>();
             for (int i = 0; i < allLocation.size(); i++) {
                 Location iLocation = allLocation.get(i);
-                result.add(Location.getCreatedLocation(iLocation));
+                result.add(Location.getCreatedLocation(iLocation, user_id));
             }
             return ResponseEntity.ok().body(result);
         });
