@@ -11,7 +11,7 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 
 
-export default function ResultTable({getToken}) {
+export default function ResultTable({ getToken, isAdmin }) {
     const msgs = useRef(null);
     const navigate = useNavigate();
     const [results, setResults] = useState([]);
@@ -461,8 +461,8 @@ export default function ResultTable({getToken}) {
         );
     }; 
 
-    const allowEdit = (rowData) => {
-        return rowData.name !== 'Blue Band';
+    const allowEditDelete = (rowData) => {
+        return isAdmin;
     };
 
     return (
@@ -485,8 +485,8 @@ export default function ResultTable({getToken}) {
                         <Column editor={(options) => locationEditor(options)} field="location_id" header="Location ID" sortable />
                         <Column editor={(options) => numEditor(options)} field="height" header="Height (cm)" sortable />
                         <Column editor={(options) => nationalityEditor(options)} field="nationality" header="Nationality" sortable />
-                        <Column rowEditor={allowEdit} header="Edit"/>
-                        <Column body={deleteTemplate} header="Delete" />
+                        <Column rowEditor={allowEditDelete} header="Edit"/>
+                        <Column rowDelete={allowEditDelete} body={deleteTemplate} header="Delete" />
                     </DataTable>)
                 }
                 { tableVal === 1 &&
@@ -494,8 +494,8 @@ export default function ResultTable({getToken}) {
                         <Column field="id" header="ID" sortable />
                         <Column editor={(options) => numEditor(options)} field="x" header="X" sortable />
                         <Column editor={(options) => numEditor(options)} field="y" header="Y" sortable />
-                        <Column rowEditor={allowEdit} header="Edit" />
-                        <Column body={deleteTemplateCoordinates} header="Delete" />
+                        <Column rowEditor={allowEditDelete} header="Edit" />
+                        <Column rowDelete={allowEditDelete} body={deleteTemplateCoordinates} header="Delete" />
                     </DataTable>)
                 }
                 { tableVal === 2 &&
@@ -504,8 +504,8 @@ export default function ResultTable({getToken}) {
                         <Column editor={(options) => numEditor(options)} field="x" header="X" sortable/>
                         <Column editor={(options) => numEditor(options)} field="y" header="Y" sortable/>
                         <Column editor={(options) => numEditor(options)} field="z" header="Z" sortable/>
-                        <Column rowEditor={allowEdit} header="Edit" />
-                        <Column body={deleteTemplateLocation} header="Delete" />
+                        <Column rowEditor={allowEditDelete} header="Edit" />
+                        <Column rowDelete={allowEditDelete} body={deleteTemplateLocation} header="Delete" />
                     </DataTable>)
                 }
             </div>

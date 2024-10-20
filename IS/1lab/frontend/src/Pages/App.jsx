@@ -14,7 +14,7 @@ import './src/js/canvas';
 import React from 'react';
 import { drawIsHitPoint, drawPoint } from './src/js/canvas_points'
 
-export default function App({ getToken }) {
+export default function App({ getToken, isAdmin }) {
 	const msgs = useRef(null);
 	const navigate = useNavigate();
 
@@ -120,7 +120,7 @@ export default function App({ getToken }) {
 			</div>
 			<div style={{"height": "50px"}}></div>
 			<div className="wrapper align-middle">
-				<ResultTable getToken={getToken} />
+				<ResultTable getToken={getToken} isAdmin={isAdmin} />
 			</div>
 			<div style={{"height": "50px"}}></div>
 		</div>

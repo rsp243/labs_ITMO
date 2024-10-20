@@ -77,4 +77,15 @@ public class AdminController {
             return ResponseEntity.ok().body(result);
         });
     }
+
+    @PostMapping(path = "/reject")
+    public ResponseEntity<?> rejectUser(@RequestBody IdDTO req) {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
+
+        return ControllerExecutor.execute(validator, () -> {
+            UsersCreatedDTO result = adminService.rejectUser(req);
+
+            return ResponseEntity.ok().body(result);
+        });
+    }
 }

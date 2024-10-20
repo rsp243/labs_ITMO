@@ -54,18 +54,17 @@ export default function Router({ isAdmin }) {
             <Routes>
                 <Route path='*' element={<NotFound />} />
                 <Route path="/" element={<Header getToken={getToken} logout={logout} isAdmin={isAdmin} />}>
-                    <Route path="/" element={<App getToken={getToken}/>} />
+                    <Route path="/" element={<App getToken={getToken} isAdmin={isAdmin}/>} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/request" element={<Request getToken={getToken} />} />
-                    <Route path="/approve" element={<Approve getToken={getToken} />} />
+                    {isAdmin && 
+                        <Route path="/approve" element={<Approve getToken={getToken} />} />
+                    }
                     <Route path="/add" element={<Add getToken={getToken} />} />
                     <Route path="/add/coordinates" element={<AddWrapper Component={AddCoordinates} getToken={getToken} />} />
                     <Route path="/add/location" element={<AddWrapper Component={AddLocation} getToken={getToken} />} />
                     <Route path="/add/person" element={<AddWrapper Component={AddPerson} getToken={getToken} />} />
-                    <Route path="/edit/coordinates/:id" element={<EditPerson getToken={getToken} />} />
-                    <Route path="/edit/location/:id" element={<EditPerson getToken={getToken} />} />
-                    <Route path="/edit/person/:id" element={<EditPerson getToken={getToken} />} />
                     <Route path="/special" element={<Special/>} />
                     <Route path="/special/max_id" element={<SpecialMaxId getToken={getToken} />} />
                     <Route path="/special/name_filter" element={<SpecialNameFilter getToken={getToken} />} />

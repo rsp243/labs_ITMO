@@ -95,4 +95,20 @@ public class AdminService {
 
         return new UsersCreatedDTO("Successfully approved", user.getId(), user.getName());
     }
+
+    public UsersCreatedDTO rejectUser(IdDTO req) throws ForbiddenException {
+        final long adminId = jwtUtils.getIdFromToken(req.getToken().getToken());
+        final Users admin = usersRepository.getReferenceById(adminId);
+
+        if (!admin.isAdmin()) {
+            throw new ForbiddenException("Only admins can approve admin priviliges requests");
+        }
+        
+        final long userId = req.getId();
+        final Users user = usersRepository.getReferenceById(userId);
+        user.setAdminStatus(UsersAdminStatus.USER);
+        usersRepository.save(user);
+
+        return new UsersCreatedDTO("Successfully rejected", user.getId(), user.getName());
+    }
 }
