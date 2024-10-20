@@ -3,6 +3,8 @@ package backend.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import backend.DTO.LocationCreatedDTO;
 import backend.DTO.PersonCreatedDTO;
 import jakarta.persistence.CascadeType;
@@ -41,6 +43,9 @@ public class Location {
     @Column(name = "z")
     private long z;
 
+    @JsonProperty("is_editable_by_admin")
+    private boolean isEditableByAdmin;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users userId;
@@ -54,6 +59,7 @@ public class Location {
             location.getX(),
             location.getY(),
             location.getZ(),
+            location.isEditableByAdmin(),
             location.getUserId().getId() == requestUserID
         );
     }

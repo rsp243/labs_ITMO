@@ -9,6 +9,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
+import { classNames } from 'primereact/utils';
+import { Checkbox } from 'primereact/checkbox';
 
 
 export default function ResultTable({ getToken, isAdmin }) {
@@ -59,30 +61,30 @@ export default function ResultTable({ getToken, isAdmin }) {
             token: getToken()
         }
         msgs.current.clear();
-        // axios.post(`http://localhost:8080/api/v1/person/delete`, data)
-        //     .then(res => {
-        //         console.log(res)
-        //         msgs.current.show([
-        //             { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: res.data.message, closable: false },
-        //         ])
-        //         deleteRow(id)
-        //     })
-        //     .catch(function (error) {
-        //         let myError = "";
-        //         if (error.response) {
-        //             // The request was made and the server responded with a status code
-        //             // that falls out of the range of 2xx
+        axios.post(`http://localhost:8080/api/v1/person/delete`, data)
+            .then(res => {
+                console.log(res)
+                msgs.current.show([
+                    { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: res.data.message, closable: false },
+                ])
+                deleteRow(id)
+            })
+            .catch(function (error) {
+                let myError = "";
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
                     
-        //             myError = error.response.data.message
-        //         } else {
-        //             // Something happened in setting up the request that triggered an Error
-        //             console.log('Error', error.message);
-        //             myError = "An error during request setting up has happened"
-        //         }
-        //         msgs.current.replace([
-        //             { severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
-        //         ]);
-        //     });
+                    myError = error.response.data.message
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                    myError = "An error during request setting up has happened"
+                }
+                msgs.current.replace([
+                    { severity: 'error', life: 5000, summary: 'Error', detail: myError, sticky: false, closable: false }
+                ]);
+            });
     }
 
     const handleDeleteClickCoordinates = async (id) => {
@@ -271,6 +273,7 @@ export default function ResultTable({ getToken, isAdmin }) {
             location_id: newData.location_id,
             height: newData.height,
             nationality: newData.nationality,
+            editableByAdmin: newData.editableByAdmin,
             token: getToken()
         };
 
@@ -303,6 +306,10 @@ export default function ResultTable({ getToken, isAdmin }) {
     const numEditor = (options) => {
         return <InputText type="number" value={options.value} onChange={(e) => options.editorCallback(e.target.value)} />
     };
+
+    const booleanEditor = (options) => {
+        return <Checkbox inputId={options.rowData.id} checked={options.value} onChange={(e) => options.editorCallback(e.checked)} />
+    }
 
     const colorOptions = [
         { label: 'RED', value: 'RED' },
@@ -366,10 +373,14 @@ export default function ResultTable({ getToken, isAdmin }) {
 
         _results[index] = newData;
 
+        console.log("NEW")
+        console.log(newData)
+
         const coordinatesData = {
             id: newData.id,
             x: newData.x,
             y: newData.y,
+            editableByAdmin: newData.editableByAdmin,
             token: getToken()
         };
 
@@ -401,11 +412,14 @@ export default function ResultTable({ getToken, isAdmin }) {
 
         _results[index] = newData;
 
+        console.log(newData)
+
         const locationData = {
             id: newData.id,
             x: newData.x,
             y: newData.y,
             z: newData.z,
+            editableByAdmin: newData.editableByAdmin,
             token: getToken()
         };
 
@@ -473,6 +487,10 @@ export default function ResultTable({ getToken, isAdmin }) {
         );
     }; 
 
+    const isEditableBodyTemplate = (rowData) => {
+        return <i className={classNames('pi', { 'true-icon pi-check': rowData.editableByAdmin, 'false-icon pi-times': !rowData.editableByAdmin })}></i>;
+    };
+
     const allowEditDelete = (rowData) => {
         return isAdmin || rowData.updatable;
     };
@@ -497,6 +515,7 @@ export default function ResultTable({ getToken, isAdmin }) {
                         <Column editor={(options) => locationEditor(options)} field="location_id" header="Location ID" sortable />
                         <Column editor={(options) => numEditor(options)} field="height" header="Height (cm)" sortable />
                         <Column editor={(options) => nationalityEditor(options)} field="nationality" header="Nationality" sortable />
+                        <Column editor={(options) => booleanEditor(options)} field="editableByAdmin" header="Editable by Admin?" dataType="boolean" bodyClassName="text-center" body={isEditableBodyTemplate} />
                         <Column rowEditor={allowEditDelete} header="Edit"/>
                         <Column body={deleteTemplate} header="Delete" />
                     </DataTable>)
@@ -506,6 +525,7 @@ export default function ResultTable({ getToken, isAdmin }) {
                         <Column field="id" header="ID" sortable />
                         <Column editor={(options) => numEditor(options)} field="x" header="X" sortable />
                         <Column editor={(options) => numEditor(options)} field="y" header="Y" sortable />
+                        <Column editor={(options) => booleanEditor(options)} field="editableByAdmin" header="Editable by Admin?" dataType="boolean" bodyClassName="text-center" body={isEditableBodyTemplate} sortable/>
                         <Column rowEditor={allowEditDelete} header="Edit" />
                         <Column body={deleteTemplateCoordinates} header="Delete" />
                     </DataTable>)
@@ -516,6 +536,7 @@ export default function ResultTable({ getToken, isAdmin }) {
                         <Column editor={(options) => numEditor(options)} field="x" header="X" sortable/>
                         <Column editor={(options) => numEditor(options)} field="y" header="Y" sortable/>
                         <Column editor={(options) => numEditor(options)} field="z" header="Z" sortable/>
+                        <Column editor={(options) => booleanEditor(options)} field="editableByAdmin" header="Editable by Admin?" dataType="boolean" bodyClassName="text-center" body={isEditableBodyTemplate} sortable />
                         <Column rowEditor={allowEditDelete} header="Edit" />
                         <Column body={deleteTemplateLocation} header="Delete" />
                     </DataTable>)

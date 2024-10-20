@@ -5,20 +5,25 @@ import { useState, useRef} from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { Checkbox } from 'primereact/checkbox';
 
 
 export default function AddCoordinates({ getToken }) {
     const msgs = useRef(null);
     const [x, setX] = useState(0);
     const [y, setY] = useState(0);
+    const [isEditableByAdmin, setIsEditableByAdmin] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const coordinatesData = {
             x: x, // integer
             y: y, // double
+            editableByAdmin: isEditableByAdmin,
             token: getToken()
         };
+
+        console.log(coordinatesData)
 
         msgs.current.clear();
         axios.post(`http://localhost:8080/api/v1/coordinates/add`, coordinatesData)
@@ -56,6 +61,14 @@ export default function AddCoordinates({ getToken }) {
                     <div className="field flex justify-content-around align-items-center">
                         <label className='m-0'>Y</label>
                         <InputText className="w-4" type="number" value={y} onChange={(e) => setY(e.target.value)} required />
+                    </div>
+                    <div className="field flex justify-content-around align-items-center">
+                        <label className='m-0'>Editable by Admin?</label>
+                        <Checkbox 
+                            inputId="isEditableByAdmin" 
+                            checked={isEditableByAdmin} 
+                            onChange={(e) => {setIsEditableByAdmin(e.checked)}} 
+                        />
                     </div>
                 </div>
                 

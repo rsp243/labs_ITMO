@@ -22,9 +22,11 @@ import backend.repository.LocationRepository;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LocationService {
     
     private final LocationRepository locationRepository;
@@ -39,12 +41,14 @@ public class LocationService {
     public LocationCreatedDTO addLocation(LocationDTO req) throws DoesNotExistException {
         final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
+        log.error("EDITABLE BY ADMIN" + req.isEditableByAdmin());
 
         Location location = Location.builder()
                 .x(req.getX())
                 .y(req.getY())
                 .z(req.getZ())
                 .userId(owner)
+                .isEditableByAdmin(req.isEditableByAdmin())
                 .build();
 
         locationRepository.save(location);
@@ -73,6 +77,7 @@ public class LocationService {
         location.setX(req.getX());
         location.setY(req.getY());
         location.setZ(req.getZ());
+        location.setEditableByAdmin(req.isEditableByAdmin());
         locationRepository.save(location);
 
         return Location.getCreatedLocation(location, location.getUserId().getId());

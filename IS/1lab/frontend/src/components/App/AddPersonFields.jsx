@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { Checkbox } from 'primereact/checkbox';
+
 
 export default function AddPersonFields({ coordinatesOptions, locationOptions, msgs, getToken }) {
     const [name, setName] = useState('');
@@ -13,6 +15,7 @@ export default function AddPersonFields({ coordinatesOptions, locationOptions, m
     const [location, setLocation] = useState(null);
     const [height, setHeight] = useState('');
     const [nationality, setNationality] = useState('');
+    const [isEditableByAdmin, setIsEditableByAdmin] = useState(false);
 
     const colorOptions = [
         { label: 'RED', value: 'RED' },
@@ -37,6 +40,7 @@ export default function AddPersonFields({ coordinatesOptions, locationOptions, m
             location_id: location,
             height: height,
             nationality: nationality,
+            editableByAdmin: isEditableByAdmin,
             token: getToken()
         };
         
@@ -123,6 +127,14 @@ export default function AddPersonFields({ coordinatesOptions, locationOptions, m
                             onChange={(e) => setNationality(e.value)} 
                             placeholder="Select nationality" 
                             required
+                        />
+                    </div>
+                    <div className="field flex justify-content-around align-items-center">
+                        <label className='m-0'>Editable by Admin?</label>
+                        <Checkbox 
+                            inputId="isEditableByAdmin" 
+                            checked={isEditableByAdmin} 
+                            onChange={(e) => {setIsEditableByAdmin(e.checked)}} 
                         />
                     </div>
                 </div>

@@ -16,5 +16,6 @@ public class PersonEditDTO implements TokenizedDTO {
     private Long location_id;
     private int height;
     private Country nationality;
+    private boolean isEditableByAdmin;
     private TokenDTO token;
 }

@@ -8,8 +8,6 @@ import backend.DTO.DeletedDTO;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
 import backend.DTO.PersonEditDTO;
-import backend.DTO.PointsCreatedDTO;
-// import backend.DTO.DeletedDTO;
 import backend.DTO.TokenDTO;
 import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ObjectNotFoundException;
@@ -74,6 +72,7 @@ public class PersonService {
                 .height(req.getHeight())
                 .nationality(req.getNationality())
                 .userId(owner)
+                .isEditableByAdmin(req.isEditableByAdmin())
                 .build();
 
 
@@ -122,7 +121,8 @@ public class PersonService {
         person.setHairColor(req.getHair_color());
         person.setHeight(req.getHeight());
         person.setNationality(req.getNationality());
-        
+        person.setEditableByAdmin(req.isEditableByAdmin());
+
         peopleRepository.save(person);
 
         coordinatesPeople.add(person);

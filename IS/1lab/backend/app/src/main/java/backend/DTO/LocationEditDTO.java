@@ -10,5 +10,6 @@ public class LocationEditDTO implements TokenizedDTO {
     private Integer x;
     private Integer y;
     private long z;
+    private boolean isEditableByAdmin;
     private TokenDTO token;
 }

@@ -2,6 +2,8 @@ package backend.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import backend.DTO.CoordinatesCreatedDTO;
 import backend.DTO.PersonCreatedDTO;
 import jakarta.persistence.CascadeType;
@@ -37,6 +39,9 @@ public class Coordinates {
     @Column(name = "y", nullable = false)
     private Double y; //Поле не может быть null
 
+    @JsonProperty("is_editable_by_admin")
+    private boolean isEditableByAdmin;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users userId;
@@ -49,6 +54,7 @@ public class Coordinates {
             coordinates.getId(),
             coordinates.getX(),
             coordinates.getY(),
+            coordinates.isEditableByAdmin(),
             coordinates.getUserId().getId() == requestUserID
         );
     }

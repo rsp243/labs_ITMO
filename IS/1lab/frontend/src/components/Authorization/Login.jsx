@@ -78,7 +78,7 @@ export default function Login({ setToken }) {
             </div>
             <div className="w-full md:w-5 flex flex-column align-items-center justify-content-center py-5 gap-2">
                 <a href="/register"><Button label="Sign Up" icon="pi pi-user-plus" severity="success" className="w-10rem" /></a>
-                <a href="/"><Button label="To Main Page" icon="pi pi-home" className="w-10rem" /></a>
+                <a href="/home"><Button label="To Home Page" icon="pi pi-home" className="w-10rem" /></a>
             </div>
         </div>
     );

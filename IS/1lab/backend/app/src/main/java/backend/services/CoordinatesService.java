@@ -17,9 +17,11 @@ import backend.repository.CoordinatesRepository;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CoordinatesService {
 
     private final CoordinatesRepository coordinatesRepository;
@@ -34,11 +36,13 @@ public class CoordinatesService {
     public CoordinatesCreatedDTO addCoordinates(CoordinatesDTO req) throws DoesNotExistException {
         final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
+        log.error("EDITABLE BY ADMIN " + req.isEditableByAdmin());
 
         Coordinates coordinates = Coordinates.builder()
                 .x(req.getX())
                 .y(req.getY())
                 .userId(owner)
+                .isEditableByAdmin(req.isEditableByAdmin())
                 .build();
 
         coordinatesRepository.save(coordinates);
@@ -66,6 +70,7 @@ public class CoordinatesService {
         Coordinates coordinates = coordinatesRepository.getReferenceById(Long.valueOf(req.getId()));
         coordinates.setX(req.getX());
         coordinates.setY(req.getY());
+        coordinates.setEditableByAdmin(req.isEditableByAdmin());
         coordinatesRepository.save(coordinates);
 
         return Coordinates.getCreatedCoordinates(coordinates, coordinates.getUserId().getId());

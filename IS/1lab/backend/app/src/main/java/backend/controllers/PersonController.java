@@ -14,7 +14,6 @@ import backend.model.Person;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
 import backend.DTO.PersonEditDTO;
-import backend.DTO.PointsCreatedDTO;
 import backend.DTO.CoordinatesCreatedDTO;
 import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
@@ -103,7 +102,8 @@ public class PersonController {
         int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
         int person_id = req.getId();
 
-        if (!adminService.isAdmin(user_id) && personService.getById(person_id).getUserId().getId() != user_id) {
+        Person person = personService.getById(person_id);
+        if (!(adminService.isAdmin(user_id) && person.isEditableByAdmin()) && person.getUserId().getId() != user_id) {
             throw new ForbiddenException("It's forbidden to you to delete this object.");
         }
 
@@ -121,7 +121,8 @@ public class PersonController {
         int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
         int person_id = req.getId();
 
-        if (!adminService.isAdmin(user_id) && personService.getById(person_id).getUserId().getId() != user_id) {
+        Person person = personService.getById(person_id);
+        if (!(adminService.isAdmin(user_id) && person.isEditableByAdmin()) && person.getUserId().getId() != user_id) {
             throw new ForbiddenException("It's forbidden to you to edit this object.");
         }
 

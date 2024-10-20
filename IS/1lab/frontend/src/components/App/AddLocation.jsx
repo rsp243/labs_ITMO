@@ -5,6 +5,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Messages } from 'primereact/messages';
+import { Checkbox } from 'primereact/checkbox';
 
 
 export default function AddLocation ({ getToken }) {
@@ -12,6 +13,7 @@ export default function AddLocation ({ getToken }) {
     const [x, setX] = useState('');
     const [y, setY] = useState('');
     const [z, setZ] = useState('');
+    const [isEditableByAdmin, setIsEditableByAdmin] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,6 +21,7 @@ export default function AddLocation ({ getToken }) {
             x: x,
             y: y,
             z: z,
+            editableByAdmin: isEditableByAdmin,
             token: getToken()
         };
 
@@ -62,6 +65,14 @@ export default function AddLocation ({ getToken }) {
                     <div className="field flex justify-content-around align-items-center">
                         <label className='m-0'>Z</label>
                         <InputText className="w-6" type="number" value={z} onChange={(e) => setZ(e.target.value)} required />
+                    </div>
+                    <div className="field flex justify-content-around align-items-center">
+                        <label className='m-0'>Editable by Admin?</label>
+                        <Checkbox 
+                            inputId="isEditableByAdmin" 
+                            checked={isEditableByAdmin} 
+                            onChange={(e) => {setIsEditableByAdmin(e.checked)}} 
+                        />
                     </div>
                 </div>
                 

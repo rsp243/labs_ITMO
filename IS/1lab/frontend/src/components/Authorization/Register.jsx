@@ -33,7 +33,7 @@ export default function Register() {
             .then(res => {
                 console.log(res.data);
                 msgs.current.show([
-                    { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: 'Successfully Registrated', closable: false },
+                    { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: 'Successfully Registered', closable: false },
                 ])
                 setTimeout(() => {
                     navigate('/login', { replace: true })
@@ -85,7 +85,7 @@ export default function Register() {
             </div>
             <div className="w-full md:w-5 flex flex-column align-items-center justify-content-center py-5 gap-2">
                 <a href="/login"><Button label="Sign In" icon="pi pi-user-plus" severity="success" className="w-10rem" /></a>
-                <a href="/"><Button label="To Main Page" icon="pi pi-home" className="w-10rem" /></a>
+                <a href="/home"><Button label="To Home Page" icon="pi pi-home" className="w-10rem" /></a>
             </div>
         </div>
     );
