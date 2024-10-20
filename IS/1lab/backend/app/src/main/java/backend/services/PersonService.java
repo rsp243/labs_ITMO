@@ -46,6 +46,15 @@ public class PersonService {
         return peopleRepository.findAll();
     }
 
+    public Person getMaxIdPerson() throws ObjectNotFoundException {
+        List<Person> allPeople = getAllPeople();
+        if (allPeople.size() < 1) {
+            throw new ObjectNotFoundException("No objects in collection");
+        }
+
+        return allPeople.get(0);
+    }
+
     public PersonCreatedDTO addPerson(PersonDTO req) throws DoesNotExistException {
         final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);

@@ -21,10 +21,10 @@ export default function AddCoordinates({ getToken }) {
         };
 
         msgs.current.clear();
-        axios.post(`http://localhost:8080/api/v1/coordinetes/add`, coordinatesData)
+        axios.post(`http://localhost:8080/api/v1/coordinates/add`, coordinatesData)
             .then(res => {
                 msgs.current.show([
-                    { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: 'Successfully Registrated', closable: false },
+                    { sticky: false, life: 2000, severity: 'success', summary: 'Success', detail: 'Successfully created', closable: false },
                 ])
             })
             .catch(function (error) {

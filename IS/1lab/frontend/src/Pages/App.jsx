@@ -7,17 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 
 
-import ButtonBlock from '../components/App/ActionButtonBlock';
-import Canvas from '../components/App/Canvas';
-import Selectors from '../components/App/GraphicValues/Selectors';
 import ResultTable from '../components/App/ResultTable';
 
 import './src/css/App.css';
 import './src/js/canvas';
 import React from 'react';
 import { drawIsHitPoint, drawPoint } from './src/js/canvas_points'
-import { drawBeginnigGraph } from "./src/js/canvas"
-import fissureSrc from './src/img/fissure.png';
 
 export default function App({ getToken }) {
 	const msgs = useRef(null);
@@ -29,7 +24,14 @@ export default function App({ getToken }) {
 			navigate(0)
 		}, 0)
 	}
-
+	
+	const handleSpecialClick = _ => {
+		setTimeout(() => {
+			navigate('/special', { replace: true })
+			navigate(0)
+		}, 0)
+	}
+	
 	const handleThrowClick = async e => {
 		e.preventDefault();
 
@@ -104,6 +106,13 @@ export default function App({ getToken }) {
                 onClick={handleAddClick} 
                 className="top-right-button" 
 				style={{ position: "absolute", top: "85px", right: "20px" }}
+            />
+			<Button 
+                label="Special Operations" 
+                icon="pi pi-star" 
+                onClick={handleSpecialClick} 
+                className="top-right-button" 
+				style={{ position: "absolute", top: "85px", right: "200px" }}
             />
 			<div style={{"height": "30px"}}></div>
 			<div className="card flex flex-column justify-content-center align-items-center">

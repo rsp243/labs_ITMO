@@ -508,59 +508,7 @@ export default function ResultTable({getToken}) {
                         <Column body={deleteTemplateLocation} header="Delete" />
                     </DataTable>)
                 }
-                {/* <table>
-                    <thead style={{ }}>
-                        <tr>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Id</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Name</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Coordinates</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Creation date</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Eye color</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Hair color</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Location</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Height (cm)</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Nationality</th>
-                            <th style={{ border: '1px solid blue', padding: '8px' }}>Actions</th>
-                            </tr>
-                    </thead>
-                    <tbody>
-                        {results.map((row) => (
-                            <tr key={row.id}>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.id || "Not specified"}</td>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.name || "Not specified"}</td>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >
-                                    {expandedRows[row.id] ? performCoordinatesOption(getObjectById(resultsCoordinates, row.coordinates_id))["label"] : "id: " + row.coordinates_id || "Not specified"}
-                                </td>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.creationDate.join(".") || "Not specified"}</td>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.eyeColor || "Not specified"}</td>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.hairColor || "Not specified"}</td>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >
-                                    {expandedRows[row.id] ? performLocationOption(getObjectById(resultsLocation, row.location_id))["label"] : "id: " + row.location_id || "Not specified"}
-                                </td>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.height || "Not specified"}</td>
-                                <td style={{ border: '1px solid blue', padding: '8px', textAlign: "center" }} >{row.nationality || "Not specified"}</td>
-                                <td  className='tableButtons' style={{ border: '1px solid blue', padding: '8px'}}>
-                                    <Button label="Edit" icon="pi pi-pencil" onClick={() => handleEditClick(row.id)}></Button>
-                                    <Button label="Delete" icon="pi pi-times" onClick={() => handleDeleteClick(row.id)}></Button>
-                                    <Button label={expandedRows[row.id] ? 'Less info' : 'More info'} icon="pi pi-info" onClick={() => handleMoreClick(row.id)}></Button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table> */}
             </div>
         </>
-
-        // <DataTable scrollable scrollHeight="400px" value={results} tableStyle={{ maxWidth: '70rem', margin: "auto auto" }}>
-        //     <Column field="name" header="Name" sortable></Column>
-        //     <Column field="coordinates_id" header="Coordinates" sortable></Column>
-        //     <Column field="creation_date" header="Creation date" sortable></Column>
-        //     <Column field="eye_color" header="Eye color" sortable></Column>
-        //     <Column field="hair_color" header="Hair color" sortable></Column>
-        //     <Column field="location_id" header="Location" sortable></Column>
-        //     <Column field="height" header="Height" sortable></Column>
-        //     <Column field="nationality" header="Nationality" sortable></Column>
-        //     <Column field="actions" header="Actions"></Column>
-        // </DataTable>
     );
 }

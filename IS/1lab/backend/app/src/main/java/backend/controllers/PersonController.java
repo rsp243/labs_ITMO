@@ -54,6 +54,16 @@ public class PersonController {
         });
     }
 
+    @PostMapping(path = "/max_id")
+    public ResponseEntity<?> getMaxIdPerson(@RequestBody TokenDTO req) {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+        return ControllerExecutor.execute(validator, () -> {
+            PersonCreatedDTO result = Person.getCreatedPerson(personService.getMaxIdPerson());
+
+            return ResponseEntity.ok().body(result);
+        });
+    }
+
     @PostMapping(path = "/all")
     public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
@@ -65,6 +75,7 @@ public class PersonController {
                 Person iPerson = allPeople.get(i);
                 result.add(Person.getCreatedPerson(iPerson));
             }
+
             return ResponseEntity.ok().body(result);
         });
     }
@@ -75,6 +86,7 @@ public class PersonController {
 
         return ControllerExecutor.execute(validator, () -> {
             PersonCreatedDTO personDTO = personService.addPerson(req);
+            
             return ResponseEntity.ok().body(personDTO);
         });
     }
@@ -93,6 +105,7 @@ public class PersonController {
 
         return ControllerExecutor.execute(validator, () -> {
             DeletedDTO personDTO = personService.deletePerson(person_id);
+
             return ResponseEntity.ok().body(personDTO);
         });
     }
@@ -110,6 +123,7 @@ public class PersonController {
 
         return ControllerExecutor.execute(validator, () -> {
             PersonCreatedDTO personDTO = personService.editPerson(req);
+            
             return ResponseEntity.ok().body(personDTO);
         });
     }

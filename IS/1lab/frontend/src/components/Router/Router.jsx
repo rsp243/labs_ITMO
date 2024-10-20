@@ -22,6 +22,12 @@ import AddLocation from "../App/AddLocation.jsx";
 import AddCoordinates from "../App/AddCoordinates.jsx";
 import AddWrapper from "../App/AddWrapper.jsx";
 import EditPerson from "../App/EditPerson.jsx";
+import Special from "../App/Special/Special.jsx"
+import SpecialMaxId from "../App/Special/SpecialMaxId.jsx"
+import SpecialNameFilter from "../App/Special/SpecialNameFilter.jsx"
+import SpecialHeightFilter from "../App/Special/SpecialHeightFilter.jsx"
+import SpecialHairColorCount from "../App/Special/SpecialHairColorCount.jsx"
+import SpecialEyeColorCount from "../App/Special/SpecialEyeColorCount.jsx"
 
 
 export default function Router({ isAdmin }) {
@@ -32,7 +38,7 @@ export default function Router({ isAdmin }) {
             <BrowserRouter>
                 <Routes>
                     <Route path='*' element={<NotFound />} />
-                    <Route path="/" element={<Header getToken={getToken} logout={logout}/>}>
+                    <Route path="/" element={<Header getToken={getToken} logout={logout} isAdmin={isAdmin}/>}>
                         <Route path="/home" element={<Home />} />
                         <Route path="/about" element={<About />} />
                     </Route>
@@ -60,6 +66,12 @@ export default function Router({ isAdmin }) {
                     <Route path="/edit/coordinates/:id" element={<EditPerson getToken={getToken} />} />
                     <Route path="/edit/location/:id" element={<EditPerson getToken={getToken} />} />
                     <Route path="/edit/person/:id" element={<EditPerson getToken={getToken} />} />
+                    <Route path="/special" element={<Special/>} />
+                    <Route path="/special/max_id" element={<SpecialMaxId getToken={getToken} />} />
+                    <Route path="/special/name_filter" element={<SpecialNameFilter getToken={getToken} />} />
+                    <Route path="/special/height_filter" element={<SpecialHeightFilter getToken={getToken} />} />
+                    <Route path="/special/hair_color_count" element={<SpecialHairColorCount getToken={getToken} />} />
+                    <Route path="/special/eye_color_count" element={<SpecialEyeColorCount getToken={getToken} />} />
                 </Route>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login setToken={setTokenLS} />} />
