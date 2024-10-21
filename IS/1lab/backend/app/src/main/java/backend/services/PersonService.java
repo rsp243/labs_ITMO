@@ -2,12 +2,15 @@ package backend.services;
 
 import org.springframework.stereotype.Service;
 
+import backend.DTO.CoordinatesCreatedDTO;
+import backend.DTO.CoordinatesEditDTO;
+import backend.DTO.DeletedDTO;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
-import backend.DTO.PointsCreatedDTO;
-import backend.DTO.PointsDeletedDTO;
+import backend.DTO.PersonEditDTO;
 import backend.DTO.TokenDTO;
 import backend.exceptions.DoesNotExistException;
+import backend.exceptions.ObjectNotFoundException;
 import backend.exceptions.TokenNotPassedException;
 import backend.model.Coordinates;
 import backend.model.Location;
@@ -36,14 +39,22 @@ public class PersonService {
     private final UserRepository userRepository;
     private final CoordinatesRepository coordinatesRepository;
     private final LocationRepository locationRepository;
-    private final AuthService authService;
 
     public List<Person> getAllPeople() {
         return peopleRepository.findAll();
     }
 
+    public Person getMaxIdPerson() throws ObjectNotFoundException {
+        List<Person> allPeople = getAllPeople();
+        if (allPeople.size() < 1) {
+            throw new ObjectNotFoundException("No objects in collection");
+        }
+
+        return allPeople.get(0);
+    }
+
     public PersonCreatedDTO addPerson(PersonDTO req) throws DoesNotExistException {
-        final long userId = authService.getUserIdFromToken(req.getToken().getToken());
+        final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
 
         final Coordinates coordinates = coordinatesRepository.getReferenceById(req.getCoordinates_id());
@@ -61,47 +72,67 @@ public class PersonService {
                 .height(req.getHeight())
                 .nationality(req.getNationality())
                 .userId(owner)
+                .isEditableByAdmin(req.isEditableByAdmin())
                 .build();
 
 
         peopleRepository.save(person);
-        return person.getCreatedPerson(person);
+        return Person.getCreatedPerson(person, owner.getId());
     }
 
-    // public boolean checkArea(float xValue, float yValue, float rValue) {
-    //     boolean inCircle = checkCircle(xValue, yValue, rValue);
-    //     boolean inTriangle = checkTriangle(xValue, yValue, rValue);
-    //     boolean inRectangle = checkRectangle(xValue, yValue, rValue);
-    //     return inCircle || inTriangle || inRectangle;
-    // }
+    public DeletedDTO deletePerson(int personId) {
+        Person person = peopleRepository.getReferenceById(Long.valueOf(personId));
+        final Coordinates coordinates = person.getCoordinates();
+        final Location location = person.getLocation();
 
-    // private static boolean checkCircle(final float xValue, final float yValue, final float rValue) {
-    //     return xValue > 0 && yValue > 0 && sqrt(pow(xValue, 2) + pow(yValue, 2)) <= rValue / 2;
-    // }
+        location.getPeople().remove(person);
+        coordinates.getPeople().remove(person);
+        peopleRepository.deleteById(Long.valueOf(personId));
 
-    // private static boolean checkTriangle(final float xValue, final float yValue, final float rValue) {
-    //     return xValue <= 0 && yValue <= 0 && abs(xValue) + abs(yValue) / 2 <= rValue / 2;
-    // }
+        return new DeletedDTO("Successfully deleted.");
+    }
 
-    // private static boolean checkRectangle(final float xValue, final float yValue, final float rValue) {
-    //     return xValue <= 0 && yValue >= 0 && abs(xValue) <= rValue && yValue <= rValue / 2;
-    // }
+    public Person getById(int id) throws ObjectNotFoundException {
+        List<Person> people = this.getAllPeople(); 
+        for (int i = 0; i < people.size(); i++) {
+            if (id == people.get(i).getId()) {
+                return people.get(i);
+            }
+        }
 
-    // private static boolean validateXYR(float x, float y, float r) {
-    //     return x >= -2 && x <= 2 && y >= -5 && y <= 5 && r >= -2 && r <= 2;
-    // }
+        throw new ObjectNotFoundException("Object wasn't found in database");
+    }
 
-    // public boolean getResult(float x, float y, float r) {
-    //     return validateXYR(x, y, r) && checkArea(x, y, r);
-    // }
+    public PersonCreatedDTO editPerson(PersonEditDTO req) throws ObjectNotFoundException {
+        Person person = peopleRepository.getReferenceById(Long.valueOf(req.getId()));
+        final Coordinates coordinates = coordinatesRepository.getReferenceById(req.getCoordinates_id());
+        final Location location = locationRepository.getReferenceById(req.getLocation_id());
 
-    // public void deletePoint(long pointId) {
-    //     pointsRepository.deleteById(pointId);
-    // }
+        List<Person> coordinatesPeople = coordinates.getPeople();
+        coordinatesPeople.remove(person);
+        
+        List<Person> locationPeople = location.getPeople();
+        locationPeople.remove(person);
 
-    // public PointsDeletedDTO deleteAllPoints(List<Points> pointsList) {
-    //     pointsRepository.deleteAll(pointsList);
+        person.setName(req.getName());
+        person.setCoordinates(coordinates);
+        person.setLocation(location);
+        person.setEyeColor(req.getEye_color());
+        person.setHairColor(req.getHair_color());
+        person.setHeight(req.getHeight());
+        person.setNationality(req.getNationality());
+        person.setEditableByAdmin(req.isEditableByAdmin());
 
-    //     return new PointsDeletedDTO("Deleted successfully.");
-    // }
+        peopleRepository.save(person);
+
+        coordinatesPeople.add(person);
+        coordinates.setPeople(coordinatesPeople);
+        coordinatesRepository.save(coordinates);
+
+        locationPeople.add(person);
+        location.setPeople(locationPeople);
+        locationRepository.save(location);
+        
+        return Person.getCreatedPerson(person, person.getUserId().getId());
+    }
 }

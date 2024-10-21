@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class PointsDeletedDTO {
-    private String message;
+public class AdminDTO {
+    private boolean status;
 }

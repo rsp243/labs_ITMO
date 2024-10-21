@@ -1,73 +1,16 @@
 package backend.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import backend.DTO.PersonCreatedDTO;
-import backend.DTO.PointsCreatedDTO;
 
-import java.time.format.DateTimeFormatter;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-// @Entity
-// @Table(name = "points")
-// @Data
-// @AllArgsConstructor
-// @NoArgsConstructor
-// @Builder
-// public class Points {
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-
-//     @Column(name = "x")
-//     private float x;
-
-//     @Column(name = "y")
-//     private float y;
-
-//     @Column(name = "r")
-//     private float r;
-
-//     @Column(name = "ishit")
-//     private boolean isHit;
-
-//     @Column(name = "currenttime")
-//     private LocalDateTime currentTime;
-
-//     @Column(name = "executiontime")
-//     private int executionTime;
-
-//     @Column(name = "userid")
-//     private long userId;
-//     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-
-//     public String getFormattedCurrentTime() {
-//         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-//         return currentTime.format(formatter);
-//     }
-
-//     public String getFormattedIsHit() {
-//         return isHit ? "HIT" : "MISS";
-//     }
-
-//     public PointsCreatedDTO getCreatedPoint(Points point) {
-//         return new PointsCreatedDTO(
-//             point.getX(),
-//             point.getY(),
-//             point.getR(),
-//             point.getFormattedIsHit(),
-//             point.getFormattedCurrentTime(),
-//             point.getExecutionTime()
-//         );
-//     }
-// }
 
 @Entity
 @Table(name = "person")
@@ -85,7 +28,7 @@ public class Person {
     private String name; // Поле не может быть null, Строка не может быть пустой
 
     @Embedded
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates; // Поле не может быть null
 
@@ -102,7 +45,7 @@ public class Person {
     private Color hairColor; // Поле не может быть null
 
     @Embedded
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location; // Поле не может быть null
 
@@ -111,14 +54,19 @@ public class Person {
     private int height; // Значение поля должно быть больше 0
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "nationality", nullable = true)
     private Country nationality; // Поле может быть null
+
+    @JsonProperty("is_editable_by_admin")
+    private boolean isEditableByAdmin;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users userId;
 
-    public PersonCreatedDTO getCreatedPerson(Person person) {
+    public static PersonCreatedDTO getCreatedPerson(Person person, int requestUserID) {
         return new PersonCreatedDTO(
+            person.getId(),
             person.getName(),
             person.getCoordinates().getId(),
             person.getCreationDate(),
@@ -126,7 +74,9 @@ public class Person {
             person.getHairColor(),
             person.getLocation().getId(),
             person.getHeight(),
-            person.getNationality()
+            person.getNationality(),
+            person.isEditableByAdmin(),
+            person.getUserId().getId() == requestUserID
         );
     }
 }

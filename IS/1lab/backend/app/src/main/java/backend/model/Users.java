@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "name", nullable = false, unique = true, length = 32)
     private String name;
@@ -23,8 +23,11 @@ public class Users {
     @Column(name = "password", nullable = false, length = 256)
     private String password;
 
-    public Users(String aName, String aPassword) {
-        name = aName;
-        password = aPassword;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "admin_status", nullable = false)
+    private UsersAdminStatus adminStatus;
+    
+    public boolean isAdmin() {
+        return this.getAdminStatus() == UsersAdminStatus.ADMIN;
     }
 }

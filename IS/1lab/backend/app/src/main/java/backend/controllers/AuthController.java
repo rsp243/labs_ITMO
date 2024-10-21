@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import backend.DTO.TokenDTO;
+import backend.DTO.UsersCreatedDTO;
 import backend.DTO.UsersDTO;
 import backend.exceptions.ApiException;
+import backend.model.validators.TokenValidator;
 import backend.model.validators.UsersValidator;
 import backend.security.JwtUtils;
 import backend.services.AuthService;
@@ -21,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(path = "/api/v1/auth", produces = { "application/json" })
 public class AuthController {
     private final JwtUtils jwtUtils;
-
     private final AuthService authService;
 
     @PostMapping(path = "/login")

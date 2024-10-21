@@ -8,4 +8,5 @@ import backend.model.Location;
 
 public interface LocationRepository extends JpaRepository<Location, Long> {
     List<Location> findAll();
+    void deleteById(int id);
 }

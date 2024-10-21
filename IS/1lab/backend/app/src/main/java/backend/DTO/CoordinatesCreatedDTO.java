@@ -6,7 +6,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CoordinatesCreatedDTO {
-    private Long id;
+    private int id;
     private Long x;
     private Double y;
+    private boolean isEditableByAdmin;
+    private boolean updatable;
 }
