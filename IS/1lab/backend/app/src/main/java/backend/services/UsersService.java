@@ -2,7 +2,9 @@ package backend.services;
 
 import java.math.BigInteger; 
 import java.security.MessageDigest; 
-import java.security.NoSuchAlgorithmException; 
+import java.security.NoSuchAlgorithmException;
+
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import backend.DTO.UsersCreatedDTO;
@@ -65,5 +67,11 @@ public class UsersService {
 
         usersRepository.save(user);
         return new UsersCreatedDTO("Successfully created", user.getId(), user.getName());
+    }
+
+    public Users getById(int id) throws NotFoundException {
+        Users user = usersRepository.getReferenceById(Long.valueOf(id));
+
+        return user;
     }
 }

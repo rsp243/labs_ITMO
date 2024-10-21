@@ -28,6 +28,7 @@ import SpecialNameFilter from "../App/Special/SpecialNameFilter.jsx"
 import SpecialHeightFilter from "../App/Special/SpecialHeightFilter.jsx"
 import SpecialHairColorCount from "../App/Special/SpecialHairColorCount.jsx"
 import SpecialEyeColorCount from "../App/Special/SpecialEyeColorCount.jsx"
+import History from "../App/History.jsx"
 
 
 export default function Router({ isAdmin }) {
@@ -38,7 +39,7 @@ export default function Router({ isAdmin }) {
             <BrowserRouter>
                 <Routes>
                     <Route path='*' element={<NotFound />} />
-                    <Route path="/" element={<Header getToken={getToken} logout={logout} isAdmin={isAdmin}/>}>
+                    <Route path="/" element={<Header getToken={getToken} logout={logout} isAdmin={false}/>}>
                         <Route path="/home" element={<Home />} />
                         <Route path="/about" element={<About />} />
                     </Route>
@@ -57,20 +58,27 @@ export default function Router({ isAdmin }) {
                     <Route path="/" element={<App getToken={getToken} isAdmin={isAdmin}/>} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/about" element={<About />} />
+
                     <Route path="/request" element={<Request getToken={getToken} />} />
                     {isAdmin && 
                         <Route path="/approve" element={<Approve getToken={getToken} />} />
                     }
+
                     <Route path="/add" element={<Add getToken={getToken} />} />
                     <Route path="/add/coordinates" element={<AddWrapper Component={AddCoordinates} getToken={getToken} />} />
                     <Route path="/add/location" element={<AddWrapper Component={AddLocation} getToken={getToken} />} />
                     <Route path="/add/person" element={<AddWrapper Component={AddPerson} getToken={getToken} />} />
+
                     <Route path="/special" element={<Special/>} />
                     <Route path="/special/max_id" element={<SpecialMaxId getToken={getToken} />} />
                     <Route path="/special/name_filter" element={<SpecialNameFilter getToken={getToken} />} />
                     <Route path="/special/height_filter" element={<SpecialHeightFilter getToken={getToken} />} />
                     <Route path="/special/hair_color_count" element={<SpecialHairColorCount getToken={getToken} />} />
                     <Route path="/special/eye_color_count" element={<SpecialEyeColorCount getToken={getToken} />} />
+
+                    <Route path="/history/person/:id" element={<History getToken={getToken} object="person" />} />
+                    <Route path="/history/coordinates/:id" element={<History getToken={getToken} object="coordinates" />} />
+                    <Route path="/history/location/:id" element={<History getToken={getToken} object="location" />} />
                 </Route>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login setToken={setTokenLS} />} />

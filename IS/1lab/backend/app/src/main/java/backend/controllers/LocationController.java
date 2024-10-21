@@ -1,5 +1,6 @@
 package backend.controllers;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import java.util.LinkedList;
 import backend.DTO.CoordinatesCreatedDTO;
 import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
+import backend.DTO.HistoryCreatedDTO;
 import backend.DTO.IdDTO;
 import backend.DTO.LocationCreatedDTO;
 import backend.DTO.LocationDTO;
@@ -28,7 +30,9 @@ import backend.model.validators.TokenValidator;
 import backend.security.JwtUtils;
 import backend.services.AdminService;
 import backend.services.AuthService;
+import backend.services.HistoryService;
 import backend.services.LocationService;
+import backend.services.UsersService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -41,6 +45,8 @@ public class LocationController {
     private final JwtUtils jwtUtils;
     private final LocationService locationService;
     private final AdminService adminService;
+    private final HistoryService historyService;
+    private final UsersService usersService;
 
     @PostMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") int id, @RequestBody TokenDTO req) {
@@ -71,18 +77,23 @@ public class LocationController {
     }
 
     @PostMapping(path = "/add")
-    public ResponseEntity<?> addLocation(@RequestBody LocationDTO req) {
+    public ResponseEntity<?> addLocation(@RequestBody LocationDTO req) throws NotFoundException {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req);
 
+        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+        String username = usersService.getById(user_id).getName();
+
         return ControllerExecutor.execute(validator, () -> {
-            LocationCreatedDTO LocationDTO = locationService.addLocation(req);
-            return ResponseEntity.ok().body(LocationDTO);
+            LocationCreatedDTO locationDTO = locationService.addLocation(req);
+            historyService.addLocationHistory(locationDTO.getId(), username);
+
+            return ResponseEntity.ok().body(locationDTO);
         });
     }
 
     @Transactional
     @PostMapping(path = "/delete")
-    public ResponseEntity<?> deleteLocation(@RequestBody IdDTO req) throws ForbiddenException, ObjectNotFoundException, DoesNotExistException {
+    public ResponseEntity<?> deleteLocation(@RequestBody IdDTO req) throws ForbiddenException, ObjectNotFoundException, DoesNotExistException, NotFoundException{
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
 
         int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
@@ -91,15 +102,18 @@ public class LocationController {
         if (!adminService.isAdmin(user_id) && locationService.getById(location_id).getUserId().getId() != user_id) {
             throw new ForbiddenException("It's forbidden to you to delete this object.");
         }
+        String username = usersService.getById(user_id).getName();
 
         return ControllerExecutor.execute(validator, () -> {
             DeletedDTO locationDTO = locationService.deleteLocation(location_id);
+            historyService.addLocationHistory(location_id, username);
+            
             return ResponseEntity.ok().body(locationDTO);
         });
     }
 
     @PostMapping(path = "/edit")
-    public ResponseEntity<?> editLocation(@RequestBody LocationEditDTO req) throws ForbiddenException, ObjectNotFoundException, DoesNotExistException {
+    public ResponseEntity<?> editLocation(@RequestBody LocationEditDTO req) throws ForbiddenException, ObjectNotFoundException, DoesNotExistException, NotFoundException {
         TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
 
         int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
@@ -108,10 +122,24 @@ public class LocationController {
         if (!adminService.isAdmin(user_id) && locationService.getById(location_id).getUserId().getId() != user_id) {
             throw new ForbiddenException("It's forbidden to you to edit this object.");
         }
+        String username = usersService.getById(user_id).getName();
 
         return ControllerExecutor.execute(validator, () -> {
             LocationCreatedDTO coordinatesDTO = locationService.editLocation(req);
+            historyService.addLocationHistory(location_id, username);
+
             return ResponseEntity.ok().body(coordinatesDTO);
+        });
+    }
+
+    @PostMapping(path = "/history")
+    public ResponseEntity<?> getHistory(@RequestBody IdDTO req) throws ForbiddenException, ObjectNotFoundException, DoesNotExistException {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
+
+        return ControllerExecutor.execute(validator, () -> {
+            List<HistoryCreatedDTO> res = historyService.getLocationHistory(req.getId());
+
+            return ResponseEntity.ok().body(res);
         });
     }
 }

@@ -373,9 +373,6 @@ export default function ResultTable({ getToken, isAdmin }) {
 
         _results[index] = newData;
 
-        console.log("NEW")
-        console.log(newData)
-
         const coordinatesData = {
             id: newData.id,
             x: newData.x,
@@ -491,6 +488,39 @@ export default function ResultTable({ getToken, isAdmin }) {
         return <i className={classNames('pi', { 'true-icon pi-check': rowData.editableByAdmin, 'false-icon pi-times': !rowData.editableByAdmin })}></i>;
     };
 
+    const historyTemplate = (rowData) => {
+        return (
+            <Button icon="pi pi-history" className="p-button" onClick={() => handleHistoryClick(rowData.id)} />
+        );
+    }; 
+    
+    const historyTemplateCoordinates = (rowData) => {
+        return (
+            <Button icon="pi pi-history" className="p-button" onClick={() => handleHistoryClickCoordinates(rowData.id)} />
+        );
+    }; 
+    
+    const historyTemplateLocation = (rowData) => {
+        return (
+            <Button icon="pi pi-history" className="p-button" onClick={() => handleHistoryClickLocation(rowData.id)} />
+        );
+    }; 
+    
+    const handleHistoryClick = (id) => {
+        navigate("/history/person/" + id)
+        navigate(0)
+    }
+
+    const handleHistoryClickCoordinates = (id) => {
+        navigate("/history/coordinates/" + id)
+        navigate(0)
+    }
+
+    const handleHistoryClickLocation = (id) => {
+        navigate("/history/location/" + id)
+        navigate(0)
+    }
+
     const allowEditDelete = (rowData) => {
         return isAdmin || rowData.updatable;
     };
@@ -518,6 +548,7 @@ export default function ResultTable({ getToken, isAdmin }) {
                         <Column editor={(options) => booleanEditor(options)} field="editableByAdmin" header="Editable by Admin?" dataType="boolean" bodyClassName="text-center" body={isEditableBodyTemplate} />
                         <Column rowEditor={allowEditDelete} header="Edit"/>
                         <Column body={deleteTemplate} header="Delete" />
+                        <Column body={historyTemplate} header="History" />
                     </DataTable>)
                 }
                 { tableVal === 1 &&
@@ -528,6 +559,7 @@ export default function ResultTable({ getToken, isAdmin }) {
                         <Column editor={(options) => booleanEditor(options)} field="editableByAdmin" header="Editable by Admin?" dataType="boolean" bodyClassName="text-center" body={isEditableBodyTemplate} sortable/>
                         <Column rowEditor={allowEditDelete} header="Edit" />
                         <Column body={deleteTemplateCoordinates} header="Delete" />
+                        <Column body={historyTemplateCoordinates} header="History" />
                     </DataTable>)
                 }
                 { tableVal === 2 &&
@@ -539,6 +571,7 @@ export default function ResultTable({ getToken, isAdmin }) {
                         <Column editor={(options) => booleanEditor(options)} field="editableByAdmin" header="Editable by Admin?" dataType="boolean" bodyClassName="text-center" body={isEditableBodyTemplate} sortable />
                         <Column rowEditor={allowEditDelete} header="Edit" />
                         <Column body={deleteTemplateLocation} header="Delete" />
+                        <Column body={historyTemplateLocation} header="History" />
                     </DataTable>)
                 }
             </div>
