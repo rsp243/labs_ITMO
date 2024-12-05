@@ -29,6 +29,9 @@ import SpecialHeightFilter from "../App/Special/SpecialHeightFilter.jsx"
 import SpecialHairColorCount from "../App/Special/SpecialHairColorCount.jsx"
 import SpecialEyeColorCount from "../App/Special/SpecialEyeColorCount.jsx"
 import History from "../App/History.jsx"
+import Import from "../App/Import/Import.jsx"
+import ImportFile from "../App/Import/ImportFile.jsx"
+import ImportHistory from "../App/Import/ImportHistory.jsx"
 
 
 export default function Router({ isAdmin }) {
@@ -79,6 +82,10 @@ export default function Router({ isAdmin }) {
                     <Route path="/history/person/:id" element={<History getToken={getToken} object="person" />} />
                     <Route path="/history/coordinates/:id" element={<History getToken={getToken} object="coordinates" />} />
                     <Route path="/history/location/:id" element={<History getToken={getToken} object="location" />} />
+
+                    <Route path="/import" element={<Import />} />
+                    <Route path="/import/file" element={<ImportFile getToken={getToken} />} />
+                    <Route path="/import/history" element={<ImportHistory getToken={getToken} />} />
                 </Route>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login setToken={setTokenLS} />} />

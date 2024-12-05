@@ -31,6 +31,13 @@ export default function App({ getToken, isAdmin }) {
 			navigate(0)
 		}, 0)
 	}
+
+	const handleImportClick = _ => {
+		setTimeout(() => {
+			navigate('/import', { replace: true })
+			navigate(0)
+		}, 0)
+	}
 	
 	const handleThrowClick = async e => {
 		e.preventDefault();
@@ -113,6 +120,13 @@ export default function App({ getToken, isAdmin }) {
                 onClick={handleSpecialClick} 
                 className="top-right-button" 
 				style={{ position: "absolute", top: "85px", right: "200px" }}
+            />
+			<Button 
+                label="Import Data" 
+                icon="pi pi-file-import" 
+                onClick={handleImportClick} 
+                className="top-right-button" 
+				style={{ position: "absolute", top: "85px", right: "415px" }}
             />
 			<div style={{"height": "30px"}}></div>
 			<div className="card flex flex-column justify-content-center align-items-center">

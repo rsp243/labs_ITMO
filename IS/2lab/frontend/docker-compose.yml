@@ -1,8 +1,5 @@
-version: "3.8"
-
 services:
-  app:
-    container_name: react-dev
+  frontend:
     image: react-dev
     build:
       context: .
