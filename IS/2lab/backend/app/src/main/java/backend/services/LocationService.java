@@ -21,6 +21,7 @@ import backend.model.Users;
 import backend.repository.LocationRepository;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +39,7 @@ public class LocationService {
         return locationRepository.findAll();
     }
 
+    @Transactional
     public LocationCreatedDTO addLocation(LocationDTO req) throws DoesNotExistException {
         final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
@@ -55,6 +57,7 @@ public class LocationService {
         return Location.getCreatedLocation(location, owner.getId());
     }
 
+    @Transactional
     public DeletedDTO deleteLocation(int locationId) {
         locationRepository.deleteById(locationId);
 
@@ -72,6 +75,7 @@ public class LocationService {
         throw new ObjectNotFoundException("Object wasn't found in database");
     }
 
+    @Transactional
     public LocationCreatedDTO editLocation(LocationEditDTO req) throws ObjectNotFoundException {
         Location location = locationRepository.getReferenceById(Long.valueOf(req.getId()));
         location.setX(req.getX());

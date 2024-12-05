@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import backend.DTO.HistoryCreatedDTO;
+import backend.DTO.LocationCreatedDTO;
+
 @Entity
 @Table(name = "history")
 @Data
@@ -23,6 +26,9 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "obj_id", nullable = false)
+    private int idObj;
     
     @Column(name = "userName", nullable = false)
     private String userName;
@@ -32,4 +38,11 @@ public class History {
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
+
+    public static HistoryCreatedDTO getCreatedHistory(History history) {
+        return new HistoryCreatedDTO(
+            history.getUserName(),
+            history.getTime().toString()
+        );
+    }
 }

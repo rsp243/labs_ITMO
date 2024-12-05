@@ -32,12 +32,12 @@ public class Coordinates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     @Column(name = "x", nullable = false)
-    private Long x; //Максимальное значение поля: 288, Поле не может быть null
+    private Long x; // Максимальное значение поля: 288, Поле не может быть null
 
     @Column(name = "y", nullable = false)
-    private Double y; //Поле не может быть null
+    private Double y; // Поле не может быть null
 
     @JsonProperty("is_editable_by_admin")
     private boolean isEditableByAdmin;
@@ -48,14 +48,13 @@ public class Coordinates {
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "coordinates")
     private List<Person> people;
-
+    
     public static CoordinatesCreatedDTO getCreatedCoordinates(Coordinates coordinates, int requestUserID) {
         return new CoordinatesCreatedDTO(
-            coordinates.getId(),
-            coordinates.getX(),
-            coordinates.getY(),
-            coordinates.isEditableByAdmin(),
-            coordinates.getUserId().getId() == requestUserID
-        );
+                coordinates.getId(),
+                coordinates.getX(),
+                coordinates.getY(),
+                coordinates.isEditableByAdmin(),
+                coordinates.getUserId().getId() == requestUserID);
     }
 }

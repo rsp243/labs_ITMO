@@ -39,101 +39,101 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/api/v1/coordinates", produces = { "application/json" })
-public class CoordinatesController {
+        @RequestMapping(path = "/api/v1/coordinates", produces = { "application/json" })
+        public class CoordinatesController {
 
-    private final JwtUtils jwtUtils;
-    private final CoordinatesService coordinatesService;
-    private final AdminService adminService;
-    private final HistoryService historyService;
-    private final UsersService usersService;
+            private final JwtUtils jwtUtils;
+            private final CoordinatesService coordinatesService;
+            private final AdminService adminService;
+            private final HistoryService historyService;
+            private final UsersService usersService;
 
-    @PostMapping(path = "/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") int id, @RequestBody TokenDTO req) {
-        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
-        int user_id = jwtUtils.getIdFromToken(req.getToken());
+            @PostMapping(path = "/{id}")
+            public ResponseEntity<?> getById(@PathVariable("id") int id, @RequestBody TokenDTO req) {
+                TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+                int user_id = jwtUtils.getIdFromToken(req.getToken());
 
-        return ControllerExecutor.execute(validator, () -> {
-            CoordinatesCreatedDTO result = Coordinates.getCreatedCoordinates(coordinatesService.getById(id), user_id);
+                return ControllerExecutor.execute(validator, () -> {
+                    CoordinatesCreatedDTO result = Coordinates.getCreatedCoordinates(coordinatesService.getById(id), user_id);
 
-            return ResponseEntity.ok().body(result);
-        });
-    }
-
-    @PostMapping(path = "/all")
-    public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
-        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
-        int user_id = jwtUtils.getIdFromToken(req.getToken());
-
-        return ControllerExecutor.execute(validator, () -> {
-            List<Coordinates> allCoordinates = coordinatesService.getAllCoordinates();
-            List<CoordinatesCreatedDTO> result = new LinkedList<CoordinatesCreatedDTO>();
-            for (int i = 0; i < allCoordinates.size(); i++) {
-                Coordinates iCoordinates = allCoordinates.get(i);
-                result.add(Coordinates.getCreatedCoordinates(iCoordinates, user_id));
+                    return ResponseEntity.ok().body(result);
+                });
             }
-            return ResponseEntity.ok().body(result);
-        });
-    }
 
-    @PostMapping(path = "/add")
-    public ResponseEntity<?> addPoint(@RequestBody CoordinatesDTO req) throws NotFoundException {
-        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req);
+            @PostMapping(path = "/all")
+            public ResponseEntity<?> getAll(@RequestBody TokenDTO req) {
+                TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken());
+                int user_id = jwtUtils.getIdFromToken(req.getToken());
 
-        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
-        String username = usersService.getById(user_id).getName();
+                return ControllerExecutor.execute(validator, () -> {
+                    List<Coordinates> allCoordinates = coordinatesService.getAllCoordinates();
+                    List<CoordinatesCreatedDTO> result = new LinkedList<CoordinatesCreatedDTO>();
+                    for (int i = 0; i < allCoordinates.size(); i++) {
+                        Coordinates iCoordinates = allCoordinates.get(i);
+                        result.add(Coordinates.getCreatedCoordinates(iCoordinates, user_id));
+                    }
+                    return ResponseEntity.ok().body(result);
+                });
+            }
 
-        return ControllerExecutor.execute(validator, () -> {
-            CoordinatesCreatedDTO coordinatesDTO = coordinatesService.addCoordinates(req);
-            historyService.addCoordinatesHistory(coordinatesDTO.getId(), username);
+            @PostMapping(path = "/add")
+            public ResponseEntity<?> addPoint(@RequestBody CoordinatesDTO req) throws NotFoundException {
+                TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req);
 
-            return ResponseEntity.ok().body(coordinatesDTO);
-        });
-    }
+                int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+                String username = usersService.getById(user_id).getName();
 
-    @Transactional
-    @PostMapping(path = "/delete")
-    public ResponseEntity<?> deleteCoordinates(@RequestBody IdDTO req)
-            throws ForbiddenException, ObjectNotFoundException, NotFoundException {
-        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
+                return ControllerExecutor.execute(validator, () -> {
+                    CoordinatesCreatedDTO coordinatesDTO = coordinatesService.addCoordinates(req);
+                    historyService.addCoordinatesHistory(coordinatesDTO.getId(), username);
 
-        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
-        int coordinates_id = req.getId();
+                    return ResponseEntity.ok().body(coordinatesDTO);
+                });
+            }
 
-        if (coordinatesService.getById(coordinates_id).getUserId().getId() != user_id) {
-            throw new ForbiddenException("It's forbidden to you to delete this object.");
-        }
-        String username = usersService.getById(user_id).getName();
+            @Transactional
+            @PostMapping(path = "/delete")
+            public ResponseEntity<?> deleteCoordinates(@RequestBody IdDTO req)
+                    throws ForbiddenException, ObjectNotFoundException, NotFoundException {
+                TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
 
-        return ControllerExecutor.execute(validator, () -> {
-            DeletedDTO coordinatesDTO = coordinatesService.deleteCoordinates(coordinates_id);
-            historyService.addCoordinatesHistory(coordinates_id, username);
+                int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+                int coordinates_id = req.getId();
 
-            return ResponseEntity.ok().body(coordinatesDTO);
-        });
-    }
+                if (coordinatesService.getById(coordinates_id).getUserId().getId() != user_id) {
+                    throw new ForbiddenException("It's forbidden to you to delete this object.");
+                }
+                String username = usersService.getById(user_id).getName();
 
-    @PostMapping(path = "/edit")
-    public ResponseEntity<?> editCoordinates(@RequestBody CoordinatesEditDTO req)
-            throws ForbiddenException, ObjectNotFoundException, DoesNotExistException, NotFoundException {
-        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
+                return ControllerExecutor.execute(validator, () -> {
+                    DeletedDTO coordinatesDTO = coordinatesService.deleteCoordinates(coordinates_id);
+                    historyService.deleteCoordinatesHistory(coordinates_id);
 
-        int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
-        int coordinates_id = req.getId();
+                    return ResponseEntity.ok().body(coordinatesDTO);
+                });
+            }
 
-        if (!adminService.isAdmin(user_id)
-                && coordinatesService.getById(coordinates_id).getUserId().getId() != user_id) {
-            throw new ForbiddenException("It's forbidden to you to edit this object.");
-        }
-        String username = usersService.getById(user_id).getName();
+            @PostMapping(path = "/edit")
+            public ResponseEntity<?> editCoordinates(@RequestBody CoordinatesEditDTO req)
+                    throws ForbiddenException, ObjectNotFoundException, DoesNotExistException, NotFoundException {
+                TokenValidator validator = new TokenValidator(jwtUtils).validateToken(req.getToken().getToken());
 
-        return ControllerExecutor.execute(validator, () -> {
-            CoordinatesCreatedDTO coordinatesDTO = coordinatesService.editCoordinates(req);
-            historyService.addCoordinatesHistory(coordinates_id, username);
+                int user_id = jwtUtils.getIdFromToken(req.getToken().getToken());
+                int coordinates_id = req.getId();
 
-            return ResponseEntity.ok().body(coordinatesDTO);
-        });
-    }
+                if (!adminService.isAdmin(user_id)
+                        && coordinatesService.getById(coordinates_id).getUserId().getId() != user_id) {
+                    throw new ForbiddenException("It's forbidden to you to edit this object.");
+                }
+                String username = usersService.getById(user_id).getName();
+
+                return ControllerExecutor.execute(validator, () -> {
+                    CoordinatesCreatedDTO coordinatesDTO = coordinatesService.editCoordinates(req);
+                    historyService.addCoordinatesHistory(coordinates_id, username);
+
+                    return ResponseEntity.ok().body(coordinatesDTO);
+                });
+            }
 
     @PostMapping(path = "/history")
     public ResponseEntity<?> getHistory(@RequestBody IdDTO req)

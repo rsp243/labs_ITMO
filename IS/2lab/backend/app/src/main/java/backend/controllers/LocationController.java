@@ -102,11 +102,9 @@ public class LocationController {
         if (!adminService.isAdmin(user_id) && locationService.getById(location_id).getUserId().getId() != user_id) {
             throw new ForbiddenException("It's forbidden to you to delete this object.");
         }
-        String username = usersService.getById(user_id).getName();
-
         return ControllerExecutor.execute(validator, () -> {
             DeletedDTO locationDTO = locationService.deleteLocation(location_id);
-            historyService.addLocationHistory(location_id, username);
+            historyService.deleteLocationHistory(location_id);
             
             return ResponseEntity.ok().body(locationDTO);
         });

@@ -16,6 +16,7 @@ import backend.model.Users;
 import backend.repository.CoordinatesRepository;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,12 +28,12 @@ public class CoordinatesService {
     private final CoordinatesRepository coordinatesRepository;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
-    private final AuthService authService;
 
     public List<Coordinates> getAllCoordinates() {
         return coordinatesRepository.findAll();
     }
 
+    @Transactional
     public CoordinatesCreatedDTO addCoordinates(CoordinatesDTO req) throws DoesNotExistException {
         final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
@@ -49,6 +50,7 @@ public class CoordinatesService {
         return Coordinates.getCreatedCoordinates(coordinates, owner.getId());
     }
 
+    @Transactional
     public DeletedDTO deleteCoordinates(int coordinatesId) {
         coordinatesRepository.deleteById(coordinatesId);
 
@@ -66,6 +68,7 @@ public class CoordinatesService {
         throw new ObjectNotFoundException("Object wasn't found in database");
     }
 
+    @Transactional
     public CoordinatesCreatedDTO editCoordinates(CoordinatesEditDTO req) throws ObjectNotFoundException {
         Coordinates coordinates = coordinatesRepository.getReferenceById(Long.valueOf(req.getId()));
         coordinates.setX(req.getX());

@@ -120,7 +120,7 @@ public class PersonController {
 
         return ControllerExecutor.execute(validator, () -> {
             DeletedDTO personDTO = personService.deletePerson(person_id);
-            historyService.addPersonHistory(person_id, username);
+            historyService.deletePersonHistory(person_id);
 
             return ResponseEntity.ok().body(personDTO);
         });

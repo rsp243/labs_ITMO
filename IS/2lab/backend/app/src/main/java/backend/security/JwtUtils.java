@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 public class JwtUtils {
     @Value("${spring.jwt.secret}")
     private String jwtSecret;
-    private final int jwtExpirationMinutes = 5;
+    private final int jwtExpirationMinutes = 60;
 
     public String generateAccessToken(Users user) {
         final LocalDateTime now = LocalDateTime.now();

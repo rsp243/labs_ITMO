@@ -22,6 +22,7 @@ import backend.repository.PersonRepository;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
 import io.jsonwebtoken.Claims;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +35,6 @@ import java.util.LinkedList;
 @RequiredArgsConstructor
 public class PersonService {
     private final PersonRepository peopleRepository;
-    // private final AuthentificatedMap authentificatedMap;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
     private final CoordinatesRepository coordinatesRepository;
@@ -53,6 +53,7 @@ public class PersonService {
         return allPeople.get(0);
     }
 
+    @Transactional
     public PersonCreatedDTO addPerson(PersonDTO req) throws DoesNotExistException {
         final long userId = jwtUtils.getIdFromToken(req.getToken().getToken());
         final Users owner = userRepository.getReferenceById(userId);
@@ -80,6 +81,7 @@ public class PersonService {
         return Person.getCreatedPerson(person, owner.getId());
     }
 
+    @Transactional
     public DeletedDTO deletePerson(int personId) {
         Person person = peopleRepository.getReferenceById(Long.valueOf(personId));
         final Coordinates coordinates = person.getCoordinates();
@@ -103,6 +105,7 @@ public class PersonService {
         throw new ObjectNotFoundException("Object wasn't found in database");
     }
 
+    @Transactional
     public PersonCreatedDTO editPerson(PersonEditDTO req) throws ObjectNotFoundException {
         Person person = peopleRepository.getReferenceById(Long.valueOf(req.getId()));
         final Coordinates coordinates = coordinatesRepository.getReferenceById(req.getCoordinates_id());
@@ -136,3 +139,4 @@ public class PersonService {
         return Person.getCreatedPerson(person, person.getUserId().getId());
     }
 }
+    
