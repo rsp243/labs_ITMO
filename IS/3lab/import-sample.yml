@@ -1,0 +1,14 @@
+people:
+  - name: "another"
+    coordinates:
+      x: 1222
+      y: "string"
+    eyeColor: BROWN
+    hairColor: RED
+    location:
+      x: 10
+      y: 30
+      z: "string2"
+    height: 170
+    nationality: AMERIKA
+
