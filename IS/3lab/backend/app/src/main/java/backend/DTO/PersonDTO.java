@@ -1,9 +1,7 @@
 package backend.DTO;
 
 import backend.model.Color;
-import backend.model.Coordinates;
 import backend.model.Country;
-import backend.model.Location;
 import lombok.Data;
 
 @Data

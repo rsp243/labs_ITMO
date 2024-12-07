@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 import backend.DTO.HistoryCreatedDTO;
-import backend.DTO.LocationCreatedDTO;
 
 @Entity
 @Table(name = "history")

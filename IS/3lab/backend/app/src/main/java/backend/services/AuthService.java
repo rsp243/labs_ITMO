@@ -1,13 +1,8 @@
 package backend.services;
 
-import java.util.List;
-import java.util.LinkedList;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import backend.DTO.TokenDTO;
-import backend.DTO.UsersCreatedDTO;
 import backend.DTO.UsersDTO;
 import backend.exceptions.ApiException;
 import backend.exceptions.DoesNotExistException;
@@ -15,10 +10,7 @@ import backend.exceptions.WrongPasswordException;
 import backend.model.Users;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
-import ch.qos.logback.core.subst.Token;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor

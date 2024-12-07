@@ -1,21 +1,15 @@
 package backend.services;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
-import backend.DTO.CoordinatesCreatedDTO;
-import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
-import backend.DTO.IdDTO;
 import backend.DTO.LocationCreatedDTO;
 import backend.DTO.LocationDTO;
 import backend.DTO.LocationEditDTO;
 import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ObjectNotFoundException;
-import backend.model.Coordinates;
 import backend.model.Location;
 import backend.model.Users;
 import backend.repository.LocationRepository;

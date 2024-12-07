@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import backend.DTO.DeletedDTO;
 import backend.DTO.HistoryCreatedDTO;
 import backend.model.History;
-import backend.model.Person;
 import backend.repository.HistoryRepository;
-import backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

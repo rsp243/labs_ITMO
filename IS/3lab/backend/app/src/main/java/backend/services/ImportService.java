@@ -2,9 +2,6 @@ package backend.services;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -12,13 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.aspectj.weaver.patterns.PerObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.yaml.snakeyaml.Yaml;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import backend.DTO.CoordinatesDTO;
 import backend.DTO.ImportCreatedDTO;
@@ -29,16 +22,13 @@ import backend.exceptions.DoesNotExistException;
 import backend.model.Color;
 import backend.model.Coordinates;
 import backend.model.Country;
-import backend.model.History;
 import backend.model.Import;
 import backend.model.ImportStatus;
 import backend.model.Location;
-import backend.model.Person;
 import backend.model.Users;
 import backend.repository.CoordinatesRepository;
 import backend.repository.ImportRepository;
 import backend.repository.LocationRepository;
-import backend.repository.PersonRepository;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
 import jakarta.transaction.Transactional;

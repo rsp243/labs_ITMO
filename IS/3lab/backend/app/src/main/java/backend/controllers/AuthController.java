@@ -1,22 +1,18 @@
 package backend.controllers;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import backend.DTO.TokenDTO;
-import backend.DTO.UsersCreatedDTO;
 import backend.DTO.UsersDTO;
 import backend.exceptions.ApiException;
-import backend.model.validators.TokenValidator;
 import backend.model.validators.UsersValidator;
 import backend.security.JwtUtils;
 import backend.services.AuthService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor

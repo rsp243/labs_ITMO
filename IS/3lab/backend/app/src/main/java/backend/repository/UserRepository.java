@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import java.util.List;
 
-import backend.DTO.UsersCreatedDTO;
 import backend.model.Users;
 import backend.model.UsersAdminStatus;
 

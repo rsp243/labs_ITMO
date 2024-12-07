@@ -1,6 +1,5 @@
 package backend.model.validators;
 
-import backend.DTO.PersonDTO;
 import backend.DTO.TokenizedDTO;
 import backend.security.JwtUtils;
 import io.jsonwebtoken.ExpiredJwtException;

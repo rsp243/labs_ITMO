@@ -11,7 +11,6 @@ import backend.DTO.DeletedDTO;
 import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ObjectNotFoundException;
 import backend.model.Coordinates;
-import backend.model.Location;
 import backend.model.Users;
 import backend.repository.CoordinatesRepository;
 import backend.repository.UserRepository;

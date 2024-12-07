@@ -2,16 +2,12 @@ package backend.services;
 
 import org.springframework.stereotype.Service;
 
-import backend.DTO.CoordinatesCreatedDTO;
-import backend.DTO.CoordinatesEditDTO;
 import backend.DTO.DeletedDTO;
 import backend.DTO.PersonCreatedDTO;
 import backend.DTO.PersonDTO;
 import backend.DTO.PersonEditDTO;
-import backend.DTO.TokenDTO;
 import backend.exceptions.DoesNotExistException;
 import backend.exceptions.ObjectNotFoundException;
-import backend.exceptions.TokenNotPassedException;
 import backend.model.Coordinates;
 import backend.model.Location;
 import backend.model.Person;
@@ -21,14 +17,11 @@ import backend.repository.LocationRepository;
 import backend.repository.PersonRepository;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
-import io.jsonwebtoken.Claims;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.LinkedList;
 
 @Service
 @Slf4j

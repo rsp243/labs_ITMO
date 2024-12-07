@@ -7,12 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import backend.DTO.AdminDTO;
-import backend.DTO.CoordinatesCreatedDTO;
 import backend.DTO.IdDTO;
 import backend.DTO.TokenDTO;
 import backend.DTO.UsersCreatedDTO;
-import backend.model.Coordinates;
-import backend.model.Person;
 import backend.model.Users;
 import backend.model.validators.TokenValidator;
 import backend.security.JwtUtils;
