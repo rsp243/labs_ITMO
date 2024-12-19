@@ -1,0 +1,33 @@
+services:
+  frontend:
+    image: react-dev
+    build:
+      context: frontend
+    volumes:
+      - ./frontend/src:/app/src
+    ports:
+      - 3000:3000
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: "hibernatedb"
+      POSTGRES_USER: "hibernateuser"
+      POSTGRES_PASSWORD: "12345"
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgresql:

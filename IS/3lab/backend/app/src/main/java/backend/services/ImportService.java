@@ -2,6 +2,8 @@ package backend.services;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -25,13 +27,16 @@ import backend.model.Country;
 import backend.model.Import;
 import backend.model.ImportStatus;
 import backend.model.Location;
+import backend.model.Person;
 import backend.model.Users;
 import backend.repository.CoordinatesRepository;
 import backend.repository.ImportRepository;
 import backend.repository.LocationRepository;
 import backend.repository.UserRepository;
 import backend.security.JwtUtils;
+import io.minio.errors.MinioException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,13 +59,9 @@ public class ImportService {
     private final CoordinatesRepository coordinatesRepository;
     private final LocationRepository locationRepository;
 
-    // @Transactional
-    // public void saveObjects(List<MyObject> objects) {
-    // for (MyObject obj : objects) {
-    // validateObject(obj); // Валидация по правилам предметной области
-    // myObjectRepository.save(obj);
-    // }
-    // }
+    private final ImportLogger importLogger;
+
+    private final S3Worker minioWorker;
 
     public List<ImportCreatedDTO> getImports(TokenDTO token) throws DoesNotExistException {
         final long user_id = jwtUtils.getIdFromToken(token.getToken());
@@ -68,26 +69,153 @@ public class ImportService {
 
         final Users owner = userRepository.getReferenceById(user_id);
         String username = owner.getName();
-        
+
         List<Import> impList = importRepository.findAll();
-        List<ImportCreatedDTO> result = new LinkedList<>(); 
+        List<ImportCreatedDTO> result = new LinkedList<>();
         for (Import imp : impList) {
             result.add(Import.getCreatedImport(imp));
         }
 
         if (!isAdmin) {
-            for (ImportCreatedDTO imp : result) {
-                if (!imp.getUserName().equals(username)) {
-                    result.remove(imp);
-                }
-            }
+            result.removeIf(imp -> !imp.getUserName().equals(username));
         }
 
         return result;
     }
 
+    private ImportCreatedDTO createImportResponse(Class<?> failedClassToCreate, Import importObj) {
+        return Import.getCreatedImport(importObj);
+    }
+
     @Transactional
-    private long saveCoordinates(Map<String, Object> coordinates, String username, TokenDTO token) throws DoesNotExistException {
+    public Import addImport(ImportStatus status, String userName, int count) {
+        Import importObj = Import.builder()
+                .status(status)
+                .userName(userName)
+                .count(count)
+                .time(LocalDateTime.now()).build();
+        
+        log.info("Creating Import db table row" + importObj.toString());
+        importLogger.writeLog("Creating Import database table row '" + importObj.toString() + "'");
+
+        importRepository.save(importObj);
+
+        return importObj;
+    }
+
+    public ImportCreatedDTO processYamlFile(MultipartFile file, TokenDTO token)
+            throws IOException, DoesNotExistException, InvalidKeyException, NoSuchAlgorithmException, IllegalArgumentException, MinioException {
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("Uploaded file is empty");
+        }
+
+        Yaml yaml = new Yaml();
+
+        importLogger.openImportLogsFile();
+
+        final long userId = jwtUtils.getIdFromToken(token.getToken());
+        final Users owner = userRepository.getReferenceById(userId);
+        String username = owner.getName();
+
+        int count = 0;
+        try (InputStream inputStream = file.getInputStream()) {
+            importLogger.writeLog("Reading Import file");
+            LinkedHashMap<String, List<Map<String, Object>>> parsedFile = yaml.load(inputStream);
+
+            Boolean foundAny = false;
+            List<Map<String, Object>> coordinatesList = parsedFile.get("coordinates");
+            importLogger.writeLog("Checking if where is 'coordinates' objects in yaml");
+            int coordinatesCount = 0;
+            if (coordinatesList != null && !coordinatesList.isEmpty()) {
+                log.info(coordinatesList.toString());
+                foundAny = true;
+                for (Map<String, Object> coordinates : coordinatesList) {
+                    Map<String, String> errors = validateCoordinates(coordinates);
+                    if (!errors.isEmpty()) {
+                        Import importObj = addImport(ImportStatus.FAILED, username, count);
+                        String objectName = createImportResponse(Coordinates.class, importObj).getObjectName();
+                        minioWorker.uploadLogFile(objectName);
+                        throw new ValidationException("Validation errors for coordinates: " + errors);
+                    }
+                    count++;
+                    coordinatesCount++;
+
+                    saveCoordinates(coordinates, username, token);
+                }
+            }
+            importLogger.writeLog("Found " + coordinatesCount + " Coordinates objects");
+
+            List<Map<String, Object>> locationList = parsedFile.get("locations");
+            importLogger.writeLog("Checking if where is 'location' objects in yaml");
+            int locationCount = 0;
+            if (locationList != null && !locationList.isEmpty()) {
+                log.info(locationList.toString());
+                foundAny = true;
+                for (Map<String, Object> location : locationList) {
+                    Map<String, String> errors = validateLocation(location);
+                    if (!errors.isEmpty()) {
+                        Import importObj = addImport(ImportStatus.FAILED, username, count);
+                        String objectName = createImportResponse(Location.class, importObj).getObjectName();
+                        minioWorker.uploadLogFile(objectName);
+                        throw new ValidationException("Validation errors for location: " + errors);
+                    }
+                    count++;
+                    locationCount++;
+
+                    saveLocation(location, username, token);
+                }
+            }
+            importLogger.writeLog("Found " + locationCount + " Location objects");
+
+            List<Map<String, Object>> peopleList = parsedFile.get("people");
+            importLogger.writeLog("Checking if where is 'location' objects in yaml");
+            int personsCount = 0;
+
+            if (peopleList != null && !peopleList.isEmpty()) {
+                log.info(peopleList.toString());
+                foundAny = true;
+                for (Map<String, Object> person : peopleList) {
+                    Map<String, String> errors = validatePerson(person);
+                    if (!errors.isEmpty()) {
+                        Import importObj = addImport(ImportStatus.FAILED, username, count);
+                        String objectName = createImportResponse(Person.class, importObj).getObjectName();
+                        minioWorker.uploadLogFile(objectName);
+                        throw new ValidationException("Validation errors for person: " + errors);
+                    }
+                    count += 3;
+                    personsCount++;
+
+                    savePerson(person, username, token);
+                }
+            }
+            importLogger.writeLog("Found " + personsCount + " Person objects");
+
+            if (!foundAny) {
+                Map<String, String> errors = new HashMap<>();
+                errors.put("Not found", "Not found nor coordinates, nor locations, nor people.");
+                importLogger.writeLog("Not found nor coordinates, nor locations, nor people in passed yaml file");
+                Import importObj = addImport(ImportStatus.FAILED, username, count);
+                String objectName = createImportResponse(Person.class, importObj).getObjectName();
+
+                minioWorker.uploadLogFile(objectName);
+                throw new ValidationException("Not found: " + errors);
+            }
+        } catch (IOException e) {
+            importLogger.writeLog("Failed to process YAML file: " + e.toString());
+            throw new IOException("Failed to process YAML file", e);
+        }
+
+        Import importObj = addImport(ImportStatus.SUCCESSFUL, username, count);
+        importLogger.writeLog("Successfully processed file.");
+        ImportCreatedDTO res = Import.getCreatedImport(importObj);
+
+        minioWorker.uploadLogFile(res.getObjectName());
+        return res;
+    }
+
+    @Transactional
+    private long saveCoordinates(Map<String, Object> coordinates, String username, TokenDTO token)
+            throws DoesNotExistException {
         Long coordinatesX = ((Integer) coordinates.get("x")).longValue();
         Double coordinatesY = (double) coordinates.get("y");
         List<Coordinates> coordinatesCreatedList = coordinatesRepository.findByXAndY(coordinatesX, coordinatesY);
@@ -103,14 +231,21 @@ public class ImportService {
         coordinatesDTO.setY(coordinatesY);
         coordinatesDTO.setEditableByAdmin(coordinatesEditableByAdmin);
         coordinatesDTO.setToken(token);
+        importLogger.writeLog("Creating coordinates object: " + coordinatesDTO.toString());
+
         Long coordinates_id = (long) coordinatesService.addCoordinates(coordinatesDTO).getId();
+        importLogger.writeLog("Successfully created");
+
+        importLogger.writeLog("Creating history row: " + coordinatesDTO.toString());
         historyService.addCoordinatesHistory(coordinates_id.intValue(), username);
+        importLogger.writeLog("Successfully created");
 
         return coordinates_id;
     }
 
     @Transactional
-    private long saveLocation(Map<String, Object> location, String username, TokenDTO token) throws DoesNotExistException {
+    private long saveLocation(Map<String, Object> location, String username, TokenDTO token)
+            throws DoesNotExistException {
         Integer locationX = (int) location.get("x");
         Integer locationY = (int) location.get("y");
         Long locationZ = ((Integer) location.get("z")).longValue();
@@ -128,8 +263,14 @@ public class ImportService {
         locationDTO.setZ(locationZ);
         locationDTO.setEditableByAdmin(locationEditableByAdmin);
         locationDTO.setToken(token);
+        importLogger.writeLog("Creating location object: " + locationDTO.toString());
+
         Long location_id = (long) locationService.addLocation(locationDTO).getId();
+        importLogger.writeLog("Successfully created");
+
+        importLogger.writeLog("Creating history row: " + locationDTO.toString());
         historyService.addLocationHistory(location_id.intValue(), username);
+        importLogger.writeLog("Successfully created");
 
         return location_id;
     }
@@ -162,99 +303,16 @@ public class ImportService {
         personDTO.setToken(token);
         personDTO.setCoordinates_id(coordinates_id);
         personDTO.setLocation_id(location_id);
+        importLogger.writeLog("Creating Person object: " + personDTO.toString());
+
         Integer person_id = (int) personService.addPerson(personDTO).getId();
+        importLogger.writeLog("Successfully created");
+
+        importLogger.writeLog("Creating history row: " + personDTO.toString());
         historyService.addPersonHistory(person_id, username);
+        importLogger.writeLog("Successfully created");
 
         return person_id;
-    }
-
-    @Transactional
-    public void addImport(ImportStatus status, String userName, int count) {
-        Import importObj = Import.builder()
-                .status(status)
-                .userName(userName)
-                .count(count)
-                .time(LocalDateTime.now()).build();
-
-        importRepository.save(importObj);
-    }
-
-    public ImportCreatedDTO processYamlFile(MultipartFile file, TokenDTO token)
-            throws IOException, DoesNotExistException, java.io.IOException {
-        if (file.isEmpty()) {
-            throw new IllegalArgumentException("Uploaded file is empty");
-        }
-
-        Yaml yaml = new Yaml();
-
-        final long userId = jwtUtils.getIdFromToken(token.getToken());
-        final Users owner = userRepository.getReferenceById(userId);
-        String username = owner.getName();
-
-        int count = 0;
-        try (InputStream inputStream = file.getInputStream()) {
-            LinkedHashMap<String, List<Map<String, Object>>> parsedFile = yaml.load(inputStream);
-
-            Boolean foundAny = false;
-            List<Map<String, Object>> coordinatesList = parsedFile.get("coordinates");
-            if (coordinatesList != null && !coordinatesList.isEmpty()) {
-                log.info(coordinatesList.toString());
-                foundAny = true;
-                for (Map<String, Object> coordinates : coordinatesList) {
-                    Map<String, String> errors = validateCoordinates(coordinates);
-                    if (!errors.isEmpty()) {
-                        addImport(ImportStatus.FAILED, username, count);
-                        return new ImportCreatedDTO(ImportStatus.FAILED, username, count, LocalDateTime.now().toString(), errors);
-                    }
-                    count++;    
-                    
-                    saveCoordinates(coordinates, username, token);
-                }
-            }
-
-            List<Map<String, Object>> locationList = parsedFile.get("locations");
-            if (locationList != null && !locationList.isEmpty()) {
-                log.info(locationList.toString());
-                foundAny = true;
-                for (Map<String, Object> location : locationList) {
-                    Map<String, String> errors = validateLocation(location);
-                    if (!errors.isEmpty()) {
-                        addImport(ImportStatus.FAILED, username, count);
-                        return new ImportCreatedDTO(ImportStatus.FAILED, username, count,  LocalDateTime.now().toString(), errors);
-                    }
-                    count++;
-
-                    saveLocation(location, username, token);
-                }
-            }
-
-            List<Map<String, Object>> peopleList = parsedFile.get("people");
-            if (peopleList != null && !peopleList.isEmpty()) {
-                log.info(peopleList.toString());
-                foundAny = true;
-                for (Map<String, Object> person : peopleList) {
-                    Map<String, String> errors = validatePerson(person);
-                    if (!errors.isEmpty()) {
-                        addImport(ImportStatus.FAILED, username, count);
-                        return new ImportCreatedDTO(ImportStatus.FAILED, username, count, LocalDateTime.now().toString(), errors);
-                    }
-                    count += 3;
-
-                    savePerson(person, username, token);
-                }
-            }
-            if (!foundAny) {
-                Map<String, String> errors = new HashMap<>();
-                errors.put("Not found", "Not found nor coordinates, nor locations, nor people.");
-                
-                return new ImportCreatedDTO(ImportStatus.NOT_FOUND, username, count, LocalDateTime.now().toString(), errors);
-            }
-        } catch (IOException e) {
-            throw new IOException("Failed to process YAML file", e);
-        }
-
-        addImport(ImportStatus.SUCCESSFUL, username, count);
-        return new ImportCreatedDTO(ImportStatus.SUCCESSFUL, username, count, LocalDateTime.now().toString(), null);
     }
 
     Map<String, String> validateLocation(Map<String, Object> location) {

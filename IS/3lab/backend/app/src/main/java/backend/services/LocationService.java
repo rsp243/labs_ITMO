@@ -27,7 +27,6 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
-    private final AuthService authService;
 
     public List<Location> getAllLocation() {
         return locationRepository.findAll();

@@ -1,0 +1,16 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://db:5432/hibernatedb
+        username: hibernateuser
+        password: 12345
+    jpa:
+        database: postgresql
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true
+        generate-ddl: true
+    security:
+        filter:
+            orger: 10
+    jwt:
+        secret: 14ae60b1b1bcd1c223857460f0d25fcbd3fbf80f

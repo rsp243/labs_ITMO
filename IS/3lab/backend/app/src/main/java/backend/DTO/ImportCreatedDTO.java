@@ -1,6 +1,5 @@
 package backend.DTO;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 import backend.model.ImportStatus;
@@ -14,5 +13,6 @@ public class ImportCreatedDTO {
     private String userName;
     private int count;
     private String time;
+    private String objectName;
     private Map<String, String> errors;
 }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import backend.model.validators.TokenValidator;
 import backend.security.JwtUtils;
 import backend.services.AdminService;
 import backend.services.ImportService;
+import backend.services.S3Worker;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ImportController {
     private final JwtUtils jwtUtils;
     private final ImportService importService;
-    private final AdminService adminService;
+    private final S3Worker s3Worker;
 
     @PostMapping("/file")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("token") TokenDTO token)
@@ -51,6 +54,20 @@ public class ImportController {
             List<ImportCreatedDTO> result = importService.getImports(token);
         
             return ResponseEntity.ok().body(result);
+        });
+    }
+
+    @PostMapping("/download/{objectName}")
+    public ResponseEntity<?> downloadFile(@RequestBody TokenDTO token, @PathVariable String objectName) {
+        TokenValidator validator = new TokenValidator(jwtUtils).validateToken(token.getToken());
+
+        return ControllerExecutor.execute(validator, () -> {
+            try {
+                String result = s3Worker.generatePresignedUrl(objectName);
+                return ResponseEntity.ok().body(result);
+            } catch (Exception e) {
+                throw new RuntimeException("Error generating presigned URL", e);
+            }
         });
     }
 }
