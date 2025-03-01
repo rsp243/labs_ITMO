@@ -80,11 +80,11 @@ public class Person {
     }
 
     private void declineCrewHolidays(List<Person> crew) {
+        Message message = new Message("Капитан отменяет всему экипажу отпуска.");
         for (Person person : crew) {
             person.setPlanningHoliday(false);
             messageList.add(person.setMood(Mood.BAD));
         }
-        Message message = new Message("Капитан отменяет всему экипажу отпуска.");
         messageList.add(message);
     }
 

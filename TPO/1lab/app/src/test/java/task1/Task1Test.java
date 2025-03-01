@@ -5,6 +5,8 @@ import static task1.Taylor.expandArctgFunc;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class Task1Test {
     private static final double PRECISION = 1e-10;
@@ -16,7 +18,7 @@ public class Task1Test {
         double x = 0;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
 
@@ -26,7 +28,7 @@ public class Task1Test {
         double x = 1.5;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
 
@@ -36,7 +38,7 @@ public class Task1Test {
         double x = -1.5;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
 
@@ -46,7 +48,7 @@ public class Task1Test {
         double x = 0.5;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
 
@@ -56,7 +58,7 @@ public class Task1Test {
         double x = -0.5;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
     
@@ -66,7 +68,7 @@ public class Task1Test {
         double x = 2;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
     
@@ -76,7 +78,7 @@ public class Task1Test {
         double x = -2;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
 
@@ -86,7 +88,7 @@ public class Task1Test {
         double x = 52;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
 
@@ -96,7 +98,7 @@ public class Task1Test {
         double x = -52;
         double expected = Math.atan(x);
         double result = expandArctgFunc(x, TERMS);
-        // System.out.println("Result: " + result + "; Expected result: " + expected);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
         assertEquals(expected, result, PRECISION);
     }
 
@@ -111,5 +113,14 @@ public class Task1Test {
             assertTrue(error < prevError);
             prevError = error;
         }
+    }
+    
+    @ParameterizedTest
+    @ValueSource(doubles =  {5, 2, 3})
+    void testArctgArg(double x) {
+        double expected = Math.atan(x);
+        double result = expandArctgFunc(x, TERMS);
+        System.out.println("Result: " + result + "; Expected result: " + expected);
+        assertEquals(expected, result, PRECISION);
     }
 }
