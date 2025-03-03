@@ -52,9 +52,9 @@ BEGIN
     END LOOP;
     RAISE NOTICE '''
 RESULT:
-Table name: %
-Count of integer columns: %
-Count of added columns: %
+Таблица: %
+Целочисленных столбцов: %
+Столбцов добавлено: %
 ''', convert_int_columns_to_date.tab_name, count_int_columns, count_added;
 END;
 $$;
