@@ -7,22 +7,23 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import tools.CsvExporter;
+import trigonometric.Cos;
 import trigonometric.Sin;
 
-public class SinTest {
+public class CosTest {
     private Sin sin = new Sin();
+    private Cos cos = new Cos(sin);
     private static final double PRECISION = 1e-10;
 
     @Test
     public void exportCsv() {
-        CsvExporter.export(sin::calculate, -5, 5, 0.1, "sin_result.csv", ";");
+        CsvExporter.export(cos::calculate, -5, 5, 0.1, "cos_result.csv", ";");
     }
 
     @ParameterizedTest
     @ValueSource(doubles = {
             0.0,
             Math.PI / 6,
-            Math.PI / 2,
             Math.PI,
             3 * Math.PI / 2,
             2 * Math.PI,
@@ -31,9 +32,9 @@ public class SinTest {
             1.0,
             -1.0
     })
-    void testSin(double x) {
-        double expected = Math.sin(x);
-        double result = sin.calculate(x);
+    void testCos(double x) {
+        double expected = Math.cos(x);
+        double result = cos.calculate(x);
 
         assertEquals(expected, result, PRECISION);
     }

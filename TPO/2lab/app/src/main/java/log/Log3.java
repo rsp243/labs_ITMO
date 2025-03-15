@@ -1,6 +1,8 @@
 package log;
 
-public class Log3 extends Log {
+import function.CalculatedFunction;
+
+public class Log3 extends Log implements CalculatedFunction {
     public Log3(Ln ln) {
         super(ln);
     }

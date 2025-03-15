@@ -1,6 +1,6 @@
 package function;
 
-public class MainFunc {
+public class MainFunc implements CalculatedFunction {
     private TrigonometricFunc trigonometricFunc;
     private LogFunc logFunc;
 

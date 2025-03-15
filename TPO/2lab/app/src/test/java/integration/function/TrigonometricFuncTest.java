@@ -15,7 +15,7 @@ import trigonometric.Sec;
 import trigonometric.Sin;
 import trigonometric.Tan;
 
-public class TigonometricFuncTest {
+public class TrigonometricFuncTest {
     private Sin sinMock;
     private Cot cotMock;
     private Csc cscMock;

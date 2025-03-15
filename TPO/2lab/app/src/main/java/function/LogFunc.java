@@ -6,7 +6,7 @@ import log.Log2;
 import log.Log3;
 import log.Log5;
 
-public class LogFunc {
+public class LogFunc implements CalculatedFunction {
     private Ln ln;
     private Log2 log2;
     private Log3 log3;

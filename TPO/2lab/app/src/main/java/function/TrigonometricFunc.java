@@ -6,7 +6,7 @@ import trigonometric.Sec;
 import trigonometric.Sin;
 import trigonometric.Tan;
 
-public class TrigonometricFunc {
+public class TrigonometricFunc implements CalculatedFunction {
     private Tan tan;
     private Csc csc;
     private Cot cot;
