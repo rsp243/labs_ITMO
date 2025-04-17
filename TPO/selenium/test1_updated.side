@@ -1,0 +1,92 @@
+{
+  "id": "68ec7316-6c31-4812-b576-a0d0e48d6bb7",
+  "version": "2.0",
+  "name": "tpo_3lab",
+  "url": "https://www.dropbox.com",
+  "tests": [{
+    "id": "09e8a88a-3323-44ee-8fe0-9b60449f3cb5",
+    "name": "upload file",
+    "commands": [{
+      "id": "952fe678-6d40-40c5-b9ce-c8c9cfe3af5d",
+      "comment": "",
+      "command": "open",
+      "target": "/home",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dbae4658-1e42-478a-b379-10c06f1f2ecd",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fff0d55d-a6e3-4b92-aff5-4cb01cd75964",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//button[@id='primary-button-menu-trigger']/span/span",
+      "targets": [
+        ["css=#primary-button-menu-trigger .\\_browseActionBarSimpleButton-content_mt11q_46", "css:finder"],
+        ["xpath=//button[@id='primary-button-menu-trigger']/span/span", "xpath:idRelative"],
+        ["xpath=//span/div/div/div/div/div/div/button/span/span", "xpath:position"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "27ff3e10-26f7-48b7-b6ad-653030de5008",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@id='primary-button-menu-trigger']/span/span",
+      "targets": [
+        ["css=#primary-button-menu-trigger .\\_browseActionBarSimpleButton-content_mt11q_46", "css:finder"],
+        ["xpath=//button[@id='primary-button-menu-trigger']/span/span", "xpath:idRelative"],
+        ["xpath=//span/div/div/div/div/div/div/button/span/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "db059434-e873-454e-899c-e10fd897ba73",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//nav/div/div/div/div/div/div[2]/div/span",
+      "targets": [
+        ["css=.dig-Menu-row:nth-child(1) .dig-Title", "css:finder"],
+        ["xpath=//nav/div/div/div/div/div/div[2]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Файл')]", "xpath:innerText"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "625c6b45-2615-4878-a34d-482ca3250bad",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//nav/div/div/div/div/div/div[2]/div/span",
+      "targets": [
+        ["css=.dig-Menu-row:nth-child(1) .dig-Title", "css:finder"],
+        ["xpath=//nav/div/div/div/div/div/div[2]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Файл')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c8ebedde-9633-42cc-91f0-84ec23571e91",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@id='uploader-file-field']",
+      "targets": [
+        ["id=uploader-file-field", "id"],
+        ["css=#uploader-file-field", "css:finder"],
+        ["xpath=//input[@id='uploader-file-field']", "xpath:attributes"],
+        ["xpath=//div[@id='embedded-app']/span/input", "xpath:idRelative"],
+        ["xpath=//span/div/span/input", "xpath:position"]
+      ],
+      "value": "/home/reshetovs/Documents/viTMO/labs/reports/TPO/lab1_Reshetov.odt"
+    }]
+  }],
+  "suites": [{
+    "id": "8640f207-e7e0-44d1-89f9-1ecab4615a59",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["https://www.dropbox.com/"],
+  "plugins": []
+}
